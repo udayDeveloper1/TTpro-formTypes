@@ -1,0 +1,74 @@
+.form_1
+  .ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-control,
+.form_1
+  .ant-form-item
+  .ant-form-item-control:first-child:not([class^="'ant-col-'"]):not([class*="' ant-col-'"]),
+  .form_1.ant-form-vertical .ant-form-item:not(.ant-form-item-horizontal) .ant-form-item-control {
+  min-width: 100%;
+}
+
+.form_1
+  .ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-label
+  > label,
+.form_1 .ant-form-item-label, 
+.form_1 .ant-picker {
+  height: auto;
+  min-width: 100%;
+}
+
+.form_1 .ant-form-item .ant-form-item-label > label::after {
+  display: none;
+  content: unset;
+}
+
+.form_1 .ant-space-item{
+  min-width: 66.7%;
+}
+
+.form_1 .ant-tooltip{
+  display: none;
+}
+
+.form_1 .Shipments .ant-space-item{
+  min-width: 100%;
+}
+
+.InputTCs > div{
+  flex-direction: row !important;
+}
+
+.InputTCs > div > div{
+  max-width: 100px;
+  min-width: 100px !important;
+}
+
+.InputTCs > div > div .ant-form-item-control-input-content > div{
+  margin: 0 !important;
+}
+
+.InputTCs > div > div .ant-form-item-control-input{
+  align-items: unset !important;
+}
+
+.card_item{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.packingDetail > div{
+  position: relative;
+}
+
+.packingDetail > div > span[role="img"]{
+position: absolute;
+right: 0;
+top: 3px;
+}
+
+.remove_invoiceList{
+  z-index: 99;
+}
