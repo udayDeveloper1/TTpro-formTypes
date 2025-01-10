@@ -237,6 +237,91 @@ const Form1 = () => {
     // } catch (error) {
     //   console.log(error)
     // }
+
+   let data =  {
+    "file_title": "",
+    "qr_info": "{253} SS08008456039022024002111",
+    "certification_body":{
+        "name": "Global Certification Society",
+        "address": "Ward NO.9 V.P.O. Chowki Khalet, Near Ravidas Mandir, Tehsil Palampur" 
+    },
+    "transaction_certificate_number":"ORG/TC/2402/002111",
+    "seller_of_individual/ICS":{
+        "name":"Vedakunda Sangam Seva Sansthan",
+        "address":"128, Gram: Piplai KhurdPost: Piplai Khurd KhargoneMadhya Pradesh(451001)",
+        "PAN":""
+    },
+    "buyer":{
+        "name":"Sainath Cotton Industries",
+        "address":"Sr-No-479, At-Kotadi, Vijapur-Mansa Road, Mahesana(382870)",
+        "PAN":"ABAFS8267Q"
+    },
+    "place_of_dispatch":"Piplai Khurd",
+    "place_of_destination":"Kotadi Vijapur (GJ)",
+    "product_details":[
+        {
+            "product_name":"Raw Cotton",
+            "hs_code":"52010011",
+            "NPOP_organic_compliance_C1/C2/C3/organic":"Organic",
+            "lot_no":"2023114898",
+            "quantity_in_MT":"227.220000",
+            "trade_name":[
+                "Organic Raw",
+                "Cotton"
+            ],
+            "packing_details":[
+                "2220.000000Kg X 1 Nos. = 227.220000 Cotton 2220.000000 Kg",
+                "15000.000000Kg X 15 Nos. = 225000.000000 Kg"
+            ]
+        }
+    ],
+    "transaction_details":{
+        "order_or_contact_number":"VSSS/RC/04",
+        "invoice_details":[{
+            "s_no":"1",
+            "invoice_number":"VSSS/RC/04",
+            "invoice_date":"feb 2 2024"
+        }],
+        "transport_details":[
+            {
+                "mode_of_transport":"Road",
+                "transport_document_numbers":"955 To 960, 1421 To 1426, 1871 To 1874.",
+                "vehicle_number_or_bull_cart_or_air_or_others":[
+                    "RIL9GB3749",
+                    "MPO9HG2521",
+                    "MH18BG9669",
+                    "MPOQSHHO819",
+                    "RJO9GC0074",
+                    "RJO9GB7886",
+                    "MP48H1931",
+                    "MP09HG6469",
+                    "MP45H6750",
+                    "MPO9HF5457",
+                    "MPO9HF5632",
+                    "MPO9HF5951",
+                    "MP11H0102",
+                    "MP15P2500",
+                    "RJ14GA6096",
+                    "RJ36GA4033"
+                ],
+                "date_of_transport":"02/02/2024"
+            }
+        ]
+
+    },
+    "additional_declaration_by_the_certification_body":{
+        "this_is_to_cerify_that":[
+            "This Transaction Certificate is issued after satisfying ourselves with the required inspection under the checked programmes at S.No.7 above",
+            "On the date of issue of this Transaction Certificate, the Accreditation of this Certification Body under NPOP is valid.",
+            "The above information is correct to the best of our knowledge and belief."
+        ],
+        "issue_date":"20/02/2024"
+    },
+    "name_and_signature_of_the_authorised_person":{
+        "name":"Vikas Kumar",
+        "position":"Chief Executive Officer"
+    }
+}
   }
   const normFile = e => {
     if (Array.isArray(e)) {
@@ -675,8 +760,8 @@ const Form1 = () => {
             </AntdForm.Item>
           </div>
           <div className='flex items-center md:justify-between flex-wrap'>
-            <div class='ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-7ny38l'>
-              <label for='InvoiceNoDate' class='' title='Invoice No. & Date'>
+            <div className='ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-7ny38l'>
+              <label htmlFor='InvoiceNoDate' className='' title='Invoice No. & Date'>
                 Invoice No. & Date
               </label>
             </div>

@@ -1,0 +1,78 @@
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-700: #374151;
+    --gray-900: #111827;
+}
+
+.formList-cont{
+   background-color: white !important;
+}
+.section-title{
+    font-size: 1rem;
+    color: var(--gray-900);
+}
+.section1{
+    border: 1px solid grey;
+}
+hr{
+    border-top-width:2px;
+}
+.certifiedProduct{
+    background-color: #f3f3f4;
+}
+.certifiedProductHeading{
+    background-color: #092d35;
+    color: white;
+}
+.text_color{
+    color: #6B7280 !important;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.card-header {
+    background-color: transparent;
+    padding-bottom: 10px;
+  }
+  .detail-card-inner {
+    border-radius: 15px;
+    box-shadow: 0 4px 20px #00000014;
+    padding: 20px;
+}
+.ipo_detail_table_title_head{
+    font-size: 20px;
+    font-Weight: 500;
+    line-height: 140%;
+}
+.detail-card-inner table tr,
+td {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.detail-card-inner p {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px;
+  word-wrap: break-word;
+}
+.trBorder{
+    border: 0 solid #e5e7eb;
+}
+.CertifiedInput{
+    background-color: #092D35;
+    color: white;
+}
+.card_list{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    background-color: transparent;
+}
+.produtsWidthCell{
+    width: 6.25%;
+}

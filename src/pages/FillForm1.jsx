@@ -24,26 +24,178 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import moment from 'moment' // Import moment.js
 import { form1Set, formFill1 } from '../api/Form1Api'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, forEach } from 'lodash'
 import TagInput from '../component/Tags'
+import dayjs from 'dayjs'
 
 const FillForm1 = () => {
   const [form] = AntdForm.useForm()
   const [form2] = AntdForm.useForm()
   const [formNo, setFormNo] = useState('1')
   const [data, setdata] = useState('1')
-  console.log('Form submitted with values:', data)
   const handleSubmit = async values => {
-    console.log('Form submitted with values:', values)
     try {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let res = await formFill1(fomrData)
-      if(res){
-        console.log(res);
-        
+      if (res) {
+        console.log(res)
         setFormNo('2')
         setdata(res)
+
+        let DeclarationList_ = []
+        res?.declarations_by_certification_body?.contents?.forEach((ele, ind) => {
+          let obj = {
+            DeclarationList_: ele
+          }
+          DeclarationList_.push(obj)
+        })
+        if (DeclarationList_.length === 0) {
+          DeclarationList_ = [{ DeclarationList_: '' }]
+        }
+        let ShipmentDetailss = []
+        res?.shipments?.forEach((ele, ind) => {
+          let obj = {
+            ShipmentNo_: ele?.shipment_no,
+            ShipmentDate_: dayjs(ele.shipment_date),
+            ShipmentDocNo_: ele.shipment_doc_no,
+            ShipmentsGrossShippingWeight_: ele.gross_shipping_weight,
+            InvoiceReferences_: ele.invoice_references,
+            ConsigneeNameAndAddress_: ele.consignee_name_and_address
+          }
+          ShipmentDetailss.push(obj)
+        })
+    
+        if (ShipmentDetailss.length === 0) {
+          ShipmentDetailss = [
+            {
+              ShipmentNo_: '',
+              ShipmentDate_: '',
+              ShipmentDocNo_: '',
+              ShipmentsGrossShippingWeight_: '',
+              InvoiceReferences_: '',
+              ConsigneeNameAndAddress_: ''
+            }
+          ]
+        }
+    
+        let ProductDetails = []
+    
+        res?.certified_products?.map((ele, ind) => {
+          let obj = {
+            ProductNo: ele.product_no,
+            OrderNo: ele.order_no,
+            ArticleNo: ele.article_no,
+            NumberofUnits: ele.number_of_units,
+            ProductsNetShippingWeight: ele.net_shipping_weight,
+            SupplementaryWeight: ele.supplementary_weight,
+            ProductsCertifiedWeight: ele.certified_weight,
+            ProductionDate: dayjs(ele.production_date),
+            Productcategory: ele.product_category,
+            ProductDetail: ele.product_detail,
+            MaterialComposition: ele.material_composition,
+            StandardLabelGrade: ele.standard_label_grade,
+            AdditionalInfo: ele.additional_info,
+            LastProcessor: ele.last_processor,
+            licenseNo: ele.license_number,
+            Country: ele.country
+          }
+          ProductDetails.push(obj)
+        })
+        if (ProductDetails.length === 0) {
+          ProductDetails = [
+            {
+              ProductNo: '',
+              OrderNo: '',
+              ArticleNo: '',
+              NumberofUnits: '',
+              ProductsNetShippingWeight: '',
+              SupplementaryWeight: '',
+              ProductsCertifiedWeight: '',
+              ProductionDate: null,
+              Productcategory: '',
+              ProductDetail: '',
+              MaterialComposition: '',
+              StandardLabelGrade: '',
+              AdditionalInfo: '',
+              LastProcessor: '',
+              licenseNo: '',
+              Country: ''
+            }
+          ]
+        }
+    
+        let RawMaterialDetails = []
+        res?.certified_raw_materials_and_declared_geographic_origin?.forEach(
+          (ele, ind) => {
+            let countrys = []
+            ele?.country?.split(',')?.forEach((ele, ind) => {
+              countrys.push({ CountryName: ele })
+            })
+            let obj = {
+              OrganicCotton: ele.material_details,
+              RawMaterialsCertifiedWeight: ele.certified_weight,
+              CountryArea: countrys
+            }
+            RawMaterialDetails.push(obj)
+          }
+        )
+        if (RawMaterialDetails.length === 0) {
+          RawMaterialDetails.push({
+            OrganicCotton: '',
+            RawMaterialsCertifiedWeight: '',
+            CountryArea: [{ CountryName: '' }]
+          })
+        }
+        console.log(res?.certified_input_references?.farm_scs)
+    
+        let inputTcs = []
+        inputTcs = res?.certified_input_references?.input_tcs.split(',') || []
+        let farm_tcs = []
+        farm_tcs = res?.certified_input_references?.farm_tcs?.split(',') || []
+        let farm_scs = []
+        farm_scs = res?.certified_input_references?.farm_scs?.split(',') || []
+        console.log(inputTcs, farm_scs, farm_tcs)
+    
+        setTags(inputTcs)
+        setTags1(farm_tcs)
+        setTags2(farm_scs)
+    
+        form2.setFieldsValue({
+          UploadQrCode: [],
+          UploadLogoImage: [],
+          CertificationDetails: res?.certification_body?.main_value,
+          CertificateLicenseCode:
+          res?.certification_body?.licensing_code_of_certification_body,
+          SellerDetails: res?.seller_of_certified_products?.main_value,
+          SellerSCNumber: res?.seller_of_certified_products?.sc_number,
+          SellerLicenseNumber: res?.seller_of_certified_products?.license_no,
+          BuyerDetails: res?.seller_of_certified_products?.main_value,
+          BuyerLicenseNo: res?.seller_of_certified_products?.license_no,
+          GrossShippingWeight: res?.gross_shipping_weight,
+          NetShippingWeight: res?.net_shipping_weight,
+          WeightsCertifiedWeight: res?.certified_weight,
+          DeclarationText: res?.declarations_by_certification_body?.main_value,
+          OrganicMaterialCertificationNOP:
+          res?.declarations_by_certification_body
+              ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules,
+          OrganicMaterialCertificationNPOP:
+          res?.declarations_by_certification_body
+              ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_apeda_np_op_rules,
+          DeclarationsText: res?.declarations_by_certification_body?.extra_note,
+          DeclarationList: DeclarationList_,
+          ShipmentDetails: ShipmentDetailss,
+          ProductDetails: ProductDetails,
+          RawMaterialDetails: RawMaterialDetails,
+          InputTCs: inputTcs,
+          FarmSCs: farm_scs,
+          FarmTCs: farm_tcs,
+          TraderTCsforOrganicMaterial:
+          res?.certified_input_references?.trader_tcs_for_organic_material,
+          outsourcedSubcontractor:
+          res?.declarations_by_seller_of_certified_products
+              ?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor
+        })
       }
     } catch (error) {
       console.log(error)
@@ -63,7 +215,6 @@ const FillForm1 = () => {
       message.error('You can only upload PDF files!')
       return
     }
-    console.log(isPdf || Upload.LIST_IGNORE)
 
     return isPdf || Upload.LIST_IGNORE
   }
@@ -71,78 +222,6 @@ const FillForm1 = () => {
   const [tags, setTags] = useState([])
   const [tags1, setTags1] = useState([])
   const [tags2, setTags2] = useState([])
-
-  useEffect(() => {
-    form2.setFieldsValue({
-      UploadQrCode: [],
-      UploadLogoImage: [],
-      certificateNumber: '',
-      CertificationValue: '',
-      CertificationDetails: '',
-      CertificateLicenseCode: '',
-      SellerDetails: '',
-      SellerSCNumber: '',
-      SellerTextileExchangeID: '',
-      SellerNonCertifiedTrader: '',
-      SellerLicenseNumber: '',
-      BuyerDetails: '',
-      BuyerTextileExchangeID: '',
-      BuyerLicenseNo: '',
-      GrossShippingWeight: '',
-      NetShippingWeight: '',
-      WeightsCertifiedWeight: '',
-      DeclarationText: '',
-      OrganicMaterialCertificationNOP: '',
-      OrganicMaterialCertificationNPOP: '',
-      DeclarationsText: '',
-      DeclarationList: [{ DeclarationList_: '' }],
-      ShipmentDetails: [
-        {
-          ShipmentNo_: '',
-          ShipmentDate_: null,
-          ShipmentDocNo_: '',
-          ShipmentsGrossShippingWeight_: '',
-          InvoiceReferences_: '',
-          ConsigneeNameAndAddress_: '',
-          TEID: ''
-        }
-      ],
-      ProductDetails: [
-        {
-          ProductNo: '',
-          OrderNo: '',
-          ArticleNo: '',
-          NumberofUnits: '',
-          ProductsNetShippingWeight: '',
-          SupplementaryWeight: '',
-          ProductsCertifiedWeight: '',
-          ProductionDate: '',
-          Productcategory: '',
-          ProductDetail: '',
-          MaterialComposition: '',
-          StandardLabelGrade: '',
-          AdditionalInfo: '',
-          LastProcessor: '',
-          licenseNo: '',
-          TEID: '',
-          Country: ''
-        }
-      ],
-      RawMaterialDetails: [
-        {
-          OrganicCotton: '',
-          RawMaterialsCertifiedWeight: '',
-          CountryArea: [{ CountryName: '' }]
-        }
-      ],
-      InputTCs: tags,
-      FarmSCs: tags1,
-      FarmTCs: tags2,
-      TraderTCsforOrganicMaterial: '',
-      outsourcedSubcontractor: '',
-      datePicker: moment(new Date())
-    })
-  }, [form2, tags, tags1, tags2, data])
 
   // Handle form submission with typed values
   const handleSubmit2 = async values => {
@@ -225,10 +304,10 @@ const FillForm1 = () => {
             extra_note: values.DeclarationsText
           },
           certified_input_references: {
-            input_tcs: values.InputTCs,
-            farm_scs: values.FarmSCs,
-            farm_tcs: values.FarmSCs,
-            trader_tcs_for_organic_materia: values.TraderTCsforOrganicMaterial
+            input_tcs: values.InputTCs?.join(","),
+            farm_scs: values.FarmSCs?.join(","),
+            farm_tcs: values.FarmTCs?.join(","),
+            trader_tcs_for_organic_material: values.TraderTCsforOrganicMaterial
           },
           shipments: shipmentDetail,
           certified_products: productDetail,
@@ -286,7 +365,7 @@ const FillForm1 = () => {
                 beforeUpload={beforeUpload}
                 accept='.pdf'
                 maxCount={1}
-                onChange={info => console.log('File List:', info.fileList)}
+                onChange={info => {}}
               >
                 <button style={{ border: 0, background: 'none' }} type='button'>
                   <PlusOutlined />
@@ -313,7 +392,7 @@ const FillForm1 = () => {
         wrapperCol={{ span: 16 }}
         layout='vertical'
         className='form_1  rounded-xl shadow-xl'
-        style={{ maxWidth: 800, margin: '0 auto' }}
+        style={{ maxWidth: 900, margin: '0 auto' }}
       >
         <h1 className='text-3xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center'>
           Transaction Certificate (TC) Form
@@ -383,24 +462,6 @@ const FillForm1 = () => {
           </h2>
           <div className=''>
             <div className='flex items-center md:justify-between flex-wrap'>
-              {/* certificate number */}
-              <AntdForm.Item
-                label='Certificate Number'
-                name='certificateNumber'
-                className='w-full md:w-[49%]'
-              >
-                <Input placeholder='Enter Certificate Number' />
-              </AntdForm.Item>
-              {/* certificate body */}
-              <AntdForm.Item
-                label='Certification Value'
-                name='CertificationValue'
-                className='w-full md:w-[49%]'
-              >
-                <Input placeholder='Enter Certification Value' />
-              </AntdForm.Item>
-            </div>
-            <div className='flex items-center md:justify-between flex-wrap'>
               <AntdForm.Item
                 label='Certification Details'
                 name='CertificationDetails'
@@ -443,22 +504,6 @@ const FillForm1 = () => {
             </div>
             <div className='flex items-center md:justify-between flex-wrap'>
               <AntdForm.Item
-                label='Textile Exchange-ID:'
-                name='SellerTextileExchangeID'
-                className='w-full md:w-[49%]'
-              >
-                <Input placeholder='Enter Textile Exchange-ID' />
-              </AntdForm.Item>
-              <AntdForm.Item
-                label='Non-certified Trader:'
-                name='SellerNonCertifiedTrader'
-                className='w-full md:w-[49%]'
-              >
-                <Input placeholder='Enter Non-certified Trader:' />
-              </AntdForm.Item>
-            </div>
-            <div className='flex items-center md:justify-between flex-wrap'>
-              <AntdForm.Item
                 label='License No'
                 name='SellerLicenseNumber'
                 className='w-full md:w-[49%]'
@@ -483,17 +528,15 @@ const FillForm1 = () => {
               >
                 <Input placeholder='Enter Buyer Details' />
               </AntdForm.Item>
+
               <AntdForm.Item
-                label='Textile Exchange-ID:'
-                name='BuyerTextileExchangeID'
+                label='License No.'
+                name='BuyerLicenseNo'
                 className='w-full md:w-[49%]'
               >
-                <Input placeholder='Enter Textile Exchange-ID' />
+                <Input placeholder='Enter License No.' />
               </AntdForm.Item>
             </div>
-            <AntdForm.Item label='License No.' name='BuyerLicenseNo'>
-              <Input placeholder='Enter License No.' />
-            </AntdForm.Item>
           </div>
         </section>
 
@@ -613,14 +656,6 @@ const FillForm1 = () => {
                   <Input placeholder='Enter organic material Text' />
                 </AntdForm.Item>
               </div>
-              <div className='w-full'>
-                <AntdForm.Item
-                  label='Buyer of the Certified Product'
-                  name='“BuyerOfTheCertifiedProduct'
-                >
-                  <Input placeholder='Enter Buyer of the Certified Product' />
-                </AntdForm.Item>
-              </div>
             </div>
           </div>
         </section>
@@ -729,16 +764,6 @@ const FillForm1 = () => {
                               className='w-full md:w-[49%]'
                             >
                               <Input placeholder='Enter Consignee Name and Address' />
-                            </AntdForm.Item>
-                          </div>
-                          <div className='flex md:justify-between flex-wrap'>
-                            <AntdForm.Item
-                              {...restField}
-                              label='TE-ID:'
-                              name={[name, 'TEID_']}
-                              className='w-full md:w-[49%]'
-                            >
-                              <Input placeholder='Enter TE-ID:' />
                             </AntdForm.Item>
                           </div>
                         </div>
@@ -894,16 +919,6 @@ const FillForm1 = () => {
                       </AntdForm.Item>
                       <AntdForm.Item
                         {...restField}
-                        label='TEID'
-                        name={[name, 'TEID']}
-                        className='w-full md:w-[49%]'
-                      >
-                        <Input placeholder='Enter Additional Info' />
-                      </AntdForm.Item>
-                    </div>
-                    <div className='flex md:justify-between flex-wrap'>
-                      <AntdForm.Item
-                        {...restField}
                         label='License No:'
                         name={[name, 'licenseNo']}
                         className='w-full md:w-[49%]'
@@ -911,6 +926,9 @@ const FillForm1 = () => {
                         <Input placeholder='Enter License No' />
                       </AntdForm.Item>
                     </div>
+                    {/* <div className='flex md:justify-between flex-wrap'>
+                    
+                    </div> */}
                     <div className='flex md:justify-between flex-wrap'>
                       <AntdForm.Item
                         {...restField}
