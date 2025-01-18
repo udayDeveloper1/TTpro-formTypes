@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
@@ -10,35 +9,25 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { form3submit } from "../api/Form1Api";
 import { useNavigate } from "react-router-dom";
-import { router } from "../Routes/Router";
 
 const { TextArea } = Input;
 
-const Form3 = () => {
+const ScopeVerificationForm = () => {
   const [form] = AntdForm.useForm(); // Get the form instance
   const navigate = useNavigate();
 
   useEffect(() => {
     form.setFieldsValue({
-        "scope_certificate": "",
-        "holder": "",
-        "version": "",
-        "certification_body": "",
-        "place_and_date_of_issue": "",
-        "last_updated": "",
-        "address": "",
-        "ceo": "",
-        "idfl_license-no": "",
-        "note": "",
-      //   "products_appendix": [
-      //   {
-      //     "product_number": "",
-      //     "product_category_product_details": "",
-      //     "material_composition": "",
-      //     "standard": "",
-      //     "facility_name": [""],
-      //   },
-      // ],
+        "scope_certificate": {
+          "certificate_number": "",
+          "holder": "",
+          "version": "",
+          "certification_body": "",
+          "address": "",
+          "ceo_name": "",
+          "date_of_issue": "",
+          "additional_notes": ""
+        },
       "products_appendix": [
         {
           "product_number": "",
@@ -46,24 +35,23 @@ const Form3 = () => {
           "product_details": "",
           "material_composition": "",
           "label_grade": "",
-          "facility_number": [""],
+          "facility_number": "",
         }
       ],
-      "site_appendix": [
+      "site_appendix":
         {
             "facility_name": "",
-            "process_categories": "",
+            "process_categories": [""],
             "address": "",
         },
-      ],
       "independently_certified_subcontractor_appendix": [
         {
             "subcontractor_name": "",
             "certification_body": "",
             "expiry_date": "",
             "address": "",
-            "process_categories": "",
-            "standards": "",
+            "process_categories": [""],
+            // "standards": "",
             "number": "",
             "license_number": "",
         },
@@ -73,15 +61,89 @@ const Form3 = () => {
 
   // Handle form submission with typed values
   const handleSubmit = async (values) => {
-    console.log("Form submitted with values:", values);
+
+    const formattedValues = {
+      scope_certificate: {
+        certificate_number: values.scope_certificate.certificate_number || "",
+        holder: values.scope_certificate.holder || "",
+        version: values.scope_certificate.version || "",
+        certification_body: values.scope_certificate.certification_body || "",
+        address: values.scope_certificate.address || "",
+        ceo_name: values.scope_certificate.ceo_name || "",
+        date_of_issue: values.scope_certificate.date_of_issue || "",
+        additional_notes: values.scope_certificate.additional_notes || "",
+      },
+      site_appendix: {
+        facility_name: values.site_appendix.facility_name || "",
+        process_categories: values.site_appendix.process_categories || [""],
+        address: values.site_appendix.address || "",
+      },
+      products_appendix: (values.products_appendix || []).map((product) => ({
+        product_number: product.product_number || "",
+        category: product.category || "",
+        product_details: product.product_details || "",
+        material_composition: product.material_composition || "",
+        label_grade: product.label_grade || "",
+        facility_number: product.facility_number || "",
+      })),
+      independently_certified_subcontractor_appendix: (
+        values.independently_certified_subcontractor_appendix || []
+      ).map((subcontractor) => ({
+        subcontractor_name: subcontractor.subcontractor_name || "",
+        certification_body: subcontractor.certification_body || "",
+        expiry_date: subcontractor.expiry_date || "",
+        address: subcontractor.address || "",
+        process_categories: subcontractor.process_categories || [""],
+        // standards: subcontractor.standards || "",
+        number: subcontractor.number || "",
+        license_number: subcontractor.license_number || "",
+      })),
+    }
     const payload = {
       file_name: "ScopeCertificate_Example.pdf",
-      extracted_data: {...values}
+      extracted_data: formattedValues
     }
+    
     await form3submit(payload);
     // navigate("/form3view", { state: { formData: values }});
-    navigate("/list-form-3");
+    navigate("/scopeVerificationList");
   };
+
+  // Reusable Process Categories Component
+const ProcessCategories = ({ fieldName }) => (
+  <AntdForm.List name={[fieldName, "process_categories"]}>
+    {(fields, { add, remove }) => (
+      <>
+        <h4 className="font-semibold mb-2">Process Category(s)</h4>
+        {fields.map(({ key, name }) => (
+          <div key={key} className="flex items-center mb-2">
+            <AntdForm.Item
+              name={[name]}
+              rules={[{ required: true, message: "Enter Process Category" }]}
+              style={{ flex: 1 }}
+            >
+              <Input placeholder="Process Category" />
+            </AntdForm.Item>
+            {fields.length > 1 && (
+              <MinusCircleOutlined
+                className="ml-2 text-red-500"
+                onClick={() => remove(name)}
+              />
+            )}
+          </div>
+        ))}
+        <Button
+          type="dashed"
+          onClick={() => add("")}
+          icon={<PlusOutlined />}
+          block
+        >
+          Add Process Category
+        </Button>
+      </>
+    )}
+  </AntdForm.List>
+);
 
   return (
     <div className="container mx-auto py-10 px-4 md:px-0">
@@ -94,22 +156,23 @@ const Form3 = () => {
         layout="vertical"
         className="form-container p-6 rounded-lg shadow-md bg-white"
         style={{ maxWidth: 900, margin: "0 auto" }}
-        initialValues={{ "facility_number": [""] }}
+        initialValues={{ "process_categories": [""] }}
       >
 
         <h3 className="text-xl font-semibold mb-4">1. Scope Certificate</h3>
         <div className="product-item border border-gray-300 rounded-md p-4 mb-4">
+        {/* <AntdForm.List name="scope_certificate"> */}
             <div className="flex flex-wrap -mx-2">
                 <AntdForm.Item
                     label="Scope Certificate Number"
-                    name="scope_certificate"
+                    name={["scope_certificate", "certificate_number"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Scope Certificate Number" />
                 </AntdForm.Item>
                 <AntdForm.Item
                     label="Holder"
-                    name="holder"
+                    name={["scope_certificate", "holder"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Holder" />
@@ -118,14 +181,14 @@ const Form3 = () => {
             <div className="flex flex-wrap -mx-2">
                 <AntdForm.Item
                     label="Version"
-                    name="version"
+                    name={["scope_certificate", "version"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Version" />
                 </AntdForm.Item>
                 <AntdForm.Item
                     label="Certification Body"
-                    name="certification-body"
+                    name={["scope_certificate", "certification_body"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Certification Body" />
@@ -133,52 +196,37 @@ const Form3 = () => {
             </div>
             <div className="flex flex-wrap -mx-2">
                 <AntdForm.Item
-                    label="Place and Date of Issue (YYYY-MM-DD)"
-                    name="place_and_date_of_issue"
-                    className="px-2 w-full md:w-1/2"
-                >
-                    <DatePicker className="w-full"/>
-                </AntdForm.Item>
-                <AntdForm.Item
-                    label="Last Updated"
-                    name="last_updated"
-                    className="px-2 w-full md:w-1/2"
-                >
-                    <DatePicker className="w-full"/>
-                </AntdForm.Item>
-            </div>
-            <div className="flex flex-wrap -mx-2">
-                <AntdForm.Item
                     label="Address"
-                    name="address"
+                    name={["scope_certificate","address"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Address" />
                 </AntdForm.Item>
                 <AntdForm.Item
                     label="CEO"
-                    name="ceo"
+                    name={["scope_certificate", "ceo_name"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter CEO" />
                 </AntdForm.Item>
             </div>
             <div className="flex flex-wrap -mx-2">
-                <AntdForm.Item
-                    label="IDFL License No"
-                    name="idfl_license_no"
+            <AntdForm.Item
+                    label="Place and Date of Issue (YYYY-MM-DD)"
+                    name={["scope_certificate", "date_of_issue"]}
                     className="px-2 w-full md:w-1/2"
                 >
-                    <Input placeholder="Enter IDFL License No" />
+                    <DatePicker className="w-full"/>
                 </AntdForm.Item>
                 <AntdForm.Item
                     label="Note"
-                    name="note"
+                    name={["scope_certificate", "additional_notes"]}
                     className="px-2 w-full md:w-1/2"
                 >
                     <Input placeholder="Enter Note" />
                 </AntdForm.Item>
             </div>
+          {/* </AntdForm.List> */}
         </div>
         <h3 className="text-xl font-semibold mb-4">2. Products Appendix</h3>
         <AntdForm.List name="products_appendix">
@@ -236,7 +284,14 @@ const Form3 = () => {
                       <Input placeholder="Enter Standard (Label Grade)" />
                     </AntdForm.Item>
                   </div>
-                  <AntdForm.List name={[name, "facility_number"]}>
+                  <AntdForm.Item
+                      label="Facility Number"
+                      name={[name, "facility_number"]}
+                      className="px-2 w-full md:w-1/2"
+                    >
+                      <Input placeholder="Enter Facility Number" />
+                    </AntdForm.Item>
+                  {/* <AntdForm.List name={[name, "facility_number"]}>
                     {(facilityFields, { add: addFacility, remove: removeFacility }) => (
                       <>
                         <h4 className="font-semibold mb-2">Facility Number(s)</h4>
@@ -267,7 +322,7 @@ const Form3 = () => {
                         </Button>
                       </>
                     )}
-                  </AntdForm.List>
+                  </AntdForm.List> */}
                   {fields.length > 1 && (
                     <Button
                       type="text"
@@ -289,7 +344,7 @@ const Form3 = () => {
                     "product_details": "",
                     "material_composition": "",
                     "label_grade": "",
-                    "facility_number": [""],
+                    "facility_number": "",
                   })
                 }
                 icon={<PlusOutlined />}
@@ -303,73 +358,69 @@ const Form3 = () => {
         </AntdForm.List>
 
         <h3 className="text-xl font-semibold mb-4">3. Site Appendix</h3>
-        <AntdForm.List name="site_appendix">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
                 <div
-                  key={key}
                   className="product-item border border-gray-300 rounded-md p-4 mb-4"
                 >
                   <div className="flex flex-wrap -mx-2">
                     <AntdForm.Item
-                      {...restField}
-                      label="Facility Name - TE-ID"
-                      name={[name, "facility_name"]}
+                      label="Facility Name"
+                      name={["site_appendix", "facility_name"]}
                       className="px-2 w-full md:w-1/2"
                     >
                       <Input placeholder="Enter Facility Name - TE-ID" />
                     </AntdForm.Item>
-                    <AntdForm.Item
-                      {...restField}
-                      label="Process Categories"
-                      name={[name, "process_categories"]}
-                      className="px-2 w-full md:w-1/2"
-                    >
-                      <Input placeholder="Enter Process Categories" />
-                    </AntdForm.Item>
+                    <div>
+                                <AntdForm.List name={["site_appendix", "process_categories"]}>
+                                  {(fields, { add, remove }) => (
+                                      <AntdForm.Item label="Process Category" required>
+                                        {fields.map(({ key, name, ...restField }, index) => (
+                                          <Space
+                                            key={key}
+                                            style={{ display: "flex", marginBottom: 8 }}
+                                            align="baseline"
+                                          >
+                                            <AntdForm.Item
+                                              {...restField}
+                                              name={[name]}                                      
+                                              style={{ flex: 1 }}
+                                            >
+                                              <Input
+                                                placeholder={`Process Category ${index + 1}`}
+                                              />
+                                            </AntdForm.Item>
+                    
+                                            {/* Conditionally render the remove button if more than one item exists */}
+                                            {fields.length > 1 && (
+                                              <MinusCircleOutlined onClick={() => remove(name)} />
+                                            )}
+                                          </Space>
+                                        ))}
+                    
+                                        <AntdForm.Item>
+                                          <Button
+                                            type="dashed"
+                                            onClick={() => add()}
+                                            block
+                                            icon={<PlusOutlined />}
+                                          >
+                                            Add field
+                                          </Button>
+                                        </AntdForm.Item>
+                                      </AntdForm.Item>
+                                  )}
+                                </AntdForm.List>
+                              </div>
                   </div>
-                  {/* <div className="flex flex-wrap -mx-2"> */}
                     <AntdForm.Item
-                      {...restField}
                       label="Address"
-                      name={[name, "address"]}
+                      name={["site_appendix", "address"]}
                       className="px-2 w-full"
                     >
                       <Input placeholder="Enter Address" />
                     </AntdForm.Item>
                   {/* </div> */}
-                  {fields.length > 1 && (
-                    <Button
-                      type="text"
-                      danger
-                      className="mt-4"
-                      onClick={() => remove(name)}
-                    >
-                      Remove Site
-                    </Button>
-                  )}
+                  
                 </div>
-              ))}
-              <Button
-                type="dashed"
-                onClick={() =>
-                  add({
-                    "facility_name": "",
-                    "process_categories": "",
-                    "address": ""
-                  })
-                }
-                icon={<PlusOutlined />}
-                block
-                className="mb-4"
-              >
-                Add New Site
-              </Button>
-            </>
-          )}
-        </AntdForm.List>
-
         <h3 className="text-xl font-semibold mb-4">4. Independently Certified Subcontractor Appendix</h3>
         <AntdForm.List name="independently_certified_subcontractor_appendix">
           {(fields, { add, remove }) => (
@@ -416,22 +467,55 @@ const Form3 = () => {
                     </AntdForm.Item>
                   </div>
                   <div className="flex flex-wrap -mx-2">
-                    <AntdForm.Item
+                    {/* <AntdForm.Item
                       {...restField}
                       label="Process Categories"
                       name={[name, "process_categories"]}
                       className="px-2 w-full md:w-1/2"
                     >
                       <Input placeholder="Enter Process Categories" />
-                    </AntdForm.Item>
-                    <AntdForm.Item
+                    </AntdForm.Item> */}
+                    {/* <ProcessCategories fieldName={name} /> */}
+                    <AntdForm.List name={[name, "process_categories"]}>
+                    {(processCategoryFields, { add: addProcessCategory, remove: removeProcessCategory }) => (
+                      <>
+                        <h4 className="font-semibold mb-2">ProcessCategory(s)</h4>
+                        {processCategoryFields.map(({ key: processCategoryKey, name: processCategoryName }) => (
+                          <div key={processCategoryKey} className="flex items-center mb-2">
+                            <AntdForm.Item
+                              name={[processCategoryName]}
+                              rules={[{ required: true, message: "Enter Process Category" }]}
+                              style={{ flex: 1 }}
+                            >
+                              <Input placeholder="Process Category" />
+                            </AntdForm.Item>
+                            {processCategoryFields.length > 1 && (
+                              <MinusCircleOutlined
+                                className="ml-2 text-red-500"
+                                onClick={() => removeProcessCategory(processCategoryName)}
+                              />
+                            )}
+                          </div>
+                        ))}
+                        <Button
+                          type="dashed"
+                          onClick={() => addProcessCategory("")}
+                          icon={<PlusOutlined />}
+                          block
+                        >
+                          Add Process Category
+                        </Button>
+                      </>
+                    )}
+                  </AntdForm.List>
+                    {/* <AntdForm.Item
                       {...restField}
                       label="Standards"
                       name={[name, "standards"]}
                       className="px-2 w-full md:w-1/2"
                     >
                       <Input placeholder="Enter Standards" />
-                    </AntdForm.Item>
+                    </AntdForm.Item> */}
                     <AntdForm.Item
                       {...restField}
                       label="Number"
@@ -469,7 +553,7 @@ const Form3 = () => {
                     "certification_body": "",
                     "expiry_date": "",
                     "address": "",
-                    "process_categories": "",
+                    "process_categories": [""],
                     "standards": ""
                   })
                 }
@@ -493,4 +577,4 @@ const Form3 = () => {
   
 };
 
-export default Form3;
+export default ScopeVerificationForm;

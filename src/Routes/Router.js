@@ -1,48 +1,95 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import Form1 from "../pages/Form1";
-import Form2 from "../pages/Form2";
-import Form1List from "../pages/Form1List";
-import PdfReview from "../pages/PdfReview";
-import FillForm1 from "../pages/FillForm1";
-import Form3List from "../pages/Form3List";
-import Form3 from "../pages/Form3";
+import { createBrowserRouter } from 'react-router-dom'
+
+import PdfReview from '../pages/PdfReview'
+
+import Form3View from '../pages/ScopeVerificationView'
+import Form3Table from '../pages/ScopeVerificationList'
+import PdfListing2 from '../pages/PdfListing2'
+import PdfListing3222 from '../pages/TcType2List'
+import Form2View from '../pages/TcType2View'
+import ImportPdfTCtype1 from '../pages/ImportPdfTCtype1'
+import ImportPdfTCtype2 from '../pages/ImportPdfTCtype2'
+import ImportPdfScopeVerification from '../pages/ImportPdfScopeVerification'
+import TcType1Form from '../pages/TcType1Form'
+import TcType2Form from '../pages/TcType2Form'
+import ScopeVerificationForm from '../pages/ScopeVerificationForm'
+import TcType1View from '../pages/TcType1View'
+import TcType2View from '../pages/TcType2View'
+import TcType2List from '../pages/TcType2List'
+import ScopeVerificationList from '../pages/ScopeVerificationList'
+import ScopeVerificationView from '../pages/ScopeVerificationView'
+import TCTypeCropProductionForm from '../pages/TCTypeCropProductionForm'
+import TcType1List from '../pages/TcType1List'
+// import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      Component: Home,
-    },
-    {
-        path: "/form1",
-        Component: Form1,
-      },
-      {
-        path: "/form1List",
-        Component: Form1List,
-      },
-      {
-        path: "/importPdfForm1",
-        Component: FillForm1,
-      },
-      {
-        path: "/form3",
-        Component: Form3,
-      },
-      {
-        path: "/list-form-3",
-        Component: Form3List,
-      },
-      {
-        path: "/form2",
-        Component: Form2,
-      },
-      {
-        path: "/PdfReview",
-        Component: PdfReview,
-      },
-      {
-        path: "/*",
-        Component: Home,
-      },
-  ]);
+  {
+    path: '/importPdfTCtype1',
+    Component: ImportPdfTCtype1
+  },
+  {
+    path: '/tcType1Form',
+    Component: TcType1Form
+  },
+  {
+    path: '/tcType1List',
+    Component: TcType1List
+  },
+  {
+    path: '/tcType1View/:id/',
+    Component: TcType1View
+  },
+  {
+    path: '/importPdfTCtype2',
+    Component: ImportPdfTCtype2
+  },
+  // {
+  //   path: '/tCTypeCropProductionList',
+  //   Component: TCTypeCropProductionList
+  // },
+  
+  {
+    path: '/tcType2Form',
+    Component: TcType2Form
+  },
+  {
+    path: '/tCTypeCropProductionForm',
+    Component: TCTypeCropProductionForm
+  },
+  {
+    path: '/tcType2View/:id/',
+    Component: TcType2View
+  },
+  {
+    path: '/tcType2List',
+    Component: TcType2List
+  },
+
+  {
+    path: '/scopeVerificationList',
+    Component: ScopeVerificationList
+  },
+  {
+    path: '/scopeVerificationView/:id/',
+    Component: ScopeVerificationView
+  },
+
+  {
+    path: '/scopeVerificationForm',
+    Component: ScopeVerificationForm
+  },
+
+  {
+    path: '/importPdfScopeVerification',
+    Component: ImportPdfScopeVerification
+  },
+
+  {
+    path: '/PdfReview',
+    Component: PdfReview
+  },
+  {
+    path: '/*',
+    Component: TcType1Form
+  }
+])

@@ -26,16 +26,15 @@ import {
   TransactionOutlined
 } from '@ant-design/icons'
 import moment from 'moment' // Import moment.js
-import { form1Set } from '../api/Form1Api'
+import { form1Set, form2submit } from '../api/Form1Api'
 import { cloneDeep } from 'lodash'
 import TagInput from '../component/Tags'
-const Form1 = () => {
+const TcType2Form = () => {
   const [form] = AntdForm.useForm()
-
   const [tags, setTags] = useState([])
   const [tags2, setTags2] = useState([])
-  const [tagsArray, setTagsArray] = useState([[]]) // For TransportDocument
-  const [tags2Array, setTags2Array] = useState([[]]) // For vehicleNo
+  const [tagsArray, setTagsArray] = useState([[]]) 
+  const [tags2Array, setTags2Array] = useState([[]]) 
 
   useEffect(() => {
     const transportDetails = tags.map((tag, index) => ({
@@ -68,6 +67,7 @@ const Form1 = () => {
       PlaceOfDispatch: '',
       PlaceOfDestination: '',
       DeclarationText: '',
+      OrderContactNo: '',
       OrganicMaterialCertificationNOP: '',
       OrganicMaterialCertificationNPOP: '',
       DeclarationsText: '',
@@ -110,7 +110,8 @@ const Form1 = () => {
           HSCode: '',
           NPOPOrganicCompliance: '',
           LotNoQuantity: '',
-          TradeName: '',
+          LotNo: "",
+          TradeName: [''],
           packingDetails: [{ packingDetail: '' }]
         }
       ],
@@ -127,202 +128,234 @@ const Form1 = () => {
           additionalDeclarationItem: ''
         }
       ],
-      TraderTCsforOrganicMaterial: '',
-      outsourcedSubcontractor: '',
+      AuthorisedName: '',
+      AuthorisedPosition: '',
+      // TraderTCsforOrganicMaterial: '',
+      // outsourcedSubcontractor: '',
       datePicker: moment(new Date())
     })
   }, [form])
 
   // Handle form submission with typed values
+  // const handleSubmit = async values => {
+  //   console.log('Form submitted with values:', values)
+
+  //   let productDetails = []
+  //   values?.RawMaterialDetails?.map((ele, ind) => {
+  //     let tradeNames = [];
+  //     ele?.TradeName?.forEach((elem, index) => {
+  //       tradeNames?.push(elem.TradeName)
+  //     })
+  //     let packingDetails = []
+  //     ele?.packingDetails?.forEach((elem, index) => {
+  //       packingDetails?.push(elem.packingDetail)
+  //     })
+  //     let obj = {
+  //       hs_code: ele?.HSCode,
+  //       quantity_in_MT: ele?.LotNo
+  //       ,
+  //       "NPOP_organic_compliance_C1/C2/C3/organic": ele?.NPOPOrganicCompliance,
+  //       lot_no: ele.LotNo, 
+  //       product_name: ele?.Product,
+  //       trade_name: tradeNames,
+  //       packing_details: packingDetails
+  //     }
+  //     productDetails.push(obj)
+  //   })
+
+  //   let invoiceDetails = []
+  //   values?.InvoiceList?.map((ele, ind) => {
+  //     let obj = {
+  //       s_no: ele.SNo,
+  //       invoice_number: ele.InvoiceNo,
+  //       invoice_date: ele.InvoiceDate
+  //     }
+  //     invoiceDetails.push(obj)
+  //   })
+
+  //   let transport_details = []
+
+  //   values?.TransportDetails?.map((ele, ind) => {
+  //     let transport_document_numbers = tagsArray[ind].join(',')
+
+  //     let obj = {
+  //       mode_of_transport: ele.ModeOfTransport,
+  //       transport_document_numbers: transport_document_numbers,
+  //       vehicle_number_or_bull_cart_or_air_or_others: tags2Array[ind],
+  //       date_of_transport: ele.DateOfTransport
+  //     }
+  //     transport_details.push(obj)
+  //   })
+
+  //   let this_is_to_cerify_that = []
+  //   values.additionalDeclaration.forEach((ele, ind) => {
+  //     this_is_to_cerify_that?.push(ele?.additionalDeclarationItem)
+  //   })
+
+  //   let data = {
+  //     file_name: "abc",
+  //     extracted_data: {
+  //       file_title: 'abc',
+  //       qr_info: '{253} SS08008456039022024002111',
+  //       certification_body: {
+  //         name: values.CertificateName,
+  //         address: values.CertificationAddress
+  //       },
+  //       transaction_certificate_number: values.TransactionCertificateNo,
+  //       'seller_of_individual/ICS': {
+  //         name: values.SellerName,
+  //         address: values.SellerAddress,
+  //         PAN: values.SellerPAN
+  //       },
+  //       buyer: {
+  //         name: values.BuyerName,
+  //         address: values.BuyerAddress,
+  //         PAN: values.BuyerPAN
+  //       },
+  //       place_of_dispatch: values.PlaceOfDispatch,
+  //       place_of_destination: values.PlaceOfDestination,
+  //       product_details: productDetails,
+  
+  //       transaction_details: {
+  //         order_or_contact_number: values.OrderContactNo,
+  //         invoice_details: invoiceDetails,
+  //         transport_details: transport_details
+         
+  //       },
+  //       additional_declaration_by_the_certification_body: {
+  //         this_is_to_cerify_that: this_is_to_cerify_that,
+  //         issue_date: values.IssuedDate
+  //       },
+  //       name_and_signature_of_the_authorised_person: {
+  //         name: values.AuthorisedName,
+  //         position: values.AuthorisedPosition
+  //       }
+  //     }
+  //   }
+
+  //   try {
+  //     const response = await form2submit(data)
+  //     console.log(response)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+
   const handleSubmit = async values => {
-    console.log('Form submitted with values:', values)
-    // let shipmentDetail = values.ShipmentDetails.map((ele, ind) => {
-    //   let obj = {
-    //     shipment_no: ele.ShipmentNo_,
-    //     shipment_date: ele.ShipmentDate_,
-    //     shipment_doc_no: ele.ShipmentDocNo_,
-    //     gross_shipping_weight: ele.ShipmentsGrossShippingWeight_,
-    //     invoice_references: ele.InvoiceReferences_,
-    //     consignee_name_and_address: ele.ConsigneeNameAndAddress_
-    //   }
-    //   return obj
-    // })
-    // let productDetail = values.ProductDetails.map((ele, ind) => {
-    //   let obj = {
-    //     product_no: ele.ProductNo,
-    //     order_no: ele.OrderNo,
-    //     article_no: ele.ArticleNo,
-    //     number_of_units: ele.NumberofUnits,
-    //     net_shipping_weight: ele.ProductsNetShippingWeight,
-    //     supplementary_weight: ele.SupplementaryWeight,
-    //     certified_weight: ele.ProductsCertifiedWeight,
-    //     production_date: ele.ProductionDate,
-    //     product_category: ele.Productcategory,
-    //     product_detail: ele.ProductDetail,
-    //     material_composition: ele.MaterialComposition,
-    //     standard_label_grade: ele.StandardLabelGrade,
-    //     additional_info: ele.AdditionalInfo,
-    //     last_processor: ele.LastProcessor,
-    //     license_number: ele.licenseNo,
-    //     country: ele.Country
-    //   }
-    //   return obj
-    // })
+    console.log('Form submitted with values:', values);
 
-    // let contents = []
-    // values.DeclarationList?.forEach((ele, ind) => {
-    //   let str = ele.DeclarationList_
-    //   contents.push(str)
-    // })
-
-    // let certified_raw_materials_and_declared_geographic_origin =
-    //   values.RawMaterialDetails.map((ele, ind) => {
-    //     let obj = {
-    //       material_details: ele.OrganicCotton,
-    //       certified_weight: ele.RawMaterialsCertifiedWeight,
-    //       country: ele.CountryArea.map(item => item.CountryName).join(', ')
-    //     }
-    //     return obj
-    //   })
-
-    // try {
-    //   let data = {
-    //     file_name: 'example_tc_file.pdf',
-    //     extracted_data: {
-    //       certification_body: {
-    //         main_value: values.CertificationDetails,
-    //         licensing_code_of_certification_body: values.CertificateLicenseCode
-    //       },
-    //       seller_of_certified_products: {
-    //         main_value: values.SellerDetails,
-    //         sc_number: values.SellerSCNumber,
-    //         license_no: values.SellerLicenseNumber
-    //       },
-    //       buyer_of_certified_products: {
-    //         main_value: values.BuyerDetails,
-    //         license_no: values.BuyerLicenseNo
-    //       },
-    //       gross_shipping_weight: values.GrossShippingWeight,
-    //       net_shipping_weight: values.NetShippingWeight,
-    //       certified_weight: values.WeightsCertifiedWeight,
-    //       declarations_by_certification_body: {
-    //         main_value: values.DeclarationText,
-    //         contents: contents,
-    //         certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules:
-    //           values.OrganicMaterialCertificationNOP,
-    //         certification_of_the_organic_material_used_for_the_products_listed_complies_with_apeda_np_op_rules:
-    //           values.OrganicMaterialCertificationNPOP,
-    //         extra_note: values.DeclarationsText
-    //       },
-    //       certified_input_references: {
-    //         input_tcs: values.InputTCs,
-    //         farm_scs: values.FarmSCs,
-    //         farm_tcs: values.FarmSCs,
-    //         trader_tcs_for_organic_materia: values.TraderTCsforOrganicMaterial
-    //       },
-    //       shipments: shipmentDetail,
-    //       certified_products: productDetail,
-    //       certified_raw_materials_and_declared_geographic_origin:
-    //         certified_raw_materials_and_declared_geographic_origin,
-    //       declarations_by_seller_of_certified_products: {
-    //         the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor:
-    //           values.outsourcedSubcontractor
-    //       }
-    //     }
-    //   }
-    //   console.log(data)
-
-    //   let res = await form1Set(data)
-    //   console.log(res)
-    // } catch (error) {
-    //   console.log(error)
-    // }
-
-   let data =  {
-    "file_title": "",
-    "qr_info": "{253} SS08008456039022024002111",
-    "certification_body":{
-        "name": "Global Certification Society",
-        "address": "Ward NO.9 V.P.O. Chowki Khalet, Near Ravidas Mandir, Tehsil Palampur" 
-    },
-    "transaction_certificate_number":"ORG/TC/2402/002111",
-    "seller_of_individual/ICS":{
-        "name":"Vedakunda Sangam Seva Sansthan",
-        "address":"128, Gram: Piplai KhurdPost: Piplai Khurd KhargoneMadhya Pradesh(451001)",
-        "PAN":""
-    },
-    "buyer":{
-        "name":"Sainath Cotton Industries",
-        "address":"Sr-No-479, At-Kotadi, Vijapur-Mansa Road, Mahesana(382870)",
-        "PAN":"ABAFS8267Q"
-    },
-    "place_of_dispatch":"Piplai Khurd",
-    "place_of_destination":"Kotadi Vijapur (GJ)",
-    "product_details":[
-        {
-            "product_name":"Raw Cotton",
-            "hs_code":"52010011",
-            "NPOP_organic_compliance_C1/C2/C3/organic":"Organic",
-            "lot_no":"2023114898",
-            "quantity_in_MT":"227.220000",
-            "trade_name":[
-                "Organic Raw",
-                "Cotton"
-            ],
-            "packing_details":[
-                "2220.000000Kg X 1 Nos. = 227.220000 Cotton 2220.000000 Kg",
-                "15000.000000Kg X 15 Nos. = 225000.000000 Kg"
-            ]
+    let productDetails = [];
+    values?.RawMaterialDetails?.map((ele, ind) => {
+        let tradeNames = [];
+        // Ensure TradeName is an array before using forEach
+        if (Array.isArray(ele?.TradeName)) {
+            ele?.TradeName?.forEach((elem, index) => {
+                tradeNames.push(elem.TradeName);
+            });
+        } else if (ele?.TradeName) { // Handle case where TradeName is not an array but a string or undefined
+            tradeNames.push(ele?.TradeName);
         }
-    ],
-    "transaction_details":{
-        "order_or_contact_number":"VSSS/RC/04",
-        "invoice_details":[{
-            "s_no":"1",
-            "invoice_number":"VSSS/RC/04",
-            "invoice_date":"feb 2 2024"
-        }],
-        "transport_details":[
-            {
-                "mode_of_transport":"Road",
-                "transport_document_numbers":"955 To 960, 1421 To 1426, 1871 To 1874.",
-                "vehicle_number_or_bull_cart_or_air_or_others":[
-                    "RIL9GB3749",
-                    "MPO9HG2521",
-                    "MH18BG9669",
-                    "MPOQSHHO819",
-                    "RJO9GC0074",
-                    "RJO9GB7886",
-                    "MP48H1931",
-                    "MP09HG6469",
-                    "MP45H6750",
-                    "MPO9HF5457",
-                    "MPO9HF5632",
-                    "MPO9HF5951",
-                    "MP11H0102",
-                    "MP15P2500",
-                    "RJ14GA6096",
-                    "RJ36GA4033"
-                ],
-                "date_of_transport":"02/02/2024"
-            }
-        ]
 
-    },
-    "additional_declaration_by_the_certification_body":{
-        "this_is_to_cerify_that":[
-            "This Transaction Certificate is issued after satisfying ourselves with the required inspection under the checked programmes at S.No.7 above",
-            "On the date of issue of this Transaction Certificate, the Accreditation of this Certification Body under NPOP is valid.",
-            "The above information is correct to the best of our knowledge and belief."
-        ],
-        "issue_date":"20/02/2024"
-    },
-    "name_and_signature_of_the_authorised_person":{
-        "name":"Vikas Kumar",
-        "position":"Chief Executive Officer"
+        let packingDetails = [];
+        // Ensure packingDetails is an array before using forEach
+        if (Array.isArray(ele?.packingDetails)) {
+            ele?.packingDetails?.forEach((elem, index) => {
+                packingDetails.push(elem.packingDetail);
+            });
+        }
+
+        let obj = {
+            hs_code: ele?.HSCode,
+            quantity_in_MT: ele?.LotNo,
+            "NPOP_organic_compliance_C1/C2/C3/organic": ele?.NPOPOrganicCompliance,
+            lot_no: ele.LotNo,
+            product_name: ele?.Product,
+            trade_name: tradeNames,
+            packing_details: packingDetails
+        };
+        productDetails.push(obj);
+    });
+
+    let invoiceDetails = [];
+    values?.InvoiceList?.map((ele, ind) => {
+        let obj = {
+            s_no: ele.SNo,
+            invoice_number: ele.InvoiceNo,
+            invoice_date: ele.InvoiceDate
+        };
+        invoiceDetails.push(obj);
+    });
+
+    let transport_details = [];
+    values?.TransportDetails?.map((ele, ind) => {
+        let transport_document_numbers = tagsArray[ind]?.join(',') || '';
+
+        let obj = {
+            mode_of_transport: ele.ModeOfTransport,
+            transport_document_numbers: transport_document_numbers,
+            vehicle_number_or_bull_cart_or_air_or_others: tags2Array[ind],
+            date_of_transport: ele.DateOfTransport
+        };
+        transport_details.push(obj);
+    });
+
+    let this_is_to_cerify_that = [];
+    // Ensure additionalDeclaration is an array before using forEach
+    if (Array.isArray(values?.additionalDeclaration)) {
+        values.additionalDeclaration.forEach((ele, ind) => {
+            this_is_to_cerify_that.push(ele?.additionalDeclarationItem);
+        });
     }
-}
-  }
+
+    let data = {
+        file_name: "abc",
+        extracted_data: {
+            file_title: 'abc',
+            qr_info: '{253} SS08008456039022024002111',
+            certification_body: {
+                name: values.CertificateName,
+                address: values.CertificationAddress
+            },
+            transaction_certificate_number: values.TransactionCertificateNo,
+            'seller_of_individual/ICS': {
+                name: values.SellerName,
+                address: values.SellerAddress,
+                PAN: values.SellerPAN
+            },
+            buyer: {
+                name: values.BuyerName,
+                address: values.BuyerAddress,
+                PAN: values.BuyerPAN
+            },
+            place_of_dispatch: values.PlaceOfDispatch,
+            place_of_destination: values.PlaceOfDestination,
+            product_details: productDetails,
+
+            transaction_details: {
+                order_or_contact_number: values.OrderContactNo,
+                invoice_details: invoiceDetails,
+                transport_details: transport_details
+            },
+            additional_declaration_by_the_certification_body: {
+                this_is_to_cerify_that: this_is_to_cerify_that,
+                issue_date: values.IssuedDate
+            },
+            name_and_signature_of_the_authorised_person: {
+                name: values.AuthorisedName,
+                position: values.AuthorisedPosition
+            }
+        }
+    };
+
+    try {
+        const response = await form2submit(data);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
   const normFile = e => {
     if (Array.isArray(e)) {
       return e
@@ -644,12 +677,67 @@ const Form1 = () => {
                       <div className='flex md:justify-between flex-wrap'>
                         <AntdForm.Item
                           {...restField}
-                          label='Trade Name'
-                          name={[name, 'TradeName']}
+                          label='Lot No'
+                          name={[name, 'LotNo']}
                           className='w-full md:w-[49%]'
                         >
-                          <Input placeholder='Enter Trade Name' />
+                          <Input placeholder='Enter Lot No' />
                         </AntdForm.Item>
+                      </div>
+                      <div className='flex md:justify-between flex-wrap'>
+                        <div className='w-full md:w-[49%]'>
+                          <AntdForm.List
+                            name={[name, 'TradeName']}
+                            initialValue={['']}
+                          >
+                            {(
+                              tradeNameFields,
+                              { add: addTradeName, remove: removeTradeName }
+                            ) => (
+                              <>
+                                {tradeNameFields.map(
+                                  ({
+                                    key: tradeNameKey,
+                                    name: tradeNameName,
+                                    ...tradeNameRestField
+                                  }) => (
+                                    <div
+                                      key={tradeNameKey}
+                                      className='flex md:justify-between flex-wrap relative'
+                                    >
+                                      <AntdForm.Item
+                                        {...tradeNameRestField}
+                                        label='Trade Name'
+                                        name={[tradeNameName, 'TradeName']}
+                                        className='w-full'
+                                      >
+                                        <Input placeholder='Enter Trade Name' />
+                                      </AntdForm.Item>
+                                      {tradeNameFields.length > 1 && (
+                                        <MinusCircleOutlined
+                                          className='dynamic-delete-button tradeNameDelete'
+                                          onClick={() =>
+                                            removeTradeName(tradeNameName)
+                                          }
+                                        />
+                                      )}
+                                    </div>
+                                  )
+                                )}
+                                <AntdForm.Item>
+                                  <Button
+                                    type='dashed'
+                                    onClick={() => addTradeName('')}
+                                    block
+                                    icon={<PlusOutlined />}
+                                  >
+                                    Add Trade Name
+                                  </Button>
+                                </AntdForm.Item>
+                              </>
+                            )}
+                          </AntdForm.List>
+                        </div>
                         <div className='w-full md:w-[49%] packingDetail'>
                           <AntdForm.List
                             {...restField}
@@ -731,7 +819,8 @@ const Form1 = () => {
                           HSCode: '',
                           NPOPOrganicCompliance: '',
                           LotNoQuantity: '',
-                          TradeName: '',
+                          LotNo: '',
+                          TradeName: [''],
                           packingDetails: [{ packingDetail: '' }]
                         })
                       }
@@ -761,7 +850,11 @@ const Form1 = () => {
           </div>
           <div className='flex items-center md:justify-between flex-wrap'>
             <div className='ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-7ny38l'>
-              <label htmlFor='InvoiceNoDate' className='' title='Invoice No. & Date'>
+              <label
+                htmlFor='InvoiceNoDate'
+                className=''
+                title='Invoice No. & Date'
+              >
                 Invoice No. & Date
               </label>
             </div>
@@ -968,48 +1061,47 @@ const Form1 = () => {
                 </>
               )}
             </AntdForm.List> */}
-            <AntdForm.List name="additionalDeclaration">
-  {(fields, { add, remove }) => (
-    <>
-      {fields.map(({ key, name, ...restField }) => (
-        <div key={key} className="pb-5 w-full relative">
-          {/* Remove Icon */}
-          {fields.length > 1 && (
-            <MinusCircleOutlined
-              className="dynamic-delete-button absolute right-0 top-0"
-              onClick={() => remove(name)} // Removes the current declaration
-            />
-          )}
-          <div className="flex md:justify-between flex-wrap">
-            <AntdForm.Item
-              {...restField}
-              label="Additional Declaration Item"
-              name={[name, 'additionalDeclarationItem']}
-              className="w-full md:w-[49%]"
-            >
-              <Input placeholder="Enter additional Declaration Item" />
-            </AntdForm.Item>
-          </div>
-        </div>
-      ))}
-      <AntdForm.Item>
-        <Button
-          type="dashed"
-          onClick={() =>
-            add({
-              additionalDeclarationItem: '', // Default value for new items
-            })
-          }
-          block
-          icon={<PlusOutlined />}
-        >
-          Add Declaration Item
-        </Button>
-      </AntdForm.Item>
-    </>
-  )}
-</AntdForm.List>
-
+            <AntdForm.List name='additionalDeclaration'>
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <div key={key} className='pb-5 w-full relative'>
+                      {/* Remove Icon */}
+                      {fields.length > 1 && (
+                        <MinusCircleOutlined
+                          className='dynamic-delete-button absolute right-0 top-0'
+                          onClick={() => remove(name)} // Removes the current declaration
+                        />
+                      )}
+                      <div className='flex md:justify-between flex-wrap'>
+                        <AntdForm.Item
+                          {...restField}
+                          label='Additional Declaration Item'
+                          name={[name, 'additionalDeclarationItem']}
+                          className='w-full md:w-[49%]'
+                        >
+                          <Input placeholder='Enter additional Declaration Item' />
+                        </AntdForm.Item>
+                      </div>
+                    </div>
+                  ))}
+                  <AntdForm.Item>
+                    <Button
+                      type='dashed'
+                      onClick={() =>
+                        add({
+                          additionalDeclarationItem: '' // Default value for new items
+                        })
+                      }
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      Add Declaration Item
+                    </Button>
+                  </AntdForm.Item>
+                </>
+              )}
+            </AntdForm.List>
           </div>
         </section>
 
@@ -1029,6 +1121,29 @@ const Form1 = () => {
           </div>
         </section>
 
+        {/* Name and Signature of the Authorised Person */}
+        <section className='section'>
+          <h2 className='text-2xl pb-5 section-title'>Authorised Info</h2>
+          <div className=''>
+            <div className='flex items-center md:justify-between flex-wrap'>
+              <AntdForm.Item
+                label='Authorised Name'
+                name='AuthorisedName'
+                className='w-full md:w-[49%]'
+              >
+                <Input placeholder='Enter Authorised Name' />
+              </AntdForm.Item>
+              <AntdForm.Item
+                label='Authorised Position'
+                name='AuthorisedPosition'
+                className='w-full md:w-[49%]'
+              >
+                <Input placeholder='Enter Authorised Position' />
+              </AntdForm.Item>
+            </div>
+          </div>
+        </section>
+
         <AntdForm.Item className=' submitButtonGroup'>
           <Button type='primary' htmlType='submit' className='submit-btn '>
             Submit
@@ -1039,4 +1154,4 @@ const Form1 = () => {
   )
 }
 
-export default Form1
+export default TcType2Form

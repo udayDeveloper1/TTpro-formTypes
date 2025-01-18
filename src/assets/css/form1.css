@@ -159,6 +159,16 @@ textarea:focus {
   color: #686868;
 }
 
+.tradeNameDelete{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ant-tag{
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 768px) {
   .form1_heading {
     font-size: 1.5rem;
