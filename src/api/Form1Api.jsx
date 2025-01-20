@@ -199,3 +199,17 @@ export const formcropProductionSet = async data => {
     throw error
   }
 }
+
+export const formcropProductionList = async()  => {
+  try {
+    const response = await axiosInstance.get(
+      'api/scope-certificate/type-handling-trading/'
+    )
+    console.log(response);
+    
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
