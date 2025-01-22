@@ -83,6 +83,8 @@ const handleViewDetails = (id) => {
     
     <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
         <h3 className='text-3xl p-5 font-bold'>TC Type Crop Production List</h3>
+        {console.log()
+        }
       <div className="card card_list">
         {data.length > 0 ? (
                <CustomTable
@@ -92,7 +94,6 @@ const handleViewDetails = (id) => {
         ) : <p>No data available.</p>}
       </div>
     </div>
-    
   );
 };
 

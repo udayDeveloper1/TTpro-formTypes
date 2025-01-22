@@ -203,7 +203,7 @@ export const formcropProductionSet = async data => {
 export const formcropProductionList = async()  => {
   try {
     const response = await axiosInstance.get(
-      'api/scope-certificate/type-handling-trading/'
+      'api/scope-certificate/type-prod-crop/'
     )
     console.log(response);
     
