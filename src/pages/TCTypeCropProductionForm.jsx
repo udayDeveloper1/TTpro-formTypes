@@ -28,6 +28,7 @@ import TagInput from '../component/Tags'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { formatDateToDDMMYYYY } from '../utils/utils'
+import { Slidebar } from '../layout/Slidebar'
 
 const TCTypeCropProductionForm = () => {
   const [form] = AntdForm.useForm()
@@ -196,6 +197,8 @@ const TCTypeCropProductionForm = () => {
     return isValidType
   }
   return (
+    <>
+    <Slidebar />
     <div className='container mx-auto  '>
       <AntdForm
         form={form}
@@ -644,7 +647,7 @@ const TCTypeCropProductionForm = () => {
         </AntdForm.Item>
       </AntdForm>
     </div>
-  )
+    </>)
 }
 
 export default TCTypeCropProductionForm

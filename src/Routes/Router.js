@@ -49,6 +49,7 @@ export const router = createBrowserRouter([
     path: "/tcType1View/:id/",
     Component: TcType1View,
   },
+
   {
     path: "/importPdfTCtype2",
     Component: ImportPdfTCtype2,
@@ -57,6 +58,8 @@ export const router = createBrowserRouter([
     path: "/tCTypeCropProductionList",
     Component: TCTypeCropProductionList,
   },
+
+
   {
     path: "/tcType2Form",
     Component: TcType2Form,
@@ -77,7 +80,7 @@ export const router = createBrowserRouter([
     path: "/tcType2List",
     Component: TcType2List,
   },
-
+  
   {
     path: "/scopeVerificationList",
     Component: ScopeVerificationList,
@@ -86,6 +89,8 @@ export const router = createBrowserRouter([
     path: "/scopeVerificationView/:id/",
     Component: ScopeVerificationView,
   },
+
+
 
   {
     path: "/scopeVerificationForm",
@@ -100,7 +105,7 @@ export const router = createBrowserRouter([
   // --------------------------------- Hemang router start -----------------------------------
 
   {
-    path: "/handlingTradingScType",
+    path: "/handlingTradingScTypeForm",
     Component: ImportHandlingForm,
   },
   {

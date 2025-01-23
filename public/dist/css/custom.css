@@ -1,0 +1,138 @@
+.auth-card .flag-dropdown.dropdown-toggle::after {
+    /* width: 7px; */
+    /* height: 7px; */
+    border-right: 1px solid #49657b;
+    border-top: 1px solid #49657b;
+    transform: rotate(135deg);
+  
+    border-left: none;
+  }
+  
+  .auth-card .flag-dropdown img {
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+  }
+  .flag-dropdown img.flag-icon {
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+  }
+  .dropdown-item img.flag-icon {
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+  }
+  
+
+  /* ----------------------------- Data table --------------------------------------------------- */
+  
+  .data-table-extensions > .data-table-extensions-filter > .filter-text {
+    border-bottom: 1px solid black !important;
+  }
+  .data-table-extensions > .data-table-extensions-action > button.print {
+    display: none !important;
+  }
+  .data-table-extensions > .data-table-extensions-action > button.download {
+    font-size: 100px !important;
+  }
+  
+  .data-table-extensions > .data-table-extensions-filter > .icon {
+    /* background-image: */
+  }
+  
+  /* .hMmpif:nth-child(odd) {
+    background-color:#eeeeee !important;
+    border-color: inherit !important;
+    font-size: 0.98rem !important;
+    padding: 1% 0;
+  }
+  .hMmpif:nth-child(even) {
+  
+    border-color: inherit !important;
+    font-size: 0.98rem !important;
+    border-width:0 !important;
+    font-weight: lighter !important;
+    padding: 1% 0;
+    
+  } */
+  
+  /* .bHdTgG{
+    color:gray;
+    font-weight: 800;
+  }
+  .khorWA {
+    color: gray;
+  } */
+  
+  .rdt_TableRow:nth-child(odd) {
+    background-color: #eeeeee !important;
+    border-color: inherit !important;
+    font-size: 0.98rem !important;
+    padding: 1% 0;
+  }
+  .rdt_TableRow:nth-child(even) {
+    border-color: inherit !important;
+    font-size: 0.98rem !important;
+    border-width: 0 !important;
+    font-weight: lighter !important;
+    padding: 1% 0;
+  }
+  .rdt_TableHeadRow {
+    color: gray;
+    font-weight: 600;
+  }
+  .rdt_TableCell {
+    color: gray;
+  }
+  
+  .p-datatable-thead tr {
+    /* border-top: 1px solid #8080805c; */
+    border-bottom: 1px solid #cccaca5c;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif !important; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 12px;
+  }
+  .p-datatable-tbody {
+    font-size: 14px !important;
+    padding: 12px !important;
+  }
+  .p-datatable-tbody tr {
+    border-bottom: 1px solid #cccaca5c;
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif !important; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .card-title{
+    font-size:smaller !important;
+  }
+  .card-subtitle{
+    font-size:x-small !important;
+  }
+  .fs-4{
+    font-size: 0.8rem  !important;
+  }
+
+  .post-image {
+    width: 100%;
+    border-radius: 5px; /* To match the class 'rounded-1' */
+    transition: transform 0.3s ease-in-out; /* Transition for smooth effect */
+  }
+  .post-image:hover {
+    transform: scale(1.1); 
+    cursor: pointer ;/* Scale up the image on hover */
+  }
+
+  /* @media (max-width: 1600px) {
+     .custom-responsive {
+      height: calc(100vh - 400px) !important
+    }
+  } */

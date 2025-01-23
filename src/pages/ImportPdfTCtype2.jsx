@@ -1161,9 +1161,6 @@ const ImportPdfTCtype2 = () => {
     const [tags2, setTags2] = useState([])
     const [tagsArray, setTagsArray] = useState([[]]) 
     const [tags2Array, setTags2Array] = useState([[]]) 
-  
-
-
 
   const handleSubmit = async values => {
     try {
@@ -1291,8 +1288,6 @@ setTags2Array(allTransportDetails.map(detail => detail.vehicleNo || []));
     return isPdf || Upload.LIST_IGNORE
   }
 
- 
-
   const handleSubmit2 = async (values) => {
     try {
       console.log('Form submitted with values:', values);
@@ -1367,9 +1362,8 @@ setTags2Array(allTransportDetails.map(detail => detail.vehicleNo || []));
             position: values.AuthorisedPosition || '',
           },
          }
-        
       };
-  
+      
       // Submit Data
       const response = await form2submit(data);
       // if(response){

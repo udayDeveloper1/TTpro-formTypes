@@ -26,6 +26,7 @@ import moment from 'moment' // Import moment.js
 import { form1Set } from '../api/Form1Api'
 import { cloneDeep } from 'lodash'
 import TagInput from '../component/Tags'
+import { Slidebar } from '../layout/Slidebar'
 const TcType1Form = () => {
   const [form] = AntdForm.useForm()
 
@@ -229,6 +230,8 @@ const TcType1Form = () => {
   }
 
   return (
+    <>
+    <Slidebar />
     <div className='container mx-auto  '>
       <AntdForm
         form={form}
@@ -1005,7 +1008,7 @@ const TcType1Form = () => {
         </AntdForm.Item>
       </AntdForm>
     </div>
-  )
+    </>)
 }
 
 export default TcType1Form

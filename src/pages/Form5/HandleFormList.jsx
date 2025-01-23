@@ -9,14 +9,19 @@ import { faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { listFormHandlinkTrading } from "../../api/Form1Api";
+import { Slidebar } from "../../layout/Slidebar";
+import Spinner from "../../layout/Spinner";
 
 function HandleFormList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  
 
 //   const { pdfListData } = useSelector((state) => state.userReducer);
 const [pdfListData , setPdfListData] = useState([])
   useEffect(() => {
+    setLoading(true)
     const fetchData = async () => {
       try {
         const response = await listFormHandlinkTrading(); // Await the API call
@@ -26,7 +31,9 @@ const [pdfListData , setPdfListData] = useState([])
         console.error('Error fetching data:', error);
       }
     };
-    fetchData(); // Call the async function
+    fetchData(); 
+    setLoading(false)
+    // Call the async function
   }, [dispatch]);
 
   const handleView = (symbol) => {
@@ -69,7 +76,6 @@ const [pdfListData , setPdfListData] = useState([])
       ),
     },
   ];
-
   const ipoData = pdfListData
     ? pdfListData.map((item, index) => ({
         key: index,
@@ -77,15 +83,18 @@ const [pdfListData , setPdfListData] = useState([])
       }))
     : [];
 
-  return (
+  return (<>
+     {loading && <Spinner message="Loading..." isActive={loading} />}
+          <Slidebar />
     <div>
+
       <CustomTable
         columns={columns}
         data={ipoData}
         scroll={{ x: "1750px", y: 500 }}
       />
     </div>
-  );
+    </>);
 }
 
 export default HandleFormList;

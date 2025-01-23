@@ -27,6 +27,7 @@ import { form1Set, formFill1 } from '../api/Form1Api'
 import { cloneDeep, forEach } from 'lodash'
 import TagInput from '../component/Tags'
 import dayjs from 'dayjs'
+import { Slidebar } from '../layout/Slidebar'
 
 const ImportPdfTCtype1 = () => {
   const [form] = AntdForm.useForm()
@@ -336,7 +337,8 @@ const ImportPdfTCtype1 = () => {
     return isValidType
   }
 
-  return formNo === '1' ? (
+  return formNo === '1' ? (<>
+        <Slidebar />
     <AntdForm
       form={form}
       onFinish={handleSubmit}
@@ -383,8 +385,10 @@ const ImportPdfTCtype1 = () => {
         </Button>
       </AntdForm.Item>
     </AntdForm>
-  ) : (
-    <div className='container mx-auto  '>
+    </> ) : (
+      <>
+       <Slidebar />
+       <div className='container mx-auto  '>
       <AntdForm
         form={form2}
         onFinish={handleSubmit2}
@@ -1100,6 +1104,8 @@ const ImportPdfTCtype1 = () => {
         </AntdForm.Item>
       </AntdForm>
     </div>
+ 
+    </>
   )
 }
 
