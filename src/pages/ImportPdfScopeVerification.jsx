@@ -21,8 +21,6 @@ const ImportPdfScopeVerification = () => {
     const handleResponse = (response) => {
         // Extract data from response
         const { scope_certificate, products_appendix, site_appendix, independently_certified_subcontractor_appendix } = response.extracted_data;
-    console.log(response.extracted_data);
-    
         // Populate form fields
         form2.setFieldsValue({
             scope_certificate: {
@@ -31,7 +29,7 @@ const ImportPdfScopeVerification = () => {
                 version: scope_certificate.version,
                 certification_body: scope_certificate.certification_body,
                 address: scope_certificate.address,
-                date_of_issue: dayjs(scope_certificate.date_of_issue),
+                date_of_issue: dayjs(scope_certificate.date_of_issue, "DD/MM/YYYY"),
                 ceo_name: scope_certificate.ceo_name,
                 additional_notes: scope_certificate.additional_notes,
             },
@@ -53,7 +51,7 @@ const ImportPdfScopeVerification = () => {
             number: subcontractor.number,
             license_number: subcontractor.license_number,
             certification_body: subcontractor.certification_body,
-            expiry_date: dayjs(subcontractor.expiry_date),
+            expiry_date: dayjs(subcontractor.expiry_date, "DD/MM/YYYY"),
             address: subcontractor.address,
             process_categories: subcontractor.process_categories,
           })),
@@ -94,7 +92,6 @@ const ImportPdfScopeVerification = () => {
     
         return isPdf || Upload.LIST_IGNORE
       }
-      
 
       useEffect(() => {
           form2.setFieldsValue({
@@ -315,7 +312,7 @@ const ImportPdfScopeVerification = () => {
                                       name={["scope_certificate", "date_of_issue"]}
                                       className="px-2 w-full md:w-1/2"
                                   >
-                                      <DatePicker className="w-full"/>
+                                      <DatePicker className="w-full datePickerIpnut" format="DD/MM/YYYY" />
                                   </AntdForm.Item>
                                   <AntdForm.Item
                                       label="Note"
@@ -554,7 +551,7 @@ const ImportPdfScopeVerification = () => {
                                         name={[name, "expiry_date"]}
                                         className="px-2 w-full md:w-1/2"
                                       >
-                                        <DatePicker className="w-full"/>
+                                        <DatePicker className="w-full datePickerIpnut"format="DD/MM/YYYY"/>
                                       </AntdForm.Item>
                                       <AntdForm.Item
                                         {...restField}

@@ -30,6 +30,7 @@ import TCTypeCropProductionForm from "../pages/TCTypeCropProductionForm";
 import TcType1List from "../pages/TcType1List";
 import TCTypeCropProductionList from "../pages/TCTypeCropProductionList";
 import TcTypeCropProductinView from "../pages/TcTypeCropProductinView";
+import ImportPdfScopeProduction from "../pages/ImportPdfCropProduction";
 // import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
   {
     path: "/tCTypeCropProductionForm",
     Component: TCTypeCropProductionForm,
+  },
+  {
+    path: "/importPdftCTypeCropProductionForm",
+    Component: ImportPdfScopeProduction,
   },
   {
     path: "/tcTypeCropProductinView/:id/",

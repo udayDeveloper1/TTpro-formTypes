@@ -72,68 +72,50 @@ const TCTypeCropProductionForm = () => {
       valid_till: '',
       thisCertificateIsValidForThoseProductsAndAreaSpecifiedInTheAnnExeCertificationCharacteristics:
         '',
-      extraNote: '',
       certificateTitle: '',
       certificateNo: '',
       certificateAddress: '',
-      forTheFollowingProcess: '',
-      validFrom: '',
-      validTill: '',
-      thisCertificateIsValidForThoseProductsAndAreaSpecifiedInTheAnnExeCertificationCharacteristics:
-        '',
       extraNote: '',
       this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
         [],
-      certificateNo: '',
       managedBy: '',
-      ICSInfo: [
-        {
-          icsName: '',
-          IcsAddress: '',
-          IcsNoOfFarmers: '',
-          IcsArea: ''
-        }
-      ]
     })
   }, [form])
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
-    console.log(values, tags)
     let icsInfo = values?.ICSInfo?.map((ele, ind) => {
       let obj = {
-        ics_name: ele?.IcsAddress,
-        address: ele?.IcsArea,
+        ics_name: ele?.icsName,
+        address: ele?.IcsAddress,
         no_of_farmers: ele?.IcsNoOfFarmers,
-        area: ele?.icsName
+        area: ele?.IcsArea
       }
       return obj
     })
 
     let producerProduct = values?.producerProduct?.map((ele, ind) => {
       let obj = {
-        season: ele?.areaInHa,
-        product_s_no: ele?.cropType,
-        'product(s)': ele?.estQuantityInMT,
+        season: ele?.producerSeason,
+        product_s_no: ele?.producerProductSNo,
+        'product(s)': ele?.producerProducts,
         organic_status: ele?.organicStatus,
-        variety: ele?.producerProductSNo,
-        crop_type: ele?.producerProducts,
-        'area(in Ha.)': ele?.producerSeason,
-        est_quantity_in_MT: ele?.producerVariety
+        variety: ele?.producerVariety,
+        crop_type: ele?.cropType,
+        'area(in Ha.)': ele?.areaInHa,
+        est_quantity_in_MT: ele?.estQuantityInMT
       }
       return obj;
     })
 
-    console.log(producerProduct);
-    
-    let approved_farmer_list = values?.ApprovedFarmerList?.map((ele, ind)=> {
+    let approved_farmer_list = values?.ApprovedFarmerList?.map((ele, ind) => {
       let obj = {
-        "state": ele?.approvedDistrict,
-        "district": ele?.approvedState,
-        "taluk": ele?.approvedTaluk,
+        state: ele?.approvedState,
+        district: ele?.approvedDistrict,
+        taluk: ele?.approvedTaluk
       }
       return obj
-    } )
+    })
 
     try {
       let data = {
@@ -308,14 +290,14 @@ const TCTypeCropProductionForm = () => {
                 name='validFrom'
                 className='w-full md:w-[49%]'
               >
-                <DatePicker className='datePickerIpnut' />
+                <DatePicker className='datePickerIpnut'    format="DD/MM/YYYY" />
               </AntdForm.Item>
               <AntdForm.Item
                 label='Valid Till'
                 name='validTill'
                 className='w-full md:w-[49%]'
               >
-                <DatePicker className='datePickerIpnut' />
+                <DatePicker className='datePickerIpnut'    format="DD/MM/YYYY"/>
               </AntdForm.Item>
             </div>
             <div className='flex md:justify-between flex-wrap items-end'>

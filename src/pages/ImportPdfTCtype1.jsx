@@ -57,7 +57,7 @@ const ImportPdfTCtype1 = () => {
         res?.shipments?.forEach((ele, ind) => {
           let obj = {
             ShipmentNo_: ele?.shipment_no,
-            ShipmentDate_: dayjs(ele.shipment_date),
+            ShipmentDate_: dayjs(ele.shipment_date, "DD/MM/YYYY"),
             ShipmentDocNo_: ele.shipment_doc_no,
             ShipmentsGrossShippingWeight_: ele.gross_shipping_weight,
             InvoiceReferences_: ele.invoice_references,
@@ -90,7 +90,7 @@ const ImportPdfTCtype1 = () => {
             ProductsNetShippingWeight: ele.net_shipping_weight,
             SupplementaryWeight: ele.supplementary_weight,
             ProductsCertifiedWeight: ele.certified_weight,
-            ProductionDate: dayjs(ele.production_date),
+            ProductionDate: dayjs(ele.production_date, "DD/MM/YYYY"),
             Productcategory: ele.product_category,
             ProductDetail: ele.product_detail,
             MaterialComposition: ele.material_composition,
@@ -727,7 +727,7 @@ const ImportPdfTCtype1 = () => {
                               name={[name, 'ShipmentDate_']}
                               className='w-full md:w-[49%]'
                             >
-                              <DatePicker className='datePickerIpnut' />
+                              <DatePicker className='datePickerIpnut' format="DD/MM/YYYY"/>
                             </AntdForm.Item>
                           </div>
                           <div className='flex md:justify-between flex-wrap'>
@@ -861,7 +861,7 @@ const ImportPdfTCtype1 = () => {
                         className='w-full md:w-[49%]'
                       >
                         {/* <Input placeholder="Enter Production Date" /> */}
-                        <DatePicker className='datePickerIpnut' />
+                        <DatePicker className='datePickerIpnut' format="DD/MM/YYYY"/>
                       </AntdForm.Item>
                       <AntdForm.Item
                         {...restField}

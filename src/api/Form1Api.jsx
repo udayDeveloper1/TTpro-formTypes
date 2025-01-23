@@ -14,7 +14,7 @@ export const form1Set = async data => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -26,7 +26,7 @@ export const form1List = async(id)  => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -44,7 +44,7 @@ export const formFill1 = async data => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -62,7 +62,7 @@ export const formFill1 = async data => {
 //     return response
 //   } catch (error) {
 //     console.error('Error in API request:', error)
-//     throw error
+//     return error
 //   }
 // }
 
@@ -80,7 +80,7 @@ export const formFill2Try = async data => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -95,7 +95,7 @@ export const formFill2Try = async data => {
 //     return response
 //   } catch (error) {
 //     console.error('Error in API request:', error)
-//     throw error
+//     return error
 //   }
 // }
 
@@ -107,7 +107,7 @@ export const formFill2Try = async data => {
 //     return response;
 //   } catch (error) {
 //     console.error('Error in API request:', error)
-//     throw error
+//     return error
 //   }
 // }
 
@@ -121,7 +121,7 @@ export const form2submit = async(values) => {
     return response;
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -133,7 +133,7 @@ export const addFormHandlinkTrading = async(values) => {
     return response;
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -145,7 +145,7 @@ export const listFormHandlinkTrading = async(values) => {
     return response;
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -157,7 +157,7 @@ export const viewFormHandlinkTrading = async(values) => {
     return response;
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -175,7 +175,7 @@ export const addPdfFormHandlinkTrading = async data => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 // ---------------------------- Hemang Api End------------------------------
@@ -190,7 +190,7 @@ export const form3ListApi = async()  => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -202,7 +202,7 @@ export const form3submit = async(values) => {
     return response;
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -220,7 +220,7 @@ export const formFill3 = async (values) => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -233,7 +233,7 @@ export const form2List = async(id)  => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -251,7 +251,7 @@ export const formcropProductionSet = async data => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -265,7 +265,7 @@ export const formcropProductionList = async()  => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 }
 
@@ -277,6 +277,24 @@ export const formCropProductinView = async(id) => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
-    throw error
+    return error
   }
 } 
+
+export const pdfExtractTypeProdCrop = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/groq-extract-type-prod-crop/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}

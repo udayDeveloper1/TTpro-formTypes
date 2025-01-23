@@ -216,7 +216,7 @@ const ProcessCategories = ({ fieldName }) => (
                     name={["scope_certificate", "date_of_issue"]}
                     className="px-2 w-full md:w-1/2"
                 >
-                    <DatePicker className="w-full"/>
+                    <DatePicker className="w-full datePickerIpnut" format="DD/MM/YYYY"/>
                 </AntdForm.Item>
                 <AntdForm.Item
                     label="Note"
@@ -455,7 +455,7 @@ const ProcessCategories = ({ fieldName }) => (
                       name={[name, "expiry_date"]}
                       className="px-2 w-full md:w-1/2"
                     >
-                      <DatePicker className="w-full"/>
+                      <DatePicker className="w-full datePickerIpnut" format="DD/MM/YYYY"/>
                     </AntdForm.Item>
                     <AntdForm.Item
                       {...restField}
