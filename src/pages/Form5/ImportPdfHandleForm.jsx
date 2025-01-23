@@ -35,6 +35,7 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../layout/Spinner";
 import { Slidebar } from "../../layout/Slidebar";
+import { toast } from "react-toastify";
 
 const ImportPdfHandleForm = () => {
   const [form] = AntdForm.useForm();
@@ -42,51 +43,7 @@ const ImportPdfHandleForm = () => {
   const [form2] = AntdForm.useForm();
   const [formNo, setFormNo] = useState("1");
   const [data, setdata] = useState("1");
-  //   const [getDetials, setDetails] = useState({
-  //     id: "658b3a62-f8a2-478f-b97f-99bba37c73b0",
-  //     file_name: "AVIRAT NPOP.pdf",
-  //     extracted_data: {
-  //       file_title: "abc",
-  //       main_certificate_details: {
-  //         title: "Noah Anderson",
-  //         certificate_no: "438",
-  //         main_address: "Modi dolores id magn",
-  //         this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-  //           ["Test 1", "Test 2", "Test 3", "Test 4"],
-  //         for_the_following_process: "Est neque occaecat ",
-  //         // valid_from: "2025-01-15T18:30:00.000Z",
-  //         // valid_till: "2025-01-08T18:30:00.000Z",
-  //         this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics:
-  //           "Sed nesciunt unde d",
-  //         extra_note: "Culpa labore eiusmo",
-  //       },
-  //       certification_characteristics: {
-  //         certificate_no: "843",
-  //         main_value: "Quos doloribus omnis",
-  //         "trader_product(s)": [
-  //           {
-  //             product_s_no: "Quo praesentium volu",
-  //             "product(s)": "Hammett Gray",
-  //             variety: "Suscipit aspernatur ",
-  //             organic_status: "Et in ut magni aliqu",
-  //             labeling_category: "Ducimus consequat ",
-  //           },
-  //           {
-  //             SNo: "",
-  //             InvoiceNo: "",
-  //             InvoiceDate: "2025-01-22T11:04:40.882Z",
-  //             product_s_no: "Fine",
-  //             "product(s)": "Test product",
-  //             variety: "Test product verity",
-  //             organic_status: "Fine",
-  //             labeling_category: "Fine",
-  //           },
-  //         ],
-  //       },
-  //     },
-  //     created_at: "2025-01-22T11:05:10.300000Z",
-  //     updated_at: "2025-01-22T11:05:10.300000Z",
-  //   });
+
 
   const navigate = useNavigate();
 
@@ -101,6 +58,7 @@ const ImportPdfHandleForm = () => {
         console.log(res);
         setFormNo("2");
         setdata(res);
+        toast.success('Pdf Submitted SuccessFully.')
 
         let RawMaterialDetails = [];
         res?.certified_raw_materials_and_declared_geographic_origin?.forEach(
@@ -181,9 +139,13 @@ const ImportPdfHandleForm = () => {
           datePicker: moment(new Date()),
         });
       }
+      else{
+        toast.error('Something Went Wrong.')
+      }
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.log(error);        
+      toast.error('Something Went Wrong.')
     }
   };
 
@@ -239,12 +201,16 @@ const ImportPdfHandleForm = () => {
           },
         },
       };
-      console.log(data);
       let res = await addFormHandlinkTrading(data);
-      navigate("/handlingTradingScTypeList");
-      console.log(res);
+      if(res){
+        navigate("/handlingTradingScTypeList");
+        toast.success('Form Submitted SuccessFully.')
+      }else{
+        toast.error('Something Went Wrong.')
+      }
       setLoading(true)
     } catch (error) {
+      toast.error('Something Went Wrong.')
       setLoading(true)
       console.log(error);
     }
@@ -258,42 +224,13 @@ const ImportPdfHandleForm = () => {
     return isValidType;
   };
 
-  useEffect(() => {
-    // setFormNo("2");
-    // form2.setFieldsValue({
-    //     CertificateName: getDetials?.extracted_data?.main_certificate_details?.title,
-    //     CertificateNumber: getDetials?.extracted_data?.main_certificate_details?.certificate_no,
-    //     CertificationAddress : getDetials?.extracted_data?.main_certificate_details?.main_address,
-    //     FollowingProcess: getDetials?.extracted_data?.main_certificate_details?.for_the_following_process,
-    //     CertificationCharacteristics: getDetials?.extracted_data?.main_certificate_details?.this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics,
-    //     ExtraNote: getDetials?.extracted_data?.main_certificate_details?.extra_note,
-    //     valid_from: getDetials?.extracted_data?.main_certificate_details?.valid_from,
-    //     valid_till: getDetials?.extracted_data?.main_certificate_details?.valid_till,
-    //     additionalDeclaration: [
-    //       {
-    //         additionalDeclarationItem: "",
-    //       },
-    //     ],
-    //     CertificateNumberCHAR: getDetials?.extracted_data?.certification_characteristics?.certificate_no,
-    //     CertificationAddressCHAR: getDetials?.extracted_data?.certification_characteristics?.main_value,
-    //     ProductDetails: [
-    //       {
-    //         product_s_no: "",
-    //         "product(s)": "",
-    //         variety: "",
-    //         organic_status: "",
-    //         labeling_category: "",
-    //       },
-    //     ],
-    //     // datePicker: moment(new Date()),
-    //   });
-  }, []);
+ 
 
   console.log('Loading',loading)
   return formNo === "1" ? (
     <>
       {loading && <Spinner message="Loading" isActive={loading}/>}
-      <Slidebar />
+ <div className='flex'><div style={{ width: "20%" }}>  <Slidebar /></div>  <div style={{ width: "80%" }}> 
       <AntdForm
         form={form}
         onFinish={handleSubmit}
@@ -306,7 +243,7 @@ const ImportPdfHandleForm = () => {
       >
         <section className="section">
           <h2 className=" pb-5 section-title">
-            Upload PDF Handling and Trading SC type
+            Upload PDF For Handling and Trading SC type
           </h2>
           <div className="">
             <div className="flex items-center md:justify-between flex-wrap">
@@ -345,7 +282,7 @@ const ImportPdfHandleForm = () => {
             Submit
           </Button>
         </AntdForm.Item>
-      </AntdForm>
+      </AntdForm>       </div>       </div>
     </>
   ) : (
     <>

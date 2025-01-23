@@ -36,6 +36,7 @@ import TagInput from "../../component/Tags";
 import { useNavigate } from "react-router-dom";
 import { Slidebar } from "../../layout/Slidebar";
 import Spinner from "../../layout/Spinner";
+import { toast } from "react-toastify";
 
 const HandleForm = () => {
   const [form] = AntdForm.useForm();
@@ -124,12 +125,14 @@ const HandleForm = () => {
           },
         },
       };
-      console.log("submited Data", data);
       const response = addFormHandlinkTrading(data);
-      console.log(response);
+      if(response){
+        toast.success('Form Submitted SuccessFully.')
+        navigate("/handlingTradingScTypeList");
+      }
       setLoading(false)
-      navigate("/handlingTradingScTypeList");
     } catch (error) {
+      toast.error('Something Went Wrong.')
       setLoading(false)
       console.log(error);
     }
@@ -153,7 +156,7 @@ const HandleForm = () => {
   return (
     <>
       {loading && <Spinner message="Loading..." isActive={loading} />}
-      <Slidebar />
+      <div className='flex'><div style={{ width: "20%" }}>  <Slidebar /></div>  <div style={{ width: "80%" }}> 
       <div className="container mx-auto">
         <AntdForm
           form={form}
@@ -408,6 +411,8 @@ const HandleForm = () => {
             </Button>
           </AntdForm.Item>
         </AntdForm>
+      </div>
+      </div>
       </div>
     </>
   );

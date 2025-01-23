@@ -115,13 +115,34 @@ textarea:focus {
   outline: none;
 }
 
+.download_pdf_btn{
+  background: #01c0c8;
+  border: 1px solid #01c0c8 !important;
+  color: #fff;
+}
+
+.sidebar-nav ul .sidebar-item>.sidebar-link.active{
+  background: #01c1c854;
+  color: #000;
+}
+
+.download_pdf_btn:hover{
+  background: #fff;
+  color: #01c0c8 !important;
+}
+
 .ant-upload.ant-upload-select:hover{
   border-color: #01c0c8 !important;
   background: transparent !important;
 }
 
+
 .ant-upload.ant-upload-select:hover svg, .ant-upload.ant-upload-select:hover .ant-upload button div{
   color: #01c0c8 !important;
+}
+
+.left-sidebar{
+  width: 320px;
 }
 
 .ant-tag {

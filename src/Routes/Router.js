@@ -2,35 +2,26 @@ import { createBrowserRouter } from "react-router-dom";
 
 import PdfReview from "../pages/PdfReview";
 
-import Form3View from "../pages/ScopeVerificationView";
-import Form3Table from "../pages/ScopeVerificationList";
-import PdfListing2 from "../pages/PdfListing2";
-import PdfListing3222 from "../pages/TcType2List";
-import Form2View from "../pages/TcType2View";
-import ImportPdfTCtype1 from "../pages/ImportPdfTCtype1";
-import ImportPdfTCtype2 from "../pages/ImportPdfTCtype2";
-import ImportPdfScopeVerification from "../pages/ImportPdfScopeVerification";
+import ImportPdfTCtype1 from "../pages/Form1/ImportPdfTCtype1";
+import ImportPdfTCtype2 from "../pages/Form2/ImportPdfTCtype2";
+import ImportPdfScopeVerification from "../pages/Form3/ImportPdfScopeVerification";
 import ImportHandlingForm from "../pages/Form5/HandleForm";
 import ImportHandlingFormList from "../pages/Form5/HandleFormList";
 import ImportHandleFormView from "../pages/Form5/HandleFormView";
 import ImportPdfHandleForm from "../pages/Form5/ImportPdfHandleForm";
-
-
-
-
-import TcType1Form from "../pages/TcType1Form";
-import TcType2Form from "../pages/TcType2Form";
-import ScopeVerificationForm from "../pages/ScopeVerificationForm";
-import TcType1View from "../pages/TcType1View";
-import TcType2View from "../pages/TcType2View";
-import TcType2List from "../pages/TcType2List";
-import ScopeVerificationList from "../pages/ScopeVerificationList";
-import ScopeVerificationView from "../pages/ScopeVerificationView";
-import TCTypeCropProductionForm from "../pages/TCTypeCropProductionForm";
-import TcType1List from "../pages/TcType1List";
-import TCTypeCropProductionList from "../pages/TCTypeCropProductionList";
-import TcTypeCropProductinView from "../pages/TcTypeCropProductinView";
-import ImportPdfScopeProduction from "../pages/ImportPdfCropProduction";
+import TcType1Form from "../pages/Form1/TcType1Form";
+import TcType2Form from "../pages/Form2/TcType2Form";
+import ScopeVerificationForm from "../pages/Form3/ScopeVerificationForm";
+import TcType1View from "../pages/Form1/TcType1View";
+import TcType2View from "../pages/Form2/TcType2View";
+import ScopeVerificationList from "../pages/Form3/ScopeVerificationList";
+import ScopeVerificationView from "../pages/Form3/ScopeVerificationView";
+import TCTypeCropProductionForm from "../pages/Form4/TCTypeCropProductionForm";
+import TcType1List from "../pages/Form1/TcType1List";
+import TCTypeCropProductionList from "../pages/Form4/TCTypeCropProductionList";
+import TcTypeCropProductinView from "../pages/Form4/TcTypeCropProductinView";
+import ImportPdfScopeProduction from "../pages/Form4/ImportPdfCropProduction";
+import TcType2List from "../pages/Form2/TcType2List";
 // import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
@@ -70,7 +61,7 @@ export const router = createBrowserRouter([
     Component: TCTypeCropProductionForm,
   },
   {
-    path: "/importPdftCTypeCropProductionForm",
+    path: "/importPdftCTypeCropProduction",
     Component: ImportPdfScopeProduction,
   },
   {
