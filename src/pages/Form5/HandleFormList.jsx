@@ -16,23 +16,22 @@ function HandleFormList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  
 
-//   const { pdfListData } = useSelector((state) => state.userReducer);
-const [pdfListData , setPdfListData] = useState([])
+  //   const { pdfListData } = useSelector((state) => state.userReducer);
+  const [pdfListData, setPdfListData] = useState([]);
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await listFormHandlinkTrading(); // Await the API call
-        console.log('listFormHandlinkTrading response', response);
-        setPdfListData(response)
+        console.log("listFormHandlinkTrading response", response);
+        setPdfListData(response);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-    fetchData(); 
-    setLoading(false)
+    fetchData();
+    setLoading(false);
     // Call the async function
   }, [dispatch]);
 
@@ -83,18 +82,26 @@ const [pdfListData , setPdfListData] = useState([])
       }))
     : [];
 
-  return (<>
-     {loading && <Spinner message="Loading..." isActive={loading} />}
-          <Slidebar />
-    <div>
-
-      <CustomTable
-        columns={columns}
-        data={ipoData}
-        scroll={{ x: "1750px", y: 500 }}
-      />
-    </div>
-    </>);
+  return (
+    <>
+      {loading && <Spinner message="Loading..." isActive={loading} />}
+      <Slidebar />
+      <div>
+        <div style={{ display: "flex" }}>
+          <div style={{ width: "15%" }}>
+            <Slidebar />
+          </div>
+          <div style={{ width: "85%" }}>
+            <CustomTable
+              columns={columns}
+              data={ipoData}
+              scroll={{ x: "1750px", y: 500 }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default HandleFormList;

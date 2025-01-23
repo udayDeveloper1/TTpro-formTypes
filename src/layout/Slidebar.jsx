@@ -7,12 +7,13 @@ export const Slidebar = () => {
   let path = "/" + location?.pathname?.split("/")?.[1];
   const [expanded, setExpanded] = useState(false);
 
-    const toggleMenu = (menuName) => {
-        setExpanded((prev) => ({
-            ...prev,
-            [menuName]: !prev[menuName],
-        }));
-    };
+  const toggleMenu = (menuName) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [menuName]: !prev[menuName],
+    }));
+  };
+
   return (
     <>
       <aside className="left-sidebar">
@@ -65,12 +66,12 @@ export const Slidebar = () => {
                   aria-expanded="false"
                 >
                   <span>
-                    <i className="ti ti-aperture me-1 fs-6" />
+                    <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Form 1</span>
+                  <span className="hide-menu">Transaction Certificate</span>
                 </Link>
               </li>
-
+          
               <li
                 className={`sidebar-item ${
                   path === "/tcType2Form" ? "selected" : ""
@@ -86,7 +87,7 @@ export const Slidebar = () => {
                   <span>
                     <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Form 2</span>
+                  <span className="hide-menu">Transaction Certificate (TC)</span>
                 </Link>
               </li>
 
@@ -105,7 +106,7 @@ export const Slidebar = () => {
                   <span>
                     <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Form 3</span>
+                  <span className="hide-menu">GOTS Certificate Form</span>
                 </Link>
               </li>
 
@@ -124,102 +125,87 @@ export const Slidebar = () => {
                   <span>
                     <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Form 4</span>
+                  <span className="hide-menu">SC Crop and Production </span>
                 </Link>
               </li>
 
-              <li
-                className={`sidebar-item ${
-                  path === "/handlingTradingScTypeForm" ? "selected" : ""
-                }`}
-              >
-                <Link
-                  to={"/handlingTradingScTypeForm"}
-                  className={`sidebar-link ${
-                    path === "/handlingTradingScTypeForm" ? "active" : ""
-                  }`}
-                  aria-expanded="false"
-                >
-                  <span>
-                    <i className="ti ti-user-circle me-1 fs-6" />
-                  </span>
-                  <span className="hide-menu">Form 5</span>
-                </Link>
-              </li>
+             
 
               <li
                 className={`sidebar-item ${
-                  path === "/category_list" ||
-                  path === "/sub_category_list" ||
-                  path === "/child_category_list"
+                  [
+                    "/handlingTradingScTypeForm",
+                    "/handlingTradingScTypeList",
+                    "/importPdfhandlingTradingScType",
+                  ].includes(path)
                     ? "selected"
                     : ""
                 }`}
               >
                 <a
                   className={`sidebar-link has-arrow ${
-                    path === "/category_list" ||
-                    path === "/sub_category_list" ||
-                    path === "/child_category_list"
+                    [
+                      "/handlingTradingScTypeForm",
+                      "/handlingTradingScTypeList",
+                      "/importPdfhandlingTradingScType",
+                    ].includes(path)
                       ? "active"
                       : ""
                   }`}
-                  aria-expanded={expanded["category"] ? "true" : "false"}
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevent default anchor behavior
-                    toggleMenu("category"); // Toggle menu state for "category"
-                  }}
+                  onClick={() => toggleMenu("form_5")}
                 >
                   <span>
-                    <i className="ti ti-category me-1 fs-6" />
+                    <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Form 5</span>
+                  <span className="hide-menu">Handling and Trading</span>
                 </a>
 
-                <ul
-                  className={`collapse first-level ${
-                    expanded["category"] ? "show" : ""
-                  }`}
-                  aria-expanded={expanded["category"] ? "true" : "false"}
-                >
-                  <li className="sidebar-item">
-                    <Link
-                      to={"/category_list"}
-                      className={`sidebar-link ${
-                        path === "/category_list" ? "active" : ""
-                      }`}
-                    >
-                      <div className="round-16 d-flex align-items-center justify-content-center">
-                        <i className="ti ti-circle" />
-                      </div>
-                      <span className="hide-menu">Category</span>
-                    </Link>
-
-                    <Link
-                      to={"/sub_category_list"} // Use React Router's `Link` for navigation
-                      className={`sidebar-link ${
-                        path === "/sub_category_list" ? "active" : ""
-                      }`}
-                    >
-                      <div className="round-16 d-flex align-items-center justify-content-center">
-                        <i className="ti ti-circle" />
-                      </div>
-                      <span className="hide-menu">Sub category</span>
-                    </Link>
-
-                    <Link
-                      to={"/child_category_list"} // Use React Router's `Link` for navigation
-                      className={`sidebar-link ${
-                        path === "/child_category_list" ? "active" : ""
-                      }`}
-                    >
-                      <div className="round-16 d-flex align-items-center justify-content-center">
-                        <i className="ti ti-circle" />
-                      </div>
-                      <span className="hide-menu">Child category</span>
-                    </Link>
-                  </li>
-                </ul>
+                {/* Submenu */}
+                {expanded["form_5"] && (
+                  <ul className="submenu">
+                    <li className="sidebar-item">
+                      <Link
+                        to="/handlingTradingScTypeList"
+                        className={`sidebar-link ${
+                          path === "/handlingTradingScTypeList" ? "active" : ""
+                        }`}
+                      >
+                        <div className="round-16 d-flex align-items-center justify-content-center">
+                          {/* <i className="ti ti-circle" /> */}
+                        </div>
+                        <span className="hide-menu">List</span>
+                      </Link>
+                    </li>
+                    <li className="sidebar-item">
+                      <Link
+                        to="/handlingTradingScTypeForm"
+                        className={`sidebar-link ${
+                          path === "/handlingTradingScTypeForm" ? "active" : ""
+                        }`}
+                      >
+                        <div className="round-16 d-flex align-items-center justify-content-center">
+                          {/* <i className="ti ti-circle" /> */}
+                        </div>
+                        <span className="hide-menu">Add Form</span>
+                      </Link>
+                    </li>
+                    <li className="sidebar-item">
+                      <Link
+                        to="/importPdfhandlingTradingScType"
+                        className={`sidebar-link ${
+                          path === "/importPdfhandlingTradingScType"
+                            ? "active"
+                            : ""
+                        }`}
+                      >
+                        <div className="round-16 d-flex align-items-center justify-content-center">
+                          {/* <i className="ti ti-circle" /> */}
+                        </div>
+                        <span className="hide-menu">Add Pdf form</span>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </li>
 
               {/* <li className={`sidebar-item ${path === "/customer_list" ? "selected" : ""}`}>
