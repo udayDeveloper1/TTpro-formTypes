@@ -161,6 +161,23 @@ export const viewFormHandlinkTrading = async(values) => {
   }
 }
 
+export const addPdfFormHandlinkTrading = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/extract-handling-trading/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
 // ---------------------------- Hemang Api End------------------------------
 
 export const form3ListApi = async()  => {

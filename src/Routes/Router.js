@@ -13,6 +13,8 @@ import ImportPdfScopeVerification from "../pages/ImportPdfScopeVerification";
 import ImportHandlingForm from "../pages/Form5/HandleForm";
 import ImportHandlingFormList from "../pages/Form5/HandleFormList";
 import ImportHandleFormView from "../pages/Form5/HandleFormView";
+import ImportPdfHandleForm from "../pages/Form5/ImportPdfHandleForm";
+
 
 
 
@@ -90,7 +92,7 @@ export const router = createBrowserRouter([
   },
 
 
-  // --------------------------------- Hemang router -----------------------------------
+  // --------------------------------- Hemang router start -----------------------------------
 
   {
     path: "/form_5_handeling",
@@ -104,6 +106,12 @@ export const router = createBrowserRouter([
     path: "/form_5_handelingView/:id/",
     Component: ImportHandleFormView,
   },
+  {
+    path: "/form_5_handelingpdf",
+    Component: ImportPdfHandleForm,
+  },
+
+  // --------------------------------- Hemang router end -----------------------------------
 
   {
     path: "/PdfReview",

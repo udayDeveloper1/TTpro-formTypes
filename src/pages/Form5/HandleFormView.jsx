@@ -11,7 +11,6 @@ import moment from "moment";
 
 const HandleFormView = () => {
   const [data, setData] = useState([]);
-  const refs = useRef({});
   const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
@@ -22,7 +21,7 @@ const HandleFormView = () => {
       const response = await viewFormHandlinkTrading(id);
       console?.log("response", response);
       setData(response);
-      //   let res = [response];
+        let res = [response];
       //   // Process each element
       //   let datas = res?.map((ele, ind) => {
       //     // Process the fields (convert, replace, and split)
@@ -79,7 +78,6 @@ const HandleFormView = () => {
       console.error("Element not found for ID:", id);
       return;
     }
-
     // Temporarily hide button section
     const buttonSection = element.querySelector(".button_section");
     if (buttonSection) buttonSection.style.display = "none";
@@ -141,23 +139,26 @@ const HandleFormView = () => {
     if (buttonSection) buttonSection.style.display = "block";
   };
 
+  const refs = useRef({});
+
+  const recordId = data?.id || "default"; 
+  refs.current[recordId] = refs.current[recordId] || React.createRef();
+
   return (
     <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
-      <div className="card card_list">
+      <div className="card card_list" ref={refs.current[recordId]}>
         {/* {data?.map((data, ind) => { */}
-        {/* const recordId = data.id || ind;
-          refs.current[recordId] = refs.current[recordId] || React.createRef();
 
-          return ( */}
+        {/* {  const recordId = data.id || ind;
+          refs.current[recordId] = refs.current[recordId] || React.createRef()} */}
         <div
-          //   key={ind}
-          //   ref={refs.current[recordId]}
+          // key={ind}
           className="card_item flex flex-col gap-3 rounded-xl p-5"
         >
           <div className="w-full flex justify-between button_section pb-10">
             <button
               className="btn flex items-center bg-cyan-400 text-white py-2 px-4 rounded-lg font-semibold hover:bg-white hover:text-cyan-400 border border-cyan-400 transition-all"
-              onClick={(e) => handlePdfDownload("recordId")}
+              onClick={(e) => handlePdfDownload(recordId)}
             >
               Download
               <FaFilePdf className="ms-2" />
@@ -381,7 +382,7 @@ const HandleFormView = () => {
 
           <div className="w-full certifiedProduct  flex flex-wrap">
             <h3 className="text-2xl certifiedProductHeading p-3 w-full">
-              Certified Products:
+            Trader Product:
             </h3>
             <div className="flex w-full flex-wrap">
               {data?.extracted_data?.certification_characteristics?.[
@@ -417,6 +418,8 @@ const HandleFormView = () => {
                                       ? "Organic Status"
                                       : element === "labeling_category"
                                       ? "Labeling Category"
+                                      : element === "product_s_no"
+                                      ? "Product Number"
                                       : ""}
                                   </td>
                                   <td className="p-1">{elem[element]}</td>
@@ -506,8 +509,8 @@ const HandleFormView = () => {
                     <h4 className="font-bold text-xl pe-4">Main Value:</h4>
                     <p className="text-xl">
                       {
-                       data?.extracted_data?.certification_characteristics
-                       ?.main_value
+                        data?.extracted_data?.certification_characteristics
+                          ?.main_value
                       }
                     </p>
                   </div>
@@ -553,15 +556,11 @@ const HandleFormView = () => {
                     </h4> */}
                     <p className="text-xl">
                       <ul className="list-disc pl-6">
-
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
-                            (item, index2) => (
-                              <li key={index2}>{item}</li>
-                            )
+                        {data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+                          (item, index2) => (
+                            <li key={index2}>{item}</li>
                           )
-                        }
+                        )}
                       </ul>
                     </p>
                   </div>
