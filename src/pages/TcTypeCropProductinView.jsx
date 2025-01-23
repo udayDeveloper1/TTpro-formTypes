@@ -28,7 +28,6 @@ const TcTypeCropProductinView = () => {
       console.log(error)
     }
   }
-
   useEffect(() => {
     getData(id)
   }, [])

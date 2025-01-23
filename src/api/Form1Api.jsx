@@ -111,6 +111,8 @@ export const formFill2Try = async data => {
 //   }
 // }
 
+// ---------------------------- Hemang Api Start ------------------------------
+
 export const form2submit = async(values) => {
   try {
     const response = await axiosInstance.post(
@@ -123,6 +125,60 @@ export const form2submit = async(values) => {
   }
 }
 
+export const addFormHandlinkTrading = async(values) => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/type-handling-trading/add/', values
+    )
+    return response;
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
+
+export const listFormHandlinkTrading = async(values) => {
+  try {
+    const response = await axiosInstance.get(
+      'api/scope-certificate/type-handling-trading/', values
+    )
+    return response;
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
+
+export const viewFormHandlinkTrading = async(values) => {
+  try {
+    const response = await axiosInstance.get(
+      `api/scope-certificate/type-handling-trading/${values}/`,
+    )
+    return response;
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
+
+export const addPdfFormHandlinkTrading = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/extract-handling-trading/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+}
+// ---------------------------- Hemang Api End------------------------------
 
 export const form3ListApi = async()  => {
   try {

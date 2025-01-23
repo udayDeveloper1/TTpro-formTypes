@@ -1,105 +1,129 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from "react-router-dom";
 
-import PdfReview from '../pages/PdfReview'
+import PdfReview from "../pages/PdfReview";
 
-import Form3View from '../pages/ScopeVerificationView'
-import Form3Table from '../pages/ScopeVerificationList'
-import PdfListing2 from '../pages/PdfListing2'
-import PdfListing3222 from '../pages/TcType2List'
-import Form2View from '../pages/TcType2View'
-import ImportPdfTCtype1 from '../pages/ImportPdfTCtype1'
-import ImportPdfTCtype2 from '../pages/ImportPdfTCtype2'
-import ImportPdfScopeVerification from '../pages/ImportPdfScopeVerification'
-import TcType1Form from '../pages/TcType1Form'
-import TcType2Form from '../pages/TcType2Form'
-import ScopeVerificationForm from '../pages/ScopeVerificationForm'
-import TcType1View from '../pages/TcType1View'
-import TcType2View from '../pages/TcType2View'
-import TcType2List from '../pages/TcType2List'
-import ScopeVerificationList from '../pages/ScopeVerificationList'
-import ScopeVerificationView from '../pages/ScopeVerificationView'
-import TCTypeCropProductionForm from '../pages/TCTypeCropProductionForm'
-import TcType1List from '../pages/TcType1List'
-import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
-import TcTypeCropProductinView from '../pages/TcTypeCropProductinView'
-import ImportPdfCropProduction from '../pages/ImportPdfCropProduction'
+import Form3View from "../pages/ScopeVerificationView";
+import Form3Table from "../pages/ScopeVerificationList";
+import PdfListing2 from "../pages/PdfListing2";
+import PdfListing3222 from "../pages/TcType2List";
+import Form2View from "../pages/TcType2View";
+import ImportPdfTCtype1 from "../pages/ImportPdfTCtype1";
+import ImportPdfTCtype2 from "../pages/ImportPdfTCtype2";
+import ImportPdfScopeVerification from "../pages/ImportPdfScopeVerification";
+import ImportHandlingForm from "../pages/Form5/HandleForm";
+import ImportHandlingFormList from "../pages/Form5/HandleFormList";
+import ImportHandleFormView from "../pages/Form5/HandleFormView";
+import ImportPdfHandleForm from "../pages/Form5/ImportPdfHandleForm";
+
+
+
+
+import TcType1Form from "../pages/TcType1Form";
+import TcType2Form from "../pages/TcType2Form";
+import ScopeVerificationForm from "../pages/ScopeVerificationForm";
+import TcType1View from "../pages/TcType1View";
+import TcType2View from "../pages/TcType2View";
+import TcType2List from "../pages/TcType2List";
+import ScopeVerificationList from "../pages/ScopeVerificationList";
+import ScopeVerificationView from "../pages/ScopeVerificationView";
+import TCTypeCropProductionForm from "../pages/TCTypeCropProductionForm";
+import TcType1List from "../pages/TcType1List";
+import TCTypeCropProductionList from "../pages/TCTypeCropProductionList";
+import TcTypeCropProductinView from "../pages/TcTypeCropProductinView";
 // import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
   {
-    path: '/importPdfTCtype1',
-    Component: ImportPdfTCtype1
+    path: "/importPdfTCtype1",
+    Component: ImportPdfTCtype1,
   },
   {
-    path: '/tcType1Form',
-    Component: TcType1Form
+    path: "/tcType1Form",
+    Component: TcType1Form,
   },
   {
-    path: '/tcType1List',
-    Component: TcType1List
+    path: "/tcType1List",
+    Component: TcType1List,
   },
   {
-    path: '/tcType1View/:id/',
-    Component: TcType1View
+    path: "/tcType1View/:id/",
+    Component: TcType1View,
   },
   {
-    path: '/importPdfTCtype2',
-    Component: ImportPdfTCtype2
+    path: "/importPdfTCtype2",
+    Component: ImportPdfTCtype2,
   },
   {
-    path: '/tCTypeCropProductionList',
-    Component: TCTypeCropProductionList
+    path: "/tCTypeCropProductionList",
+    Component: TCTypeCropProductionList,
   },
   {
-    path: '/importPdfCropProduction',
-    Component: ImportPdfCropProduction
+    path: "/tcType2Form",
+    Component: TcType2Form,
   },
   {
-    path: '/tcType2Form',
-    Component: TcType2Form
-  },
-  {
-    path: '/tCTypeCropProductionForm',
-    Component: TCTypeCropProductionForm
+    path: "/tCTypeCropProductionForm",
+    Component: TCTypeCropProductionForm,
   },
   {
     path: "/tcTypeCropProductinView/:id/",
-    Component: TcTypeCropProductinView
+    Component: TcTypeCropProductinView,
   },
   {
-    path: '/tcType2View/:id/',
-    Component: TcType2View
+    path: "/tcType2View/:id/",
+    Component: TcType2View,
   },
   {
-    path: '/tcType2List',
-    Component: TcType2List
-  },
-
-  {
-    path: '/scopeVerificationList',
-    Component: ScopeVerificationList
-  },
-  {
-    path: '/scopeVerificationView/:id/',
-    Component: ScopeVerificationView
+    path: "/tcType2List",
+    Component: TcType2List,
   },
 
   {
-    path: '/scopeVerificationForm',
-    Component: ScopeVerificationForm
+    path: "/scopeVerificationList",
+    Component: ScopeVerificationList,
+  },
+  {
+    path: "/scopeVerificationView/:id/",
+    Component: ScopeVerificationView,
   },
 
   {
-    path: '/importPdfScopeVerification',
-    Component: ImportPdfScopeVerification
+    path: "/scopeVerificationForm",
+    Component: ScopeVerificationForm,
+  },
+  {
+    path: "/importPdfScopeVerification",
+    Component: ImportPdfScopeVerification,
   },
 
+
+  // --------------------------------- Hemang router start -----------------------------------
+
   {
-    path: '/PdfReview',
-    Component: PdfReview
+    path: "/form_5_handeling",
+    Component: ImportHandlingForm,
   },
   {
-    path: '/*',
-    Component: TcType1Form
-  }
-])
+    path: "/form_5_handelingList",
+    Component: ImportHandlingFormList,
+  },
+  {
+    path: "/form_5_handelingView/:id/",
+    Component: ImportHandleFormView,
+  },
+  {
+    path: "/form_5_handelingpdf",
+    Component: ImportPdfHandleForm,
+  },
+
+  // --------------------------------- Hemang router end -----------------------------------
+
+  {
+    path: "/PdfReview",
+    Component: PdfReview,
+  },
+  {
+    path: "/*",
+    Component: TcType1Form,
+  },
+]);

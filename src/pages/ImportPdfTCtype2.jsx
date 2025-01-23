@@ -1390,10 +1390,6 @@ setTags2Array(allTransportDetails.map(detail => detail.vehicleNo || []));
     return isValidType
   }
 
-
-
-
-
   return formNo === '1' ? (
     <AntdForm
       form={form}

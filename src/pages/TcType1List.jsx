@@ -13,7 +13,6 @@ function TcType1List () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-
   const { pdfListData } = useSelector(state => state.userReducer)
 
   useEffect(() => {
