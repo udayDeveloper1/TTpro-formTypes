@@ -26,13 +26,15 @@ import moment from 'moment' // Import moment.js
 import { form1Set } from '../api/Form1Api'
 import { cloneDeep } from 'lodash'
 import TagInput from '../component/Tags'
+import { Slidebar } from '../layout/Slidebar'
+import Spinner from '../layout/Spinner'
 const TcType1Form = () => {
   const [form] = AntdForm.useForm()
 
   const [tags, setTags] = useState([])
   const [tags1, setTags1] = useState([])
   const [tags2, setTags2] = useState([])
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     form.setFieldsValue({
       UploadQrCode: [],
@@ -106,6 +108,7 @@ const TcType1Form = () => {
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
+    setLoading(true)
     console.log('Form submitted with values:', values)
     let shipmentDetail = values.ShipmentDetails.map((ele, ind) => {
       let obj = {
@@ -212,6 +215,7 @@ const TcType1Form = () => {
     } catch (error) {
       console.log(error)
     }
+    setLoading(false)
   }
   const normFile = e => {
     if (Array.isArray(e)) {
@@ -229,6 +233,9 @@ const TcType1Form = () => {
   }
 
   return (
+    <>
+     {loading && <Spinner message='Loading...' isActive={loading} />}
+    <Slidebar />
     <div className='container mx-auto  '>
       <AntdForm
         form={form}
@@ -1005,7 +1012,7 @@ const TcType1Form = () => {
         </AntdForm.Item>
       </AntdForm>
     </div>
-  )
+    </>)
 }
 
 export default TcType1Form

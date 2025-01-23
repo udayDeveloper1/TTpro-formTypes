@@ -23,7 +23,9 @@
 .form_1 .ant-form-item .ant-form-item-label > label::after {
   display: none;
   content: unset;
+
 }
+
 
 .form_1 .ant-space-item{
   min-width: 66.7%;

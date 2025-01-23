@@ -34,6 +34,8 @@ import {
 import { cloneDeep } from "lodash";
 import TagInput from "../../component/Tags";
 import { useNavigate } from "react-router-dom";
+import { Slidebar } from "../../layout/Slidebar";
+import Spinner from "../../layout/Spinner";
 
 const HandleForm = () => {
   const [form] = AntdForm.useForm();
@@ -42,7 +44,8 @@ const HandleForm = () => {
   const [tagsArray, setTagsArray] = useState([[]]);
   const [tags2Array, setTags2Array] = useState([[]]);
   const navigate = useNavigate();
-  
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const transportDetails = tags.map((tag, index) => ({
       ModeOfTransport: "",
@@ -91,7 +94,7 @@ const HandleForm = () => {
   const handleSubmit = async (values) => {
     console.log("Form submitted with values:", values);
     try {
-     
+      setLoading(true)
       let UpdatedAdditionalDeclarationItem = values?.additionalDeclaration?.map(
         (item) => item?.additionalDeclarationItem
       );
@@ -124,8 +127,10 @@ const HandleForm = () => {
       console.log("submited Data", data);
       const response = addFormHandlinkTrading(data);
       console.log(response);
+      setLoading(false)
       navigate("/handlingTradingScTypeList");
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   };
@@ -146,255 +151,265 @@ const HandleForm = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <AntdForm
-        form={form}
-        onFinish={handleSubmit}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        layout="vertical"
-        className="form_1  rounded-xl shadow-xl"
-        style={{ maxWidth: 900, margin: "0 auto" }}
-      >
-        <h1 className="text-2xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center">
-          Handling and Trading SC type
-        </h1>
-        {/* upload logo and qrcode */}
+    <>
+      {loading && <Spinner message="Loading..." isActive={loading} />}
+      <Slidebar />
+      <div className="container mx-auto">
+        <AntdForm
+          form={form}
+          onFinish={handleSubmit}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          layout="vertical"
+          className="form_1  rounded-xl shadow-xl"
+          style={{ maxWidth: 900, margin: "0 auto" }}
+        >
+          <h1 className="text-2xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center">
+            Handling and Trading SC type
+          </h1>
 
-        {/* certificate info */}
-        <section className="section">
-          <h2 className=" pb-5 section-title">Certificate Details:</h2>
-          <div className="">
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Certificate Name"
-                name="CertificateName"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certificate Name" />
-              </AntdForm.Item>
-              <AntdForm.Item
-                label="Certificate Number"
-                name="CertificateNumber"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certificate Number" />
-              </AntdForm.Item>
-            </div>
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Certification Address"
-                name="CertificationAddress"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certification Address" />
-              </AntdForm.Item>
+          {/* certificate info */}
+          <section className="section">
+            <h2 className=" pb-5 section-title">Certificate Details:</h2>
+            <div className="">
+              <div className="flex items-center md:justify-between flex-wrap">
+                <AntdForm.Item
+                  label="Certificate Name"
+                  name="CertificateName"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certificate Name" />
+                </AntdForm.Item>
+                <AntdForm.Item
+                  label="Certificate Number"
+                  name="CertificateNumber"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certificate Number" />
+                </AntdForm.Item>
+              </div>
+              <div className="flex items-center md:justify-between flex-wrap">
+                <AntdForm.Item
+                  label="Certification Address"
+                  name="CertificationAddress"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certification Address" />
+                </AntdForm.Item>
 
-              <AntdForm.Item
-                label="Following Process"
-                name="FollowingProcess"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Following Process" />
-              </AntdForm.Item>
-            </div>
+                <AntdForm.Item
+                  label="Following Process"
+                  name="FollowingProcess"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Following Process" />
+                </AntdForm.Item>
+              </div>
 
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Certification Characteristics"
-                name="CertificationCharacteristics"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certification Characteristics" />
-              </AntdForm.Item>
-              <AntdForm.Item
-                label="Extra Note"
-                name="ExtraNote"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Extra Note" />
-              </AntdForm.Item>
-            </div>
+              <div className="flex items-center md:justify-between flex-wrap">
+                <AntdForm.Item
+                  label="Certification Characteristics"
+                  name="CertificationCharacteristics"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certification Characteristics" />
+                </AntdForm.Item>
+                <AntdForm.Item
+                  label="Extra Note"
+                  name="ExtraNote"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Extra Note" />
+                </AntdForm.Item>
+              </div>
 
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Valid Start Date"
-                name="valid_from"
-                className="w-full md:w-[49%]"
-              >
-                <DatePicker className="datePickerIpnut" />
-              </AntdForm.Item>
+              <div className="flex items-center md:justify-between flex-wrap">
+                <AntdForm.Item
+                  label="Valid Start Date"
+                  name="valid_from"
+                  className="w-full md:w-[49%]"
+                >
+                  <DatePicker className="datePickerIpnut" />
+                </AntdForm.Item>
 
-              <AntdForm.Item
-                label="Valid End Date"
-                name="valid_till"
-                className="w-full md:w-[49%]"
-              >
-                <DatePicker className="datePickerIpnut" />
-              </AntdForm.Item>
-            </div>
-            {/* <h2 className="text-2xl pb-5 section-title">
+                <AntdForm.Item
+                  label="Valid End Date"
+                  name="valid_till"
+                  className="w-full md:w-[49%]"
+                >
+                  <DatePicker className="datePickerIpnut" />
+                </AntdForm.Item>
+              </div>
+              {/* <h2 className="text-2xl pb-5 section-title">
               {" "}
               Additional Declaration by the Certification Body
             </h2> */}
-            {/* <div className="flex md:justify-between flex-wrap"> */}
-            <div className="w-full">
-              <AntdForm.List name="additionalDeclaration">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key} className="pb-5 w-full relative">
-                        {/* Remove Icon */}
-                        {fields.length > 1 && (
-                          <MinusCircleOutlined
-                            className="dynamic-delete-button absolute right-0 top-0"
-                            onClick={() => remove(name)} // Removes the current declaration
-                          />
-                        )}
-                        <div className="flex md:justify-between flex-wrap ">
-                          <AntdForm.Item
-                            {...restField}
-                            label="Additional Declaration Item"
-                            name={[name, "additionalDeclarationItem"]}
-                            className="w-full"
-                          >
-                            <Input placeholder="Enter additional Declaration Item" />
-                          </AntdForm.Item>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type="dashed"
-                        onClick={() =>
-                          add({
-                            additionalDeclarationItem: "", // Default value for new items
-                          })
-                        }
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Declaration Item
-                      </Button>
-                    </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
-            </div>
-          </div>
-        </section>
+              {/* <div className="flex md:justify-between flex-wrap"> */}
+              <div className="w-full">
+                <AntdForm.List name="additionalDeclaration">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, ...restField }) => (
+                        <div key={key} className="pb-5 w-full relative">
+                          {fields.length > 1 && (
+                            <MinusCircleOutlined
+                              className="dynamic-delete-button remove_invoiceList absolute right-0 top-0"
+                              onClick={() => remove(name)}
+                            />
+                          )}
+                          <div className="flex md:justify-between flex-wrap">
+                            <AntdForm.Item
+                              {...restField}
+                              label="Additional Declaration Item"
+                              name={[name, "additionalDeclarationItem"]}
+                              className="w-full"
+                            >
+                              <Input placeholder="Enter additional Declaration Item" />
+                            </AntdForm.Item>
+                          </div>
 
-        <section className="section">
-          <h2 className="pb-5 section-title">Certification Characteristics:</h2>
-          <div className="">
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Certificate Characteristics Number"
-                name="CertificateNumberCHAR"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certificate Characteristics Number" />
-              </AntdForm.Item>
-              <AntdForm.Item
-                label="Certification Characteristics Address"
-                name="CertificationAddressCHAR"
-                className="w-full md:w-[49%]"
-              >
-                <Input placeholder="Enter Certification Characteristics Address" />
-              </AntdForm.Item>
+                          {/* <div className="flex md:justify-between flex-wrap ">
+                         
+                        </div> */}
+                        </div>
+                      ))}
+                      <AntdForm.Item>
+                        <Button
+                          type="dashed"
+                          onClick={() =>
+                            add({
+                              SNo: "",
+                              InvoiceNo: "",
+                              InvoiceDate: moment(new Date()),
+                            })
+                          }
+                          block
+                          icon={<PlusOutlined />}
+                        >
+                          Add Invoice Details
+                        </Button>
+                      </AntdForm.Item>
+                    </>
+                  )}
+                </AntdForm.List>
+              </div>
             </div>
+          </section>
 
-            <div className="w-full">
-              <h2 className="pb-5 section-title">Trader Product:</h2>
-              <AntdForm.List name="ProductDetails">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key} className="pb-5 w-full relative">
-                        {fields.length > 1 && (
-                          <MinusCircleOutlined
-                            className="dynamic-delete-button remove_invoiceList absolute right-0 top-0"
-                            onClick={() => remove(name)}
-                          />
-                        )}
-                        <div className="flex md:justify-between flex-wrap">
-                          <AntdForm.Item
-                            {...restField}
-                            label="Product Serial No."
-                            name={[name, "product_s_no"]}
-                            className="w-full md:w-[49%]"
-                          >
-                            <Input placeholder="Enter Serial No." />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            label="Product Name"
-                            name={[name, "product(s)"]}
-                            className="w-full md:w-[49%]"
-                          >
-                            <Input placeholder="Enter Product Name" />
-                          </AntdForm.Item>
+          <section className="section">
+            <h2 className="pb-5 section-title">
+              Certification Characteristics:
+            </h2>
+            <div className="">
+              <div className="flex items-center md:justify-between flex-wrap">
+                <AntdForm.Item
+                  label="Certificate Characteristics Number"
+                  name="CertificateNumberCHAR"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certificate Characteristics Number" />
+                </AntdForm.Item>
+                <AntdForm.Item
+                  label="Certification Characteristics Address"
+                  name="CertificationAddressCHAR"
+                  className="w-full md:w-[49%]"
+                >
+                  <Input placeholder="Enter Certification Characteristics Address" />
+                </AntdForm.Item>
+              </div>
+
+              <div className="w-full">
+                <h2 className="pb-5 section-title">Trader Product:</h2>
+                <AntdForm.List name="ProductDetails">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, ...restField }) => (
+                        <div key={key} className="pb-5 w-full relative">
+                          {fields.length > 1 && (
+                            <MinusCircleOutlined
+                              className="dynamic-delete-button remove_invoiceList absolute right-0 top-0"
+                              onClick={() => remove(name)}
+                            />
+                          )}
+                          <div className="flex md:justify-between flex-wrap">
+                            <AntdForm.Item
+                              {...restField}
+                              label="Product Serial No."
+                              name={[name, "product_s_no"]}
+                              className="w-full md:w-[49%]"
+                            >
+                              <Input placeholder="Enter Serial No." />
+                            </AntdForm.Item>
+                            <AntdForm.Item
+                              {...restField}
+                              label="Product Name"
+                              name={[name, "product(s)"]}
+                              className="w-full md:w-[49%]"
+                            >
+                              <Input placeholder="Enter Product Name" />
+                            </AntdForm.Item>
+                          </div>
+                          <div className="flex md:justify-between flex-wrap">
+                            <AntdForm.Item
+                              {...restField}
+                              label="Product Variety"
+                              name={[name, "variety"]}
+                              className="w-full md:w-[49%]"
+                            >
+                              <Input placeholder="Enter Product Variety" />
+                            </AntdForm.Item>
+                            <AntdForm.Item
+                              {...restField}
+                              label="Organic Status"
+                              name={[name, "organic_status"]}
+                              className="w-full md:w-[49%]"
+                            >
+                              <Input placeholder="Enter Organic Status" />
+                            </AntdForm.Item>
+                          </div>
+                          <div className="flex md:justify-between flex-wrap">
+                            <AntdForm.Item
+                              {...restField}
+                              label="Product Labeling Category"
+                              name={[name, "labeling_category"]}
+                              className="w-full md:w-[49%]"
+                            >
+                              <Input placeholder="Enter Product Labeling Category" />
+                            </AntdForm.Item>
+                          </div>
                         </div>
-                        <div className="flex md:justify-between flex-wrap">
-                          <AntdForm.Item
-                            {...restField}
-                            label="Product Variety"
-                            name={[name, "variety"]}
-                            className="w-full md:w-[49%]"
-                          >
-                            <Input placeholder="Enter Product Variety" />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            label="Organic Status"
-                            name={[name, "organic_status"]}
-                            className="w-full md:w-[49%]"
-                          >
-                            <Input placeholder="Enter Organic Status" />
-                          </AntdForm.Item>
-                        </div>
-                        <div className="flex md:justify-between flex-wrap">
-                          <AntdForm.Item
-                            {...restField}
-                            label="Product Labeling Category"
-                            name={[name, "labeling_category"]}
-                            className="w-full md:w-[49%]"
-                          >
-                            <Input placeholder="Enter Product Labeling Category" />
-                          </AntdForm.Item>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type="dashed"
-                        onClick={() =>
-                          add({
-                            SNo: "",
-                            InvoiceNo: "",
-                            InvoiceDate: moment(new Date()),
-                          })
-                        }
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Invoice Details
-                      </Button>
-                    </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
+                      ))}
+                      <AntdForm.Item>
+                        <Button
+                          type="dashed"
+                          onClick={() =>
+                            add({
+                              SNo: "",
+                              InvoiceNo: "",
+                              InvoiceDate: moment(new Date()),
+                            })
+                          }
+                          block
+                          icon={<PlusOutlined />}
+                        >
+                          Add Invoice Details
+                        </Button>
+                      </AntdForm.Item>
+                    </>
+                  )}
+                </AntdForm.List>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <AntdForm.Item className=" submitButtonGroup">
-          <Button type="primary" htmlType="submit" className="submit-btn ">
-            Submit
-          </Button>
-        </AntdForm.Item>
-      </AntdForm>
-    </div>
+          <AntdForm.Item className=" submitButtonGroup">
+            <Button type="primary" htmlType="submit" className="submit-btn ">
+              Submit
+            </Button>
+          </AntdForm.Item>
+        </AntdForm>
+      </div>
+    </>
   );
 };
 

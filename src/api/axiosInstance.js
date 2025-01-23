@@ -1,4 +1,5 @@
 import axios from "axios";
+import Spinner from "../layout/Spinner";
 
 const axiosInstance = axios.create({
   baseURL: "https://pyapi.ipotrending.com/",
@@ -26,6 +27,20 @@ axiosInstance.interceptors.response.use(
     const { response } = error;
     if (response) {
       const { status } = response;
+
+      console.log('status' ,status );
+      
+      // Check if the status is not 200 or 201
+      if (status !== 200 || status !== 201) {
+        console.log('loadin......');
+        
+        <Spinner />
+      }else{
+        console.log('success ......');
+
+      }
+    
+      // Handle specific status codes
       switch (status) {
         case 401:
           console.warn('Unauthorized access.');
@@ -42,6 +57,7 @@ axiosInstance.interceptors.response.use(
     } else {
       console.error('No response received.');
     }
+    
     return Promise.reject(error);
   }
 );

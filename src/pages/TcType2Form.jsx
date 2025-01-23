@@ -29,6 +29,7 @@ import moment from 'moment' // Import moment.js
 import { form1Set, form2submit } from '../api/Form1Api'
 import { cloneDeep } from 'lodash'
 import TagInput from '../component/Tags'
+import { Slidebar } from '../layout/Slidebar'
 const TcType2Form = () => {
   const [form] = AntdForm.useForm()
   const [tags, setTags] = useState([])
@@ -372,6 +373,8 @@ const TcType2Form = () => {
   }
 
   return (
+    <>
+    <Slidebar/>
     <div className='container mx-auto  '>
       <AntdForm
         form={form}
@@ -738,7 +741,7 @@ const TcType2Form = () => {
                             )}
                           </AntdForm.List>
                         </div>
-                        <div className='w-full md:w-[49%] packingDetail'>
+                        <div className='w-full md:w-[49%] packingDetail relative'>
                           <AntdForm.List
                             {...restField}
                             name={[name, 'packingDetails']}
@@ -802,7 +805,7 @@ const TcType2Form = () => {
                           </AntdForm.List>
                           {fields.length > 1 && (
                             <MinusCircleOutlined
-                              className='dynamic-delete-button'
+                              className='dynamic-delete-button remove_pack_detail'
                               onClick={() => remove(name)}
                             />
                           )}
@@ -1151,7 +1154,7 @@ const TcType2Form = () => {
         </AntdForm.Item>
       </AntdForm>
     </div>
-  )
+    </>)
 }
 
 export default TcType2Form
