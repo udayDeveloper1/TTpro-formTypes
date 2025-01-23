@@ -52,16 +52,22 @@ const ImportPdfHandleForm = () => {
       setLoading(true);
       let fomrData = new FormData();
       fomrData.append("pdf", values.UploadPdf[0].originFileObj);
-      let res = await addPdfFormHandlinkTrading(fomrData);
-      console.log("response pdf review", res);
-      if (res) {
-        console.log(res);
+      let response = await addPdfFormHandlinkTrading(fomrData);
+      console.log("response pdf review", response);
+      if (response?.status_code === 201 || response?.status_code === 200) {
+        // toast.success(response?.message)
+        navigate("/handlingTradingScTypeList");
+        // setData(response?.data)
+        setLoading(false)
+     
+      if (response) {
+        console.log(response);
         setFormNo("2");
-        setdata(res);
+        setdata(response?.data);
         toast.success('Pdf Submitted SuccessFully.')
 
         let RawMaterialDetails = [];
-        res?.certified_raw_materials_and_declared_geographic_origin?.forEach(
+        response?.data?.certified_raw_materials_and_declared_geographic_origin?.forEach(
           (ele, ind) => {
             let countrys = [];
             ele?.country?.split(",")?.forEach((ele, ind) => {
@@ -84,14 +90,14 @@ const ImportPdfHandleForm = () => {
           });
         }
 
-        console.log(res?.certified_input_references?.farm_scs);
+        console.log(response?.data?.certified_input_references?.farm_scs);
 
         let inputTcs = [];
-        inputTcs = res?.certified_input_references?.input_tcs.split(",") || [];
+        inputTcs = response?.data?.certified_input_references?.input_tcs.split(",") || [];
         let farm_tcs = [];
-        farm_tcs = res?.certified_input_references?.farm_tcs?.split(",") || [];
+        farm_tcs = response?.certified_input_references?.farm_tcs?.split(",") || [];
         let farm_scs = [];
-        farm_scs = res?.certified_input_references?.farm_scs?.split(",") || [];
+        farm_scs = response?.certified_input_references?.farm_scs?.split(",") || [];
         console.log(inputTcs, farm_scs, farm_tcs);
 
         setTags(inputTcs);
@@ -99,7 +105,7 @@ const ImportPdfHandleForm = () => {
         setTags2(farm_scs);
 
         const UpdatedAdditionalDeclarationItem =
-          res?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+          response?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
             (item) => {
               return {
                 additionalDeclarationItem: item, // Add a key with the current item as its value
@@ -107,41 +113,45 @@ const ImportPdfHandleForm = () => {
             }
           );
         form2.setFieldsValue({
-          CertificateName: res?.extracted_data?.main_certificate_details?.title,
+          CertificateName: response?.data?.extracted_data?.main_certificate_details?.title,
           CertificateNumber:
-            res?.extracted_data?.main_certificate_details?.certificate_no,
+            response?.data?.extracted_data?.main_certificate_details?.certificate_no,
           CertificationAddress:
-            res?.extracted_data?.main_certificate_details?.main_address,
+            response?.data?.extracted_data?.main_certificate_details?.main_address,
           FollowingProcess:
-            res?.extracted_data?.main_certificate_details
+            response?.data?.extracted_data?.main_certificate_details
               ?.for_the_following_process,
           CertificationCharacteristics:
-            res?.extracted_data?.main_certificate_details
+            response?.data?.extracted_data?.main_certificate_details
               ?.this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics,
-          ExtraNote: res?.extracted_data?.main_certificate_details?.extra_note,
+          ExtraNote: response?.data?.extracted_data?.main_certificate_details?.extra_note,
           valid_from: dayjs(
-            res?.extracted_data?.main_certificate_details?.valid_from,
+            response?.data?.extracted_data?.main_certificate_details?.valid_from,
             "DD/MM/YYYY"
           ),
           valid_till: dayjs(
-            res?.extracted_data?.main_certificate_details?.valid_till,
+            response?.data?.extracted_data?.main_certificate_details?.valid_till,
             "DD/MM/YYYY"
           ),
           additionalDeclaration: UpdatedAdditionalDeclarationItem,
           CertificateNumberCHAR:
-            res?.extracted_data?.certification_characteristics?.certificate_no,
+            response?.data?.extracted_data?.certification_characteristics?.certificate_no,
           CertificationAddressCHAR:
-            res?.extracted_data?.certification_characteristics?.main_value,
+            response?.data?.extracted_data?.certification_characteristics?.main_value,
           ProductDetails:
-            res?.extracted_data?.certification_characteristics?.[
+            response?.data?.extracted_data?.certification_characteristics?.[
               "trader_product(s)"
             ],
           datePicker: moment(new Date()),
         });
       }
-      else{
-        toast.error('Something Went Wrong.')
-      }
+    }else{
+      setLoading(false)
+      toast.error(response?.message)
+    }
+      // else{
+      //   toast.error('Something Went Wrong.')
+      // }
       setLoading(false);
     } catch (error) {
       console.log(error);        
@@ -201,13 +211,22 @@ const ImportPdfHandleForm = () => {
           },
         },
       };
-      let res = await addFormHandlinkTrading(data);
-      if(res){
+      let response = await addFormHandlinkTrading(data);
+      // if(response){
+        if (response?.status_code === 201 || response?.status_code === 200) {
+        toast.success(response?.message)
         navigate("/handlingTradingScTypeList");
-        toast.success('Form Submitted SuccessFully.')
+        // setData(response?.data)
+        setLoading(false)
       }else{
-        toast.error('Something Went Wrong.')
+        setLoading(false)
+        toast.error(response?.message)
       }
+        // navigate("/handlingTradingScTypeList");
+        // toast.success('Form Submitted SuccessFully.')
+      // }else{
+      //   toast.error('Something Went Wrong.')
+      // }
       setLoading(true)
     } catch (error) {
       toast.error('Something Went Wrong.')

@@ -25,26 +25,23 @@ function HandleFormList() {
     const fetchData = async () => {
       try {
         const response = await listFormHandlinkTrading(); // Await the API call
-
-      //  if (response?.status_code === 201 || response?.status_code === 200) {
-      //   toast.success(response?.message)
-      //   setPdfListData(response?.data)
-      //   setLoading(false)
-      // }else{
-      //   setLoading(false)
-      //   toast.error(response?.message)
-      // }
-
+       if (response?.status_code === 201 || response?.status_code === 200) {
+        toast.success(response?.message)
+        setPdfListData(response?.data)
+        setLoading(false)
+      }else{
+        setLoading(false)
+        toast.error(response?.message)
+      }
         console.log("listFormHandlinkTrading response", response);
-        setPdfListData(response);
+        // setPdfListData(response);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
     setLoading(false);
-    // Call the async function
-  }, [dispatch]);
+  }, []);
 
   const handleView = (symbol) => {
     navigate(`/handlingTradingScTypeView/${symbol}/`);
