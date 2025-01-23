@@ -71,12 +71,11 @@ function PdfListing2 () {
 
   return (
     <div>
-      <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
-      <h3 className='text-3xl p-5 font-bold'>TCS Type 2 List</h3>
+      <div className="container formList-cont border rounded-xl mx-auto  my-10 ms-10">
+      <h3 className='text-3xl p-5 font-bold'>TC Type 2 List</h3>
       <CustomTable
         columns={columns}
         data={ipoData}
-        scroll={{ x: '1750px', y: 500 }}
       />
     </div>
     </div>

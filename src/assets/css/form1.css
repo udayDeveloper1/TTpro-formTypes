@@ -19,7 +19,7 @@ body {
   border-bottom-left-radius: 15px;
   padding: 15px;
   border-bottom-right-radius: 15px;
-  color: #4f46e5;
+  color: #01c0c8;
   font-size: 2.5rem;
   border-bottom: 1px solid grey;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
@@ -32,6 +32,7 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   padding: 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 50px auto !important;
 }
 .section {
   position: relative;
@@ -114,12 +115,108 @@ textarea:focus {
   outline: none;
 }
 
+.download_pdf_btn{
+  background: #01c0c8;
+  border: 1px solid #01c0c8 !important;
+  color: #fff;
+}
+
+svg[data-icon="minus-circle"]{
+  color: red;
+}
+
+.OrganicCottonDelete{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.sidebar-nav ul .sidebar-item>.sidebar-link.active{
+  background: #01c1c854;
+  color: #000;
+}
+
+.download_pdf_btn:hover{
+  background: #fff;
+  color: #01c0c8 !important;
+}
+
+.ant-upload.ant-upload-select:hover{
+  border-color: #01c0c8 !important;
+  background: transparent !important;
+}
+
+
+.ant-upload.ant-upload-select:hover svg, .ant-upload.ant-upload-select:hover .ant-upload button div{
+  color: #01c0c8 !important;
+}
+
+.left-sidebar{
+  width: 350px !important;
+}
+
+.ant-tag {
+  background: #fff;
+  border: 1px dashed #01c0c8;
+  padding: 5px 15px;
+}
+
+.ant-tag svg{
+  color: #01c0c8;
+}
+
+.remove_pack_detail{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ant-input:focus-within, .ant-picker:focus-within{
+  border-color: #374151 !important;
+}
+
+.ant-input.ant-input-outlined, .ant-picker{
+  border-color: #f8fafc !important;
+}
+
+.ant-input.ant-input-outlined:hover, .ant-picker:hover{
+  border-color: #01c0c8 !important;
+}
+
 .submit-btn {
-  background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+  /* background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%); */
+  border: 1px solid #01c0c8;
+  background: #01c0c8;
   width: 100%;
   padding: 25px 0;
   font-size: 20px;
 }
+
+.form_1 .dynamic-delete-button{
+  color: red;
+}
+
+.ant-btn-variant-dashed.ant-btn-block{
+  border-color: #01c0c8;
+  background: #ffffff;
+  padding: 13px 0;
+  line-height: 100%;
+  min-height: max-content;
+  color: #01c0c8;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.ant-btn-variant-dashed.ant-btn-block:hover, .ant-btn-variant-dashed.ant-btn-block:hover svg, .ant-btn-variant-dashed.ant-btn-block:hover span{
+  color: #374151 !important;
+  border-color: #374151 !important;
+}
+
+.submit-btn:hover{
+  background: #fff !important;
+  color: #01c0c8 !important;
+}
+
 .submitButtonGroup {
   width: 100%;
 }

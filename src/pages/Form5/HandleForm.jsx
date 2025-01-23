@@ -125,18 +125,11 @@ const HandleForm = () => {
           },
         },
       };
-      console.log("submited Data", data);
       const response = addFormHandlinkTrading(data);
-      // if (response?.status_code === 201 || response?.status_code === 200) {
-      //   toast.success(response?.message)
-      //   setLoading(false)
-      // }else{
-      //   toast.error(response?.message)
-      //   setLoading(false)
-      // }
+      console.log(response);
       setLoading(false)
-      navigate("/handlingTradingScTypeList");
     } catch (error) {
+      toast.error('Something Went Wrong.')
       setLoading(false)
       console.log(error);
     }
@@ -160,7 +153,7 @@ const HandleForm = () => {
   return (
     <>
       {loading && <Spinner message="Loading..." isActive={loading} />}
-      <Slidebar />
+      <div className='flex'><div style={{ width: "20%" }}>  <Slidebar /></div>  <div style={{ width: "80%" }}> 
       <div className="container mx-auto">
         <AntdForm
           form={form}
@@ -415,6 +408,8 @@ const HandleForm = () => {
             </Button>
           </AntdForm.Item>
         </AntdForm>
+      </div>
+      </div>
       </div>
     </>
   );

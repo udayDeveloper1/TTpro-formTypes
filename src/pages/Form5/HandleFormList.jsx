@@ -26,15 +26,15 @@ function HandleFormList() {
       try {
         const response = await listFormHandlinkTrading(); // Await the API call
 
-       if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message)
-        setPdfListData(response?.data)
-        setLoading(false)
-      }else{
-        setLoading(false)
-        toast.error(response?.message)
-      }
-      
+      //  if (response?.status_code === 201 || response?.status_code === 200) {
+      //   toast.success(response?.message)
+      //   setPdfListData(response?.data)
+      //   setLoading(false)
+      // }else{
+      //   setLoading(false)
+      //   toast.error(response?.message)
+      // }
+
         console.log("listFormHandlinkTrading response", response);
         setPdfListData(response);
       } catch (error) {
@@ -96,21 +96,24 @@ function HandleFormList() {
   return (
     <>
       {loading && <Spinner message="Loading..." isActive={loading} />}
-      <Slidebar />
+
       <div>
         <div style={{ display: "flex" }}>
-          <div style={{ width: "15%" }}>
+          <div style={{ width: "20%" }}>
             <Slidebar />
           </div>
-          <div style={{ width: "85%" }}>
+          <div style={{ width: "80%" }} className="">
+          <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
+          <h3 className='text-3xl p-5 font-bold'>  Handling and Trading SC  List</h3>
             <CustomTable
               columns={columns}
               data={ipoData}
               scroll={{ x: "1750px", y: 500 }}
             />
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
+          </div>
     </>
   );
 }

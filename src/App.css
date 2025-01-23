@@ -23,7 +23,9 @@
 .form_1 .ant-form-item .ant-form-item-label > label::after {
   display: none;
   content: unset;
+
 }
+
 
 .form_1 .ant-space-item{
   min-width: 66.7%;
@@ -71,4 +73,14 @@ top: 3px;
 
 .remove_invoiceList{
   z-index: 99;
+}
+
+.StandardLabelGradeDelete{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.AddCountry{
+  max-width: 49%;
 }

@@ -199,10 +199,10 @@ const HandleFormView = () => {
     <>
       {loading && <Spinner message="Loading..." isActive={loading} />}
       <div style={{ display: "flex" }}>
-        <div style={{ width: "15%" }}>
+        <div style={{ width: "20%" }}>
           <Slidebar />
         </div>
-        <div style={{ width: "85%" }}>
+        <div style={{ width: "80%" }}>
         <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
         <div className="card card_list" ref={refs.current[recordId]}>
 
@@ -216,7 +216,7 @@ const HandleFormView = () => {
           >
             <div className="w-full flex justify-between button_section pb-10">
               <button
-                className="btn flex items-center bg-cyan-400 text-white py-2 px-4 rounded-lg font-semibold hover:bg-white hover:text-cyan-400 border border-cyan-400 transition-all"
+                className="btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn"
                 onClick={(e) => handlePdfDownload(recordId)}
                 // onClick={handleGeneratePdf}
               >

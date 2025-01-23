@@ -169,7 +169,7 @@ const handleViewDetails = (cardData) => {
         <div className='w-full flex justify-between button_section'>
                 <p className='pb-5'>File Name: {item.file_name}</p>
                 <button
-                  className='btn flex items-center bg-cyan-400 text-white py-2 px-4 rounded-lg font-semibold hover:bg-white hover:text-cyan-400 border border-cyan-400 transition-all button_section'
+                  className='btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn button_section'
                   onClick={e => handlePdfDownload(recordId)}
                 >
                   Download
