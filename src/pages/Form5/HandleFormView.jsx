@@ -194,7 +194,7 @@ const HandleFormView = () => {
         <div style={{ width: "85%" }}>
         <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
         <div className="card card_list" ref={refs.current[recordId]}>
-          
+
         {/* <div className="card card_list" ref={refs}> */}
           {/* {data?.map((data, ind) => { */}
           {/* {  const recordId = data.id || ind;
@@ -216,7 +216,6 @@ const HandleFormView = () => {
             </div>
 
             <hr className="py-5" />
-
             <div className="w-full section1 flex flex-wrap justify-between ">
               <h3 className="text-2xl w-full  CertifiedInput p-3">
                 {data?.file_name}

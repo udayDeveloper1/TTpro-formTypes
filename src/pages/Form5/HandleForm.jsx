@@ -36,6 +36,7 @@ import TagInput from "../../component/Tags";
 import { useNavigate } from "react-router-dom";
 import { Slidebar } from "../../layout/Slidebar";
 import Spinner from "../../layout/Spinner";
+import { toast } from "react-toastify";
 
 const HandleForm = () => {
   const [form] = AntdForm.useForm();
@@ -126,7 +127,10 @@ const HandleForm = () => {
       };
       console.log("submited Data", data);
       const response = addFormHandlinkTrading(data);
-      console.log(response);
+      // if (response?.status_code === 201 || response?.status_code === 200) {
+      //   toast.success(response?.message)
+      //   setLoading(false)
+      // }
       setLoading(false)
       navigate("/handlingTradingScTypeList");
     } catch (error) {
