@@ -130,6 +130,9 @@ const HandleForm = () => {
       // if (response?.status_code === 201 || response?.status_code === 200) {
       //   toast.success(response?.message)
       //   setLoading(false)
+      // }else{
+      //   toast.error(response?.message)
+      //   setLoading(false)
       // }
       setLoading(false)
       navigate("/handlingTradingScTypeList");

@@ -10,6 +10,7 @@ import { cloneDeep } from "lodash";
 import moment from "moment";
 import Spinner from "../../layout/Spinner";
 import { Slidebar } from "../../layout/Slidebar";
+import { toast } from "react-toastify";
 
 const HandleFormView = () => {
   const [data, setData] = useState([]);
@@ -18,15 +19,25 @@ const HandleFormView = () => {
   const [loading, setLoading] = useState(false);
 
   const { id } = params;
-
   const getList = async () => {
     try {
       setLoading(true);
       // Fetch data
       const response = await viewFormHandlinkTrading(id);
       console?.log("response", response);
+
+       if (response?.status_code === 201 || response?.status_code === 200) {
+        toast.success(response?.message)
+        setData(response?.data)
+        setLoading(false)
+      }else{
+        setLoading(false)
+        toast.error(response?.message)
+      }
+
       setData(response);
-      let res = [response];
+
+      // let res = [response];
       //   // Process each element
       //   let datas = res?.map((ele, ind) => {
       //     // Process the fields (convert, replace, and split)
