@@ -51,7 +51,6 @@ export const router = createBrowserRouter([
     Component: TCTypeCropProductionList,
   },
 
-
   {
     path: "/tcType2Form",
     Component: TcType2Form,

@@ -121,6 +121,16 @@ textarea:focus {
   color: #fff;
 }
 
+svg[data-icon="minus-circle"]{
+  color: red;
+}
+
+.OrganicCottonDelete{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .sidebar-nav ul .sidebar-item>.sidebar-link.active{
   background: #01c1c854;
   color: #000;
@@ -142,7 +152,7 @@ textarea:focus {
 }
 
 .left-sidebar{
-  width: 320px;
+  width: 350px !important;
 }
 
 .ant-tag {

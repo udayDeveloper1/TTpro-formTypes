@@ -33,7 +33,8 @@ export const form1List = async(id)  => {
 export const formFill1 = async data => {
   try {
     const response = await axiosInstance.post(
-      'api/pdf/extrat-tc-by-openai/',
+      // 'api/pdf/extrat-tc-by-openai/',
+      'api/pdf/extrat-tc-by-groq/',
       data,
       {
         headers: {
@@ -164,7 +165,8 @@ export const viewFormHandlinkTrading = async(values) => {
 export const addPdfFormHandlinkTrading = async data => {
   try {
     const response = await axiosInstance.post(
-      'api/scope-certificate/extract-handling-trading/',
+      // 'api/scope-certificate/extract-handling-trading/',
+      'api/scope-certificate/groq-extract-handling-trading/',
       data,
       {
         headers: {
@@ -209,7 +211,8 @@ export const form3submit = async(values) => {
 export const formFill3 = async (values) => {
   try {
     const response = await axiosInstance.post(
-      'api/openai/extract-scope-certificate/',
+      // 'api/openai/extract-scope-certificate/',
+      'api/openai/groq-extract-scope-certificate/',
       values,
       {
         headers: {

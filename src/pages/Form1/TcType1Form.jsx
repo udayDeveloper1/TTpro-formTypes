@@ -29,6 +29,7 @@ import TagInput from '../../component/Tags'
 import { Slidebar } from '../../layout/Slidebar'
 import Spinner from '../../layout/Spinner'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 const TcType1Form = () => {
   const [form] = AntdForm.useForm()
 
@@ -36,6 +37,8 @@ const TcType1Form = () => {
   const [tags1, setTags1] = useState([])
   const [tags2, setTags2] = useState([])
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
   useEffect(() => {
     form.setFieldsValue({
       UploadQrCode: [],
@@ -209,6 +212,7 @@ const TcType1Form = () => {
 
       let res = await form1Set(data)
       if(res){
+        navigate("/tcType1List")
         toast.success("Form submitted Successfully.")
       }else{
         toast.error("Something went Wrong.")
@@ -253,11 +257,10 @@ const TcType1Form = () => {
           Transaction Certificate (TC) Form
         </h1>
         {/* upload logo and qrcode */}
-        <section className='section'>
+        {/* <section className='section'>
           <h3 className='section-title pb-0 '>Upload Logo And Qr Code: </h3>
           <div className=''>
             <div className='flex  md:justify-between flex-wrap'>
-              {/* Qr code */}
               <AntdForm.Item
                 label='Upload Qr Code'
                 name={'UploadQrCode'}
@@ -281,7 +284,6 @@ const TcType1Form = () => {
                   </button>
                 </Upload>
               </AntdForm.Item>
-              {/* upload logo */}
               <AntdForm.Item
                 label='Upload Logo Image'
                 name={'UploadLogoImage'}
@@ -307,7 +309,7 @@ const TcType1Form = () => {
               </AntdForm.Item>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* certificate info */}
         <section className='section'>
@@ -497,7 +499,7 @@ const TcType1Form = () => {
                             style={{ flex: 1 }}
                           >
                             <Input
-                              placeholder={`Declaration List ${index + 1}`}
+                              placeholder={`Declaration List`}
                             />
                           </AntdForm.Item>
 
@@ -703,7 +705,7 @@ const TcType1Form = () => {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <div key={key} className='pb-5'>
+                  <div key={key} className='pb-5 relative'>
                     <div className='flex md:justify-between flex-wrap'>
                       <AntdForm.Item
                         {...restField}
@@ -864,7 +866,7 @@ const TcType1Form = () => {
                     </div>
                     {fields.length > 1 && (
                       <MinusCircleOutlined
-                        className='dynamic-delete-button'
+                        className='dynamic-delete-button StandardLabelGradeDelete'
                         onClick={() => remove(name)}
                       />
                     )}
@@ -952,6 +954,7 @@ const TcType1Form = () => {
                                 type='dashed'
                                 onClick={() => addCountry()}
                                 block
+                                className='AddCountry'
                                 icon={<PlusOutlined />}
                               >
                                 Add Country

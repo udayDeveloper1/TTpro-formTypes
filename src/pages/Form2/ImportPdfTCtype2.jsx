@@ -52,6 +52,7 @@ const ImportPdfTCtype2 = () => {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let data = await formFill2Try(fomrData)
+      
       if (data) {
         setFormNo('2')
         const transportDetails =
@@ -391,7 +392,7 @@ const ImportPdfTCtype2 = () => {
             Transaction Certificate (TC) Form Type 2
           </h1>
           {/* upload logo and qrcode */}
-          <section className='section'>
+          {/* <section className='section'>
             <h3 className='section-title pb-0 '>Upload Logo And Qr Code: </h3>
             <div className=''>
               <div className='flex  md:justify-between flex-wrap'>
@@ -418,7 +419,6 @@ const ImportPdfTCtype2 = () => {
                     </button>
                   </Upload>
                 </AntdForm.Item>
-                {/* upload logo */}
                 <AntdForm.Item
                   label='Upload Logo Image'
                   name={'UploadLogoImage'}
@@ -442,7 +442,6 @@ const ImportPdfTCtype2 = () => {
                     </button>
                   </Upload>
                 </AntdForm.Item>
-                {/* Barcode Scanner */}
                 <AntdForm.Item
                   label='Upload Barcode Image'
                   name={'UploadBarcode'}
@@ -466,7 +465,6 @@ const ImportPdfTCtype2 = () => {
                     </button>
                   </Upload>
                 </AntdForm.Item>
-                {/* Certificate Images */}
                 <AntdForm.Item
                   label='Upload Certificates'
                   name={'UploadCertificate'}
@@ -491,7 +489,7 @@ const ImportPdfTCtype2 = () => {
                 </AntdForm.Item>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* certificate info */}
           <section className='section'>

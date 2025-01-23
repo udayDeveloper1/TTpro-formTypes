@@ -196,11 +196,10 @@ const TCTypeCropProductionForm = () => {
             SC Crop and Production Form
           </h1>
           {/* upload logo and qrcode */}
-          <section className='section'>
+          {/* <section className='section'>
             <h3 className='section-title pb-0 '>Upload Logo And Qr Code: </h3>
             <div className=''>
               <div className='flex  md:justify-between flex-wrap'>
-                {/* Qr code */}
                 <AntdForm.Item
                   label='Upload Qr Code'
                   name={'UploadQrCode'}
@@ -224,7 +223,6 @@ const TCTypeCropProductionForm = () => {
                     </button>
                   </Upload>
                 </AntdForm.Item>
-                {/* upload barcode */}
                 <AntdForm.Item
                   label='Upload Barcode Image'
                   name={'UploadBarcodeImage'}
@@ -250,7 +248,7 @@ const TCTypeCropProductionForm = () => {
                 </AntdForm.Item>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* certificate info */}
           <section className='section'>

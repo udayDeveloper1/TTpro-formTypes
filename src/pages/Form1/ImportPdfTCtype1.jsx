@@ -43,10 +43,11 @@ const ImportPdfTCtype1 = () => {
     try {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
-      let res = await formFill1(fomrData)
+      let response = await formFill1(fomrData)
+      let res = response?.extracted_data
       if (res) {
         setFormNo('2')
-        setdata(res)
+        setdata(res?.extracted_data)
         toast.success("pdf submitted Successfully.")
         let DeclarationList_ = []
         res?.declarations_by_certification_body?.contents?.forEach((ele, ind) => {
@@ -417,11 +418,10 @@ const ImportPdfTCtype1 = () => {
         Transaction Certificate (TC) Form Type 1
         </h1>
         {/* upload logo and qrcode */}
-        <section className='section'>
+        {/* <section className='section'>
           <h3 className='section-title pb-0 '>Upload Logo And Qr Code: </h3>
           <div className=''>
             <div className='flex  md:justify-between flex-wrap'>
-              {/* Qr code */}
               <AntdForm.Item
                 label='Upload Qr Code'
                 name={'UploadQrCode'}
@@ -445,7 +445,6 @@ const ImportPdfTCtype1 = () => {
                   </button>
                 </Upload>
               </AntdForm.Item>
-              {/* upload logo */}
               <AntdForm.Item
                 label='Upload Logo Image'
                 name={'UploadLogoImage'}
@@ -471,7 +470,7 @@ const ImportPdfTCtype1 = () => {
               </AntdForm.Item>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* certificate info */}
         <section className='section'>
@@ -627,7 +626,7 @@ const ImportPdfTCtype1 = () => {
                             style={{ flex: 1 }}
                           >
                             <Input
-                              placeholder={`Declaration List ${index + 1}`}
+                              placeholder={`Declaration List`}
                             />
                           </AntdForm.Item>
 
@@ -999,7 +998,7 @@ const ImportPdfTCtype1 = () => {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <div key={key} className='pb-5'>
+                    <div key={key} className='pb-5 relative'>
                       <div className='flex md:justify-between flex-wrap'>
                         <AntdForm.Item
                           {...restField}
@@ -1066,7 +1065,7 @@ const ImportPdfTCtype1 = () => {
                       </AntdForm.List>
                       {fields.length > 1 && (
                         <MinusCircleOutlined
-                          className='dynamic-delete-button'
+                          className='dynamic-delete-button OrganicCottonDelete'
                           onClick={() => remove(name)}
                         />
                       )}

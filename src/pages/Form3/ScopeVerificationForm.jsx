@@ -385,7 +385,7 @@ try {
                             style={{ flex: 1 }}
                           >
                             <Input
-                              placeholder={`Process Category ${index + 1}`}
+                              placeholder={`Process Category`}
                             />
                           </AntdForm.Item>
 

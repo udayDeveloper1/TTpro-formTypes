@@ -74,3 +74,13 @@ top: 3px;
 .remove_invoiceList{
   z-index: 99;
 }
+
+.StandardLabelGradeDelete{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.AddCountry{
+  max-width: 49%;
+}

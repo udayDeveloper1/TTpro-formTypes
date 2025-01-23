@@ -15,6 +15,7 @@ import dayjs from 'dayjs'
 import Spinner from '../../layout/Spinner'
 import { Slidebar } from '../../layout/Slidebar'
 import { toast } from 'react-toastify'
+import { keys } from 'lodash'
 
 const ImportPdfScopeVerification = () => {
   const [form] = AntdForm.useForm()
@@ -24,7 +25,6 @@ const ImportPdfScopeVerification = () => {
   const [loading2, setLoading2] = useState(false)
 
   const handleResponse = response => {
-    // Extract data from response
     const {
       scope_certificate,
       products_appendix,
@@ -70,11 +70,13 @@ const ImportPdfScopeVerification = () => {
   }
 
   const handleSubmit = async values => {
+    setLoading(true)
     try {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let res = await formFill3(fomrData)
-      if (res) {
+      console.log(res);
+      if (Object?.keys(res)?.length > 1) {
         toast.success('Pdf submitted Successfully.')
         handleResponse(res)
         setFormNo('2')
@@ -85,6 +87,7 @@ const ImportPdfScopeVerification = () => {
       console.log(error)
       toast.error('Something went Wrong.')
     }
+    setLoading(false)
   }
 
   const normFile = e => {
@@ -149,6 +152,7 @@ const ImportPdfScopeVerification = () => {
 
   // Handle form submission with typed values
   const handleSubmit2 = async values => {
+        setLoading2(true)
     const formattedValues = {
       scope_certificate: {
         certificate_number: values.scope_certificate.certificate_number || '',
@@ -194,6 +198,7 @@ const ImportPdfScopeVerification = () => {
 
     try {
       let res = await form3submit(payload)
+      
       if (res) {
         toast.success('Form submitted Successfully.')
       } else {
@@ -202,6 +207,7 @@ const ImportPdfScopeVerification = () => {
     } catch (error) {
       toast.error('Something went Wrong.')
     }
+        setLoading2(false)
   }
 
   return formNo === '1' ? (
@@ -529,7 +535,7 @@ const ImportPdfScopeVerification = () => {
                                 style={{ flex: 1 }}
                               >
                                 <Input
-                                  placeholder={`Process Category ${index + 1}`}
+                                  placeholder={`Process Category`}
                                 />
                               </AntdForm.Item>
 
