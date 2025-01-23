@@ -128,7 +128,6 @@ export const form3ListApi = async()  => {
   try {
     const response = await axiosInstance.get(
       'api/openai/scope-certifications/'
-      // 'api/openai/scope-certifications/',
     )
     console.log(response);
     
@@ -213,3 +212,15 @@ export const formcropProductionList = async()  => {
     throw error
   }
 }
+
+export const formCropProductinView = async(id) => {
+  try {
+    const response = await axiosInstance.get(
+      `api/scope-certificate/type-prod-crop/${id}/`,
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    throw error
+  }
+} 

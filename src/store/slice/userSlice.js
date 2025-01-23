@@ -4,6 +4,7 @@ const initialState = {
   pdfListData: [],
   pdfListingData3: [],
   PdfListData2: [],
+  PdfListData4: [],
 };
 
 const userSlice = createSlice({
@@ -14,19 +15,17 @@ const userSlice = createSlice({
       state.pdfListData = action.payload;
     },
     setPdfListData3: (state, action) => {
-      console.log(action.payload);
-
       state.pdfListingData3 = [action.payload];
-      console.log(state.pdfListingData3);
     },
     setPdfListData2: (state, action) => {
-      console.log(action.payload);
       state.PdfListData2 = action.payload;
-      console.log(state.PdfListData2);
+    },
+    setPdfListData4: (state, action) => {
+      state.PdfListData4 = action.payload;
     },
   },
 });
 
-export const { setPdfListData, setPdfListData3, setPdfListData2 } = userSlice.actions;
+export const { setPdfListData, setPdfListData3, setPdfListData2, setPdfListData4 } = userSlice.actions;
 
 export default userSlice.reducer;
