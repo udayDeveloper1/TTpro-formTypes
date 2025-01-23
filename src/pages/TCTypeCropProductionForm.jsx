@@ -25,12 +25,16 @@ import moment from 'moment'
 import { form1Set, formcropProductionSet } from '../api/Form1Api'
 import { cloneDeep } from 'lodash'
 import TagInput from '../component/Tags'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
+import { formatDateToDDMMYYYY } from '../utils/utils'
 
 const TCTypeCropProductionForm = () => {
   const [form] = AntdForm.useForm()
   const [tags, setTags] = useState([])
   const [tags1, setTags1] = useState([])
   const [tags2, setTags2] = useState([])
+  const navigate = useNavigate()
   useEffect(() => {
     form.setFieldsValue({
       UploadQrCode: [],
@@ -61,80 +65,118 @@ const TCTypeCropProductionForm = () => {
           approvedDistrict: '',
           approvedTaluk: ''
         }
+      ],
+      certificateNo2: '',
+      forTheFollowingProcess: '',
+      valid_from: '',
+      valid_till: '',
+      thisCertificateIsValidForThoseProductsAndAreaSpecifiedInTheAnnExeCertificationCharacteristics:
+        '',
+      extraNote: '',
+      certificateTitle: '',
+      certificateNo: '',
+      certificateAddress: '',
+      forTheFollowingProcess: '',
+      validFrom: '',
+      validTill: '',
+      thisCertificateIsValidForThoseProductsAndAreaSpecifiedInTheAnnExeCertificationCharacteristics:
+        '',
+      extraNote: '',
+      this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
+        [],
+      certificateNo: '',
+      managedBy: '',
+      ICSInfo: [
+        {
+          icsName: '',
+          IcsAddress: '',
+          IcsNoOfFarmers: '',
+          IcsArea: ''
+        }
       ]
     })
   }, [form])
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
-    console.log(values);
+    console.log(values, tags)
+    let icsInfo = values?.ICSInfo?.map((ele, ind) => {
+      let obj = {
+        ics_name: ele?.IcsAddress,
+        address: ele?.IcsArea,
+        no_of_farmers: ele?.IcsNoOfFarmers,
+        area: ele?.icsName
+      }
+      return obj
+    })
+
+    let producerProduct = values?.producerProduct?.map((ele, ind) => {
+      let obj = {
+        season: ele?.areaInHa,
+        product_s_no: ele?.cropType,
+        'product(s)': ele?.estQuantityInMT,
+        organic_status: ele?.organicStatus,
+        variety: ele?.producerProductSNo,
+        crop_type: ele?.producerProducts,
+        'area(in Ha.)': ele?.producerSeason,
+        est_quantity_in_MT: ele?.producerVariety
+      }
+      return obj;
+    })
+
+    console.log(producerProduct);
     
+    let approved_farmer_list = values?.ApprovedFarmerList?.map((ele, ind)=> {
+      let obj = {
+        "state": ele?.approvedDistrict,
+        "district": ele?.approvedState,
+        "taluk": ele?.approvedTaluk,
+      }
+      return obj
+    } )
+
     try {
       let data = {
         file_name: 'NOPSCO_1 (1).PDF',
         extracted_data: {
           main_certificate_details: {
-            title: '',
-            certificate_no: '',
-            main_address: '',
+            title: values?.certificateTitle,
+            certificate_no: values?.certificateNo,
+            main_address: values?.certificateAddress,
             this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-              ['', '', ''],
-            for_the_following_process: '',
-            valid_from: '',
-            valid_till: '',
+              tags,
+            for_the_following_process: values?.forTheFollowingProcess,
+            valid_from: formatDateToDDMMYYYY(values?.validFrom),
+            valid_till: formatDateToDDMMYYYY(values?.validTill),
             this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics:
-              '',
-            extra_note: ''
+              values?.thisCertificateIsValidForThoseProductsAndAreaSpecifiedInTheAnnExeCertificationCharacteristics,
+            extra_note: values?.extraNote
           },
           certification_characteristics: {
-            certificate_no: '',
-            managed_by: '',
-            ICS_info: [
-              {
-                ics_name: '',
-                address: '',
-                no_of_farmers: 0,
-                area: 0
-              }
-            ]
+            certificate_no: values?.certificateNo2,
+            managed_by: values?.managedBy,
+            ICS_info: icsInfo
           },
           approved_products_list: {
-            'producer_product(s)': [
-              {
-                season: '',
-                product_s_no: 1,
-                'product(s)': '',
-                organic_status: '',
-                variety: '',
-                crop_type: '',
-                'area(in Ha.)': 0,
-                est_quantity_in_MT: 0
-              },
-              {
-                season: '',
-                product_s_no: 0,
-                'product(s)': '',
-                organic_status: '',
-                variety: '',
-                crop_type: '',
-                'area(in Ha.)': 0,
-                est_quantity_in_MT: 0
-              }
-            ],
-            approved_farmer_list: [
-              {
-                state: '',
-                district: '',
-                taluk: ''
-              }
-            ]
+            'producer_product(s)': producerProduct,
+            approved_farmer_list: approved_farmer_list
           }
         }
       }
       console.log(data)
+
       let res = await formcropProductionSet(data)
-      console.log(res)
+      console.log(Object.keys(res)?.length, Object.keys(res)?.length > 0);
+
+      if(Object.keys(res)?.length > 0){
+        toast.success("Data Added SuccessFully.")
+        navigate("/tCTypeCropProductionList")
+      }else{
+        toast.error("Something Went Wrong.")
+
+      }
     } catch (error) {
+      toast.error('Something Went Wrong.')
       console.log(error)
     }
   }
@@ -165,7 +207,7 @@ const TCTypeCropProductionForm = () => {
         style={{ maxWidth: 900, margin: '0 auto' }}
       >
         <h1 className='text-3xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center'>
-        SC Crop and Production Form
+          SC Crop and Production Form
         </h1>
         {/* upload logo and qrcode */}
         <section className='section'>
@@ -313,7 +355,7 @@ const TCTypeCropProductionForm = () => {
             <div className='flex items-center md:justify-between flex-wrap'>
               <AntdForm.Item
                 label='Certificate Number'
-                name='certificateNo'
+                name='certificateNo2'
                 className='w-full md:w-[49%]'
               >
                 <Input placeholder='Enter Certificate Number' />
@@ -594,7 +636,7 @@ const TCTypeCropProductionForm = () => {
             </AntdForm.List>
           </div>
         </section>
-     
+
         <AntdForm.Item className=' submitButtonGroup'>
           <Button type='primary' htmlType='submit' className='submit-btn '>
             Submit

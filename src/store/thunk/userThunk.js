@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../api/axiosInstance";
 
 import { toast } from "react-toastify";
-import { setPdfListData, setPdfListData2, setPdfListData3 } from "../slice/userSlice";
+import { setPdfListData, setPdfListData2, setPdfListData3, setPdfListData4 } from "../slice/userSlice";
 
 
 export const pdfListingApi = createAsyncThunk(
@@ -82,13 +82,47 @@ export const pdfListingApi = createAsyncThunk(
   export const PdfListing3 = createAsyncThunk(
     "PdfListing3",
     async (id, { dispatch, rejectWithValue }) => {
-      console.log(id);
       
       try {
         const response = await axiosInstance.get(`api/openai/scope-certifications/${id}/`);
        console.log(response);
        
        dispatch(setPdfListData3(response));
+       
+        // switch (response?.data?.meta?.status_code) {
+        //   case 200:
+        //     toast.success(response?.data?.meta?.message);
+        //     return response.data;
+  
+        //     case 400: 
+        //       break;
+  
+        //   case 500:
+        //     toast.error("Internal server error. Please try again later.");
+        //     return rejectWithValue(response.data);
+  
+        //     case 401:
+        //       break;
+
+        //   default:
+        //     toast.info("Unexpected response from server.");
+        //     return rejectWithValue(response.data);
+        // }
+       return response
+      } catch (error) {
+       
+        return rejectWithValue(error.response?.data || error.message);
+      }
+    }
+  );
+
+  export const PdfListing4 = createAsyncThunk(
+    "PdfListing4",
+    async (id, { dispatch, rejectWithValue }) => {
+      
+      try {
+        const response = await axiosInstance.get(`api/scope-certificate/type-prod-crop/${id}/`);
+       dispatch(setPdfListData4(response));
        
         // switch (response?.data?.meta?.status_code) {
         //   case 200:

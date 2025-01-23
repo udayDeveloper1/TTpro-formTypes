@@ -76,7 +76,7 @@ const TCTypeCropProductionList = () => {
   }
 
 const handleViewDetails = (id) => {
-  navigate(`/scopeVerificationView/${id}/`);
+  navigate(`/tcTypeCropProductinView/${id}/`);
 };
 
   return (
