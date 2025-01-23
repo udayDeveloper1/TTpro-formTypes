@@ -124,7 +124,7 @@ const HandleForm = () => {
       console.log("submited Data", data);
       const response = addFormHandlinkTrading(data);
       console.log(response);
-      navigate("/form_5_handelingList");
+      navigate("/handlingTradingScTypeList");
     } catch (error) {
       console.log(error);
     }

@@ -100,19 +100,19 @@ export const router = createBrowserRouter([
   // --------------------------------- Hemang router start -----------------------------------
 
   {
-    path: "/form_5_handeling",
+    path: "/handlingTradingScType",
     Component: ImportHandlingForm,
   },
   {
-    path: "/form_5_handelingList",
+    path: "/handlingTradingScTypeList",
     Component: ImportHandlingFormList,
   },
   {
-    path: "/form_5_handelingView/:id/",
+    path: "/handlingTradingScTypeView/:id/",
     Component: ImportHandleFormView,
   },
   {
-    path: "/form_5_handelingpdf",
+    path: "/importPdfhandlingTradingScType",
     Component: ImportPdfHandleForm,
   },
 

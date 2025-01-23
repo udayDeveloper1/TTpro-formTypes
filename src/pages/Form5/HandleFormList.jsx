@@ -30,7 +30,7 @@ const [pdfListData , setPdfListData] = useState([])
   }, [dispatch]);
 
   const handleView = (symbol) => {
-    navigate(`/form_5_handelingView/${symbol}/`);
+    navigate(`/handlingTradingScTypeView/${symbol}/`);
   };
 
   const columns = [

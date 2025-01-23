@@ -216,7 +216,7 @@ const ImportPdfHandleForm = () => {
       };
       console.log(data);
       let res = await addFormHandlinkTrading(data);
-      navigate("/form_5_handelingList");
+      navigate("/handlingTradingScTypeList");
       console.log(res);
     } catch (error) {
       console.log(error);
