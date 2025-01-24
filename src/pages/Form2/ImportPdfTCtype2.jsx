@@ -51,9 +51,9 @@ const ImportPdfTCtype2 = () => {
       setLoading(true)
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
-      let data = await formFill2Try(fomrData)
-      
-      if (data) {
+      let datas = await formFill2Try(fomrData)
+      let data = datas?.data
+      if (datas?.status_code === 200 || datas?.status_code === 201) {
         setFormNo('2')
         const transportDetails =
           data?.extracted_data?.transaction_details?.transport_details?.map(
@@ -191,6 +191,7 @@ const ImportPdfTCtype2 = () => {
       toast.error("Something went Wrong.")
       console.log(error)
     }
+    setLoading(false)
   }
   console.log(formNo)
 
@@ -295,7 +296,7 @@ const ImportPdfTCtype2 = () => {
 
       // Submit Data
       const response = await form2submit(data)
-      if (response) {
+      if (response?.status_code === 200 || response?.status_code === 201) {
         navigate('/tcType2List')
         toast.success("Form submitted Successfully.")
       }else{

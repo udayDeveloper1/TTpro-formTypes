@@ -619,11 +619,11 @@ const ImportPdfScopeProduction = () => {
 
               {/* Buyer of Certified Products */}
               <section className="section">
-                <h2 className="text-2xl pb-5 section-title">
+                <h2 className="text-xl section-title mb-0 pb-0">
                   Approved Products List:
                 </h2>
                 <div className="">
-                  <h2 className="text-xl py-5 section-title">
+                  <h2 className=" py-5 section-title fs-4">
                     Producer Product(s):
                   </h2>
                   <AntdForm.List name="producerProduct">
@@ -741,7 +741,7 @@ const ImportPdfScopeProduction = () => {
                   </AntdForm.List>
                 </div>
                 <div className="">
-                  <h2 className="text-xl py-5 section-title">
+                  <h2 className=" py-5 section-title fs-4">
                     Approved Farmer List:
                   </h2>
                   <AntdForm.List name="ApprovedFarmerList">
@@ -770,11 +770,11 @@ const ImportPdfScopeProduction = () => {
                             <div className="flex md:justify-between flex-wrap">
                               <AntdForm.Item
                                 {...restField}
-                                label="Taluk"
+                                label="Taluka"
                                 name={[name, "approvedTaluk"]}
                                 className="w-full md:w-[49%]"
                               >
-                                <Input placeholder="Enter Ics Taluk" />
+                                <Input placeholder="Enter Ics Taluka" />
                               </AntdForm.Item>
                             </div>
                             <div className="flex md:justify-between flex-wrap absolute top-0 right-0">

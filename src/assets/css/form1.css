@@ -115,10 +115,25 @@ textarea:focus {
   outline: none;
 }
 
+.anticon.anticon-file{
+  color: #01c0c8;
+}
 .download_pdf_btn{
-  background: #01c0c8;
+  background: #01c0c8 !important;
   border: 1px solid #01c0c8 !important;
-  color: #fff;
+  color: #fff !important;
+  max-width: max-content !important;
+  min-width: max-content !important;
+  display: flex !important;
+}
+
+button.download_pdf_btn {
+  background: #01c0c8 !important;
+  border: 1px solid #01c0c8 !important;
+  color: #fff !important;
+  max-width: max-content !important;
+  min-width: max-content !important;
+  display: flex !important;
 }
 
 svg[data-icon="minus-circle"]{
@@ -132,12 +147,12 @@ svg[data-icon="minus-circle"]{
 }
 
 .sidebar-nav ul .sidebar-item>.sidebar-link.active{
-  background: #01c1c854;
-  color: #000;
+  background: #01c0c81a;
+  color: #01c0c8;
 }
 
-.download_pdf_btn:hover{
-  background: #fff;
+button.download_pdf_btn:hover, .download_pdf_btn:hover{
+  background: #fff !important;
   color: #01c0c8 !important;
 }
 

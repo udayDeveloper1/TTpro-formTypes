@@ -78,12 +78,12 @@ const handleViewDetails = (id) => {
     <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
         <h3 className='text-3xl p-5 font-bold'>TC Type Crop Production List</h3>
       <div className="card card_list">
-        {data.length > 0 ? (
+        {/* {data.length > 0 ? ( */}
                <CustomTable
                columns={columns}
                data={data}
              />
-        ) : <p>No data available.</p>}
+        {/* ) : <p>No data available.</p>} */}
       </div>
     </div>
     </div>

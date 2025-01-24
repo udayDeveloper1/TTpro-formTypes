@@ -211,9 +211,14 @@ const TcType1Form = () => {
       }
 
       let res = await form1Set(data)
-      if(res){
+      if (res?.status_code === 200 || res?.status_code === 201) {
         navigate("/tcType1List")
         toast.success("Form submitted Successfully.")
+      } else {
+        toast.error('Internal server error. Please try again later.')
+      }
+      if(res){
+  
       }else{
         toast.error("Something went Wrong.")
       }

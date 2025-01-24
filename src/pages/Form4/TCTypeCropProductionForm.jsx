@@ -449,13 +449,13 @@ const TCTypeCropProductionForm = () => {
 
               {/* Buyer of Certified Products */}
               <section className="section">
-                <h2 className="text-2xl pb-5 section-title">
-                  Approved Products List:
+                <h2 className="text-2xl  section-title">
+                 Approved Products List:
                 </h2>
                 <div className="">
-                  <h2 className="text-xl py-5 section-title">
+                  <h5 className="py-5 section-title fs-4">
                     Producer Product(s):
-                  </h2>
+                  </h5>
                   <AntdForm.List name="producerProduct">
                     {(fields, { add, remove }) => (
                       <>
@@ -571,9 +571,9 @@ const TCTypeCropProductionForm = () => {
                   </AntdForm.List>
                 </div>
                 <div className="">
-                  <h2 className="text-xl py-5 section-title">
+                  <h5 className="py-5 section-title fs-4">
                     Approved Farmer List:
-                  </h2>
+                  </h5>
                   <AntdForm.List name="ApprovedFarmerList">
                     {(fields, { add, remove }) => (
                       <>
@@ -600,11 +600,11 @@ const TCTypeCropProductionForm = () => {
                             <div className="flex md:justify-between flex-wrap">
                               <AntdForm.Item
                                 {...restField}
-                                label="Taluk"
+                                label="Taluka "
                                 name={[name, "approvedTaluk"]}
                                 className="w-full md:w-[49%]"
                               >
-                                <Input placeholder="Enter Ics Taluk" />
+                                <Input placeholder="Enter Ics Taluka" />
                               </AntdForm.Item>
                             </div>
                             <div className="flex md:justify-between flex-wrap absolute top-0 right-0">

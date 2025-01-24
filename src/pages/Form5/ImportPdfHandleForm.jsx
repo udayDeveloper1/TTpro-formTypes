@@ -43,6 +43,7 @@ const ImportPdfHandleForm = () => {
   const [form2] = AntdForm.useForm();
   const [formNo, setFormNo] = useState("1");
   const [data, setdata] = useState("1");
+  const [pdfname, setPdfName] = useState("");
 
   const navigate = useNavigate();
 
@@ -51,11 +52,12 @@ const ImportPdfHandleForm = () => {
       setLoading(true);
       let fomrData = new FormData();
       fomrData.append("pdf", values.UploadPdf[0].originFileObj);
+      setPdfName(values.UploadPdf[0].originFileObj.name);
       let response = await addPdfFormHandlinkTrading(fomrData);
       console.log("response pdf review", response);
       if (response?.status_code === 201 || response?.status_code === 200) {
         // toast.success(response?.message)
-        navigate("/handlingTradingScTypeList");
+        // navigate("/handlingTradingScTypeList");
         // setData(response?.data)
         setLoading(false);
         if (response) {
@@ -104,13 +106,17 @@ const ImportPdfHandleForm = () => {
           setTags2(farm_scs);
 
           const UpdatedAdditionalDeclarationItem =
-            response?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+            response?.data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
               (item) => {
+                console.log(item);
+
                 return {
-                  additionalDeclarationItem: item, // Add a key with the current item as its value
+                  additionalDeclarationItem: item,
                 };
               }
             );
+          console.log(UpdatedAdditionalDeclarationItem);
+
           form2.setFieldsValue({
             CertificateName:
               response?.data?.extracted_data?.main_certificate_details?.title,
@@ -162,7 +168,7 @@ const ImportPdfHandleForm = () => {
       // }
       setLoading(false);
     } catch (error) {
-      console.log('Something Went Wrong',error);
+      console.log("Something Went Wrong", error);
       toast.error("Something Went Wrong.");
     }
   };
@@ -194,8 +200,9 @@ const ImportPdfHandleForm = () => {
       let UpdatedAdditionalDeclarationItem = values?.additionalDeclaration?.map(
         (item) => item?.additionalDeclarationItem
       );
+
       let data = {
-        file_name: "AVIRAT NPOP.pdf",
+        file_name: pdfname || "ABC.pdf",
         extracted_data: {
           file_title: "abc",
           main_certificate_details: {
@@ -203,10 +210,14 @@ const ImportPdfHandleForm = () => {
             certificate_no: values.CertificateNumber,
             main_address: values.CertificationAddress,
             this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-              UpdatedAdditionalDeclarationItem,
+              UpdatedAdditionalDeclarationItem || null,
             for_the_following_process: values?.FollowingProcess,
-            valid_from: values?.valid_from,
-            valid_till: values?.valid_till,
+            valid_from: values?.valid_from
+              ? dayjs(values.valid_from).format("DD/MM/YYYY")
+              : null,
+            valid_till: values?.valid_till
+              ? dayjs(values.valid_till).format("DD/MM/YYYY")
+              : null,
             this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics:
               values?.CertificationCharacteristics,
             extra_note: values?.ExtraNote,
@@ -235,10 +246,10 @@ const ImportPdfHandleForm = () => {
       // }else{
       //   toast.error('Something Went Wrong.')
       // }
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       toast.error("Something Went Wrong.");
-      setLoading(true);
+      setLoading(false);
       console.log(error);
     }
   };
@@ -453,7 +464,7 @@ const ImportPdfHandleForm = () => {
                           block
                           icon={<PlusOutlined />}
                         >
-                          Add Declaration Item
+                          Add Declaration
                         </Button>
                       </AntdForm.Item>
                     </>
@@ -549,15 +560,11 @@ const ImportPdfHandleForm = () => {
                       <AntdForm.Item>
                         <Button
                           type="dashed"
-                          onClick={() =>
-                            add({
-                              InvoiceDate: moment(new Date()),
-                            })
-                          }
+                          onClick={() => add()}
                           block
                           icon={<PlusOutlined />}
                         >
-                          Add Invoice Details
+                          Add Trader Product
                         </Button>
                       </AntdForm.Item>
                     </>

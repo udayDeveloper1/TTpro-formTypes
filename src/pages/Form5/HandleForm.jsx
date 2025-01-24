@@ -37,6 +37,7 @@ import { useNavigate } from "react-router-dom";
 import { Slidebar } from "../../layout/Slidebar";
 import Spinner from "../../layout/Spinner";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const HandleForm = () => {
   const [form] = AntdForm.useForm();
@@ -67,6 +68,7 @@ const HandleForm = () => {
     form.setFieldsValue({
       CertificateName: "",
       CertificateNumber: "",
+      CertificationAddress: "",
       FollowingProcess: "",
       CertificationCharacteristics: "",
       ExtraNote: "",
@@ -101,7 +103,7 @@ const HandleForm = () => {
       );
 
       let data = {
-        file_name: "AVIRAT NPOP.pdf",
+        file_name: "ABC.PDF",
         extracted_data: {
           file_title: "abc",
           main_certificate_details: {
@@ -109,10 +111,15 @@ const HandleForm = () => {
             certificate_no: values.CertificateNumber,
             main_address: values.CertificationAddress,
             this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-              UpdatedAdditionalDeclarationItem,
+              UpdatedAdditionalDeclarationItem || null,
             for_the_following_process: values?.FollowingProcess,
-            valid_from: values?.valid_from,
-            valid_till: values?.valid_till,
+            valid_from: values?.valid_from 
+            ? dayjs(values.valid_from).format("DD/MM/YYYY") 
+            : null,
+            valid_till: values?.valid_till 
+            ? dayjs(values.valid_till).format("DD/MM/YYYY") 
+            : null,
+            // valid_till: values?.valid_till,
             this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics:
               values?.CertificationCharacteristics,
             extra_note: values?.ExtraNote,
@@ -126,15 +133,14 @@ const HandleForm = () => {
         },
       };
       const response = await addFormHandlinkTrading(data);
-      console.log('addFormHandlinkTrading response',response)
       if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message);
+        toast.success("Form Submitted SuccessFully");
         // setPdfListData(response?.data)
         navigate('/handlingTradingScTypeList')
         setLoading(false);
       } else {
         setLoading(false);
-        toast.error(response?.message);
+        toast.error("Something Went Wrong.");
       }
       // console.log(response);
       setLoading(false);
@@ -244,15 +250,14 @@ const HandleForm = () => {
                       name="valid_from"
                       className="w-full md:w-[49%]"
                     >
-                      <DatePicker className="datePickerIpnut" />
+                      <DatePicker className="datePickerIpnut" format="DD/MM/YYYY" />
                     </AntdForm.Item>
-
                     <AntdForm.Item
                       label="Valid End Date"
                       name="valid_till"
                       className="w-full md:w-[49%]"
                     >
-                      <DatePicker className="datePickerIpnut" />
+                      <DatePicker className="datePickerIpnut" format="DD/MM/YYYY" />
                     </AntdForm.Item>
                   </div>
                   {/* <h2 className="text-2xl pb-5 section-title">
@@ -282,9 +287,7 @@ const HandleForm = () => {
                                   <Input placeholder="Enter additional Declaration Item" />
                                 </AntdForm.Item>
                               </div>
-
                               {/* <div className="flex md:justify-between flex-wrap ">
-                         
                         </div> */}
                             </div>
                           ))}
@@ -292,11 +295,7 @@ const HandleForm = () => {
                             <Button
                               type="dashed"
                               onClick={() =>
-                                add({
-                                  SNo: "",
-                                  InvoiceNo: "",
-                                  InvoiceDate: moment(new Date()),
-                                })
+                                add()
                               }
                               block
                               icon={<PlusOutlined />}
@@ -398,16 +397,12 @@ const HandleForm = () => {
                             <Button
                               type="dashed"
                               onClick={() =>
-                                add({
-                                  SNo: "",
-                                  InvoiceNo: "",
-                                  InvoiceDate: moment(new Date()),
-                                })
+                                add()
                               }
                               block
                               icon={<PlusOutlined />}
                             >
-                              Add Invoice Details
+                             Trader Product
                             </Button>
                           </AntdForm.Item>
                         </>

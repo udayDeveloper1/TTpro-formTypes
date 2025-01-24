@@ -7,6 +7,7 @@ import { PdfListing3, PdfListing4 } from "../../store/thunk/userThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { Slidebar } from "../../layout/Slidebar";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const TcTypeCropProductinView = () => {
   const refs = useRef();
@@ -142,7 +143,6 @@ const TcTypeCropProductinView = () => {
                   </div>
                   {console.log(data)}
 
-                  <hr className="py-5" />
                   <div className="w-full section1 flex flex-wrap justify-between">
                     <h3 className="text-2xl w-full  CertifiedInput p-3">
                       {data?.file_name}
@@ -180,7 +180,7 @@ const TcTypeCropProductinView = () => {
                                 created_at:{" "}
                               </h4>
                               <p className="text-xl keyValue w-[70%]">
-                                {data.created_at}
+                              {dayjs(data.created_at).format("DD/MM/YYYY")}
                               </p>
                             </div>
                             <div className="flex">
@@ -188,7 +188,7 @@ const TcTypeCropProductinView = () => {
                                 updated_at:{" "}
                               </h4>
                               <p className="text-xl w-[70%]">
-                                {data.updated_at}
+                              {dayjs(data.updated_at).format("DD/MM/YYYY")}
                               </p>
                             </div>
                           </div>
@@ -412,7 +412,7 @@ const TcTypeCropProductinView = () => {
                     </div>
                   </div>
 
-                  <div className="w-full section1 pb-4">
+                  <div className="w-full section1 pb-3">
                     <h3 className="text-2xl w-full  CertifiedInput p-3">
                       Approved Products List
                     </h3>
@@ -499,7 +499,7 @@ const TcTypeCropProductinView = () => {
                                 <th className="text-left border p-2">
                                   District
                                 </th>
-                                <th className="text-left border p-2">Taluk</th>
+                                <th className="text-left border p-2">Taluka</th>
                               </tr>
                             </thead>
                             <tbody>

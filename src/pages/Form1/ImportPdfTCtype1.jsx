@@ -30,6 +30,7 @@ import dayjs from 'dayjs'
 import { Slidebar } from '../../layout/Slidebar'
 import Spinner from '../../layout/Spinner'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const ImportPdfTCtype1 = () => {
   const [form] = AntdForm.useForm()
@@ -38,16 +39,18 @@ const ImportPdfTCtype1 = () => {
   const [data, setdata] = useState('1')
     const [loading, setLoading] = useState(false)
     const [loading2, setLoading2] = useState(false)
+    const navigate = useNavigate();
   const handleSubmit = async values => {
     setLoading(true)
     try {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let response = await formFill1(fomrData)
-      let res = response?.extracted_data
-      if (res) {
+      let res = response?.data?.extracted_data
+
+      if (response?.status_code === 200 || response?.status_code === 201) {
         setFormNo('2')
-        setdata(res?.extracted_data)
+        setdata(res)
         toast.success("pdf submitted Successfully.")
         let DeclarationList_ = []
         res?.declarations_by_certification_body?.contents?.forEach((ele, ind) => {
@@ -153,7 +156,6 @@ const ImportPdfTCtype1 = () => {
             CountryArea: [{ CountryName: '' }]
           })
         }
-        console.log(res?.certified_input_references?.farm_scs)
     
         let inputTcs = []
         inputTcs = res?.certified_input_references?.input_tcs.split(',') || []
@@ -332,7 +334,8 @@ const ImportPdfTCtype1 = () => {
       }
 
       let res = await form1Set(data)
-  if(res){
+  if(res?.status_code === 200 || res?.status_code === 201){
+    navigate("/tcType1List")
     toast.success("Form submitted Successfully.")
   }else{
     toast.error("Something went Wrong.")

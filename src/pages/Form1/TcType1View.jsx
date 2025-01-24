@@ -9,6 +9,7 @@ import '../../assets/css/tc_type2.css'
 import { cloneDeep } from 'lodash'
 import moment from 'moment'
 import { Slidebar } from '../../layout/Slidebar'
+import { toast } from 'react-toastify'
 
 const TcType1View
  = () => {
@@ -22,47 +23,46 @@ const TcType1View
     try {
       // Fetch data
       const response = await form1List(id)
-      let res = [response]
-      // Process each element
-      let datas = res.map((ele, ind) => {
-        // Process the fields (convert, replace, and split)
-        let input_tcs = String(
-          ele.extracted_data.certified_input_references.input_tcs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
+          if (response?.status_code === 200 || response?.status_code === 201) {
+            let res = [response?.data]
+            let datas = res.map((ele, ind) => {
+              let input_tcs = String(
+                ele.extracted_data.certified_input_references.input_tcs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              let farm_tcs = String(
+                ele.extracted_data.certified_input_references.farm_tcs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              let farm_scs = String(
+                ele.extracted_data.certified_input_references.farm_scs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              // Create a deep copy of the element and update the certified_input_references
+              let obj = cloneDeep(ele)
+              obj.extracted_data.certified_input_references = {
+                input_tcs,
+                farm_tcs,
+                farm_scs,
+                trader_tcs_for_organic_material:
+                  ele?.extracted_data?.certified_input_references
+                    ?.trader_tcs_for_organic_material
+              }
+      
+              return obj
+            })
+            setData(datas)
+    } else {
+      toast.error('Internal server error. Please try again later.')
+    }
+      
 
-        let farm_tcs = String(
-          ele.extracted_data.certified_input_references.farm_tcs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
-
-        let farm_scs = String(
-          ele.extracted_data.certified_input_references.farm_scs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
-
-        // Create a deep copy of the element and update the certified_input_references
-        let obj = cloneDeep(ele)
-        obj.extracted_data.certified_input_references = {
-          input_tcs,
-          farm_tcs,
-          farm_scs,
-          trader_tcs_for_organic_material:
-            ele?.extracted_data?.certified_input_references
-              ?.trader_tcs_for_organic_material
-        }
-
-        return obj
-      })
-
-      // Set the processed data to state
-      setData(datas)
-
-      // Log the final transformed response
-      console.log(datas)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -166,7 +166,7 @@ const TcType1View
                 </button>
               </div>
 
-              <hr className='py-5' />
+              <hr className='py-3' />
 
               <div className='w-full section1 flex flex-wrap justify-between '>
                 <h3 className='text-2xl w-full  CertifiedInput p-3'>
@@ -436,13 +436,13 @@ const TcType1View
                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
                       Declarations by Certification Body:
                     </h3>
-                    <div className='flex section1 flex-col flex-row justify-between p-3  w-full'>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                    <div className='section1  justify-between p-3  w-full'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Certification Of The Organic Material Used For The
                           Products Listed Complies With Apeda Np Op Rules:{' '}
                         </h4>
-                        <p className=' text-xl pe-4'>
+                        <p className=' text-lg pe-4'>
                           {capitalizeFirstLetter(
                             ele.extracted_data
                               .declarations_by_certification_body
@@ -450,12 +450,12 @@ const TcType1View
                           )}
                         </p>
                       </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Certification Of The Organic Material Used For The
                           Products Listed Complies With Usda Nop Rules:
                         </h4>
-                        <p className=' text-xl pe-4'>
+                        <p className=' text-lg pe-4'>
                           {' '}
                           {capitalizeFirstLetter(
                             ele.extracted_data
@@ -465,32 +465,32 @@ const TcType1View
                         </p>
                       </div>
 
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Main Value:
                         </h4>
-                        <p className='text-xl'>
+                        <p className='text-lg'>
                           {
                         ele.extracted_data
                         .declarations_by_certification_body.main_value
                           }
                           </p>
                       </div>
-                      <div className='w-full flex items-center'>
-                        <h3 className='text-xl font-bold pe-4'>Extra Note:</h3>
-                        <p className='text-xl'>
+                      <div className='w-full flex items-center py-5 border-b'>
+                        <h3 className='text-lg font-bold pe-4'>Extra Note:</h3>
+                        <p className='text-lg'>
                           {
                             ele?.extracted_data
                               ?.declarations_by_certification_body?.extra_note
                           }
                         </p>
                       </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>Contents:</h4>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>Contents:</h4>
                         <ul>
                           {ele.extracted_data.declarations_by_certification_body.contents?.map(
                             (ele, ind) => {
-                              return <li key={ind} className='text-xl'>{ele}</li>
+                              return <li key={ind} className='text-lg'>{ele}</li>
                             }
                           )}
                         </ul>

@@ -24,60 +24,17 @@ const HandleFormView = () => {
       setLoading(true);
       // Fetch data
       const response = await viewFormHandlinkTrading(id);
-      console?.log("response", response);
 
-       if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message)
-        setData(response?.data)
-        setLoading(false)
-      }else{
-        setLoading(false)
-        toast.error(response?.message)
+      if (response?.status_code === 201 || response?.status_code === 200) {
+        // toast.success(response?.message)
+        setData(response?.data);
+        setLoading(false);
+      } else {
+        setLoading(false);
+        toast.error(response?.message);
       }
 
-      setData(response);
-
-      // let res = [response];
-      //   // Process each element
-      //   let datas = res?.map((ele, ind) => {
-      //     // Process the fields (convert, replace, and split)
-      //     let input_tcs = String(
-      //       ele?.extracted_data?.certified_input_references?.input_tcs
-      //     )
-      //       ?.replace(/[:;]/g, ",")
-      //       .split(",");
-
-      //     let farm_tcs = String(
-      //       ele.extracted_data.certified_input_references.farm_tcs
-      //     )
-      //       .replace(/[:;]/g, ",")
-      //       .split(",");
-
-      //     let farm_scs = String(
-      //       ele.extracted_data.certified_input_references.farm_scs
-      //     )
-      //       .replace(/[:;]/g, ",")
-      //       .split(",");
-
-      //     // Create a deep copy of the element and update the certified_input_references
-      //     let obj = cloneDeep(ele);
-      //     obj.extracted_data.certified_input_references = {
-      //       input_tcs,
-      //       farm_tcs,
-      //       farm_scs,
-      //       trader_tcs_for_organic_material:
-      //         ele?.extracted_data?.certified_input_references
-      //           ?.trader_tcs_for_organic_material,
-      //     };
-
-      //     return obj;
-      //   });
-
-      //   // Set the processed data to state
-      //   setData(datas);
-
-      // Log the final transformed response
-      //   console.log(datas);
+      // setData(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -161,28 +118,27 @@ const HandleFormView = () => {
     if (buttonSection) buttonSection.style.display = "block";
   };
 
-
   const handleGeneratePdf = () => {
     const doc = new jsPDF({
-      format: 'a4',
-      unit: 'px',
+      format: "a4",
+      unit: "px",
     });
-  
+
     // Ensure the font is loaded properly
-    doc.setFont('Inter-Regular', 'normal');
-  
+    doc.setFont("Inter-Regular", "normal");
+
     // Check if the reference exists before proceeding
     const targetElement = refs.current;
-  
+
     if (!targetElement) {
-      console.error('No element found for the provided ID.');
+      console.error("No element found for the provided ID.");
       return;
     }
-  
+
     doc.html(targetElement, {
       callback: (doc) => {
         // Save the generated PDF
-        doc.save('document.pdf');
+        doc.save("document.pdf");
       },
       x: 10, // Optional: Adjust x-coordinate
       y: 10, // Optional: Adjust y-coordinate
@@ -191,185 +147,201 @@ const HandleFormView = () => {
       },
     });
   };
-  
+
   const recordId = data?.id || "default";
   refs.current[recordId] = refs.current[recordId] || React.createRef();
 
+  console?.log("Details Data", data);
   return (
     <>
-      {loading && <Spinner message="Loading..." isActive={loading} />}
+      {/* {loading && <Spinner message="Loading..." isActive={loading} />} */}
       <div style={{ display: "flex" }}>
         <div style={{ width: "20%" }}>
           <Slidebar />
         </div>
         <div style={{ width: "80%" }}>
-        <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
-        <div className="card card_list" ref={refs.current[recordId]}>
-
-        {/* <div className="card card_list" ref={refs}> */}
-          {/* {data?.map((data, ind) => { */}
-          {/* {  const recordId = data.id || ind;
+          <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
+            <div className="card card_list" ref={refs.current[recordId]}>
+              {/* <div className="card card_list" ref={refs}> */}
+              {/* {data?.map((data, ind) => { */}
+              {/* {  const recordId = data.id || ind;
           refs.current[recordId] = refs.current[recordId] || React.createRef()} */}
-          <div
-            // key={ind}
-            className="card_item flex flex-col gap-3 rounded-xl p-5"
-          >
-            <div className="w-full flex justify-between button_section pb-10">
-              <button
-                className="btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn"
-                onClick={(e) => handlePdfDownload(recordId)}
-                // onClick={handleGeneratePdf}
+              <div
+                // key={ind}
+                className="card_item flex flex-col gap-3 rounded-xl p-5"
               >
-                Download
-                <FaFilePdf className="ms-2" />
-                {/* Pdf */}
-              </button>
-            </div>
-
-            <hr className="py-5" />
-            <div className="w-full section1 flex flex-wrap justify-between ">
-              <h3 className="text-2xl w-full  CertifiedInput p-3">
-                {data?.file_name}
-              </h3>
-              <div className="w-full flex p-2 justify-between">
-                <div className="w-full flex flex-col md:w-[49%] justify-center ">
-                  <div className="flex flex-wrap ">
-                    <div className="w-full flex flex-col">
-                      <div className="flex flex">
-                        <h4 className="text-xl keyName pe-4 w-[30%] font-bold">
-                          File Name{" "}
-                        </h4>
-                        <p className="text-xl keyValue w-[70%]">
-                          {data?.file_name}
-                        </p>
-                      </div>
-                      <div className="flex">
-                        <h4 className="text-xl keyName pe-4  w-[30%] font-bold">
-                          id:{" "}
-                        </h4>
-                        <p className="text-xl keyValue  w-[70%]">{data?.id}</p>
-                      </div>
-                    </div>
-                  </div>
+                <div className="w-full flex justify-between button_section pb-10">
+                  <button
+                    className="btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn"
+                    onClick={(e) => handlePdfDownload(recordId)}
+                    // onClick={handleGeneratePdf}
+                  >
+                    Download
+                    <FaFilePdf className="ms-2" />
+                    {/* Pdf */}
+                  </button>
                 </div>
 
-                <div className="w-full md:w-[49%] flex justify-center  flex-col">
-                  <div className="flex flex-wrap ">
-                    <div className="w-full">
-                      <div className="flex">
-                        <h4 className="text-xl keyName pe-4 w-[30%] font-bold">
-                          created At:
-                        </h4>
-                        <p className="text-xl keyValue w-[70%]">
-                          {moment(data?.created_at)?.format(
-                            "DD-MM-YYYY hh:mm A"
-                          )}
-                        </p>
-                      </div>
-                      <div className="flex">
-                        <h4 className="text-xl pe-4 w-[30%] font-bold">
-                          updated_at:{" "}
-                        </h4>
-                        <p className="text-xl w-[70%]">
-                          {moment(data?.updated_at)?.format(
-                            "DD-MM-YYYY hh:mm A"
-                          )}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full flex justify-between flex-wrap">
-              <div className="w-full ">
-                <div className="flex section1 flex-wrap pb-5">
-                  <h3 className="text-2xl w-full  CertifiedInput ">
-                    Certificate Details:
+                <div className="w-full section1 flex flex-wrap justify-between ">
+                  <h3 className="text-2xl w-full  CertifiedInput p-3">
+                    {data?.file_name}
                   </h3>
-                  <div className="p-2">
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Certificate No:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.certificate_no
-                        }
-                      </p>
-                    </div>
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Certificate Name:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {data?.extracted_data?.main_certificate_details?.title}
-                      </p>
-                    </div>
-
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Following process:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.for_the_following_process
-                        }
-                      </p>
+                  <div className="w-full flex p-2 justify-between">
+                    <div className="w-full flex flex-col md:w-[49%] justify-center ">
+                      <div className="flex flex-wrap ">
+                        <div className="w-full flex flex-col">
+                          <div className="flex flex">
+                            <h4 className="text-xl keyName pe-4 w-[30%] font-bold">
+                              File Name{" "}
+                            </h4>
+                            <p className="text-xl keyValue w-[70%]">
+                              {data?.file_name}
+                            </p>
+                          </div>
+                          <div className="flex">
+                            <h4 className="text-xl keyName pe-4  w-[30%] font-bold">
+                              id:{" "}
+                            </h4>
+                            <p className="text-xl keyValue  w-[70%]">
+                              {data?.id}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">Note: </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.extra_note
-                        }
-                      </p>
-                    </div>
-
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Form End Date:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.valid_till
-                        }
-                      </p>
-                    </div>
-
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Form Start Date:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.valid_from
-                        }
-                      </p>
-                    </div>
-
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Form End Date:{" "}
-                      </h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.valid_till
-                        }
-                      </p>
+                    <div className="w-full md:w-[49%] flex justify-center  flex-col">
+                      <div className="flex flex-wrap ">
+                        <div className="w-full">
+                          <div className="flex">
+                            <h4 className="text-xl keyName pe-4 w-[30%] font-bold">
+                              created At:
+                            </h4>
+                            <p className="text-xl keyValue w-[70%]">
+                              {moment(data?.created_at)?.format(
+                                "DD-MM-YYYY hh:mm A"
+                              )}
+                            </p>
+                          </div>
+                          <div className="flex">
+                            <h4 className="text-xl pe-4 w-[30%] font-bold">
+                              updated_at:{" "}
+                            </h4>
+                            <p className="text-xl w-[70%]">
+                              {moment(data?.updated_at)?.format(
+                                "DD-MM-YYYY hh:mm A"
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* <div className="w-full md:w-[49%]">
+
+                <div className="w-full flex justify-between flex-wrap">
+                  <div className="w-full ">
+                    <div className="flex section1 flex-wrap pb-5">
+                      <h3 className="text-2xl w-full  CertifiedInput ">
+                        Certificate Details:
+                      </h3>
+                      <div className="p-2">
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">
+                            Certificate No:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.certificate_no
+                            }
+                          </p>
+                        </div>
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">
+                            Certificate Name:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.title
+                            }
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">
+                            Following process:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.for_the_following_process
+                            }
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">Note: </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.extra_note
+                            }
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">
+                            Form End Date:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.valid_till
+                            }
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4">
+                            Form Start Date:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.valid_from
+                            }
+                          </p>
+                        </div>
+
+                        <div className="flex">
+                          <h4 className="font-bold text-xl pe-4 text-nowrap">
+                            Certification Address:{" "}
+                          </h4>
+                          <p className="text-xl">
+                            {
+                              data?.extracted_data?.main_certificate_details
+                                ?.main_address
+                            }
+                          </p>
+                        </div>
+
+                        {/* <div className="flex">
+                      <h4 className="font-bold text-xl pe-4">
+                        Form End Date:{" "}
+                      </h4>
+                      <p className="text-xl">
+                        {
+                          data?.extracted_data?.main_certificate_details
+                            ?.valid_till
+                        }
+                      </p>
+                    </div> */}
+                      </div>
+                    </div>
+                  </div>
+                  {/* <div className="w-full md:w-[49%]">
               <div className="flex section1  flex-wrap pb-5">
                 <h3 className="text-2xl w-full  CertifiedInput p-3">
                   Certification Body:
@@ -395,9 +367,9 @@ const HandleFormView = () => {
                 </div>
               </div>
             </div> */}
-            </div>
+                </div>
 
-            {/* <div className="w-full flex flex-wrap">
+                {/* <div className="w-full flex flex-wrap">
             <div className="w-full ">
               <div className="flex flex-wrap pb-5">
                 <h3 className="text-2xl w-full  CertifiedInput p-3">
@@ -448,343 +420,340 @@ const HandleFormView = () => {
             </div>
           </div>
           {console?.log(data)} */}
-
-            <div className="w-full certifiedProduct  flex flex-wrap">
-              <h3 className="text-2xl certifiedProductHeading p-3 w-full">
-                Trader Product:
-              </h3>
-              <div className="flex w-full flex-wrap">
-                {data?.extracted_data?.certification_characteristics?.[
-                  "trader_product(s)"
-                ]?.map((elem, indd) => {
-                  return (
-                    <div className="pb-5 w-full" key={indd}>
-                      <h3 className="text-xl pe-2 p-2 pb-0 font-semibold">
-                        Product {indd + 1}:
+                <div className="w-full flex flex-wrap">
+                  <div className="w-full ">
+                    <div className="flex flex-wrap pb-5">
+                      <h3 className="text-2xl w-full  CertifiedInput p-3">
+                      This is to certify that the product and area inspected by Certification body tq cert services private limited are in accordance with requirements of:
                       </h3>
-                      <div className="p-3 overflow-x-auto">
-                        <table className="w-full border border-gray-300 text-left">
-                          <thead className="bg-gray-100 border-b border-gray-300">
-                            <th className=" py-2" colSpan={2}>
-                              {" "}
-                              Product {indd + 1}:
-                            </th>
-                          </thead>
-                          <tbody>
-                            {Object?.keys(elem)?.map((element, index) => {
-                              return (
-                                <>
-                                  <tr className="bg-gray-100 border-b border-gray-300  ">
-                                    <td className="p-1 font-medium py-3">
-                                      {/* {element} */}
-                                      {/* organic_status */}
-                                      {/* labeling_category */}
-                                      {element === "product(s)"
-                                        ? "Product Name"
-                                        : element === "variety"
-                                        ? "Variety"
-                                        : element === "organic_status"
-                                        ? "Organic Status"
-                                        : element === "labeling_category"
-                                        ? "Labeling Category"
-                                        : element === "product_s_no"
-                                        ? "Product Number"
-                                        : ""}
-                                    </td>
-                                    <td className="p-1">{elem[element]}</td>
-                                  </tr>
-                                </>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {data?.extracted_data
-              ?.certified_raw_materials_and_declared_geographic_origin && (
-              <>
-                {" "}
-                <hr />
-                <h3 className="text-2xl w-full  CertifiedInput p-3">
-                  Certified Raw Materials and Declared Geographic Origin:
-                </h3>
-                <div className="overflow-x-auto table_2 pt-3">
-                  <table className="w-full text-sm text-left text-gray-500">
-                    <thead className="text-xs text-gray-700 uppercase ">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          certified_weight{" "}
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          country{" "}
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          material details{" "}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data?.extracted_data?.certified_raw_materials_and_declared_geographic_origin?.map(
-                        (elem, index) => {
-                          return (
-                            <tr className="bg-white border-b" key={index}>
-                              <td className="px-6 py-4 text-md md:text-lg">
-                                {elem?.certified_weight}
-                              </td>
-                              <td className="px-6 py-4 text-md md:text-lg">
-                                {elem?.country}
-                              </td>
-                              <td className="px-6 py-4 text-md md:text-lg">
-                                {elem?.material_details}
-                              </td>
-                            </tr>
-                          );
-                        }
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </>
-            )}
-
-            <div className="w-full flex flex-wrap">
-              <div className="w-full ">
-                <div className="flex flex-wrap pb-5">
-                  <h3 className="text-2xl w-full  CertifiedInput p-3">
-                    Certification Caracteristics:
-                  </h3>
-                  <div className="flex section1 flex-col flex-row justify-between p-3  w-full">
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">
-                        Certification ID:{" "}
-                      </h4>
-                      <p className=" text-xl pe-4">
-                        {capitalizeFirstLetter(
-                          data?.extracted_data?.certification_characteristics
-                            ?.certificate_no
-                        )}
-                      </p>
-                    </div>
-
-                    <div className="flex">
-                      <h4 className="font-bold text-xl pe-4">Main Value:</h4>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.certification_characteristics
-                            ?.main_value
-                        }
-                      </p>
-                    </div>
-                    <div className="w-full flex items-center">
-                      <h3 className="text-xl font-bold pe-4">Extra Note:</h3>
-                      <p className="text-xl">
-                        {
-                          data?.extracted_data?.main_certificate_details
-                            ?.extra_note
-                        }
-                      </p>
-                    </div>
-                    {/* <div className="flex">
-                    <h4 className="font-bold text-xl pe-4">Contents:</h4>
-                    <ul>
-                      {data?.extracted_data?.declarations_by_certification_body?.contents?.map(
-                        (ele, ind) => {
-                          return (
-                            <li key={ind} className="text-xl">
-                              {ele}
-                            </li>
-                          );
-                        }
-                      )}
-                    </ul>
-                  </div> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full flex flex-wrap">
-              <div className="w-full ">
-                <div className="flex flex-wrap pb-5">
-                  <h3 className="text-2xl w-full  CertifiedInput p-3">
-                    Declarations By Seller of Certified Products:
-                  </h3>
-                  <div className="flex section1 flex-row justify-between p-3  w-full">
-                    <div className="flex">
-                      {/* <h4 className="font-bold text-xl pe-4">
+                      <div className="flex section1 flex-row justify-between p-3  w-full">
+                        <div className="flex">
+                          {/* <h4 className="font-bold text-xl pe-4">
                       Certification Of The Organic Material Used For The
                       Products Listed Complies With Usda Nop Rules:
                     </h4> */}
-                      <p className="text-xl">
-                        <ul className="list-disc pl-6">
-                          {data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
-                            (item, index2) => (
-                              <li key={index2}>{item}</li>
-                            )
-                          )}
-                        </ul>
-                      </p>
+                          <p className="text-xl">
+                            <ul className="list-disc pl-6">
+                              {data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+                                (item, index2) => (
+                                  <li key={index2}>{item}</li>
+                                )
+                              )}
+                            </ul>
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {data?.extracted_data?.seller_of_certified_products && (
-              <>
-                {" "}
-                <hr />
-                <div className="overflow-x-auto table_2 pt-3">
-                  <h3 className="text-2xl w-full  CertifiedInput p-3">
-                    seller of certified products:
+                <div className="w-full certifiedProduct  flex flex-wrap">
+                  <div className="w-full flex justify-between flex-wrap mb-4">
+                    <div className="w-full ">
+                      <div className="flex section1 flex-wrap pb-2">
+                        <h3 className="text-2xl w-full  CertifiedInput p-2">
+                          Certificate Characteristics Details :
+                        </h3>
+                        <div className="p-2">
+                          <div className="flex mt-1">
+                            <h4 className="font-bold text-xl pe-4">
+                              Certification ID:{" "}
+                            </h4>
+                            <p className="text-xl">
+                              {capitalizeFirstLetter(
+                                data?.extracted_data
+                                  ?.certification_characteristics
+                                  ?.certificate_no
+                              )}
+                            </p>
+                          </div>
+                          <div className="flex mt-2">
+                            <h4 className="font-bold text-xl pe-4 text-nowrap">
+                              Main Value:{" "}
+                            </h4>
+                            <p className="text-xl">
+                              {
+                                data?.extracted_data
+                                  ?.certification_characteristics?.main_value
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl certifiedProductHeading p-3 w-full">
+                    Trader Product:
                   </h3>
-                  <table className="w-full text-sm text-left text-gray-500">
-                    <thead className="text-xs text-gray-700 uppercase ">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          License No{" "}
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          Main Value{" "}
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-6  text-md md:text-lg py-3"
-                        >
-                          {" "}
-                          Sc Number{" "}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-white border-b">
-                        <td className="px-6 py-4 text-md md:text-lg">
-                          {
-                            data?.extracted_data?.seller_of_certified_products
-                              ?.license_no
-                          }
-                        </td>
-                        <td className="px-6 py-4 text-md md:text-lg">
-                          {
-                            data?.extracted_data?.seller_of_certified_products
-                              ?.main_value
-                          }
-                        </td>
-                        <td className="px-6 py-4 text-md md:text-lg">
-                          {
-                            data?.extracted_data?.seller_of_certified_products
-                              ?.sc_number
-                          }
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div className="flex w-full flex-wrap">
+                    {data?.extracted_data?.certification_characteristics?.[
+                      "trader_product(s)"
+                    ]?.map((elem, indd) => {
+                      return (
+                        <div className="pb-5 w-full" key={indd}>
+                          <h3 className="text-xl pe-2 p-2 pb-0 font-semibold">
+                            Product {indd + 1}:
+                          </h3>
+                          <div className="p-3 overflow-x-auto">
+                            <table className="w-full border border-gray-300 text-left">
+                              <thead className="bg-gray-100 border-b border-gray-300">
+                                <th className=" py-2" colSpan={2}>
+                                  {" "}
+                                  Product {indd + 1}:
+                                </th>
+                              </thead>
+                              <tbody>
+                                {Object?.keys(elem)?.map((element, index) => {
+                                  return (
+                                    <>
+                                      <tr className="bg-gray-100 border-b border-gray-300  ">
+                                        <td className="p-1 font-medium py-3">
+                                          {/* {element} */}
+                                          {/* organic_status */}
+                                          {/* labeling_category */}
+                                          {element === "product(s)"
+                                            ? "Product Name"
+                                            : element === "variety"
+                                            ? "Variety"
+                                            : element === "organic_status"
+                                            ? "Organic Status"
+                                            : element === "labeling_category"
+                                            ? "Labeling Category"
+                                            : element === "product_s_no"
+                                            ? "Product Number"
+                                            : ""}
+                                        </td>
+                                        <td className="p-1">{elem[element]}</td>
+                                      </tr>
+                                    </>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </>
-            )}
 
-            {data?.extracted_data
-              ?.certified_raw_materials_and_declared_geographic_origin && (
-              <>
-                {" "}
-                <hr />
-                <h3 className="text-2xl w-full  CertifiedInput p-3">
-                  Shipments:
-                </h3>
-                <div className="overflow-x-auto table_2 pt-3">
-                  <table className="w-full text-sm text-left text-gray-500">
-                    <thead className="text-xs text-gray-700 uppercase ">
-                      <tr>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Consignee Name and Address
-                        </th>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Gross Shipping Weight
-                        </th>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Invoice References
-                        </th>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Shipment Date
-                        </th>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Shipment Doc No
-                        </th>
-                        <th scope="col" className="px-6  text-md md:text-lg">
-                          {" "}
-                          Shipment No
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data?.extracted_data?.shipments?.map((elem, index) => {
-                        return (
-                          <tr className="bg-white border-b" key={index}>
+                {data?.extracted_data
+                  ?.certified_raw_materials_and_declared_geographic_origin && (
+                  <>
+                    {" "}
+                    <hr />
+                    <h3 className="text-2xl w-full  CertifiedInput p-3">
+                      Certified Raw Materials and Declared Geographic Origin:
+                    </h3>
+                    <div className="overflow-x-auto table_2 pt-3">
+                      <table className="w-full text-sm text-left text-gray-500">
+                        <thead className="text-xs text-gray-700 uppercase ">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              certified_weight{" "}
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              country{" "}
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              material details{" "}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data?.extracted_data?.certified_raw_materials_and_declared_geographic_origin?.map(
+                            (elem, index) => {
+                              return (
+                                <tr className="bg-white border-b" key={index}>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.certified_weight}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.country}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.material_details}
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+
+                {data?.extracted_data?.seller_of_certified_products && (
+                  <>
+                    {" "}
+                    <hr />
+                    <div className="overflow-x-auto table_2 pt-3">
+                      <h3 className="text-2xl w-full  CertifiedInput p-3">
+                        seller of certified products:
+                      </h3>
+                      <table className="w-full text-sm text-left text-gray-500">
+                        <thead className="text-xs text-gray-700 uppercase ">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              License No{" "}
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              Main Value{" "}
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg py-3"
+                            >
+                              {" "}
+                              Sc Number{" "}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="bg-white border-b">
                             <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.consignee_name_and_address}
+                              {
+                                data?.extracted_data
+                                  ?.seller_of_certified_products?.license_no
+                              }
                             </td>
                             <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.gross_shipping_weight}
+                              {
+                                data?.extracted_data
+                                  ?.seller_of_certified_products?.main_value
+                              }
                             </td>
                             <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.invoice_references}
-                            </td>
-                            <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.shipment_date}
-                            </td>
-                            <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.shipment_doc_no}
-                            </td>
-                            <td className="px-6 py-4 text-md md:text-lg">
-                              {elem?.shipment_no}
+                              {
+                                data?.extracted_data
+                                  ?.seller_of_certified_products?.sc_number
+                              }
                             </td>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </>
-            )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+
+                {data?.extracted_data
+                  ?.certified_raw_materials_and_declared_geographic_origin && (
+                  <>
+                    {" "}
+                    <hr />
+                    <h3 className="text-2xl w-full  CertifiedInput p-3">
+                      Shipments:
+                    </h3>
+                    <div className="overflow-x-auto table_2 pt-3">
+                      <table className="w-full text-sm text-left text-gray-500">
+                        <thead className="text-xs text-gray-700 uppercase ">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Consignee Name and Address
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Gross Shipping Weight
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Invoice References
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Shipment Date
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Shipment Doc No
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6  text-md md:text-lg"
+                            >
+                              {" "}
+                              Shipment No
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data?.extracted_data?.shipments?.map(
+                            (elem, index) => {
+                              return (
+                                <tr className="bg-white border-b" key={index}>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.consignee_name_and_address}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.gross_shipping_weight}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.invoice_references}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.shipment_date}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.shipment_doc_no}
+                                  </td>
+                                  <td className="px-6 py-4 text-md md:text-lg">
+                                    {elem?.shipment_no}
+                                  </td>
+                                </tr>
+                              );
+                            }
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+              </div>
+              {/* ); */}
+              {/* })} */}
+            </div>
           </div>
-          {/* ); */}
-          {/* })} */}
+          {/* Add your content here */}
         </div>
       </div>
-          {/* Add your content here */}</div>
-      </div>
-
-      
     </>
   );
 };
