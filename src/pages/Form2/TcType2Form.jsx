@@ -143,7 +143,9 @@ const TcType2Form = () => {
 
   const handleSubmit = async values => {
     setLoading(true)
-
+    console.log(values);
+    console.log(tagsArray, tags2Array);
+    
     let productDetails = []
     values?.RawMaterialDetails?.map((ele, ind) => {
       let tradeNames = []
@@ -188,9 +190,10 @@ const TcType2Form = () => {
     })
 
     let transport_details = []
-    values?.TransportDetails?.map((ele, ind) => {
-      let transport_document_numbers = tagsArray[ind]?.join(',') || ''
 
+    values?.TransportDetails?.map((ele, ind) => {
+      
+      let transport_document_numbers = tagsArray[ind]?.join(',') || ''
       let obj = {
         mode_of_transport: ele.ModeOfTransport,
         transport_document_numbers: transport_document_numbers,
@@ -199,6 +202,9 @@ const TcType2Form = () => {
       }
       transport_details.push(obj)
     })
+
+    console.log(transport_details);
+    
 
     let this_is_to_cerify_that = []
     // Ensure additionalDeclaration is an array before using forEach
@@ -807,7 +813,7 @@ const TcType2Form = () => {
                                 name={[name, 'DateOfTransport']}
                                 className='w-full md:w-[49%]'
                               >
-                                <DatePicker className='datePickerIpnut' />
+                                <DatePicker className='datePickerIpnut' format={"DD/MM/YYYY"} />
                               </AntdForm.Item>
                               <AntdForm.Item
                                 {...restField}

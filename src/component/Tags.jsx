@@ -56,7 +56,7 @@ const TagInput = ({ tags, setTags, name }) => {
 
   return (
     <div>
-        {tags.map((tag, index) => {
+        {tags?.map((tag, index) => {
           if (editInputIndex === index) {
             return (
               <Input

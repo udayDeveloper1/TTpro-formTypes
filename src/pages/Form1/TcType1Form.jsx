@@ -108,7 +108,7 @@ const TcType1Form = () => {
       outsourcedSubcontractor: '',
       datePicker: moment(new Date())
     })
-  }, [form, tags, tags1, tags2])
+  }, [form])
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
@@ -194,9 +194,9 @@ const TcType1Form = () => {
             extra_note: values.DeclarationsText
           },
           certified_input_references: {
-            input_tcs: values.InputTCs?.join(","),
-            farm_scs: values.FarmSCs?.join(","),
-            farm_tcs: values.FarmSCs?.join(","),
+            input_tcs: tags?.join(","),
+            farm_scs: tags1?.join(","),
+            farm_tcs: tags2?.join(","),
             trader_tcs_for_organic_material: values.TraderTCsforOrganicMaterial
           },
           shipments: shipmentDetail,
@@ -631,7 +631,7 @@ const TcType1Form = () => {
                               name={[name, 'ShipmentDate_']}
                               className='w-full md:w-[49%]'
                             >
-                              <DatePicker className='datePickerIpnut' />
+                              <DatePicker className='datePickerIpnut' format="DD/MM/YYYY" />
                             </AntdForm.Item>
                           </div>
                           <div className='flex md:justify-between flex-wrap'>
@@ -775,7 +775,7 @@ const TcType1Form = () => {
                         className='w-full md:w-[49%]'
                       >
                         {/* <Input placeholder="Enter Production Date" /> */}
-                        <DatePicker className='datePickerIpnut' />
+                        <DatePicker className='datePickerIpnut' format="DD/MM/YYYY" />
                       </AntdForm.Item>
                       <AntdForm.Item
                         {...restField}

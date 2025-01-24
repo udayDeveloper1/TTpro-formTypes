@@ -158,16 +158,18 @@ const ImportPdfTCtype1 = () => {
         }
     
         let inputTcs = []
-        inputTcs = res?.certified_input_references?.input_tcs.split(',') || []
+        // inputTcs = res?.certified_input_references?.input_tcs.split(',') || []
+        inputTcs = res?.certified_input_references?.input_tcs.split(/[,:;]\s*/).filter(Boolean) || []
         let farm_tcs = []
-        farm_tcs = res?.certified_input_references?.farm_tcs?.split(',') || []
+        // farm_tcs = res?.certified_input_references?.farm_tcs?.split(',') || []
+        farm_tcs = res?.certified_input_references?.farm_tcs.split(/[,:;]\s*/).filter(Boolean) || []
         let farm_scs = []
-        farm_scs = res?.certified_input_references?.farm_scs?.split(',') || []
-        console.log(inputTcs, farm_scs, farm_tcs)
+        // farm_scs = res?.certified_input_references?.farm_scs?.split(',') || []
+        farm_scs = res?.certified_input_references?.farm_scs.split(/[,:;]\s*/).filter(Boolean) || []
     
         setTags(inputTcs)
-        setTags1(farm_tcs)
-        setTags2(farm_scs)
+        setTags1(farm_scs)
+        setTags2(farm_tcs)
     
         form2.setFieldsValue({
           UploadQrCode: [],
@@ -178,8 +180,8 @@ const ImportPdfTCtype1 = () => {
           SellerDetails: res?.seller_of_certified_products?.main_value,
           SellerSCNumber: res?.seller_of_certified_products?.sc_number,
           SellerLicenseNumber: res?.seller_of_certified_products?.license_no,
-          BuyerDetails: res?.seller_of_certified_products?.main_value,
-          BuyerLicenseNo: res?.seller_of_certified_products?.license_no,
+          BuyerDetails: res?.buyer_of_certified_products?.main_value,
+          BuyerLicenseNo: res?.buyer_of_certified_products?.license_no,
           GrossShippingWeight: res?.gross_shipping_weight,
           NetShippingWeight: res?.net_shipping_weight,
           WeightsCertifiedWeight: res?.certified_weight,
@@ -747,6 +749,7 @@ const ImportPdfTCtype1 = () => {
                               label='Shipment Date:'
                               name={[name, 'ShipmentDate_']}
                               className='w-full md:w-[49%]'
+                              format="DD/MM/YYYY"
                             >
                               <DatePicker className='datePickerIpnut' format="DD/MM/YYYY"/>
                             </AntdForm.Item>

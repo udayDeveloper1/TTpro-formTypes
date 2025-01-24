@@ -227,11 +227,11 @@ const ScopeVerificationForm = () => {
                 </div>
                 <div className='flex flex-wrap -mx-2'>
                   <AntdForm.Item
-                    label='Place and Date of Issue (YYYY-MM-DD)'
+                    label='Place and Date of Issue '
                     name={['scope_certificate', 'date_of_issue']}
                     className='px-2 w-full md:w-1/2'
                   >
-                    <DatePicker className='w-full datePickerIpnut' />
+                    <DatePicker className='w-full datePickerIpnut' format={"DD/MM/YYYY"}/>
                   </AntdForm.Item>
                   <AntdForm.Item
                     label='Note'
@@ -472,7 +472,7 @@ const ScopeVerificationForm = () => {
                             name={[name, 'expiry_date']}
                             className='px-2 w-full md:w-1/2'
                           >
-                            <DatePicker className='w-full datePickerIpnut' />
+                            <DatePicker className='w-full datePickerIpnut' format={"DD/MM/YYYY"}/>
                           </AntdForm.Item>
                           <AntdForm.Item
                             {...restField}
@@ -562,7 +562,7 @@ const ScopeVerificationForm = () => {
                             {...restField}
                             label='Number'
                             name={[name, 'number']}
-                            className='px-2 w-full md:w-1/2'
+                            className='px-2 w-full md:w-1/2 pt-5'
                           >
                             <Input placeholder='Enter Number' />
                           </AntdForm.Item>
@@ -570,7 +570,7 @@ const ScopeVerificationForm = () => {
                             {...restField}
                             label='License Number'
                             name={[name, 'license_number']}
-                            className='px-2 w-full md:w-1/2'
+                            className='px-2 w-full md:w-1/2  pt-5'
                           >
                             <Input placeholder='Enter License Number' />
                           </AntdForm.Item>
