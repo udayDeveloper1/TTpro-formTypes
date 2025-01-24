@@ -79,7 +79,6 @@ const ImportPdfHandleForm = () => {
               RawMaterialDetails.push(obj);
             }
           );
-
           if (RawMaterialDetails.length === 0) {
             RawMaterialDetails.push({
               OrganicCotton: "",
@@ -87,9 +86,7 @@ const ImportPdfHandleForm = () => {
               CountryArea: [{ CountryName: "" }],
             });
           }
-
           console.log(response?.data?.certified_input_references?.farm_scs);
-
           let inputTcs = [];
           inputTcs =
             response?.data?.certified_input_references?.input_tcs.split(",") ||
