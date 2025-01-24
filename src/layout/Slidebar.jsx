@@ -49,7 +49,6 @@ export const Slidebar = () => {
                     : ''
                 }`}
               >
-                {console.log(path)}
 
                 <a
                   className={`sidebar-link has-arrow ${
@@ -117,7 +116,6 @@ export const Slidebar = () => {
                   </ul>
                 )}
               </li>
-              {console.log(path != '/', path)}
 
               <li
                 className={`sidebar-item cursor-pointer ${

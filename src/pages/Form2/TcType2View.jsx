@@ -125,8 +125,6 @@ const TcType2View = () => {
                 const recordId = ele.id || ind
                 refs.current[recordId] =
                   refs.current[recordId] || React.createRef()
-                console.log(ele)
-
                 return (
                   <div
                     key={ind}
@@ -696,6 +694,7 @@ const TcType2View = () => {
                                 </tr>
                               </thead>
                               <tbody>
+                       
                                 {ele?.extracted_data?.transaction_details?.transport_details?.map(
                                   (elem, index) => (
                                     <tr
@@ -713,7 +712,7 @@ const TcType2View = () => {
                                       </td>
                                       <td className='p-2 border'>
                                         <ul className='list-disc pl-5'>
-                                          {elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
+                                          {elem && elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
                                             (vehicle, idx) => (
                                               <li key={idx}>{vehicle}</li>
                                             )
@@ -745,7 +744,6 @@ const TcType2View = () => {
                               </thead>
                               <tbody>
                                 <td>
-                                  {console.log(ele?.extracted_data)}
 
                                   {
                                     ele?.extracted_data?.[

@@ -1,6 +1,5 @@
 {
   "name": "ttpro_form_1",
-  "homepage": "http://157.173.221.89:5000/tcType1Form",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
