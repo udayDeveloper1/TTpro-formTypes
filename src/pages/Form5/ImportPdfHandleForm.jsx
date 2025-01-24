@@ -44,7 +44,6 @@ const ImportPdfHandleForm = () => {
   const [formNo, setFormNo] = useState("1");
   const [data, setdata] = useState("1");
 
-
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
@@ -52,100 +51,122 @@ const ImportPdfHandleForm = () => {
       setLoading(true);
       let fomrData = new FormData();
       fomrData.append("pdf", values.UploadPdf[0].originFileObj);
-      let res = await addPdfFormHandlinkTrading(fomrData);
-      console.log("response pdf review", res);
-      if (res) {
-        console.log(res);
-        setFormNo("2");
-        setdata(res);
-        toast.success('Pdf Submitted SuccessFully.')
+      let response = await addPdfFormHandlinkTrading(fomrData);
+      console.log("response pdf review", response);
+      if (response?.status_code === 201 || response?.status_code === 200) {
+        // toast.success(response?.message)
+        navigate("/handlingTradingScTypeList");
+        // setData(response?.data)
+        setLoading(false);
+        if (response) {
+          console.log(response);
+          setFormNo("2");
+          setdata(response?.data);
+          toast.success("Pdf Submitted SuccessFully.");
 
-        let RawMaterialDetails = [];
-        res?.certified_raw_materials_and_declared_geographic_origin?.forEach(
-          (ele, ind) => {
-            let countrys = [];
-            ele?.country?.split(",")?.forEach((ele, ind) => {
-              countrys.push({ CountryName: ele });
-            });
-            let obj = {
-              OrganicCotton: ele.material_details,
-              RawMaterialsCertifiedWeight: ele.certified_weight,
-              CountryArea: countrys,
-            };
-            RawMaterialDetails.push(obj);
-          }
-        );
-
-        if (RawMaterialDetails.length === 0) {
-          RawMaterialDetails.push({
-            OrganicCotton: "",
-            RawMaterialsCertifiedWeight: "",
-            CountryArea: [{ CountryName: "" }],
-          });
-        }
-
-        console.log(res?.certified_input_references?.farm_scs);
-
-        let inputTcs = [];
-        inputTcs = res?.certified_input_references?.input_tcs.split(",") || [];
-        let farm_tcs = [];
-        farm_tcs = res?.certified_input_references?.farm_tcs?.split(",") || [];
-        let farm_scs = [];
-        farm_scs = res?.certified_input_references?.farm_scs?.split(",") || [];
-        console.log(inputTcs, farm_scs, farm_tcs);
-
-        setTags(inputTcs);
-        setTags1(farm_tcs);
-        setTags2(farm_scs);
-
-        const UpdatedAdditionalDeclarationItem =
-          res?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
-            (item) => {
-              return {
-                additionalDeclarationItem: item, // Add a key with the current item as its value
+          let RawMaterialDetails = [];
+          response?.data?.certified_raw_materials_and_declared_geographic_origin?.forEach(
+            (ele, ind) => {
+              let countrys = [];
+              ele?.country?.split(",")?.forEach((ele, ind) => {
+                countrys.push({ CountryName: ele });
+              });
+              let obj = {
+                OrganicCotton: ele.material_details,
+                RawMaterialsCertifiedWeight: ele.certified_weight,
+                CountryArea: countrys,
               };
+              RawMaterialDetails.push(obj);
             }
           );
-        form2.setFieldsValue({
-          CertificateName: res?.extracted_data?.main_certificate_details?.title,
-          CertificateNumber:
-            res?.extracted_data?.main_certificate_details?.certificate_no,
-          CertificationAddress:
-            res?.extracted_data?.main_certificate_details?.main_address,
-          FollowingProcess:
-            res?.extracted_data?.main_certificate_details
-              ?.for_the_following_process,
-          CertificationCharacteristics:
-            res?.extracted_data?.main_certificate_details
-              ?.this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics,
-          ExtraNote: res?.extracted_data?.main_certificate_details?.extra_note,
-          valid_from: dayjs(
-            res?.extracted_data?.main_certificate_details?.valid_from,
-            "DD/MM/YYYY"
-          ),
-          valid_till: dayjs(
-            res?.extracted_data?.main_certificate_details?.valid_till,
-            "DD/MM/YYYY"
-          ),
-          additionalDeclaration: UpdatedAdditionalDeclarationItem,
-          CertificateNumberCHAR:
-            res?.extracted_data?.certification_characteristics?.certificate_no,
-          CertificationAddressCHAR:
-            res?.extracted_data?.certification_characteristics?.main_value,
-          ProductDetails:
-            res?.extracted_data?.certification_characteristics?.[
-              "trader_product(s)"
-            ],
-          datePicker: moment(new Date()),
-        });
+
+          if (RawMaterialDetails.length === 0) {
+            RawMaterialDetails.push({
+              OrganicCotton: "",
+              RawMaterialsCertifiedWeight: "",
+              CountryArea: [{ CountryName: "" }],
+            });
+          }
+
+          console.log(response?.data?.certified_input_references?.farm_scs);
+
+          let inputTcs = [];
+          inputTcs =
+            response?.data?.certified_input_references?.input_tcs.split(",") ||
+            [];
+          let farm_tcs = [];
+          farm_tcs =
+            response?.certified_input_references?.farm_tcs?.split(",") || [];
+          let farm_scs = [];
+          farm_scs =
+            response?.certified_input_references?.farm_scs?.split(",") || [];
+          console.log(inputTcs, farm_scs, farm_tcs);
+
+          setTags(inputTcs);
+          setTags1(farm_tcs);
+          setTags2(farm_scs);
+
+          const UpdatedAdditionalDeclarationItem =
+            response?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+              (item) => {
+                return {
+                  additionalDeclarationItem: item, // Add a key with the current item as its value
+                };
+              }
+            );
+          form2.setFieldsValue({
+            CertificateName:
+              response?.data?.extracted_data?.main_certificate_details?.title,
+            CertificateNumber:
+              response?.data?.extracted_data?.main_certificate_details
+                ?.certificate_no,
+            CertificationAddress:
+              response?.data?.extracted_data?.main_certificate_details
+                ?.main_address,
+            FollowingProcess:
+              response?.data?.extracted_data?.main_certificate_details
+                ?.for_the_following_process,
+            CertificationCharacteristics:
+              response?.data?.extracted_data?.main_certificate_details
+                ?.this_certificate_is_valid_for_those_products_and_area_specified_in_the_annexe_certification_characteristics,
+            ExtraNote:
+              response?.data?.extracted_data?.main_certificate_details
+                ?.extra_note,
+            valid_from: dayjs(
+              response?.data?.extracted_data?.main_certificate_details
+                ?.valid_from,
+              "DD/MM/YYYY"
+            ),
+            valid_till: dayjs(
+              response?.data?.extracted_data?.main_certificate_details
+                ?.valid_till,
+              "DD/MM/YYYY"
+            ),
+            additionalDeclaration: UpdatedAdditionalDeclarationItem,
+            CertificateNumberCHAR:
+              response?.data?.extracted_data?.certification_characteristics
+                ?.certificate_no,
+            CertificationAddressCHAR:
+              response?.data?.extracted_data?.certification_characteristics
+                ?.main_value,
+            ProductDetails:
+              response?.data?.extracted_data?.certification_characteristics?.[
+                "trader_product(s)"
+              ],
+            datePicker: moment(new Date()),
+          });
+        }
+      } else {
+        setLoading(false);
+        toast.error(response?.message);
       }
-      else{
-        toast.error('Something Went Wrong.')
-      }
+      // else{
+      //   toast.error('Something Went Wrong.')
+      // }
       setLoading(false);
     } catch (error) {
-      console.log(error);        
-      toast.error('Something Went Wrong.')
+      console.log('Something Went Wrong',error);
+      toast.error("Something Went Wrong.");
     }
   };
 
@@ -172,7 +193,7 @@ const ImportPdfHandleForm = () => {
 
   const handleSubmit2 = async (values) => {
     try {
-      setLoading(true)
+      setLoading(true);
       let UpdatedAdditionalDeclarationItem = values?.additionalDeclaration?.map(
         (item) => item?.additionalDeclarationItem
       );
@@ -201,17 +222,26 @@ const ImportPdfHandleForm = () => {
           },
         },
       };
-      let res = await addFormHandlinkTrading(data);
-      if(res){
+      let response = await addFormHandlinkTrading(data);
+      // if(response){
+      if (response?.status_code === 201 || response?.status_code === 200) {
+        toast.success(response?.message);
         navigate("/handlingTradingScTypeList");
-        toast.success('Form Submitted SuccessFully.')
-      }else{
-        toast.error('Something Went Wrong.')
+        // setData(response?.data)
+        setLoading(false);
+      } else {
+        setLoading(false);
+        toast.error(response?.message);
       }
-      setLoading(true)
+      // navigate("/handlingTradingScTypeList");
+      // toast.success('Form Submitted SuccessFully.')
+      // }else{
+      //   toast.error('Something Went Wrong.')
+      // }
+      setLoading(true);
     } catch (error) {
-      toast.error('Something Went Wrong.')
-      setLoading(true)
+      toast.error("Something Went Wrong.");
+      setLoading(true);
       console.log(error);
     }
   };
@@ -224,69 +254,74 @@ const ImportPdfHandleForm = () => {
     return isValidType;
   };
 
- 
-
-  console.log('Loading',loading)
+  console.log("Loading", loading);
   return formNo === "1" ? (
     <>
-      {loading && <Spinner message="Loading" isActive={loading}/>}
- <div className='flex'><div style={{ width: "20%" }}>  <Slidebar /></div>  <div style={{ width: "80%" }}> 
-      <AntdForm
-        form={form}
-        onFinish={handleSubmit}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        layout="vertical"
-        className="form_1  rounded-xl shadow-xl"
-        style={{ maxWidth: 800, margin: "0 auto" }}
-        initialValues={{ UploadPdf: [] }}
-      >
-        <section className="section">
-          <h2 className=" pb-5 section-title">
-            Upload PDF For Handling and Trading SC type
-          </h2>
-          <div className="">
-            <div className="flex items-center md:justify-between flex-wrap">
-              <AntdForm.Item
-                label="Upload Pdf Here"
-                name="UploadPdf"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                className="pt-5 w-full md:w-[49%] UploadPdf"
-                rules={[
-                  { required: true, message: "Please upload a PDF file!" },
-                ]}
-              >
-                <Upload
-                  action="/upload.do"
-                  listType="picture-card"
-                  beforeUpload={beforeUpload}
-                  accept=".pdf"
-                  maxCount={1}
-                  onChange={(info) => {}}
-                >
-                  <button
-                    style={{ border: 0, background: "none" }}
-                    type="button"
+      {loading && <Spinner message="Loading" isActive={loading} />}
+      <div className="flex">
+        <div style={{ width: "20%" }}>
+          {" "}
+          <Slidebar />
+        </div>{" "}
+        <div style={{ width: "80%" }}>
+          <AntdForm
+            form={form}
+            onFinish={handleSubmit}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            layout="vertical"
+            className="form_1  rounded-xl shadow-xl"
+            style={{ maxWidth: 800, margin: "0 auto" }}
+            initialValues={{ UploadPdf: [] }}
+          >
+            <section className="section">
+              <h2 className=" pb-5 section-title">
+                Upload PDF For Handling and Trading SC type
+              </h2>
+              <div className="">
+                <div className="flex items-center md:justify-between flex-wrap">
+                  <AntdForm.Item
+                    label="Upload Pdf Here"
+                    name="UploadPdf"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                    className="pt-5 w-full md:w-[49%] UploadPdf"
+                    rules={[
+                      { required: true, message: "Please upload a PDF file!" },
+                    ]}
                   >
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload Pdf</div>
-                  </button>
-                </Upload>
-              </AntdForm.Item>
-            </div>
-          </div>
-        </section>
-        <AntdForm.Item className=" submitButtonGroup">
-          <Button type="primary" htmlType="submit" className="submit-btn ">
-            Submit
-          </Button>
-        </AntdForm.Item>
-      </AntdForm>       </div>       </div>
+                    <Upload
+                      action="/upload.do"
+                      listType="picture-card"
+                      beforeUpload={beforeUpload}
+                      accept=".pdf"
+                      maxCount={1}
+                      onChange={(info) => {}}
+                    >
+                      <button
+                        style={{ border: 0, background: "none" }}
+                        type="button"
+                      >
+                        <PlusOutlined />
+                        <div style={{ marginTop: 8 }}>Upload Pdf</div>
+                      </button>
+                    </Upload>
+                  </AntdForm.Item>
+                </div>
+              </div>
+            </section>
+            <AntdForm.Item className=" submitButtonGroup">
+              <Button type="primary" htmlType="submit" className="submit-btn ">
+                Submit
+              </Button>
+            </AntdForm.Item>
+          </AntdForm>{" "}
+        </div>{" "}
+      </div>
     </>
   ) : (
     <>
-    {loading && <Spinner message="Loading" isActive={loading}/>}
+      {loading && <Spinner message="Loading" isActive={loading} />}
 
       <Slidebar />
       <div className="container mx-auto  ">

@@ -10,6 +10,7 @@ import { cloneDeep } from "lodash";
 import moment from "moment";
 import Spinner from "../../layout/Spinner";
 import { Slidebar } from "../../layout/Slidebar";
+import { toast } from "react-toastify";
 
 const HandleFormView = () => {
   const [data, setData] = useState([]);
@@ -18,15 +19,25 @@ const HandleFormView = () => {
   const [loading, setLoading] = useState(false);
 
   const { id } = params;
-
   const getList = async () => {
     try {
       setLoading(true);
       // Fetch data
       const response = await viewFormHandlinkTrading(id);
       console?.log("response", response);
+
+       if (response?.status_code === 201 || response?.status_code === 200) {
+        toast.success(response?.message)
+        setData(response?.data)
+        setLoading(false)
+      }else{
+        setLoading(false)
+        toast.error(response?.message)
+      }
+
       setData(response);
-      let res = [response];
+
+      // let res = [response];
       //   // Process each element
       //   let datas = res?.map((ele, ind) => {
       //     // Process the fields (convert, replace, and split)
@@ -79,6 +90,8 @@ const HandleFormView = () => {
     getList();
     // setLoading(false);
   }, []);
+
+  const refs = useRef({});
 
   const handlePdfDownload = async (id) => {
     const element = refs.current[id]?.current;
@@ -148,8 +161,37 @@ const HandleFormView = () => {
     if (buttonSection) buttonSection.style.display = "block";
   };
 
-  const refs = useRef({});
 
+  const handleGeneratePdf = () => {
+    const doc = new jsPDF({
+      format: 'a4',
+      unit: 'px',
+    });
+  
+    // Ensure the font is loaded properly
+    doc.setFont('Inter-Regular', 'normal');
+  
+    // Check if the reference exists before proceeding
+    const targetElement = refs.current;
+  
+    if (!targetElement) {
+      console.error('No element found for the provided ID.');
+      return;
+    }
+  
+    doc.html(targetElement, {
+      callback: (doc) => {
+        // Save the generated PDF
+        doc.save('document.pdf');
+      },
+      x: 10, // Optional: Adjust x-coordinate
+      y: 10, // Optional: Adjust y-coordinate
+      html2canvas: {
+        scale: 1, // Adjust scale to improve PDF quality
+      },
+    });
+  };
+  
   const recordId = data?.id || "default";
   refs.current[recordId] = refs.current[recordId] || React.createRef();
 
@@ -163,11 +205,11 @@ const HandleFormView = () => {
         <div style={{ width: "80%" }}>
         <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
         <div className="card card_list" ref={refs.current[recordId]}>
-          {/* {data?.map((data, ind) => { */}
 
+        {/* <div className="card card_list" ref={refs}> */}
+          {/* {data?.map((data, ind) => { */}
           {/* {  const recordId = data.id || ind;
           refs.current[recordId] = refs.current[recordId] || React.createRef()} */}
-
           <div
             // key={ind}
             className="card_item flex flex-col gap-3 rounded-xl p-5"
@@ -176,6 +218,7 @@ const HandleFormView = () => {
               <button
                 className="btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn"
                 onClick={(e) => handlePdfDownload(recordId)}
+                // onClick={handleGeneratePdf}
               >
                 Download
                 <FaFilePdf className="ms-2" />
@@ -184,7 +227,6 @@ const HandleFormView = () => {
             </div>
 
             <hr className="py-5" />
-
             <div className="w-full section1 flex flex-wrap justify-between ">
               <h3 className="text-2xl w-full  CertifiedInput p-3">
                 {data?.file_name}
@@ -243,7 +285,7 @@ const HandleFormView = () => {
             <div className="w-full flex justify-between flex-wrap">
               <div className="w-full ">
                 <div className="flex section1 flex-wrap pb-5">
-                  <h3 className="text-2xl w-full  CertifiedInput p-3">
+                  <h3 className="text-2xl w-full  CertifiedInput ">
                     Certificate Details:
                   </h3>
                   <div className="p-2">
