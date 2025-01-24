@@ -235,7 +235,7 @@ const ImportPdfScopeVerification = () => {
             <section className='section'>
               <h2 className=' pb-5 section-title'>
                 {' '}
-                Upload Pdf For Scope Verification Form:{' '}
+                Upload Pdf For Scope Certification Form:{' '}
               </h2>
               <div className=''>
                 <div className='flex items-center md:justify-between flex-wrap'>

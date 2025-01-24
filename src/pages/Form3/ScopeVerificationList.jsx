@@ -90,13 +90,13 @@ const ScopeVerificationList = () => {
         <div style={{ width: '80%' }}>
           {' '}
           <div className='container formList-cont border rounded-xl mx-auto  my-10  '>
-            <h3 className='text-3xl p-5 font-bold'>Scope Certificate</h3>
+            <h3 className='text-3xl p-5 font-bold'>Scope Certificate List</h3>
             <div className='card card_list'>
-              {data.length > 0 ? (
+              {/* {data.length > 0 ? ( */}
                 <CustomTable columns={columns} data={data} />
-              ) : (
+              {/* ) : (
                 <p>No data available.</p>
-              )}
+              )} */}
             </div>
           </div>
         </div>

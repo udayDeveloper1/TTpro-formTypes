@@ -24,10 +24,9 @@ const HandleFormView = () => {
       setLoading(true);
       // Fetch data
       const response = await viewFormHandlinkTrading(id);
-      console?.log("response", response);
 
        if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message)
+        // toast.success(response?.message)
         setData(response?.data)
         setLoading(false)
       }else{
@@ -37,47 +36,7 @@ const HandleFormView = () => {
 
       setData(response);
 
-      // let res = [response];
-      //   // Process each element
-      //   let datas = res?.map((ele, ind) => {
-      //     // Process the fields (convert, replace, and split)
-      //     let input_tcs = String(
-      //       ele?.extracted_data?.certified_input_references?.input_tcs
-      //     )
-      //       ?.replace(/[:;]/g, ",")
-      //       .split(",");
 
-      //     let farm_tcs = String(
-      //       ele.extracted_data.certified_input_references.farm_tcs
-      //     )
-      //       .replace(/[:;]/g, ",")
-      //       .split(",");
-
-      //     let farm_scs = String(
-      //       ele.extracted_data.certified_input_references.farm_scs
-      //     )
-      //       .replace(/[:;]/g, ",")
-      //       .split(",");
-
-      //     // Create a deep copy of the element and update the certified_input_references
-      //     let obj = cloneDeep(ele);
-      //     obj.extracted_data.certified_input_references = {
-      //       input_tcs,
-      //       farm_tcs,
-      //       farm_scs,
-      //       trader_tcs_for_organic_material:
-      //         ele?.extracted_data?.certified_input_references
-      //           ?.trader_tcs_for_organic_material,
-      //     };
-
-      //     return obj;
-      //   });
-
-      //   // Set the processed data to state
-      //   setData(datas);
-
-      // Log the final transformed response
-      //   console.log(datas);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -197,7 +156,7 @@ const HandleFormView = () => {
 
   return (
     <>
-      {loading && <Spinner message="Loading..." isActive={loading} />}
+      {/* {loading && <Spinner message="Loading..." isActive={loading} />} */}
       <div style={{ display: "flex" }}>
         <div style={{ width: "20%" }}>
           <Slidebar />

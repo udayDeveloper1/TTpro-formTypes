@@ -221,7 +221,7 @@ export const Slidebar = () => {
                   <span>
                     <i className="ti ti-user-circle me-1 fs-6" />
                   </span>
-                  <span className="hide-menu">Scope Verification Form</span>
+                  <span className="hide-menu">Scope Certification Form</span>
                 </a>
 
                 {/* Submenu */}

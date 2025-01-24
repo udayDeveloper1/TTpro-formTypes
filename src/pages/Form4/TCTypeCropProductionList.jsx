@@ -94,11 +94,11 @@ const TCTypeCropProductionList = () => {
               TC Type Crop Production List
             </h3>
             <div className="card card_list">
-              {data.length > 0 ? (
+              {/* {data.length > 0 ? ( */}
                 <CustomTable columns={columns} data={data} />
-              ) : (
+              {/* ) : (
                 <p>No data available.</p>
-              )}
+              )} */}
             </div>
           </div>
         </div>
