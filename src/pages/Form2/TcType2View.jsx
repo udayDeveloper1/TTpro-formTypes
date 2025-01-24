@@ -712,7 +712,7 @@ const TcType2View = () => {
                                       </td>
                                       <td className='p-2 border'>
                                         <ul className='list-disc pl-5'>
-                                          {elem && elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
+                                          {Array.isArray(elem?.vehicle_number_or_bull_cart_or_air_or_others) && elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
                                             (vehicle, idx) => (
                                               <li key={idx}>{vehicle}</li>
                                             )
