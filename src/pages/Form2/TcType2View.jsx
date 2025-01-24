@@ -25,10 +25,9 @@ const TcType2View = () => {
       if (response?.status_code === 200 || response?.status_code === 201) {
         let res = [response?.data]
         setData(res)
-      }else{
-              toast.error('Internal server error. Please try again later.')
+      } else {
+        toast.error('Internal server error. Please try again later.')
       }
-
 
       // Log the final transformed response
     } catch (error) {
@@ -110,358 +109,388 @@ const TcType2View = () => {
   }
 
   return (
- <>  <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}>   <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
-      <div className='card card_list'>
-        {data?.map((ele, ind) => {
-          const recordId = ele.id || ind
-          refs.current[recordId] = refs.current[recordId] || React.createRef()
-          console.log(ele)
+    <>
+      {' '}
+      <div className='flex'>
+        {' '}
+        <div style={{ width: '20%' }}>
+          {' '}
+          <Slidebar />
+        </div>{' '}
+        <div style={{ width: '80%' }}>
+          {' '}
+          <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
+            <div className='card card_list'>
+              {data?.map((ele, ind) => {
+                const recordId = ele.id || ind
+                refs.current[recordId] =
+                  refs.current[recordId] || React.createRef()
+                console.log(ele)
 
-          return (
-            <div
-              key={ind}
-              ref={refs.current[recordId]}
-              className='card_item flex flex-col gap-3 rounded-xl p-5'
-            >
-              <div className='w-full flex justify-between button_section pb-10'>
-                <button
-                  className='btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn'
-                  onClick={e => handlePdfDownload(recordId)}
-                >
-                  Download
-                  <FaFilePdf className='ms-2' />
-                </button>
-              </div>
+                return (
+                  <div
+                    key={ind}
+                    ref={refs.current[recordId]}
+                    className='card_item flex flex-col gap-3 rounded-xl p-5'
+                  >
+                    <div className='w-full flex justify-between button_section pb-10'>
+                      <button
+                        className='btn flex items-center text-white py-2 px-4 rounded-lg font-semibold   transition-all download_pdf_btn'
+                        onClick={e => handlePdfDownload(recordId)}
+                      >
+                        Download
+                        <FaFilePdf className='ms-2' />
+                      </button>
+                    </div>
 
-              <hr className='py-5' />
+                    <hr className='py-5' />
 
-              <div className='w-full section1 flex flex-wrap justify-between '>
-                <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                  {ele.file_name}
-                </h3>
-                <div className='w-full flex p-2 justify-between'>
-                  <div className='w-full flex flex-col md:w-[49%] justify-center '>
-                    <div className='flex flex-wrap '>
-                      <div className='w-full flex flex-col'>
-                        <div className='flex '>
-                          <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
-                            File Name{' '}
-                          </h4>
-                          <p className='text-xl keyValue w-[70%]'>
-                            {ele.file_name}
-                          </p>
+                    <div className='w-full section1 flex flex-wrap justify-between '>
+                      <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                        {ele.file_name}
+                      </h3>
+                      <div className='w-full flex p-2 justify-between'>
+                        <div className='w-full flex flex-col md:w-[49%] justify-center '>
+                          <div className='flex flex-wrap '>
+                            <div className='w-full flex flex-col'>
+                              <div className='flex '>
+                                <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
+                                  File Name{' '}
+                                </h4>
+                                <p className='text-xl keyValue w-[70%]'>
+                                  {ele.file_name}
+                                </p>
+                              </div>
+                              <div className='flex'>
+                                <h4 className='text-xl keyName pe-4  w-[30%] font-bold'>
+                                  id:{' '}
+                                </h4>
+                                <p className='text-xl keyValue  w-[70%]'>
+                                  {ele.id}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className='flex'>
-                          <h4 className='text-xl keyName pe-4  w-[30%] font-bold'>
-                            id:{' '}
-                          </h4>
-                          <p className='text-xl keyValue  w-[70%]'>{ele.id}</p>
+
+                        <div className='w-full md:w-[49%] flex justify-center  flex-col'>
+                          <div className='flex flex-wrap '>
+                            <div className='w-full'>
+                              <div className='flex'>
+                                <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
+                                  created At:
+                                </h4>
+                                <p className='text-xl keyValue w-[70%]'>
+                                  {moment(ele.created_at).format(
+                                    'DD-MM-YYYY hh:mm A'
+                                  )}
+                                </p>
+                              </div>
+                              <div className='flex'>
+                                <h4 className='text-xl pe-4 w-[30%] font-bold'>
+                                  updated_at:{' '}
+                                </h4>
+                                <p className='text-xl w-[70%]'>
+                                  {moment(ele.updated_at).format(
+                                    'DD-MM-YYYY hh:mm A'
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className='w-full md:w-[49%] flex justify-center  flex-col'>
-                    <div className='flex flex-wrap '>
-                      <div className='w-full'>
-                        <div className='flex'>
-                          <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
-                            created At:
-                          </h4>
-                          <p className='text-xl keyValue w-[70%]'>
-                            {moment(ele.created_at).format(
-                              'DD-MM-YYYY hh:mm A'
-                            )}
-                          </p>
+                    <div className='w-full flex justify-between flex-wrap'>
+                      <div className='w-full md:w-[49%]'>
+                        <div className='flex section1 flex-wrap pb-5'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Additional declaration by the certification body:
+                          </h3>
+                          <div className='p-2'>
+                            <div className='flex'>
+                              <h4 className='font-bold text-xl pe-4'>
+                                Issue date:{' '}
+                              </h4>
+                              <p className='text-xl'>
+                                {
+                                  ele.extracted_data
+                                    .additional_declaration_by_the_certification_body
+                                    .issue_date
+                                }
+                              </p>
+                            </div>
+                            <div className='flex'>
+                              <h4 className='font-bold text-xl pe-4'>
+                                this is to cerify that:{' '}
+                              </h4>
+                              <ul className='text-xl'>
+                                {ele.extracted_data.additional_declaration_by_the_certification_body.this_is_to_cerify_that?.map(
+                                  (elem, index) => {
+                                    return <li key={index}> {elem}</li>
+                                  }
+                                )}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
-                        <div className='flex'>
-                          <h4 className='text-xl pe-4 w-[30%] font-bold'>
-                            updated_at:{' '}
-                          </h4>
-                          <p className='text-xl w-[70%]'>
-                            {moment(ele.updated_at).format(
-                              'DD-MM-YYYY hh:mm A'
-                            )}
-                          </p>
+                      </div>
+                      <div className='w-full md:w-[49%]'>
+                        <div className='flex section1  flex-wrap pb-5'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Certification Body:
+                          </h3>
+                          <div className='p-2'>
+                            <div className='flex  '>
+                              <h4 className='font-bold text-xl pe-4'>
+                                Certification Name:{' '}
+                              </h4>
+                              <p className='text-xl'>
+                                {ele.extracted_data.certification_body.name}
+                              </p>
+                            </div>
+                            <div className='flex'>
+                              <h4 className='font-bold text-xl pe-4'>
+                                Certification address:{' '}
+                              </h4>
+                              <p className='text-xl'>
+                                {ele.extracted_data.certification_body.address}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                    <div className='w-full flex flex-wrap'>
+                      <div className='w-full flex justify-between'>
+                        <div className='flex flex-wrap pb-5 w-[49%]'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Buyer:
+                          </h3>
+                          <div className='flex section1 flex-row justify-between p-3  w-full flex-wrap'>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                PAN:{' '}
+                              </h4>
+                              <p className='text-xl keyValue '>
+                                {ele?.extracted_data?.buyer?.PAN}
+                              </p>
+                            </div>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Address:{' '}
+                              </h4>
+                              <p className='text-xl keyValue  w-[70%]'>
+                                {ele?.extracted_data?.buyer?.address}
+                              </p>
+                            </div>
+                            <div className='flex  w-full'>
+                              <h4 className='font-bold text-xl pe-4'>Name: </h4>
+                              <p className='text-xl'>
+                                {ele.extracted_data.buyer.name}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='flex flex-wrap pb-5 w-[49%]'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Seller:
+                          </h3>
+                          <div className='flex section1 flex-row justify-between p-3  w-full  flex-wrap'>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                PAN:
+                              </h4>
+                              <p className='text-xl keyValue '>
+                                {ele?.extracted_data?.buyer?.PAN}
+                              </p>
+                            </div>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Address:
+                              </h4>
+                              <p className='text-xl keyValue  w-[70%]'>
+                                {ele?.extracted_data?.buyer?.address}
+                              </p>
+                            </div>
+                            <div className='flex  w-full'>
+                              <h4 className='font-bold text-xl pe-4'>Name: </h4>
+                              <p className='text-xl'>
+                                {ele.extracted_data.buyer.name}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-              <div className='w-full flex justify-between flex-wrap'>
-                <div className='w-full md:w-[49%]'>
-                  <div className='flex section1 flex-wrap pb-5'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Additional declaration by the certification body:
-                    </h3>
-                    <div className='p-2'>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>Issue date: </h4>
-                        <p className='text-xl'>
-                          {
-                            ele.extracted_data
-                              .additional_declaration_by_the_certification_body
-                              .issue_date
-                          }
-                        </p>
-                      </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
-                          this is to cerify that:{' '}
-                        </h4>
-                        <ul className='text-xl'>
-                          {ele.extracted_data.additional_declaration_by_the_certification_body.this_is_to_cerify_that?.map(
-                            (elem, index) => {
-                              return <li key={index}> {elem}</li>
-                            }
-                          )}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className='w-full md:w-[49%]'>
-                  <div className='flex section1  flex-wrap pb-5'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Certification Body:
-                    </h3>
-                    <div className='p-2'>
-                      <div className='flex  '>
-                        <h4 className='font-bold text-xl pe-4'>
-                          Certification Name:{' '}
-                        </h4>
-                        <p className='text-xl'>
-                          {ele.extracted_data.certification_body.name}
-                        </p>
-                      </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
-                          Certification address:{' '}
-                        </h4>
-                        <p className='text-xl'>
-                          {ele.extracted_data.certification_body.address}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='w-full flex flex-wrap'>
-                <div className='w-full flex justify-between'>
-                  <div className='flex flex-wrap pb-5 w-[49%]'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Buyer:
-                    </h3>
-                    <div className='flex section1 flex-row justify-between p-3  w-full flex-wrap'>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          PAN:{' '}
-                        </h4>
-                        <p className='text-xl keyValue '>
-                          {ele?.extracted_data?.buyer?.PAN}
-                        </p>
-                      </div>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Address:{' '}
-                        </h4>
-                        <p className='text-xl keyValue  w-[70%]'>
-                          {ele?.extracted_data?.buyer?.address}
-                        </p>
-                      </div>
-                      <div className='flex  w-full'>
-                        <h4 className='font-bold text-xl pe-4'>Name: </h4>
-                        <p className='text-xl'>
-                          {ele.extracted_data.buyer.name}
-                        </p>
+                    <div className='w-full flex flex-wrap'>
+                      <div className='w-full flex justify-between'>
+                        <div className='flex flex-wrap pb-5 w-[49%]'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Name and Signature of the Authorised Person:
+                          </h3>
+                          <div className='flex section1 flex-row justify-between p-3  w-full flex-wrap'>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Name:{' '}
+                              </h4>
+                              <p className='text-xl keyValue '>
+                                {
+                                  ele?.extracted_data
+                                    ?.name_and_signature_of_the_authorised_person
+                                    ?.name
+                                }
+                              </p>
+                            </div>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Position:{' '}
+                              </h4>
+                              <p className='text-xl keyValue  w-[70%]'>
+                                {
+                                  ele?.extracted_data
+                                    ?.name_and_signature_of_the_authorised_person
+                                    ?.position
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className='flex flex-wrap pb-5 w-[49%]'>
+                          <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                            Places:
+                          </h3>
+                          <div className='flex section1 flex-row justify-between p-3  w-full  flex-wrap'>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Place of Destination:
+                              </h4>
+                              <p className='text-xl keyValue '>
+                                {ele?.extracted_data?.place_of_destination}
+                              </p>
+                            </div>
+                            <div className='flex w-full'>
+                              <h4 className='text-xl keyName pe-4 font-bold'>
+                                Place of Dispatch:
+                              </h4>
+                              <p className='text-xl keyValue  w-[70%]'>
+                                {ele?.extracted_data?.place_of_dispatch}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className='flex flex-wrap pb-5 w-[49%]'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Seller:
-                    </h3>
-                    <div className='flex section1 flex-row justify-between p-3  w-full  flex-wrap'>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>PAN:</h4>
-                        <p className='text-xl keyValue '>
-                          {ele?.extracted_data?.buyer?.PAN}
-                        </p>
-                      </div>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Address:
-                        </h4>
-                        <p className='text-xl keyValue  w-[70%]'>
-                          {ele?.extracted_data?.buyer?.address}
-                        </p>
-                      </div>
-                      <div className='flex  w-full'>
-                        <h4 className='font-bold text-xl pe-4'>Name: </h4>
-                        <p className='text-xl'>
-                          {ele.extracted_data.buyer.name}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div className='w-full flex flex-wrap'>
-                <div className='w-full flex justify-between'>
-                  <div className='flex flex-wrap pb-5 w-[49%]'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Name and Signature of the Authorised Person:
-                    </h3>
-                    <div className='flex section1 flex-row justify-between p-3  w-full flex-wrap'>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Name:{' '}
-                        </h4>
-                        <p className='text-xl keyValue '>
-                          {
-                            ele?.extracted_data
-                              ?.name_and_signature_of_the_authorised_person
-                              ?.name
-                          }
-                        </p>
-                      </div>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Position:{' '}
-                        </h4>
-                        <p className='text-xl keyValue  w-[70%]'>
-                          {
-                            ele?.extracted_data
-                              ?.name_and_signature_of_the_authorised_person
-                              ?.position
-                          }
-                        </p>
+                    <div className='w-full certifiedProduct  flex flex-wrap'>
+                      <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
+                        Certified Products:
+                      </h3>
+                      <div className='flex w-full flex-wrap'>
+                        <div className='pb-5 w-full'>
+                          <div className='p-3 overflow-x-auto'>
+                            <table className='w-full border border-gray-300 text-left'>
+                              <thead className='bg-gray-100 border-b border-gray-300'>
+                                <th className='text-xl'>
+                                  NPOP Organic Compliance C1/C2/C3/organic
+                                </th>
+                                <th className='text-xl'>Hs Code</th>
+                                <th className='text-xl'>Lot No</th>
+                                <th className='text-xl'>Packing Details</th>
+                                <th className='text-xl'>Product Name</th>
+                                <th className='text-xl'>Quantity in MT</th>
+                                <th className='text-xl'>Trade Name</th>
+                              </thead>
+                              <tbody>
+                                {ele.extracted_data.product_details.map(
+                                  (elem, indd) => {
+                                    return (
+                                      <tr
+                                        className='bg-gray-100 border-b border-gray-300'
+                                        key={indd}
+                                      >
+                                        <td className='p-1 font-medium py-3'>
+                                          {
+                                            elem?.[
+                                              'NPOP_organic_compliance_C1/C2/C3/organic'
+                                            ]
+                                          }
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.hs_code}
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.lot_no}
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.packing_details?.map(
+                                            (element, indd) => {
+                                              return (
+                                                <>
+                                                  <p className='ind'>
+                                                    {element}
+                                                  </p>
+                                                </>
+                                              )
+                                            }
+                                          )}
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.product_name}
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.quantity_in_MT}
+                                        </td>
+                                        <td className='p-1 font-medium py-3'>
+                                          {elem.trade_name?.map(
+                                            (element, indd) => {
+                                              return (
+                                                <>
+                                                  <p className='ind'>
+                                                    {element}
+                                                  </p>
+                                                </>
+                                              )
+                                            }
+                                          )}
+                                        </td>
+                                      </tr>
+                                    )
+                                  }
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className='flex flex-wrap pb-5 w-[49%]'>
-                    <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                      Places:
-                    </h3>
-                    <div className='flex section1 flex-row justify-between p-3  w-full  flex-wrap'>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Place of Destination:
-                        </h4>
-                        <p className='text-xl keyValue '>
-                          {ele?.extracted_data?.place_of_destination}
-                        </p>
-                      </div>
-                      <div className='flex w-full'>
-                        <h4 className='text-xl keyName pe-4 font-bold'>
-                          Place of Dispatch:
-                        </h4>
-                        <p className='text-xl keyValue  w-[70%]'>
-                          {ele?.extracted_data?.place_of_dispatch}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div className='w-full certifiedProduct  flex flex-wrap'>
-                <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
-                  Certified Products:
-                </h3>
-                <div className='flex w-full flex-wrap'>
-                  <div className='pb-5 w-full'>
-                    <div className='p-3 overflow-x-auto'>
-                      <table className='w-full border border-gray-300 text-left'>
-                        <thead className='bg-gray-100 border-b border-gray-300'>
-                          <th className='text-xl'>NPOP Organic Compliance C1/C2/C3/organic</th>
-                          <th className='text-xl'>Hs Code</th>
-                          <th className='text-xl'>Lot No</th>
-                          <th className='text-xl'>Packing Details</th>
-                          <th className='text-xl'>Product Name</th>
-                          <th className='text-xl'>Quantity in MT</th>
-                          <th className='text-xl'>Trade Name</th>
-                        </thead>
-                        <tbody>
-                          {ele.extracted_data.product_details.map(
-                            (elem, indd) => {
-                              return (
-                                <tr
-                                  className='bg-gray-100 border-b border-gray-300'
-                                  key={indd}
-                                >
-                                  <td className='p-1 font-medium py-3'>
-                                    {
-                                      elem?.[
-                                        'NPOP_organic_compliance_C1/C2/C3/organic'
-                                      ]
-                                    }
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.hs_code}
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.lot_no}
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.packing_details?.map(
-                                      (element, indd) => {
-                                        return (
-                                          <>
-                                            <p className='ind'>{element}</p>
-                                          </>
-                                        )
-                                      }
-                                    )}
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.product_name}
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.quantity_in_MT}
-                                  </td>
-                                  <td className='p-1 font-medium py-3'>
-                                    {elem.trade_name?.map((element, indd) => {
-                                      return (
-                                        <>
-                                          <p className='ind'>{element}</p>
-                                        </>
-                                      )
-                                    })}
-                                  </td>
-                                </tr>
-                              )
-                            }
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className='w-full section1 flex flex-wrap justify-between '>
-                <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                  Transaction Details
-                </h3>
-                <div className='w-full p-2'>
-                  <div className='flex flex-wrap '>
-                    <div className='w-full flex flex-col'>
-                      <div className='flex '>
-                        <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
-                          Transaction Certificate Number
+                    <div className='w-full section1 flex flex-wrap justify-between '>
+                      <h3 className='text-2xl w-full  CertifiedInput p-3'>
+                        Transaction Details
+                      </h3>
+                      <div className='w-full p-2'>
+                        <div className='flex flex-wrap '>
+                          <div className='w-full flex flex-col'>
+                            <div className='flex '>
+                              <h4 className='text-xl keyName pe-4 w-[30%] font-bold'>
+                                Transaction Certificate Number
+                              </h4>
+                              <p className='text-xl keyValue w-[70%]'>
+                                {
+                                  ele?.extracted_data
+                                    ?.transaction_certificate_number
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <h4 className='text-xl py-5 font-bold'>
+                          Invoice Details
                         </h4>
-                        <p className='text-xl keyValue w-[70%]'>
-                          {ele?.extracted_data?.transaction_certificate_number}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <h4>Invoice Details</h4>
-                  <table className='w-full border border-gray-300 text-left'>
+                        {/* <table className='w-full border border-gray-300 text-left'>
                     <thead className='bg-gray-100 border-b border-gray-300'>
                       <th>Invoice Details</th>
                       <th>Order or Contact Number</th>
@@ -551,43 +580,201 @@ const TcType2View = () => {
                         </td>
                       </tr>
                     </tbody>
-                  </table>
-                </div>
-              </div>
+                  </table> */}
+                        <div className='p-4 bg-white border border-gray-300 rounded-md shadow-md'>
+                          {/* Header Section */}
+                          <h2 className='text-xl font-semibold mb-4'>
+                            Transaction Certificate Number:{' '}
+                            {
+                              ele?.extracted_data?.transaction_details
+                                ?.transaction_certificate_number
+                            }
+                          </h2>
 
-              <div className='w-full certifiedProduct  flex flex-wrap'>
-                <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
-                  Seller of Individual/ICS
-                </h3>
-                <div className='flex w-full flex-wrap'>
-                  <div className='pb-5 w-full'>
-                    <div className='p-3 overflow-x-auto'>
-                      <table className='w-full border border-gray-300 text-left'>
-                        <thead className='bg-gray-100 border-b border-gray-300'>
-                          <th>PAN</th>
-                          <th>Address</th>
-                          <th>Name</th>
-                        </thead>
-                        <tbody>
-                          <td>
-                          {console.log(ele?.extracted_data)}
-                          
-                            {ele?.extracted_data?.["seller_of_individual/ICS"]?.PAN}
-                          </td>
-                          <td>
-                            {ele?.extracted_data?.["seller_of_individual/ICS"]?.address}
-                          </td>
-                          <td>
-                            {ele?.extracted_data?.["seller_of_individual/ICS"]?.name}
-                          </td>
-                        </tbody>
-                      </table>
+                          {/* Invoice Details Section */}
+                          <div className='mb-6'>
+                            <h3 className='text-lg font-semibold border-b border-gray-300 pb-2 mb-3'>
+                              Invoice Details
+                            </h3>
+                            {ele?.extracted_data?.transaction_details?.invoice_details?.map(
+                              (elem, index) => (
+                                <div
+                                  key={index}
+                                  className='flex items-center justify-between p-2 bg-gray-50 rounded-md mb-2 shadow-sm'
+                                >
+                                  <div>
+                                    <p className='font-medium'>Invoice Date:</p>
+                                    <p>{elem?.invoice_date}</p>
+                                  </div>
+                                  <div>
+                                    <p className='font-medium'>
+                                      Invoice Number:
+                                    </p>
+                                    <p>{elem?.invoice_number}</p>
+                                  </div>
+                                  <div>
+                                    <p className='font-medium'>S No.:</p>
+                                    <p>{elem?.s_no}</p>
+                                  </div>
+                                </div>
+                              )
+                            )}
+                          </div>
+
+                          {/* Order or Contact Number */}
+                          <div className='mb-6'>
+                            <h3 className='text-lg font-semibold border-b border-gray-300 pb-2 mb-3'>
+                              Order or Contact Number
+                            </h3>
+                            <p>
+                              {
+                                ele?.extracted_data?.transaction_details
+                                  ?.order_or_contact_number
+                              }
+                            </p>
+                          </div>
+
+                          {/* Transport Details Section */}
+                          <div>
+                            <h3 className='text-lg font-semibold border-b border-gray-300 pb-2 mb-3'>
+                              Transport Details
+                            </h3>
+                            {/* {ele?.extracted_data?.transaction_details?.transport_details?.map(
+                              (elem, index) => (
+                                <div
+                                  key={index}
+                                  className='p-4 bg-gray-50 rounded-md mb-4 shadow-sm'
+                                >
+                                  <div className='mb-2'>
+                                    <p className='font-medium'>
+                                      Date of Transport:
+                                    </p>
+                                    <p>{elem?.date_of_transport}</p>
+                                  </div>
+                                  <div className='mb-2'>
+                                    <p className='font-medium'>
+                                      Mode of Transport:
+                                    </p>
+                                    <p>{elem?.mode_of_transport}</p>
+                                  </div>
+                                  <div className='mb-2'>
+                                    <p className='font-medium'>
+                                      Transport Document Numbers:
+                                    </p>
+                                    <p>{elem?.transport_document_numbers}</p>
+                                  </div>
+                                  <div>
+                                    <p className='font-medium'>
+                                      Vehicle Numbers / Others:
+                                    </p>
+                                    <ul className='list-disc pl-5'>
+                                      {elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
+                                        (vehicle, idx) => (
+                                          <li key={idx}>{vehicle}</li>
+                                        )
+                                      )}
+                                    </ul>
+                                  </div>
+                                </div>
+                              )
+                            )} */}
+                            <table className='w-full border border-gray-300 text-left table-auto'>
+                              <thead className='bg-gray-200 border-b border-gray-300'>
+                                <tr>
+                                  <th className='p-3 font-semibold'>
+                                    Date of Transport
+                                  </th>
+                                  <th className='p-3 font-semibold'>
+                                    Mode of Transport
+                                  </th>
+                                  <th className='p-3 font-semibold'>
+                                    Transport Document Numbers
+                                  </th>
+                                  <th className='p-3 font-semibold'>
+                                    Vehicle Numbers / Others
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {ele?.extracted_data?.transaction_details?.transport_details?.map(
+                                  (elem, index) => (
+                                    <tr
+                                      key={index}
+                                      className='bg-gray-50 border-b border-gray-300'
+                                    >
+                                      <td className='p-2 border'>
+                                        {elem?.date_of_transport}
+                                      </td>
+                                      <td className='p-2 border'>
+                                        {elem?.mode_of_transport}
+                                      </td>
+                                      <td className='p-2 border'>
+                                        {elem?.transport_document_numbers}
+                                      </td>
+                                      <td className='p-2 border'>
+                                        <ul className='list-disc pl-5'>
+                                          {elem?.vehicle_number_or_bull_cart_or_air_or_others?.map(
+                                            (vehicle, idx) => (
+                                              <li key={idx}>{vehicle}</li>
+                                            )
+                                          )}
+                                        </ul>
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              {/*       {ele?.extracted_data
+                    <div className='w-full certifiedProduct  flex flex-wrap'>
+                      <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
+                        Seller of Individual/ICS
+                      </h3>
+                      <div className='flex w-full flex-wrap'>
+                        <div className='pb-5 w-full'>
+                          <div className='p-3 overflow-x-auto'>
+                            <table className='w-full border border-gray-300 text-left'>
+                              <thead className='bg-gray-100 border-b border-gray-300'>
+                                <th>PAN</th>
+                                <th>Address</th>
+                                <th>Name</th>
+                              </thead>
+                              <tbody>
+                                <td>
+                                  {console.log(ele?.extracted_data)}
+
+                                  {
+                                    ele?.extracted_data?.[
+                                      'seller_of_individual/ICS'
+                                    ]?.PAN
+                                  }
+                                </td>
+                                <td>
+                                  {
+                                    ele?.extracted_data?.[
+                                      'seller_of_individual/ICS'
+                                    ]?.address
+                                  }
+                                </td>
+                                <td>
+                                  {
+                                    ele?.extracted_data?.[
+                                      'seller_of_individual/ICS'
+                                    ]?.name
+                                  }
+                                </td>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/*       {ele?.extracted_data
                 ?.certified_raw_materials_and_declared_geographic_origin && (
                 <>
                   {' '}
@@ -871,11 +1058,14 @@ const TcType2View = () => {
                   </div>
                 </>
               )} */}
+                  </div>
+                )
+              })}
             </div>
-          )
-        })}
+          </div>
+        </div>
       </div>
-    </div></div></div></>
+    </>
   )
 }
 

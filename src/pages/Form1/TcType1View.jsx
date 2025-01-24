@@ -437,12 +437,12 @@ const TcType1View
                       Declarations by Certification Body:
                     </h3>
                     <div className='section1  justify-between p-3  w-full'>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Certification Of The Organic Material Used For The
                           Products Listed Complies With Apeda Np Op Rules:{' '}
                         </h4>
-                        <p className=' text-xl pe-4'>
+                        <p className=' text-lg pe-4'>
                           {capitalizeFirstLetter(
                             ele.extracted_data
                               .declarations_by_certification_body
@@ -450,12 +450,12 @@ const TcType1View
                           )}
                         </p>
                       </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Certification Of The Organic Material Used For The
                           Products Listed Complies With Usda Nop Rules:
                         </h4>
-                        <p className=' text-xl pe-4'>
+                        <p className=' text-lg pe-4'>
                           {' '}
                           {capitalizeFirstLetter(
                             ele.extracted_data
@@ -465,32 +465,32 @@ const TcType1View
                         </p>
                       </div>
 
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>
                           Main Value:
                         </h4>
-                        <p className='text-xl'>
+                        <p className='text-lg'>
                           {
                         ele.extracted_data
                         .declarations_by_certification_body.main_value
                           }
                           </p>
                       </div>
-                      <div className='w-full flex items-center'>
-                        <h3 className='text-xl font-bold pe-4'>Extra Note:</h3>
-                        <p className='text-xl'>
+                      <div className='w-full flex items-center py-5 border-b'>
+                        <h3 className='text-lg font-bold pe-4'>Extra Note:</h3>
+                        <p className='text-lg'>
                           {
                             ele?.extracted_data
                               ?.declarations_by_certification_body?.extra_note
                           }
                         </p>
                       </div>
-                      <div className='flex'>
-                        <h4 className='font-bold text-xl pe-4'>Contents:</h4>
+                      <div className='flex py-5 border-b'>
+                        <h4 className='font-bold text-lg pe-4'>Contents:</h4>
                         <ul>
                           {ele.extracted_data.declarations_by_certification_body.contents?.map(
                             (ele, ind) => {
-                              return <li key={ind} className='text-xl'>{ele}</li>
+                              return <li key={ind} className='text-lg'>{ele}</li>
                             }
                           )}
                         </ul>
