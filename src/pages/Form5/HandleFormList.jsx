@@ -26,7 +26,7 @@ function HandleFormList() {
       try {
         const response = await listFormHandlinkTrading(); // Await the API call
        if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message)
+        // toast.success(response?.message)
         setPdfListData(response?.data)
         setLoading(false)
       }else{

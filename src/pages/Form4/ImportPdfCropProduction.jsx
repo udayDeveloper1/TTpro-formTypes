@@ -122,13 +122,13 @@ const ImportPdfScopeProduction = () => {
       // }
 
       if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success("Pdf submitted SuccessFully.");
         setFormNo("2");
         handleResponse(response?.data);
+        toast.success(response?.message);
         setLoading(false);
       } else {
         setLoading(false);
-        toast.error("Something Went Wrong.");
+        toast.error(response?.message);
       }
     } catch (error) {
       setLoading(false);
