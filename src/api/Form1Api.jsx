@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import axiosInstance from './axiosInstance'
 
 export const form1Set = async data => {
@@ -23,9 +24,13 @@ export const form1List = async(id)  => {
     const response = await axiosInstance.get(
       `api/pdf/transaction-certificates/${id}/`,
     )
+    // if (response?.status_code === 200 || response?.status_code === 201) {
+    //   return response?.data
+    // } else {
+    //   toast.error('Internal server error. Please try again later.')
+    // }
     return response
   } catch (error) {
-    console.error('Error in API request:', error)
     return error
   }
 }
@@ -42,7 +47,12 @@ export const formFill1 = async data => {
         }
       }
     )
-    return response
+    if (response?.status_code === 200 || response?.status_code === 201) {
+      return response
+    } else {
+      toast.error('Internal server error. Please try again later.')
+    }
+  
   } catch (error) {
     console.error('Error in API request:', error)
     return error

@@ -62,7 +62,7 @@ function TcType2List () {
     }
   ]
 
-  const ipoData = PdfListData2.map((item, index) => ({ key: index, ...item }))
+  const ipoData = PdfListData2?.map((item, index) => ({ key: index, ...item }))
 
     
 

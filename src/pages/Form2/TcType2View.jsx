@@ -9,6 +9,7 @@ import '../../assets/css/tc_type2.css'
 import { cloneDeep } from 'lodash'
 import moment from 'moment'
 import { Slidebar } from '../../layout/Slidebar'
+import { toast } from 'react-toastify'
 
 const TcType2View = () => {
   const [data, setData] = useState([])
@@ -21,8 +22,13 @@ const TcType2View = () => {
     try {
       // Fetch data
       const response = await form2List(id)
-      let res = [response]
-     setData(res)
+      if (response?.status_code === 200 || response?.status_code === 201) {
+        let res = [response?.data]
+        setData(res)
+      }else{
+              toast.error('Internal server error. Please try again later.')
+      }
+
 
       // Log the final transformed response
     } catch (error) {

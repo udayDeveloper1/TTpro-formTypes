@@ -6,6 +6,7 @@ import { FaFilePdf } from 'react-icons/fa6'
 import { PdfListing3 } from '../../store/thunk/userThunk'
 import { useDispatch, useSelector } from 'react-redux'
 import { Slidebar } from '../../layout/Slidebar'
+import { toast } from 'react-toastify'
 
 const ScopeVerificationView = () => {
   const refs = useRef()
@@ -20,12 +21,17 @@ const ScopeVerificationView = () => {
     console.log('Redux state:', state)
     return state.userReducer?.pdfListingData3 // Adjust based on your state shape
   })
-  console.log(pdfListingData3)
-
   const getData = async id => {
     try {
       const response = await dispatch(PdfListing3(id))
-      setData(response.payload)
+      console.log(response);
+      
+      if (response?.payload?.status_code === 200 || response?.payload?.status_code === 201) {
+        setData(response.payload?.data)
+      }else{
+         toast.error('Internal server error. Please try again later.')
+      }
+  
     } catch (error) {
       console.log(error)
     }

@@ -44,6 +44,7 @@ export const Slidebar = () => {
                     "/tcType1Form",
                     "/tcType1List",
                     "/importPdfTCtype1",
+                    "/",
                   ].includes(path)
                     ? "selected"
                     : ""
@@ -87,7 +88,7 @@ export const Slidebar = () => {
                       <Link
                         to="/tcType1Form"
                         className={`sidebar-link ${
-                          path === "/tcType1Form" ? "active" : ""
+                          (path === "/tcType1Form" || path === "/") ? "active" : ""
                         }`}
                       >
                         <div className="round-16 d-flex align-items-center justify-content-center">
@@ -114,14 +115,15 @@ export const Slidebar = () => {
                   </ul>
                 )}
               </li>
-          
+                {console.log(path != '/', path)}
+                
               <li
                 className={`sidebar-item cursor-pointer ${
-                  [
+                 ( [
                     "/tcType2Form",
                     "/tcType2List",
                     "/importPdfTCtype2",
-                  ].includes(path)
+                  ].includes(path) && path != '/')
                     ? "selected"
                     : ""
                 }`}

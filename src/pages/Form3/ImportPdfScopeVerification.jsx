@@ -16,6 +16,7 @@ import Spinner from '../../layout/Spinner'
 import { Slidebar } from '../../layout/Slidebar'
 import { toast } from 'react-toastify'
 import { keys } from 'lodash'
+import { useNavigate } from 'react-router-dom'
 
 const ImportPdfScopeVerification = () => {
   const [form] = AntdForm.useForm()
@@ -23,6 +24,7 @@ const ImportPdfScopeVerification = () => {
   const [formNo, setFormNo] = useState('1')
   const [loading, setLoading] = useState(false)
   const [loading2, setLoading2] = useState(false)
+  const navigate = useNavigate()
 
   const handleResponse = response => {
     const {
@@ -75,10 +77,9 @@ const ImportPdfScopeVerification = () => {
       let fomrData = new FormData()
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let res = await formFill3(fomrData)
-      console.log(res);
-      if (Object?.keys(res)?.length > 1) {
+      if (res?.status_code === 200 || res?.status_code === 201) {
         toast.success('Pdf submitted Successfully.')
-        handleResponse(res)
+        handleResponse(res?.data)
         setFormNo('2')
       } else {
         toast.error('Something went Wrong.')
@@ -198,8 +199,8 @@ const ImportPdfScopeVerification = () => {
 
     try {
       let res = await form3submit(payload)
-      
-      if (res) {
+      if (res?.status_code === 200 || res?.status_code === 201) {
+        navigate('/scopeVerificationList')
         toast.success('Form submitted Successfully.')
       } else {
         toast.error('Something went Wrong.')
@@ -748,7 +749,7 @@ const ImportPdfScopeVerification = () => {
                 )}
               </AntdForm.List>
               <AntdForm.Item>
-                <Button type='primary' htmlType='submit' block>
+                <Button type='primary' htmlType='submit' block className='ant-btn css-dev-only-do-not-override-7ny38l ant-btn-primary ant-btn-color-primary ant-btn-variant-solid submit-btn '>
                   Submit
                 </Button>
               </AntdForm.Item>

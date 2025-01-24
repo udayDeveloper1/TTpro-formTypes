@@ -9,6 +9,7 @@ import '../../assets/css/tc_type2.css'
 import { cloneDeep } from 'lodash'
 import moment from 'moment'
 import { Slidebar } from '../../layout/Slidebar'
+import { toast } from 'react-toastify'
 
 const TcType1View
  = () => {
@@ -22,47 +23,46 @@ const TcType1View
     try {
       // Fetch data
       const response = await form1List(id)
-      let res = [response]
-      // Process each element
-      let datas = res.map((ele, ind) => {
-        // Process the fields (convert, replace, and split)
-        let input_tcs = String(
-          ele.extracted_data.certified_input_references.input_tcs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
+          if (response?.status_code === 200 || response?.status_code === 201) {
+            let res = [response?.data]
+            let datas = res.map((ele, ind) => {
+              let input_tcs = String(
+                ele.extracted_data.certified_input_references.input_tcs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              let farm_tcs = String(
+                ele.extracted_data.certified_input_references.farm_tcs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              let farm_scs = String(
+                ele.extracted_data.certified_input_references.farm_scs
+              )
+                .replace(/[:;]/g, ',')
+                .split(',')
+      
+              // Create a deep copy of the element and update the certified_input_references
+              let obj = cloneDeep(ele)
+              obj.extracted_data.certified_input_references = {
+                input_tcs,
+                farm_tcs,
+                farm_scs,
+                trader_tcs_for_organic_material:
+                  ele?.extracted_data?.certified_input_references
+                    ?.trader_tcs_for_organic_material
+              }
+      
+              return obj
+            })
+            setData(datas)
+    } else {
+      toast.error('Internal server error. Please try again later.')
+    }
+      
 
-        let farm_tcs = String(
-          ele.extracted_data.certified_input_references.farm_tcs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
-
-        let farm_scs = String(
-          ele.extracted_data.certified_input_references.farm_scs
-        )
-          .replace(/[:;]/g, ',')
-          .split(',')
-
-        // Create a deep copy of the element and update the certified_input_references
-        let obj = cloneDeep(ele)
-        obj.extracted_data.certified_input_references = {
-          input_tcs,
-          farm_tcs,
-          farm_scs,
-          trader_tcs_for_organic_material:
-            ele?.extracted_data?.certified_input_references
-              ?.trader_tcs_for_organic_material
-        }
-
-        return obj
-      })
-
-      // Set the processed data to state
-      setData(datas)
-
-      // Log the final transformed response
-      console.log(datas)
     } catch (error) {
       console.error('Error fetching data:', error)
     }
@@ -436,7 +436,7 @@ const TcType1View
                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
                       Declarations by Certification Body:
                     </h3>
-                    <div className='flex section1 flex-col flex-row justify-between p-3  w-full'>
+                    <div className='section1  justify-between p-3  w-full'>
                       <div className='flex'>
                         <h4 className='font-bold text-xl pe-4'>
                           Certification Of The Organic Material Used For The

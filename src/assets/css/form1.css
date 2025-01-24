@@ -132,8 +132,8 @@ svg[data-icon="minus-circle"]{
 }
 
 .sidebar-nav ul .sidebar-item>.sidebar-link.active{
-  background: #01c1c854;
-  color: #000;
+  background: #01c0c81a;
+  color: #01c0c8;
 }
 
 .download_pdf_btn:hover{
