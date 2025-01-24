@@ -118,12 +118,13 @@ textarea:focus {
 .anticon.anticon-file{
   color: #01c0c8;
 }
-
-button.download_pdf_btn {
-  background: red;
-  color: #fff;
-
-;
+.download_pdf_btn{
+  background: #01c0c8 !important;
+  border: 1px solid #01c0c8 !important;
+  color: #fff !important;
+  max-width: max-content !important;
+  min-width: max-content !important;
+  display: flex !important;
 }
 
 button.download_pdf_btn {
@@ -150,7 +151,7 @@ svg[data-icon="minus-circle"]{
   color: #01c0c8;
 }
 
-button.download_pdf_btn:hover{
+button.download_pdf_btn:hover, .download_pdf_btn:hover{
   background: #fff !important;
   color: #01c0c8 !important;
 }

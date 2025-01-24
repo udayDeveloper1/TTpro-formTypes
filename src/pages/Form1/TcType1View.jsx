@@ -166,7 +166,7 @@ const TcType1View
                 </button>
               </div>
 
-              <hr className='py-5' />
+              <hr className='py-3' />
 
               <div className='w-full section1 flex flex-wrap justify-between '>
                 <h3 className='text-2xl w-full  CertifiedInput p-3'>

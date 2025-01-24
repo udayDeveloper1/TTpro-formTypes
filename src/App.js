@@ -8,10 +8,8 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   return (
  <>
-   <BrowserRouter basename="/tcType1Form">
       <RouterProvider router={router} />
-   {/* <RouterProvider router={router} /> */}
-   </BrowserRouter> <ToastContainer limit={1}/>
+   <ToastContainer limit={1}/>
    </>
   );
 }
