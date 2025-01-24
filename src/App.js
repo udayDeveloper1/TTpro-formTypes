@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { RouterProvider } from 'react-router-dom';
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
 import { router } from './Routes/Router';
 import "./assets/css/form1.css"
 import { ToastContainer } from 'react-toastify';
@@ -8,8 +8,10 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   return (
  <>
-   <RouterProvider router={router} />
-   <ToastContainer limit={1}/>
+   <BrowserRouter basename="/tcType1Form">
+      <RouterProvider router={router} />
+   {/* <RouterProvider router={router} /> */}
+   </BrowserRouter> <ToastContainer limit={1}/>
    </>
   );
 }

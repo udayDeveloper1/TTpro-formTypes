@@ -55,7 +55,7 @@ const ImportPdfHandleForm = () => {
       console.log("response pdf review", response);
       if (response?.status_code === 201 || response?.status_code === 200) {
         // toast.success(response?.message)
-        navigate("/handlingTradingScTypeList");
+        // navigate("/handlingTradingScTypeList");
         // setData(response?.data)
         setLoading(false);
         if (response) {
@@ -107,13 +107,17 @@ const ImportPdfHandleForm = () => {
           setTags2(farm_scs);
 
           const UpdatedAdditionalDeclarationItem =
-            response?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
+            response?.data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
               (item) => {
+                console.log(item);
+                
                 return {
-                  additionalDeclarationItem: item, // Add a key with the current item as its value
+                  additionalDeclarationItem: item, 
                 };
               }
             );
+            console.log(UpdatedAdditionalDeclarationItem);
+            
           form2.setFieldsValue({
             CertificateName:
               response?.data?.extracted_data?.main_certificate_details?.title,
@@ -197,6 +201,7 @@ const ImportPdfHandleForm = () => {
       let UpdatedAdditionalDeclarationItem = values?.additionalDeclaration?.map(
         (item) => item?.additionalDeclarationItem
       );
+      
       let data = {
         file_name: "AVIRAT NPOP.pdf",
         extracted_data: {
@@ -206,7 +211,7 @@ const ImportPdfHandleForm = () => {
             certificate_no: values.CertificateNumber,
             main_address: values.CertificationAddress,
             this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-              UpdatedAdditionalDeclarationItem,
+              UpdatedAdditionalDeclarationItem || null,
             for_the_following_process: values?.FollowingProcess,
             valid_from: values?.valid_from,
             valid_till: values?.valid_till,
@@ -238,10 +243,10 @@ const ImportPdfHandleForm = () => {
       // }else{
       //   toast.error('Something Went Wrong.')
       // }
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       toast.error("Something Went Wrong.");
-      setLoading(true);
+      setLoading(false);
       console.log(error);
     }
   };

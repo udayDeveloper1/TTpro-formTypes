@@ -34,9 +34,7 @@ const HandleFormView = () => {
         toast.error(response?.message)
       }
 
-      setData(response);
-
-
+      // setData(response);
       setLoading(false);
     } catch (error) {
       setLoading(false);

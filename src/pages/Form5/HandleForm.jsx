@@ -67,6 +67,7 @@ const HandleForm = () => {
     form.setFieldsValue({
       CertificateName: "",
       CertificateNumber: "",
+      CertificationAddress: "",
       FollowingProcess: "",
       CertificationCharacteristics: "",
       ExtraNote: "",
@@ -109,7 +110,7 @@ const HandleForm = () => {
             certificate_no: values.CertificateNumber,
             main_address: values.CertificationAddress,
             this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of:
-              UpdatedAdditionalDeclarationItem,
+              UpdatedAdditionalDeclarationItem || null,
             for_the_following_process: values?.FollowingProcess,
             valid_from: values?.valid_from,
             valid_till: values?.valid_till,
@@ -126,15 +127,14 @@ const HandleForm = () => {
         },
       };
       const response = await addFormHandlinkTrading(data);
-      console.log('addFormHandlinkTrading response',response)
       if (response?.status_code === 201 || response?.status_code === 200) {
-        toast.success(response?.message);
+        toast.success("Form Submitted SuccessFully");
         // setPdfListData(response?.data)
         navigate('/handlingTradingScTypeList')
         setLoading(false);
       } else {
         setLoading(false);
-        toast.error(response?.message);
+        toast.error("Something Went Wrong.");
       }
       // console.log(response);
       setLoading(false);

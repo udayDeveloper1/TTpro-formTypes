@@ -33,10 +33,9 @@ function HandleFormList() {
         setLoading(false)
         toast.error(response?.message)
       }
-        console.log("listFormHandlinkTrading response", response);
         // setPdfListData(response);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Something Went Wrong");
       }
     };
     fetchData();
@@ -105,7 +104,6 @@ function HandleFormList() {
             <CustomTable
               columns={columns}
               data={ipoData}
-              scroll={{ x: "1750px", y: 500 }}
             />
           </div>
           </div>
