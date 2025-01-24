@@ -20,4 +20,3 @@ export const capitalizeFirstLetter = (value) => {
   const inputDate = "2025-01-22"; // Input date (ISO format or Date object)
   const formattedDate = formatDateToDDMMYYYY(inputDate);
   
-  console.log(formattedDate);

@@ -143,8 +143,6 @@ const TcType2Form = () => {
 
   const handleSubmit = async values => {
     setLoading(true)
-    console.log(values);
-    console.log(tagsArray, tags2Array);
     
     let productDetails = []
     values?.RawMaterialDetails?.map((ele, ind) => {
@@ -202,9 +200,6 @@ const TcType2Form = () => {
       }
       transport_details.push(obj)
     })
-
-    console.log(transport_details);
-    
 
     let this_is_to_cerify_that = []
     // Ensure additionalDeclaration is an array before using forEach

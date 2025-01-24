@@ -197,7 +197,6 @@ export const form3ListApi = async()  => {
     const response = await axiosInstance.get(
       'api/openai/scope-certifications/'
     )
-    console.log(response);
     
     return response
   } catch (error) {
@@ -273,7 +272,6 @@ export const formcropProductionList = async()  => {
     const response = await axiosInstance.get(
       'api/scope-certificate/type-prod-crop/'
     )
-    console.log(response);
     
     return response
   } catch (error) {

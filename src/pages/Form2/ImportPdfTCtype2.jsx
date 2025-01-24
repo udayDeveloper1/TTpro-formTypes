@@ -1197,6 +1197,7 @@ const ImportPdfTCtype2 = () => {
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let datas = await formFill2Try(fomrData)
       let data = datas?.data
+      
       if (datas?.status_code === 200 || datas?.status_code === 201) {
         setFormNo('2')
         const transportDetails =
@@ -1208,7 +1209,6 @@ const ImportPdfTCtype2 = () => {
               const dateOfTransport = transport?.date_of_transport
                 ? dayjs(transport?.date_of_transport, 'DD/MM/YYYY')
                 : null
-              console.log(dateOfTransport, transport?.date_of_transport)
 
               const vehicleNo =
                 transport?.vehicle_number_or_bull_cart_or_air_or_others || [] // Fallback to empty array if no value
@@ -1236,7 +1236,6 @@ const ImportPdfTCtype2 = () => {
         const allTransportDetails = transportDetails?.concat(
           additionalTransportDetails
         )
-        console.log(allTransportDetails)
 
         if (allTransportDetails.length === 0) {
           allTransportDetails.push({
@@ -1297,7 +1296,6 @@ const ImportPdfTCtype2 = () => {
           InvoiceList:
             data?.extracted_data?.transaction_details?.invoice_details?.map(
               invoice => {
-                console.log('invoice_date:', dayjs(invoice?.invoice_date, 'DD/MM/YYYY')) 
                 return {
                   SNo: invoice.s_no,
                   InvoiceNo: invoice.invoice_number,
@@ -1321,17 +1319,14 @@ const ImportPdfTCtype2 = () => {
             'DD/MM/YYYY'
           )
         })
-        console.log(  allTransportDetails.map(detail => detail.TransportDocument || []) );
-          console.log(allTransportDetails.map(detail => detail.vehicleNo || []));
           
         // Log or debug the updated TransportDetails
-        console.log(allTransportDetails);
         
         setTagsArray(
           allTransportDetails.map(detail => detail.TransportDocument || [])
           // allTransportDetails.map(detail =>[])
         )
-        setTags2Array(allTransportDetails.map(detail => detail.vehicleNo?.split(/[,:;|]+/).filter(Boolean)  || []))
+        setTags2Array(allTransportDetails.map(detail => detail?.vehicleNo?.split(/[,:;|]+/).filter(Boolean)  || []))
         // setTags2Array(allTransportDetails.map(detail => []))
 
         toast.success("Pdf submitted Successfully.")
@@ -1344,8 +1339,6 @@ const ImportPdfTCtype2 = () => {
     }
     setLoading(false)
   }
-  console.log(formNo)
-
   const normFile = e => {
     if (Array.isArray(e)) {
       return e

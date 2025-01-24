@@ -18,13 +18,11 @@ const ScopeVerificationView = () => {
   const { id } = params
   // const { pdfListingData3 } = useSelector(state => state.userReducer)
   const pdfListingData3 = useSelector(state => {
-    console.log('Redux state:', state)
     return state.userReducer?.pdfListingData3 // Adjust based on your state shape
   })
   const getData = async id => {
     try {
       const response = await dispatch(PdfListing3(id))
-      console.log(response);
       
       if (response?.payload?.status_code === 200 || response?.payload?.status_code === 201) {
         setData(response.payload?.data)

@@ -901,7 +901,6 @@ const HandleFormView = () => {
   const recordId = data?.id || "default";
   refs.current[recordId] = refs.current[recordId] || React.createRef();
 
-  console?.log("Details Data", data);
   return (
     <>
       {/* {loading && <Spinner message="Loading..." isActive={loading} />} */}

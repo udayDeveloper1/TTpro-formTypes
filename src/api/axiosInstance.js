@@ -28,15 +28,12 @@ axiosInstance.interceptors.response.use(
     if (response) {
       const { status } = response;
 
-      console.log('status' ,status );
       
       // Check if the status is not 200 or 201
       if (status !== 200 || status !== 201) {
-        console.log('loadin......');
         
         <Spinner />
       }else{
-        console.log('success ......');
 
       }
     

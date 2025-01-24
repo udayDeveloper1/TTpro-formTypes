@@ -143,12 +143,12 @@ const TcType1View
   }
 
   return (
-  <>        <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}>  <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
+  <>       
+   <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}>  <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
       <div className='card card_list'>
         {data?.map((ele, ind) => {
           const recordId = ele.id || ind
           refs.current[recordId] = refs.current[recordId] || React.createRef()
-
           return (
             <div
               key={ind}
@@ -162,7 +162,6 @@ const TcType1View
                 >
                   Download
                   <FaFilePdf className='ms-2' />
-                  {/* Pdf */}
                 </button>
               </div>
 
@@ -170,7 +169,7 @@ const TcType1View
 
               <div className='w-full section1 flex flex-wrap justify-between '>
                 <h3 className='text-2xl w-full  CertifiedInput p-3'>
-                  {ele.file_name}
+                  {ele?.file_name}
                 </h3>
                 <div className='w-full flex p-2 justify-between'>
                   <div className='w-full flex flex-col md:w-[49%] justify-center '>
@@ -188,7 +187,7 @@ const TcType1View
                           <h4 className='text-xl keyName pe-4  w-[30%] font-bold'>
                             id:{' '}
                           </h4>
-                          <p className='text-xl keyValue  w-[70%]'>{ele.id}</p>
+                          <p className='text-xl keyValue  w-[70%]'>{ele?.id}</p>
                         </div>
                       </div>
                     </div>
@@ -202,7 +201,7 @@ const TcType1View
                             created At:
                           </h4>
                           <p className='text-xl keyValue w-[70%]'>
-                            {moment(ele.created_at).format(
+                            {moment(ele?.created_at).format(
                               'DD-MM-YYYY hh:mm A'
                             )}
                           </p>
@@ -212,7 +211,7 @@ const TcType1View
                             updated_at:{' '}
                           </h4>
                           <p className='text-xl w-[70%]'>
-                            {moment(ele.updated_at).format(
+                            {moment(ele?.updated_at).format(
                               'DD-MM-YYYY hh:mm A'
                             )}
                           </p>
@@ -234,8 +233,7 @@ const TcType1View
                         <h4 className='font-bold text-xl pe-4'>License No: </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.buyer_of_certified_products
-                              .license_no
+                            ele?.extracted_data.buyer_of_certified_products?.license_no
                           }
                         </p>
                       </div>
@@ -243,8 +241,7 @@ const TcType1View
                         <h4 className='font-bold text-xl pe-4'>Main Value: </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.buyer_of_certified_products
-                              .license_no
+                            ele?.extracted_data.buyer_of_certified_products?.license_no
                           }
                         </p>
                       </div>
@@ -263,15 +260,14 @@ const TcType1View
                         </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.certification_body
-                              .licensing_code_of_certification_body
+                            ele?.extracted_data?.certification_body?.licensing_code_of_certification_body
                           }
                         </p>
                       </div>
                       <div className='flex'>
                         <h4 className='font-bold text-xl pe-4'>Main Value: </h4>
                         <p className='text-xl'>
-                          {ele.extracted_data.certification_body.main_value}
+                          {ele?.extracted_data.certification_body?.main_value}
                         </p>
                       </div>
                     </div>
@@ -288,7 +284,7 @@ const TcType1View
                       <div className='flex flex-col w-[25%]'>
                         <h4 className='font-bold text-xl pe-4'>Farm Scs</h4>
                         <div className='text-xl'>
-                          {ele?.extracted_data?.certified_input_references.farm_scs?.map(
+                          {ele?.extracted_data?.certified_input_references?.farm_scs?.map(
                             (ele, ind) => {
                               return <p>{ele}</p>
                             }
@@ -299,8 +295,7 @@ const TcType1View
                         <h4 className='font-bold text-xl pe-4'>Farm Tcs </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.certified_input_references
-                              .farm_tcs
+                            ele?.extracted_data?.certified_input_references?.farm_tcs
                           }
                         </p>
                       </div>
@@ -308,8 +303,7 @@ const TcType1View
                         <h4 className='font-bold text-xl pe-4'>Input Tcs </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.certified_input_references
-                              .input_tcs
+                            ele?.extracted_data?.certified_input_references?.input_tcs
                           }
                         </p>
                       </div>
@@ -319,8 +313,7 @@ const TcType1View
                         </h4>
                         <p className='text-xl'>
                           {
-                            ele.extracted_data.certified_input_references
-                              .trader_tcs_for_organic_material
+                            ele?.extracted_data?.certified_input_references?.trader_tcs_for_organic_material
                           }
                         </p>
                       </div>
@@ -328,7 +321,6 @@ const TcType1View
                   </div>
                 </div>
               </div>
-              {console.log(data)}
 
               <div className='w-full certifiedProduct  flex flex-wrap'>
                 <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
@@ -437,16 +429,16 @@ const TcType1View
                       Declarations by Certification Body:
                     </h3>
                     <div className='section1  justify-between p-3  w-full'>
-                      <div className='flex py-5 border-b'>
+                    <div className='flex py-5 border-b'>
                         <h4 className='font-bold text-lg pe-4'>
                           Certification Of The Organic Material Used For The
                           Products Listed Complies With Apeda Np Op Rules:{' '}
                         </h4>
                         <p className=' text-lg pe-4'>
                           {capitalizeFirstLetter(
-                            ele.extracted_data
-                              .declarations_by_certification_body
-                              .certification_of_the_organic_material_used_for_the_products_listed_complies_with_apeda_np_op_rules
+                            ele?.extracted_data
+                            ?.declarations_by_certification_body
+                            ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_apeda_np_op_rules
                           )}
                         </p>
                       </div>
@@ -456,45 +448,43 @@ const TcType1View
                           Products Listed Complies With Usda Nop Rules:
                         </h4>
                         <p className=' text-lg pe-4'>
-                          {' '}
                           {capitalizeFirstLetter(
-                            ele.extracted_data
-                              .declarations_by_certification_body
-                              .certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules
+                            ele?.extracted_data
+                            ?.declarations_by_certification_body
+                            ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules
                           )}
                         </p>
                       </div>
 
-                      <div className='flex py-5 border-b'>
+                     <div className='flex py-5 border-b'>
                         <h4 className='font-bold text-lg pe-4'>
                           Main Value:
                         </h4>
                         <p className='text-lg'>
                           {
-                        ele.extracted_data
-                        .declarations_by_certification_body.main_value
+                        ele?.extracted_data
+                        ?.declarations_by_certification_body.main_value
                           }
                           </p>
                       </div>
-                      <div className='w-full flex items-center py-5 border-b'>
+                        <div className='w-full flex items-center py-5 border-b'>
                         <h3 className='text-lg font-bold pe-4'>Extra Note:</h3>
                         <p className='text-lg'>
                           {
-                            ele?.extracted_data
-                              ?.declarations_by_certification_body?.extra_note
+                            ele?.extracted_data?.declarations_by_certification_body?.extra_note?.translated || ele?.extracted_data?.declarations_by_certification_body?.extra_note
                           }
                         </p>
                       </div>
                       <div className='flex py-5 border-b'>
                         <h4 className='font-bold text-lg pe-4'>Contents:</h4>
                         <ul>
-                          {ele.extracted_data.declarations_by_certification_body.contents?.map(
+                          {ele?.extracted_data?.declarations_by_certification_body.contents?.map(
                             (ele, ind) => {
                               return <li key={ind} className='text-lg'>{ele}</li>
                             }
                           )}
                         </ul>
-                      </div>
+                      </div> 
                     </div>
                   </div>
                 </div>
@@ -630,22 +620,22 @@ const TcType1View
                           return (
                             <tr className='bg-white border-b' key={index}>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.consignee_name_and_address}
+                                {elem?.consignee_name_and_address}
                               </td>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.gross_shipping_weight}
+                                {elem?.gross_shipping_weight}
                               </td>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.invoice_references}
+                                {elem?.invoice_references}
                               </td>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.shipment_date}
+                                {elem?.shipment_date}
                               </td>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.shipment_doc_no}
+                                {elem?.shipment_doc_no}
                               </td>
                               <td className='px-6 py-4 text-md md:text-lg'>
-                                {elem.shipment_no}
+                                {elem?.shipment_no}
                               </td>
                             </tr>
                           )

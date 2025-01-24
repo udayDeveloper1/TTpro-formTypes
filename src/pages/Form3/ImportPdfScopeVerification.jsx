@@ -34,7 +34,6 @@ const ImportPdfScopeVerification = () => {
       independently_certified_subcontractor_appendix
     } = response.extracted_data
     // Populate form fields
-    console.log( dayjs(scope_certificate.date_of_issue, 'DD/MM/YYYY'));
     
     form2.setFieldsValue({
       scope_certificate: {
@@ -106,7 +105,6 @@ const ImportPdfScopeVerification = () => {
       message.error('You can only upload PDF files!')
       return
     }
-    console.log(isPdf || Upload.LIST_IGNORE)
 
     return isPdf || Upload.LIST_IGNORE
   }

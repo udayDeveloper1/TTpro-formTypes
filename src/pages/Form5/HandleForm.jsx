@@ -537,7 +537,6 @@ const HandleForm = () => {
   }, [form]);
 
   const handleSubmit = async (values) => {
-    console.log("Form submitted with values:", values);
     try {
       setLoading(true);
       let UpdatedAdditionalDeclarationItem = values?.additionalDeclaration?.map(

@@ -222,7 +222,6 @@ const TcType1Form = () => {
       }else{
         toast.error("Something went Wrong.")
       }
-      console.log(res)
     } catch (error) {
       console.log(error)
       toast.error("Something went Wrong.")
