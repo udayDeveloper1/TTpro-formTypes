@@ -123,7 +123,7 @@ export const router = createBrowserRouter([
     Component: PdfReview,
   },
   {
-    path: "/*",
+    path: "/tcType1Form*",
     Component: TcType1Form,
   },
 ]);
