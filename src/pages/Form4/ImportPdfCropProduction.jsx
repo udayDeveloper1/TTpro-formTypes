@@ -262,7 +262,6 @@ const ImportPdfScopeProduction = () => {
       };
 
       let res = await formcropProductionSet(data);
-
       if (Object.keys(res?.data)?.length > 0) {
         toast.success("Form submitted Successfully..");
         navigate("/tCTypeCropProductionList");
