@@ -37,7 +37,7 @@ body {
 .section {
   position: relative;
   margin-bottom: 3rem;
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem ;
   border-radius: 16px;
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -78,6 +78,15 @@ textarea {
   transition: all 0.3s ease;
 }
 
+.ant-space-item:has(> span[aria-label='minus-circle']) {
+  min-width: unset !important;
+}
+
+.ant-space-item > .ant-form-item,
+.ant-space-item:has(> .ant-form-item) {
+  min-width: calc(100% - 24px) !important;
+}
+
 .datePickerIpnut {
   width: 100%;
   padding: 1rem;
@@ -115,10 +124,17 @@ textarea:focus {
   outline: none;
 }
 
-.anticon.anticon-file{
+.anticon.anticon-file {
   color: #01c0c8;
 }
-.download_pdf_btn{
+
+.certified_components .certified_component_part span[aria-label="minus-circle"]{
+  position: absolute;
+  right: 0;
+  top: -30px;
+}
+
+.download_pdf_btn {
   background: #01c0c8 !important;
   border: 1px solid #01c0c8 !important;
   color: #fff !important;
@@ -136,37 +152,38 @@ button.download_pdf_btn {
   display: flex !important;
 }
 
-svg[data-icon="minus-circle"]{
+svg[data-icon='minus-circle'] {
   color: red;
 }
 
-.OrganicCottonDelete{
+.OrganicCottonDelete {
   position: absolute;
   right: 0;
   top: 0;
 }
 
-.sidebar-nav ul .sidebar-item>.sidebar-link.active{
+.sidebar-nav ul .sidebar-item > .sidebar-link.active {
   background: #01c0c81a;
   color: #01c0c8;
 }
 
-button.download_pdf_btn:hover, .download_pdf_btn:hover{
+button.download_pdf_btn:hover,
+.download_pdf_btn:hover {
   background: #fff !important;
   color: #01c0c8 !important;
 }
 
-.ant-upload.ant-upload-select:hover{
+.ant-upload.ant-upload-select:hover {
   border-color: #01c0c8 !important;
   background: transparent !important;
 }
 
-
-.ant-upload.ant-upload-select:hover svg, .ant-upload.ant-upload-select:hover .ant-upload button div{
+.ant-upload.ant-upload-select:hover svg,
+.ant-upload.ant-upload-select:hover .ant-upload button div {
   color: #01c0c8 !important;
 }
 
-.left-sidebar{
+.left-sidebar {
   width: 350px !important;
 }
 
@@ -176,25 +193,28 @@ button.download_pdf_btn:hover, .download_pdf_btn:hover{
   padding: 5px 15px;
 }
 
-.ant-tag svg{
+.ant-tag svg {
   color: #01c0c8;
 }
 
-.remove_pack_detail{
+.remove_pack_detail {
   position: absolute;
   top: 0;
   right: 0;
 }
 
-.ant-input:focus-within, .ant-picker:focus-within{
+.ant-input:focus-within,
+.ant-picker:focus-within {
   border-color: #374151 !important;
 }
 
-.ant-input.ant-input-outlined, .ant-picker{
+.ant-input.ant-input-outlined,
+.ant-picker {
   border-color: #f8fafc !important;
 }
 
-.ant-input.ant-input-outlined:hover, .ant-picker:hover{
+.ant-input.ant-input-outlined:hover,
+.ant-picker:hover {
   border-color: #01c0c8 !important;
 }
 
@@ -207,11 +227,11 @@ button.download_pdf_btn:hover, .download_pdf_btn:hover{
   font-size: 20px;
 }
 
-.form_1 .dynamic-delete-button{
+.form_1 .dynamic-delete-button {
   color: red;
 }
 
-.ant-btn-variant-dashed.ant-btn-block{
+.ant-btn-variant-dashed.ant-btn-block {
   border-color: #01c0c8;
   background: #ffffff;
   padding: 13px 0;
@@ -222,12 +242,14 @@ button.download_pdf_btn:hover, .download_pdf_btn:hover{
   font-size: 16px;
 }
 
-.ant-btn-variant-dashed.ant-btn-block:hover, .ant-btn-variant-dashed.ant-btn-block:hover svg, .ant-btn-variant-dashed.ant-btn-block:hover span{
+.ant-btn-variant-dashed.ant-btn-block:hover,
+.ant-btn-variant-dashed.ant-btn-block:hover svg,
+.ant-btn-variant-dashed.ant-btn-block:hover span {
   color: #374151 !important;
   border-color: #374151 !important;
 }
 
-.submit-btn:hover{
+.submit-btn:hover {
   background: #fff !important;
   color: #01c0c8 !important;
 }
@@ -271,13 +293,13 @@ button.download_pdf_btn:hover, .download_pdf_btn:hover{
   color: #686868;
 }
 
-.tradeNameDelete{
+.tradeNameDelete {
   position: absolute;
   right: 0;
   top: 0;
 }
 
-.ant-tag{
+.ant-tag {
   margin-bottom: 10px;
 }
 
