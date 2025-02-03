@@ -52,6 +52,12 @@ body {
   font-weight: 650;
 }
 
+.raw_material_part span[aria-label="minus-circle"]{
+  right: 0;
+  top: 0;
+  position: absolute;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -131,7 +137,7 @@ textarea:focus {
 .certified_components .certified_component_part span[aria-label="minus-circle"]{
   position: absolute;
   right: 0;
-  top: -30px;
+  top: 0;
 }
 
 .download_pdf_btn {
@@ -201,6 +207,16 @@ button.download_pdf_btn:hover,
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.empty_field .ant-form-item-control-input-content input, .empty_field .ant-picker.ant-picker-outlined {
+  border: 2px solid #01c0c8 !important;
+  box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1) !important;
+}
+
+.empty_field .ant-picker-input input{
+  border: unset !important;
+  box-shadow: unset !important;
 }
 
 .ant-input:focus-within,

@@ -1007,13 +1007,14 @@ import {
 } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import moment from 'moment' // Import moment.js
-import { form1Set } from '../../api/Form1Api'
-import { cloneDeep } from 'lodash'
+import { createFormTcType1, form1Set } from '../../api/Form1Api'
+import { cloneDeep, values } from 'lodash'
 import TagInput from '../../component/Tags'
 import { Slidebar } from '../../layout/Slidebar'
 import Spinner from '../../layout/Spinner'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { formatDateToDDMMYYYY, links } from '../../utils/utils'
 
 const TcType1Form = () => {
   const [form] = AntdForm.useForm()
@@ -1026,6 +1027,7 @@ const TcType1Form = () => {
 
   useEffect(() => {
     form.setFieldsValue({
+      file_name: '',
       cb_name: '',
       cb_address: [{ cb_address_: '' }],
       town: '',
@@ -1060,9 +1062,9 @@ const TcType1Form = () => {
       buyer_client_number: '',
       buyer_licence_number: '',
       buyer_trader_te_id: '',
-      GrossShippingWeight: '',
-      NetShippingWeight: '',
-      WeightsCertifiedWeight: '',
+      gross_shipping_weight: '',
+      net_shipping_weight: '',
+      trader_tcs_for_organic_material: '',
       gross_shipping_weight: '',
       net_shipping_weight: '',
       certified_weight: [{ certified_weight_: '' }],
@@ -1103,7 +1105,8 @@ const TcType1Form = () => {
           additional_info: '',
           last_processor: '',
           products_te_id: '',
-          products_certified_weight: ''
+          products_certified_weight: '',
+          products_Country: '',
         }
       ],
       certified_components: [
@@ -1126,130 +1129,214 @@ const TcType1Form = () => {
       tc_date_of_issue: null,
       name_of_authorized_signatory: '',
       tc_status: '',
-      tc_last_updated: null
+      tc_last_updated: null,
+      certified_raw_material_list: [{
+        certified_raw_material: '',
+        certified_certified_weight: '',
+        certified_state_or_provice: '',
+        certified_country_or_area: '',
+      }],
+      the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor:
+        ''
     })
-
-    // getIp().then((response) => {
-    //   console.log(response.ip)
-    // });
   }, [form])
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
-    console.log(values)
-
     setLoading(true)
-    // let shipmentDetail = values.ShipmentDetails.map((ele, ind) => {
-    //   let obj = {
-    //     shipment_no: ele.ShipmentNo_,
-    //     shipment_date: ele.ShipmentDate_,
-    //     shipment_doc_no: ele.ShipmentDocNo_,
-    //     gross_shipping_weight: ele.ShipmentsGrossShippingWeight_,
-    //     invoice_references: ele.InvoiceReferences_,
-    //     consignee_name_and_address: ele.ConsigneeNameAndAddress_
-    //   }
-    //   return obj
-    // })
 
-    // let productDetail = values.ProductDetails.map((ele, ind) => {
-    //   let obj = {
-    //     product_no: ele.ProductNo,
-    //     order_no: ele.OrderNo,
-    //     article_no: ele.ArticleNo,
-    //     number_of_units: ele.NumberofUnits,
-    //     net_shipping_weight: ele.ProductsNetShippingWeight,
-    //     supplementary_weight: ele.SupplementaryWeight,
-    //     certified_weight: ele.ProductsCertifiedWeight,
-    //     production_date: ele.ProductionDate,
-    //     product_category: ele.Productcategory,
-    //     product_detail: ele.ProductDetail,
-    //     material_composition: ele.MaterialComposition,
-    //     standard_label_grade: ele.StandardLabelGrade,
-    //     additional_info: ele.AdditionalInfo,
-    //     last_processor: ele.LastProcessor,
-    //     license_number: ele.licenseNo,
-    //     country: ele.Country
-    //   }
-    //   return obj
-    // })
+    console.log(values);
+    let cb_address = values?.cb_address?.map((ele, ind) => {
+      return ele?.cb_address_
+    })
+    let seller_address = values?.seller_address?.map((ele, ind) => {
+      return ele?.seller_address_
+    })
+    let buyer_address = values?.buyer_address?.map((ele, ind) => {
+      return ele?.buyer_address_
+    })
+    let certified_weight = values?.certified_weight?.map((ele, ind) => {
+      return ele?.certified_weight_
+    })
 
-    // let contents = []
-    // values.DeclarationList?.forEach((ele, ind) => {
-    //   let str = ele.DeclarationList_
-    //   contents.push(str)
-    // })
+    let input_tcs = tags?.join(';')
+    let farm_scs = tags1?.join(';')
+    let farm_tcs = tags2?.join(';')
 
-    // let certified_raw_materials_and_declared_geographic_origin =
-    //   values.RawMaterialDetails.map((ele, ind) => {
-    //     let obj = {
-    //       material_details: ele.OrganicCotton,
-    //       certified_weight: ele.RawMaterialsCertifiedWeight,
-    //       country: ele.CountryArea.map(item => item.CountryName).join(', ')
-    //     }
-    //     return obj
-    //   })
+    let shipmentList = values?.ShipmentDetails?.map((ele, ind) => {
+      let consignee_address = ele?.consignee_address?.map((ele, ind) => {
+        return ele?.consignee_address_
+      })
+      let obj = {
+        shipment_no: ele?.shipment_no,
+        shipment_date: formatDateToDDMMYYYY(ele?.shipment_date),
+        shipment_doc_no: ele?.shipment_doc_no,
+        gross_shipping_weight: ele?.gross_shipping_weight,
+        invoice_references: ele?.invoice_references,
+        consignee_name_and_address: {
+          consignee_name: ele?.consignee_name,
+          consignee_address: consignee_address,
+          consignee_town: ele?.consignee_town,
+          consignee_postcode: ele?.consignee_postcode,
+          consignee_state_or_province: ele?.consignee_state_or_province,
+          consignee_country_or_area: ele?.consignee_country_or_area,
+          te_id: ele?.consignee_te_id
+        }
+      }
+      return obj
+    })
 
-    // try {
-    //   let data = {
-    //     file_name: 'example_tc_file.pdf',
-    //     extracted_data: {
-    //       certification_body: {
-    //         main_value: values.CertificationDetails,
-    //         licensing_code_of_certification_body: values.CertificateLicenseCode
-    //       },
-    //       seller_of_certified_products: {
-    //         main_value: values.SellerDetails,
-    //         sc_number: values.SellerSCNumber,
-    //         license_no: values.SellerLicenseNumber
-    //       },
-    //       buyer_of_certified_products: {
-    //         main_value: values.BuyerDetails,
-    //         license_no: values.BuyerLicenseNo
-    //       },
-    //       gross_shipping_weight: values.GrossShippingWeight,
-    //       net_shipping_weight: values.NetShippingWeight,
-    //       certified_weight: values.WeightsCertifiedWeight,
-    //       declarations_by_certification_body: {
-    //         main_value: values.DeclarationText,
-    //         contents: contents,
-    //         certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules:
-    //           values.OrganicMaterialCertificationNOP,
-    //         certification_of_the_organic_material_used_for_the_products_listed_complies_with_apeda_np_op_rules:
-    //           values.OrganicMaterialCertificationNPOP,
-    //         extra_note: values.DeclarationsText
-    //       },
-    //       certified_input_references: {
-    //         input_tcs: tags?.join(','),
-    //         farm_scs: tags1?.join(','),
-    //         farm_tcs: tags2?.join(','),
-    //         trader_tcs_for_organic_material: values.TraderTCsforOrganicMaterial
-    //       },
-    //       shipments: shipmentDetail,
-    //       certified_products: productDetail,
-    //       certified_raw_materials_and_declared_geographic_origin:
-    //         certified_raw_materials_and_declared_geographic_origin,
-    //       declarations_by_seller_of_certified_products: {
-    //         the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor:
-    //           values.outsourcedSubcontractor
-    //       }
-    //     }
-    //   }
+    let ProductDetails = values?.ProductDetails?.map((ele, ind) => {
+      console.log(ele);
+      
+      let obj = {
+        product_no: ele?.product_no,
+        order_no: ele?.order_no,
+        article_no: ele?.article_no,
+        number_of_units: ele?.number_of_units,
+        net_shipping_weight: ele?.products_net_shipping_weight,
+        supplementary_weight: ele?.supplementary_weight,
+        certified_weight: ele?.products_certified_weight,
+        production_date: formatDateToDDMMYYYY(ele?.production_date),
+        product_category: ele?.product_category,
+        product_detail: ele?.product_detail,
+        material_composition: ele?.material_composition,
+        standard_label_grade: ele?.standard_label_grade,
+        additional_info: ele?.additional_info,
+        last_processor: ele?.last_processor,
+        te_id: ele?.products_te_id,
+        country: ele?.products_Country
+      }
+      return obj
+    })
 
-    //   let res = await form1Set(data)
-    //   if (res?.status_code === 200 || res?.status_code === 201) {
-    //     navigate('/tcType1List')
-    //     toast.success('Form submitted Successfully.')
-    //   } else {
-    //     toast.error('Internal server error. Please try again later.')
-    //   }
-    //   if (res) {
-    //   } else {
-    //     toast.error('Something went Wrong.')
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   toast.error('Something went Wrong.')
-    // }
+    let certified_components = values?.certified_components?.map((ele, ind) => {
+      let obj = {
+        product_component_no: ele?.product_component_no,
+        component_detail: ele?.component_detail,
+        net_shipping_weight: ele?.product_component_net_shipping_weight,
+        material_composition: ele?.product_component_material_composition,
+        supplementary_weight: ele?.product_component_supplementary_weight,
+        standard: {
+          name: ele?.product_component_standard_name,
+          label_grade: ele?.product_component_label_grade
+        },
+        certified_weight: ele?.product_component_certified_weight,
+        additional_info: ele?.product_component_additional_info
+      }
+      return obj
+    })
+
+    let certified_raw_materials_and_declared_geographic_origin = values?.certified_raw_material_list?.map((ele, ind) => {
+      let obj = {
+        certified_raw_material: ele?.certified_raw_material,
+        certified_weight: ele?.certified_certified_weight,
+        state_or_provice: ele?.certified_state_or_provice,
+        country_or_area: ele?.certified_country_or_area,
+      }
+      return obj;
+    })
+
+    let data = {
+      file_name: values?.file_name,
+      extracted_data: {
+        certification_body: {
+          cb_name: values?.cb_name,
+          cb_address: cb_address,
+          town: values?.town,
+          postcode: values?.postcode,
+          state_or_province: values?.state_or_province,
+          country_or_area: values?.country_or_area,
+          licensing_code_of_certification_body:
+            values?.licensing_code_of_certification_body
+        },
+        seller_of_certified_products: {
+          seller_name: values?.seller_name,
+          seller_address: seller_address,
+          seller_town: values?.seller_town,
+          seller_postcode: values?.seller_postcode,
+          seller_state_or_province: values?.seller_state_or_province,
+          seller_country_or_area: values?.seller_country_or_area,
+          seller_on_behalf_of: values?.seller_on_behalf_of,
+          seller_certified_organization_name:
+            values?.seller_certified_organization_name,
+          sc_number: values?.sc_number,
+          textile_exchange_id: values?.textile_exchange_id,
+          client_number: values?.client_number,
+          seller_licence_number: values?.seller_licence_number,
+          non_certified_trader: values?.non_certified_trader,
+          trader_te_id: values?.trader_te_id
+        },
+        buyer_of_certified_products: {
+          buyer_name: values?.buyer_name,
+          buyer_address: buyer_address,
+          buyer_town: values?.buyer_town,
+          buyer_postcode: values?.buyer_postcode,
+          buyer_state_or_province: values?.buyer_state_or_province,
+          buyer_country_or_area: values?.buyer_country_or_area,
+          buyer_on_behalf_of: values?.buyer_on_behalf_of,
+          buyer_certified_organization_name:
+            values?.buyer_certified_organization_name,
+          textile_exchange_id: values?.buyer_textile_exchange_id,
+          buyer_cb_acronym: values?.buyer_cb_acronym,
+          client_number: values?.buyer_client_number,
+          buyer_licence_number: values?.buyer_licence_number,
+          trader_te_id: values?.buyer_trader_te_id
+        },
+        gross_shipping_weight: values?.gross_shipping_weight,
+        net_shipping_weight: values?.net_shipping_weight,
+        certified_weight: certified_weight,
+        declarations_by_certification_body: {
+          an_organic_farmin_standards_which_is_closed_by:
+            values?.an_organic_farmin_standards_which_is_closed_by,
+          tc_standard: values?.tc_standard,
+          certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules:
+            values?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules,
+          tc_organic_farm_standard: values?.tc_organic_farm_standard
+        },
+        certified_input_references: {
+          input_tcs: input_tcs,
+          farm_scs: farm_scs,
+          farm_tcs: farm_tcs,
+          trader_tcs_for_organic_material: values?.trader_tcs_for_organic_material
+        },
+        shipments: shipmentList,
+        certified_products: ProductDetails,
+        certified_components: certified_components,
+        certified_raw_materials_and_declared_geographic_origin: certified_raw_materials_and_declared_geographic_origin,
+        declarations_by_seller_of_certified_products: {
+          the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor:
+            values?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor
+        },
+        header: {
+          tc_number: values?.header_tc_number,
+          tc_version_number: values?.tc_version_number,
+          tc_standard: values?.header_tc_standard
+        },
+        footer: {
+          tc_place_of_issue: values?.tc_place_of_issue,
+          tc_date_of_issue: formatDateToDDMMYYYY(values?.tc_date_of_issue),
+          tc_status: values?.tc_status,
+          tc_last_updated: formatDateToDDMMYYYY(values?.tc_last_updated),
+          name_of_authorized_signatory: values?.name_of_authorized_signatory
+        }
+      }
+    }
+
+    try {
+      let response = await createFormTcType1(data);
+      console.log(response);
+      if(response?.status_code === 200 || response?.status_code === 201){
+        toast.success(response?.message)
+        navigate(`${links.tcType1List}`)
+      }else{
+        toast.error(response?.message)
+      }
+      
+    } catch (error) {
+        toast.error("Something Went Wrong")
+    }
+    
     setLoading(false)
   }
   const normFile = e => {
@@ -1320,10 +1407,18 @@ const TcType1Form = () => {
                     >
                       <Input placeholder='Enter Tc Standard' />
                     </AntdForm.Item>
+                    <AntdForm.Item
+                      label='File Name'
+                      name='file_name'
+                      className='w-full md:w-[49%]'
+                      rules={[{ required: true, message: "File Name is required" }]}
+
+                    >
+                      <Input placeholder='Enter File Name' />
+                    </AntdForm.Item>
                   </div>
                 </div>
               </section>
-
               {/* Footer*/}
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>Footer</h2>
@@ -1377,7 +1472,6 @@ const TcType1Form = () => {
                   </div>
                 </div>
               </section>
-
               {/* certificate info */}
               <section className='section'>
                 <h2 className=' pb-3 section-title'>
@@ -1942,7 +2036,7 @@ const TcType1Form = () => {
                     </div>
                     <AntdForm.Item
                       label='Trader(s) Transaction Certificates numbers of First Raw material:'
-                      name='TraderTCsforOrganicMaterial'
+                      name='trader_tcs_for_organic_material'
                       className='w-full'
                     >
                       <Input placeholder='Enter Trader(s) Transaction Certificates numbers of First Raw material:' />
@@ -2303,7 +2397,7 @@ const TcType1Form = () => {
                             <AntdForm.Item
                               {...restField}
                               label='Country'
-                              name={[name, 'Country']}
+                              name={[name, 'products_Country']}
                               className='w-full md:w-[49%]'
                             >
                               <Input placeholder='Enter Country' />
@@ -2332,7 +2426,7 @@ const TcType1Form = () => {
                 </AntdForm.List>
               </section>
 
-              {/* 11. Certified Raw Materials and Declared Geographic Origin */}
+              {/* 11.  Certified Components*/}
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>
                   Certified Components
@@ -2480,12 +2574,12 @@ const TcType1Form = () => {
                 </div>
               </section>
 
-              {/* 12. Declarations by Seller of Certified Products */}
+              {/* 12. Certified Raw Materials And Declared Geographic Origin */}
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>
                   Certified Raw Materials And Declared Geographic Origin{' '}
                 </h2>
-                <div className=''>
+                {/* <div className=''>
                   <div className='flex flex-wrap md:justify-between items-end'>
                     <AntdForm.Item
                       label='Certified Raw Material'
@@ -2518,7 +2612,82 @@ const TcType1Form = () => {
                       <Input placeholder='Enter Country or Area' />
                     </AntdForm.Item>
                   </div>
-                </div>
+                </div> */}
+                <AntdForm.List name='certified_raw_material_list'>
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, ...restField }, index) => (
+                        <div
+                          key={key}
+                          className={`pb-4 certified_component_part relative raw_material_part `}
+                        >
+                          {/* ${index === 0 ? "pt-4" : ""} */}
+                          <div className='flex flex-wrap md:justify-between items-end'>
+                            <AntdForm.Item
+                              {...restField}
+                              label='Certified Raw Material'
+                              name={[name, 'certified_raw_material']}
+                              className='w-full md:w-[49%]'
+                            >
+                              <Input placeholder='Enter Certified Raw Material' />
+                            </AntdForm.Item>
+                            <AntdForm.Item
+                              {...restField}
+                              label='Certified Weight'
+                              name={[name, 'certified_certified_weight']}
+                              className='w-full md:w-[49%]'
+                            >
+                              <Input placeholder='Enter Certified Weight' />
+                            </AntdForm.Item>
+                          </div>
+
+                          <div className='flex flex-wrap md:justify-between items-end'>
+                            <AntdForm.Item
+                              {...restField}
+                              label='State or Province'
+                              name={[name, 'certified_state_or_provice']}
+                              className='w-full md:w-[49%]'
+                            >
+                              <Input placeholder='Enter State or Province' />
+                            </AntdForm.Item>
+                            <AntdForm.Item
+                              {...restField}
+                              label='Country or Area'
+                              name={[name, 'certified_country_or_area']}
+                              className='w-full md:w-[49%]'
+                            >
+                              <Input placeholder='Enter Country or Area' />
+                            </AntdForm.Item>
+                          </div>
+
+                          {fields.length > 1 && (
+                            <MinusCircleOutlined
+                              className='dynamic-delete-button'
+                              onClick={() => remove(name)}
+                            />
+                          )}
+                        </div>
+                      ))}
+                       <AntdForm.Item>
+                        <Button
+                          type='dashed'
+                          onClick={() =>
+                            add({
+                              certified_raw_material: '',
+                              certified_certified_weight: '',
+                              certified_state_or_provice: '',
+                              certified_country_or_area: ''
+                            })
+                          }
+                          block
+                          icon={<PlusOutlined />}
+                        >
+                          Add Raw Materials
+                        </Button>
+                      </AntdForm.Item>
+                    </>
+                  )}
+                </AntdForm.List>
               </section>
 
               {/* 12. declarations_by_seller_of_certified_products */}

@@ -24,7 +24,7 @@ export const Slidebar = () => {
               to={'/tcType1Form'}
               className='text-nowrap logo-img text-center d-flex m-3 ms-5'
             >
-              <img src={Logo} className='dark-logo' width={100} alt />
+              <img src={Logo} className='dark-logo' width={100} alt="" />
             </Link>
 
             <div
@@ -442,7 +442,7 @@ export const Slidebar = () => {
                   className='rounded-circle'
                   width={40}
                   height={40}
-                  alt
+                  alt=""
                 />
               </div>
               <div className='john-title'>

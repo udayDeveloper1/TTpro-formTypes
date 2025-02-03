@@ -75,7 +75,7 @@ export const formFill1 = async data => {
 //     console.error('Error in API request:', error)
 //     return error
 //   }
-// }
+// }  
 
 export const formFill2Try = async data => {
   try {
@@ -236,7 +236,6 @@ export const formFill3 = async (values) => {
   }
 }
 
-
 export const form2List = async(id)  => {
   try {
     const response = await axiosInstance.get(
@@ -300,6 +299,48 @@ export const pdfExtractTypeProdCrop = async data => {
       {
         headers: {
           'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
+
+
+
+
+// form1 apis
+
+export const createFormTcType1 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/tc/type-one/add/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
+export const exportPdfTcType1 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/tc/type-one/',
+      data,
+      {
+        headers: {
+        'Content-Type': 'multipart/form-data'
         }
       }
     )

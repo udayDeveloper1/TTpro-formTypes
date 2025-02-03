@@ -16,7 +16,29 @@ export const capitalizeFirstLetter = (value) => {
     return `${day}/${month}/${year}`;
   }
   
-  // Example Usage
-  const inputDate = "2025-01-22"; // Input date (ISO format or Date object)
-  const formattedDate = formatDateToDDMMYYYY(inputDate);
-  
+
+  export const links = {
+    // tc type1
+    importPdfTCtype1: "/importPdfTCtype1",
+    tcType1Form: "/tcType1Form",
+    tcType1List: "/tcType1List",
+    tcType1View: "//tcType1View/:id/",
+    importPdfTCtype2: "/importPdfTCtype2",
+    tCTypeCropProductionList: "/tCTypeCropProductionList",
+    tCTypeCropProductionForm: "/tCTypeCropProductionForm",
+    importPdftCTypeCropProduction: "/importPdftCTypeCropProduction",
+    tcTypeCropProductinView: "//tcTypeCropProductinView/:id/",
+    tcType2View: "/tcType2View/:id/",
+    tcType2Form: "/tcType2Form",
+    tcType2List: "/tcType2List",
+    scopeVerificationList: "/scopeVerificationList",
+    scopeVerificationView: "/scopeVerificationView/:id/",
+    scopeVerificationForm: "/scopeVerificationForm",
+    importPdfScopeVerification: "/importPdfScopeVerification",
+    handlingTradingScTypeForm: "/handlingTradingScTypeForm",
+    handlingTradingScTypeList: "/handlingTradingScTypeList",
+    handlingTradingScTypeView: "/handlingTradingScTypeView/:id/",
+    importPdfhandlingTradingScType: "/importPdfhandlingTradingScType",
+    PdfReview: "/PdfReview",
+    tcType1Form: "/tcType1Form",
+  }

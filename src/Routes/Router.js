@@ -22,77 +22,92 @@ import TCTypeCropProductionList from "../pages/Form4/TCTypeCropProductionList";
 import TcTypeCropProductinView from "../pages/Form4/TcTypeCropProductinView";
 import ImportPdfScopeProduction from "../pages/Form4/ImportPdfCropProduction";
 import TcType2List from "../pages/Form2/TcType2List";
+import { links } from "../utils/utils";
 // import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
   {
-    path: "/importPdfTCtype1",
+    // "/importPdfTCtype1"
+    path: links.importPdfTCtype1,
     Component: ImportPdfTCtype1,
   },
   {
-    path: "/tcType1Form",
+    // path: "/tcType1Form",
+    path: links.tcType1Form,
     Component: TcType1Form,
   },
   {
-    path: "/tcType1List",
+    // path: "/tcType1List",
+    path: links.tcType1List,
     Component: TcType1List,
   },
   {
-    path: "/tcType1View/:id/",
+    // path: "/tcType1View/:id/",
+    path: links.tcType1View,
     Component: TcType1View,
   },
 
   {
-    path: "/importPdfTCtype2",
+    // path: "/importPdfTCtype2",
+    path: links.importPdfTCtype2,
     Component: ImportPdfTCtype2,
   },
   {
-    path: "/tCTypeCropProductionList",
+    // path: "/tCTypeCropProductionList",
+    path: links.tCTypeCropProductionList,
     Component: TCTypeCropProductionList,
   },
 
   {
-    path: "/tcType2Form",
+    // path: "/tcType2Form",
+    path: links.tcType2Form,
     Component: TcType2Form,
   },
   {
-    path: "/tCTypeCropProductionForm",
+    // path: "/tCTypeCropProductionForm",
+    path: links.tCTypeCropProductionForm,
     Component: TCTypeCropProductionForm,
   },
   {
-    path: "/importPdftCTypeCropProduction",
+    // path: "/importPdftCTypeCropProduction",
+    path: links.importPdftCTypeCropProduction,
     Component: ImportPdfScopeProduction,
   },
   {
-    path: "/tcTypeCropProductinView/:id/",
+    // path: "/tcTypeCropProductinView/:id/",
+    path: links.tcTypeCropProductinView,
     Component: TcTypeCropProductinView,
   },
   {
-    path: "/tcType2View/:id/",
+    // path: "/tcType2View/:id/",
+    path: links.tcType2View,
     Component: TcType2View,
   },
   {
-    path: "/tcType2List",
+    // path: "/tcType2List",
+    path: links.tcType2List,
     Component: TcType2List,
   },
   
   {
-    path: "/scopeVerificationList",
+    // path: "/scopeVerificationList",
+    path: links.scopeVerificationList,
     Component: ScopeVerificationList,
   },
   {
-    path: "/scopeVerificationView/:id/",
+    // path: "/scopeVerificationView/:id/",
+    path: links.scopeVerificationView,
     Component: ScopeVerificationView,
   },
 
-
-
   {
-    path: "/scopeVerificationForm",
+    // path: "/scopeVerificationForm",
+    path: links.scopeVerificationForm,
     Component: ScopeVerificationForm,
   },
   {
-    path: "/importPdfScopeVerification",
+    // path: "/importPdfScopeVerification",
+    path: links.importPdfScopeVerification,
     Component: ImportPdfScopeVerification,
   },
 
@@ -100,19 +115,23 @@ export const router = createBrowserRouter([
   // --------------------------------- Hemang router start -----------------------------------
 
   {
-    path: "/handlingTradingScTypeForm",
+    // path: "/handlingTradingScTypeForm",
+    path: links.handlingTradingScTypeForm,
     Component: ImportHandlingForm,
   },
   {
-    path: "/handlingTradingScTypeList",
+    // path: "/handlingTradingScTypeList",
+    path: links.handlingTradingScTypeList,
     Component: ImportHandlingFormList,
   },
   {
-    path: "/handlingTradingScTypeView/:id/",
+    // path: "/handlingTradingScTypeView/:id/",
+    path: links.handlingTradingScTypeView,
     Component: ImportHandleFormView,
   },
   {
-    path: "/importPdfhandlingTradingScType",
+    // path: "/importPdfhandlingTradingScType",
+    path: links.importPdfhandlingTradingScType,
     Component: ImportPdfHandleForm,
   },
 
@@ -120,9 +139,11 @@ export const router = createBrowserRouter([
 
   {
     path: "/PdfReview",
+    path: "/PdfReview",
     Component: PdfReview,
   },
   {
+    path: "/tcType1Form*",
     path: "/tcType1Form*",
     Component: TcType1Form,
   },
