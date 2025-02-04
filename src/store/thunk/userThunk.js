@@ -15,7 +15,7 @@ export const pdfListingApi = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(
-        `/api/pdf/transaction-certificates/`
+        `/api/tc/type-one-list/`
       )
       if (response?.status_code === 200 || response?.status_code === 201) {
         dispatch(setPdfListData(response?.data))

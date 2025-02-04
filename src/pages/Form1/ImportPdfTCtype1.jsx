@@ -3212,15 +3212,18 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { formatDateToDDMMYYYY, links } from '../../utils/utils'
 import CustomFormItem from '../../layout/CustomFormItem'
+import { debounce } from 'lodash'
+import TagWithError from '../../component/TagsWithError'
 
 const ImportPdfTCtype1 = () => {
   const [form] = AntdForm.useForm()
   const [form2] = AntdForm.useForm()
-  const [emptyFields, setEmptyFields] = useState({})
   const [formNo, setFormNo] = useState('1')
   const [data, setdata] = useState('1')
   const [loading, setLoading] = useState(false)
   const [loading2, setLoading2] = useState(false)
+  const [emptyFields, setEmptyFields] = useState({})
+
   const navigate = useNavigate()
   const handleSubmit = async values => {
     setLoading(true)
@@ -3356,7 +3359,7 @@ const ImportPdfTCtype1 = () => {
               product_component_material_composition: ele?.material_composition,
               product_component_supplementary_weight: ele?.supplementary_weight,
               product_component_standard_name: ele?.standard?.name,
-              product_component_label_grad: ele?.standard?.label_grade,
+              product_component_label_grade: ele?.standard?.label_grade,
               product_component_certified_weight: ele?.certified_weight,
               product_component_additional_info: ele?.additional_info
             }
@@ -3371,7 +3374,7 @@ const ImportPdfTCtype1 = () => {
             product_component_material_composition: '',
             product_component_supplementary_weight: '',
             product_component_standard_name: '',
-            product_component_label_grad: '',
+            product_component_label_grade: '',
             product_component_certified_weight: '',
             product_component_additional_info: ''
           })
@@ -3478,97 +3481,6 @@ const ImportPdfTCtype1 = () => {
             res?.declarations_by_seller_of_certified_products
               ?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor
         })
-
-        // const initialValues = {
-        //   file_name: response?.data?.file_name,
-        //   cb_name: res?.certification_body?.cb_name,
-        //   cb_address: cb_address,
-        //   trader_tcs_for_organic_material:
-        //     res?.certified_input_references?.trader_tcs_for_organic_material,
-        //   town: res?.certification_body?.town,
-        //   postcode: res?.certification_body?.postcode,
-        //   state_or_province: res?.certification_body?.state_or_province,
-        //   country_or_area: res?.certification_body?.country_or_area,
-        //   licensing_code_of_certification_body:
-        //     res?.certification_body?.licensing_code_of_certification_body,
-        //   seller_name: res?.seller_of_certified_products?.seller_name,
-        //   seller_town: res?.seller_of_certified_products?.seller_town,
-        //   seller_postcode: res?.seller_of_certified_products?.seller_postcode,
-        //   seller_state_or_province:
-        //     res?.seller_of_certified_products?.seller_state_or_province,
-        //   seller_country_or_area:
-        //     res?.seller_of_certified_products?.seller_country_or_area,
-        //   seller_on_behalf_of:
-        //     res?.seller_of_certified_products?.seller_on_behalf_of,
-        //   seller_certified_organization_name:
-        //     res?.seller_of_certified_products
-        //       ?.seller_certified_organization_name,
-        //   sc_number: res?.seller_of_certified_products?.sc_number,
-        //   textile_exchange_id: res?.seller_of_certified_products?.trader_te_id,
-        //   client_number: res?.seller_of_certified_products?.client_number,
-        //   seller_licence_number:
-        //     res?.seller_of_certified_products?.seller_licence_number,
-        //   non_certified_trader:
-        //     res?.seller_of_certified_products?.non_certified_trader,
-        //   trader_te_id: res?.seller_of_certified_products?.trader_te_id,
-        //   seller_address: seller_address,
-        //   buyer_name: res?.buyer_of_certified_products?.buyer_name,
-        //   buyer_address: buyer_address,
-        //   buyer_town: res?.buyer_of_certified_products?.buyer_town,
-        //   buyer_postcode: res?.buyer_of_certified_products?.buyer_postcode,
-        //   buyer_state_or_province:
-        //     res?.buyer_of_certified_products?.buyer_state_or_province,
-        //   buyer_country_or_area:
-        //     res?.buyer_of_certified_products?.buyer_country_or_area,
-        //   buyer_on_behalf_of:
-        //     res?.buyer_of_certified_products?.buyer_on_behalf_of,
-        //   buyer_certified_organization_name:
-        //     res?.buyer_of_certified_products?.buyer_certified_organization_name,
-        //   buyer_textile_exchange_id:
-        //     res?.buyer_of_certified_products?.textile_exchange_id,
-        //   buyer_cb_acronym: res?.buyer_of_certified_products?.buyer_cb_acronym,
-        //   buyer_client_number: res?.buyer_of_certified_products?.client_number,
-        //   buyer_licence_number:
-        //     res?.buyer_of_certified_products?.buyer_licence_number,
-        //   buyer_trader_te_id: res?.buyer_of_certified_products?.trader_te_id,
-        //   gross_shipping_weight: res?.gross_shipping_weight,
-        //   net_shipping_weight: res?.net_shipping_weight,
-        //   certified_weight: certified_weight,
-        //   an_organic_farmin_standards_which_is_closed_by:
-        //     res?.declarations_by_certification_body
-        //       ?.an_organic_farmin_standards_which_is_closed_by,
-        //   tc_standard: res?.declarations_by_certification_body?.tc_standard,
-        //   certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules:
-        //     res?.declarations_by_certification_body
-        //       ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules,
-        //   tc_organic_farm_standard:
-        //     res?.declarations_by_certification_body?.tc_organic_farm_standard,
-        //   ShipmentDetails: ShipmentDetails,
-        //   ProductDetails: ProductDetails,
-        //   certified_components: certified_components,
-        //   header_tc_number: res?.header?.tc_number,
-        //   tc_version_number: res?.header?.tc_version_number,
-        //   header_tc_standard: res?.header?.tc_standard,
-        //   tc_place_of_issue: res?.footer?.tc_place_of_issue,
-        //   tc_date_of_issue:
-        //     res?.footer?.tc_date_of_issue === ''
-        //       ? null
-        //       : dayjs(res?.footer?.tc_date_of_issue, 'DD/MM/YYYY'),
-        //   name_of_authorized_signatory:
-        //     res?.footer?.name_of_authorized_signatory,
-        //   tc_status: res?.footer?.tc_status,
-        //   tc_last_updated:
-        //     res?.footer?.tc_last_updated === ''
-        //       ? null
-        //       : dayjs(res?.footer?.tc_last_updated, 'DD/MM/YYYY'),
-        //   certified_raw_material_list:
-        //     certified_raw_materials_and_declared_geographic_origin,
-        //   the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor:
-        //     res?.declarations_by_seller_of_certified_products
-        //       ?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor
-        // }
-
-        // form2.setFieldsValue(initialValues)
       } else {
         toast.error('Something went Wrong.')
       }
@@ -3601,9 +3513,8 @@ const ImportPdfTCtype1 = () => {
   const [tags2, setTags2] = useState([])
 
   const handleSubmit2 = async values => {
-    setLoading(true)
+    setLoading2(true)
 
-    console.log(values)
     let cb_address = values?.cb_address?.map((ele, ind) => {
       return ele?.cb_address_
     })
@@ -3688,14 +3599,13 @@ const ImportPdfTCtype1 = () => {
     let certified_raw_materials_and_declared_geographic_origin =
       values?.certified_raw_material_list?.map((ele, ind) => {
         let obj = {
-          certified_raw_material: ele?.certified_raw_material,
+          certified_raw_material: (ele?.certified_raw_material)?.replace(/\).*$/, ")") ,
           certified_weight: ele?.certified_certified_weight,
           state_or_provice: ele?.certified_state_or_provice,
           country_or_area: ele?.certified_country_or_area
         }
         return obj
       })
-    console.log(values)
 
     let data = {
       file_name: values?.file_name,
@@ -3798,15 +3708,154 @@ const ImportPdfTCtype1 = () => {
       toast.error('Something Went Wrong')
     }
 
-    setLoading(false)
+    setLoading2(false)
   }
 
-  const beforeUpload2 = file => {
-    const isValidType = file.type === 'image/png' || file.type === 'image/jpeg'
-    if (!isValidType) {
-      message.error('You can only upload PNG or JPG files!')
+  const handleValuesChange = debounce(changedValues => {
+    if (changedValues?.ShipmentDetails) {
+      setEmptyFields(prevEmptyFields => {
+        const updatedEmptyFields = { ...prevEmptyFields }
+        Object.keys(changedValues.ShipmentDetails)?.forEach(key => {
+          const shipmentDetail = changedValues?.ShipmentDetails?.[key]
+            if(shipmentDetail){
+              Object?.keys(shipmentDetail)?.forEach(field => {
+                const fieldValue = shipmentDetail?.[field]
+                const fieldName = `${key}-${field}`
+                updatedEmptyFields[fieldName] = !fieldValue
+              })
+            }
+        })
+
+        return updatedEmptyFields
+      })
+    } else if (changedValues?.cb_address) {
+      const updatedEmptyFields = { ...emptyFields }
+      Object.keys(changedValues.cb_address)?.forEach(key => {
+        const cbAddressValue = form?.getFieldValue([
+          'cb_address',
+          key,
+          'cb_address_'
+        ])
+        updatedEmptyFields[key] = !cbAddressValue
+      })
+      setEmptyFields(updatedEmptyFields)
+    } else if (changedValues?.seller_address) {
+      const updatedEmptyFields = { ...emptyFields }
+      Object.keys(changedValues.seller_address)?.forEach(key => {
+        const sellerAddressValue = form?.getFieldValue([
+          'seller_address',
+          key,
+          'seller_address_'
+        ])
+        updatedEmptyFields[key] = !sellerAddressValue
+      })
+      setEmptyFields(updatedEmptyFields)
+    }else if (changedValues?.buyer_address) {
+      const updatedEmptyFields = { ...emptyFields }
+      Object.keys(changedValues.buyer_address)?.forEach(key => {
+        const buyerAddressValue = form?.getFieldValue([
+          'buyer_address',
+          key,
+          'buyer_address_'
+        ])
+        updatedEmptyFields[key] = !buyerAddressValue
+      })
+      setEmptyFields(updatedEmptyFields)
+    }else if (changedValues?.certified_weight) {
+      const updatedEmptyFields = { ...emptyFields }
+      Object.keys(changedValues.certified_weight)?.forEach(key => {
+        const certifiedWeight = form?.getFieldValue([
+          'certified_weight',
+          key,
+          'certified_weight_'
+        ])
+        updatedEmptyFields[key] = !certifiedWeight
+      })
+      setEmptyFields(updatedEmptyFields)
+    }else if (changedValues?.ProductDetails) {
+      setEmptyFields(prevEmptyFields => {
+        const updatedEmptyFields = { ...prevEmptyFields }
+        Object.keys(changedValues?.ProductDetails)?.forEach(key => {
+          const ProductDetail = changedValues?.ProductDetails?.[key]
+          if(ProductDetail){
+            Object.keys(ProductDetail)?.forEach(field => {
+              const fieldValue = ProductDetail?.[field]
+              const fieldName = `${key}-${field}`
+              updatedEmptyFields[fieldName] = !fieldValue
+            })
+          }
+        })
+
+        return updatedEmptyFields
+      })
+    }else if (changedValues?.certified_components) {
+      setEmptyFields(prevEmptyFields => {
+        const updatedEmptyFields = { ...prevEmptyFields }
+        Object.keys(changedValues.certified_components)?.forEach(key => {
+          const certifiedComponent = changedValues?.certified_components?.[key]
+            if(certifiedComponent){
+              Object?.keys(certifiedComponent)?.forEach(field => {
+                const fieldValue = certifiedComponent?.[field]
+                const fieldName = `${key}-${field}`
+                updatedEmptyFields[fieldName] = !fieldValue
+              })
+            }
+        })
+
+        return updatedEmptyFields
+      })
+    }else if(changedValues?.certified_raw_material_list){
+      setEmptyFields(prevEmptyFields => {
+        const updatedEmptyFields = { ...prevEmptyFields }
+        Object.keys(changedValues.certified_raw_material_list)?.forEach(key => {
+          const certifiedRawMaterialList = changedValues?.certified_raw_material_list?.[key]
+            if(certifiedRawMaterialList){
+              Object?.keys(certifiedRawMaterialList)?.forEach(field => {
+                const fieldValue = certifiedRawMaterialList?.[field]
+                const fieldName = `${key}-${field}`
+                updatedEmptyFields[fieldName] = !fieldValue
+              })
+            }
+        })
+
+        return updatedEmptyFields
+      })
     }
-    return isValidType
+  }, 100)
+
+  const getFieldClassName = (mainName, name, field, index) => {
+    if(field === "product_component_label_grade"){
+      console.log(field);
+      
+      console.log(form2?.getFieldValue(mainName)?.[index]);
+      
+}
+    
+    
+    return emptyFields[`${name}-${field}`] ||
+      (form2?.getFieldValue(mainName)?.[index]?.[field] === '' &&
+        !emptyFields?.[`${name}-${field}`])
+      ? 'empty_field'
+      : ''
+  }
+
+  const getNestedFieldClassName = (
+    shipmentIndex,
+    nestedIndex,
+    parentName,
+    childName,
+    subChildName
+  ) => {
+    const nestedArray = form2?.getFieldValue([
+      parentName,
+      shipmentIndex,
+      childName
+    ])
+    const value =
+      nestedArray && nestedArray?.[nestedIndex]
+        ? nestedArray?.[nestedIndex]?.[subChildName]
+        : ''
+    return !value || value?.trim() === '' ? 'empty_field' : ''
   }
 
   return formNo === '1' ? (
@@ -3895,6 +3944,7 @@ const ImportPdfTCtype1 = () => {
               layout='vertical'
               className='form_1  rounded-xl shadow-xl'
               style={{ maxWidth: 900, margin: '0 auto' }}
+              onValuesChange={handleValuesChange}
             >
               <h1 className='text-3xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center'>
                 Transaction Certificate (TC) Form
@@ -4032,7 +4082,6 @@ const ImportPdfTCtype1 = () => {
                         <>
                           <AntdForm.Item
                             label='Certificate Address'
-                            required
                             className='w-full md:w-[49%]'
                           >
                             {fields.map(
@@ -4046,13 +4095,12 @@ const ImportPdfTCtype1 = () => {
                                     {...restField}
                                     name={[name, 'cb_address_']}
                                     style={{ flex: 1 }}
-                                    rules={[
-                                      {
-                                        required: index === 0 ? true : false,
-                                        message:
-                                          'Certificate Address is required'
-                                      }
-                                    ]}
+                                    className={`${getFieldClassName(
+                                      'cb_address',
+                                      name,
+                                      'cb_address_',
+                                      index
+                                    )}`}
                                   >
                                     <Input
                                       placeholder={`Enter Certificate Address`}
@@ -4201,12 +4249,12 @@ const ImportPdfTCtype1 = () => {
                                     {...restField}
                                     name={[name, 'seller_address_']}
                                     style={{ flex: 1 }}
-                                    rules={[
-                                      {
-                                        required: index === 0 ? true : false,
-                                        message: 'Seller Address is required'
-                                      }
-                                    ]}
+                                    className={`${getFieldClassName(
+                                      'seller_address',
+                                      name,
+                                      'seller_address_',
+                                      index
+                                    )}`}
                                   >
                                     <Input
                                       placeholder={`Enter Seller Address`}
@@ -4348,12 +4396,12 @@ const ImportPdfTCtype1 = () => {
                                     {...restField}
                                     name={[name, 'buyer_address_']}
                                     style={{ flex: 1 }}
-                                    rules={[
-                                      {
-                                        required: index === 0 ? true : false,
-                                        message: 'Buyer Address is required'
-                                      }
-                                    ]}
+                                    className={`${getFieldClassName(
+                                      'buyer_address',
+                                      name,
+                                      'buyer_address_',
+                                      index
+                                    )}`}
                                   >
                                     <Input
                                       placeholder={`Enter Buyer Address`}
@@ -4421,12 +4469,12 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 name={[name, 'certified_weight_']}
                                 style={{ flex: 1 }}
-                                rules={[
-                                  {
-                                    required: index === 0 ? true : false,
-                                    message: 'Certified Weight is required'
-                                  }
-                                ]}
+                                className={`${getFieldClassName(
+                                  'certified_weight',
+                                  name,
+                                  'certified_weight_',
+                                  index
+                                )}`}
                               >
                                 <Input placeholder={`Enter Certified Weight`} />
                               </AntdForm.Item>
@@ -4495,7 +4543,6 @@ const ImportPdfTCtype1 = () => {
               {/* 8. Certified Input References  */}
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>
-                  {' '}
                   Certified Input References{' '}
                 </h2>
                 <div className=''>
@@ -4503,7 +4550,7 @@ const ImportPdfTCtype1 = () => {
                     <div className='w-full'>
                       <>
                         <AntdForm.Item name='InputTCs' label='Input TCs'>
-                          <TagInput
+                          <TagWithError
                             tags={tags}
                             setTags={setTags}
                             name='InputTCs'
@@ -4511,7 +4558,7 @@ const ImportPdfTCtype1 = () => {
                         </AntdForm.Item>
 
                         <AntdForm.Item name='FarmSCs' label='Farm SCs'>
-                          <TagInput
+                          <TagWithError
                             tags={tags1}
                             setTags={setTags1}
                             name='FarmSCs'
@@ -4519,7 +4566,7 @@ const ImportPdfTCtype1 = () => {
                         </AntdForm.Item>
 
                         <AntdForm.Item name='FarmTCs' label='Farm TCs'>
-                          <TagInput
+                          <TagWithError
                             tags={tags2}
                             setTags={setTags2}
                             name='FarmTCs'
@@ -4556,7 +4603,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Shipment No.'
                                   name={[name, 'shipment_no']}
-                                  className={`w-full md:w-[49%] `}
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'shipment_no',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Shipment No.' />
                                 </AntdForm.Item>
@@ -4564,13 +4616,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Shipment Date:'
                                   name={[name, 'shipment_date']}
-                                  className='w-full md:w-[49%]'
-                                  rules={[
-                                    {
-                                      required: index === 0 ? true : false,
-                                      message: 'Shipment Date is required'
-                                    }
-                                  ]}
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'shipment_date',
+                                    index
+                                  )}`}
                                 >
                                   <DatePicker
                                     className='datePickerIpnut'
@@ -4583,7 +4634,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Shipment Doc No.'
                                   name={[name, 'shipment_doc_no']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'shipment_doc_no',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Shipment Doc No.' />
                                 </AntdForm.Item>
@@ -4591,7 +4647,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Gross Shipping Weight:'
                                   name={[name, 'gross_shipping_weight']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'gross_shipping_weight',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Gross Shipping Weight' />
                                 </AntdForm.Item>
@@ -4601,7 +4662,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Invoice References:'
                                   name={[name, 'invoice_references']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'invoice_references',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Invoice References' />
                                 </AntdForm.Item>
@@ -4609,7 +4675,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Consignee Name:'
                                   name={[name, 'consignee_name']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_name',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Consignee Name' />
                                 </AntdForm.Item>
@@ -4619,7 +4690,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Consignee Town:'
                                   name={[name, 'consignee_town']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_town',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Consignee Town' />
                                 </AntdForm.Item>
@@ -4627,7 +4703,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Consignee Postcode:'
                                   name={[name, 'consignee_postcode']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_postcode',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Consignee Postcode' />
                                 </AntdForm.Item>
@@ -4637,7 +4718,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Consignee State or Province:'
                                   name={[name, 'consignee_state_or_province']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_state_or_province',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Consignee State or Province' />
                                 </AntdForm.Item>
@@ -4645,7 +4731,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Consignee Country or Area'
                                   name={[name, 'consignee_country_or_area']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_country_or_area',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Consignee Country or Area' />
                                 </AntdForm.Item>
@@ -4655,7 +4746,12 @@ const ImportPdfTCtype1 = () => {
                                   {...restField}
                                   label='Te Id'
                                   name={[name, 'consignee_te_id']}
-                                  className='w-full md:w-[49%]'
+                                  className={`w-full md:w-[49%] ${getFieldClassName(
+                                    'ShipmentDetails',
+                                    name,
+                                    'consignee_te_id',
+                                    index
+                                  )}`}
                                 >
                                   <Input placeholder='Enter Te Id' />
                                 </AntdForm.Item>
@@ -4671,11 +4767,14 @@ const ImportPdfTCtype1 = () => {
                                     ) => (
                                       <>
                                         {subFields.map(
-                                          ({
-                                            key: subKey,
-                                            name: subName,
-                                            ...restSubField
-                                          }) => (
+                                          (
+                                            {
+                                              key: subKey,
+                                              name: subName,
+                                              ...restSubField
+                                            },
+                                            ind
+                                          ) => (
                                             <Space
                                               key={subKey}
                                               style={{
@@ -4691,7 +4790,13 @@ const ImportPdfTCtype1 = () => {
                                                   'consignee_address_'
                                                 ]}
                                                 label='Consignee Address:'
-                                                className='w-full md:w-[49%]'
+                                                className={`w-full md:w-[49%] ${getNestedFieldClassName(
+                                                  index,
+                                                  ind,
+                                                  'ShipmentDetails',
+                                                  'consignee_address',
+                                                  'consignee_address_'
+                                                )}`}
                                               >
                                                 <Input placeholder='Enter Consignee Address' />
                                               </AntdForm.Item>
@@ -4752,14 +4857,19 @@ const ImportPdfTCtype1 = () => {
                 <AntdForm.List name='ProductDetails'>
                   {(fields, { add, remove }) => (
                     <>
-                      {fields.map(({ key, name, ...restField }) => (
+                      {fields.map(({ key, name, ...restField }, index) => (
                         <div key={key} className='pb-5 relative'>
                           <div className='flex md:justify-between flex-wrap'>
                             <AntdForm.Item
                               {...restField}
                               label='Product No.:'
                               name={[name, 'product_no']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'product_no',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Product No.' />
                             </AntdForm.Item>
@@ -4767,7 +4877,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Order No.:'
                               name={[name, 'order_no']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'order_no',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Order No.' />
                             </AntdForm.Item>
@@ -4777,7 +4892,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Article No.:'
                               name={[name, 'article_no']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'article_no',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Article No.' />
                             </AntdForm.Item>
@@ -4785,7 +4905,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Number of Units:'
                               name={[name, 'number_of_units']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'number_of_units',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Number of Units' />
                             </AntdForm.Item>
@@ -4795,7 +4920,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Net Shipping Weight'
                               name={[name, 'products_net_shipping_weight']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'products_net_shipping_weight',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Net Shipping Weight' />
                             </AntdForm.Item>
@@ -4803,7 +4933,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Supplementary Weight'
                               name={[name, 'supplementary_weight']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'supplementary_weight',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Supplementary Weight' />
                             </AntdForm.Item>
@@ -4814,7 +4949,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Production Date:'
                               name={[name, 'production_date']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'production_date',
+                                index
+                              )}`}
                             >
                               <DatePicker
                                 className='datePickerIpnut'
@@ -4825,7 +4965,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Product Category'
                               name={[name, 'product_category']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'product_category',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Product Category' />
                             </AntdForm.Item>
@@ -4835,7 +4980,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Product Detail:'
                               name={[name, 'product_detail']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'product_detail',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Product Detail' />
                             </AntdForm.Item>
@@ -4843,7 +4993,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Material Composition'
                               name={[name, 'material_composition']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'material_composition',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Material Composition' />
                             </AntdForm.Item>
@@ -4853,7 +5008,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Standard Label Grade:'
                               name={[name, 'standard_label_grade']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'standard_label_grade',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Standard Label Grade' />
                             </AntdForm.Item>
@@ -4861,7 +5021,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Additional Info'
                               name={[name, 'additional_info']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'additional_info',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Additional Info' />
                             </AntdForm.Item>
@@ -4871,7 +5036,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Last Processor'
                               name={[name, 'last_processor']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'last_processor',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Last Processor' />
                             </AntdForm.Item>
@@ -4879,7 +5049,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Te Id'
                               name={[name, 'products_te_id']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'products_te_id',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Te Id' />
                             </AntdForm.Item>
@@ -4889,7 +5064,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Certified Weight:'
                               name={[name, 'products_certified_weight']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'products_certified_weight',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Certified Weight' />
                             </AntdForm.Item>
@@ -4897,7 +5077,12 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Country'
                               name={[name, 'products_Country']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName(
+                                'ProductDetails',
+                                name,
+                                'products_Country',
+                                index
+                              )}`}
                             >
                               <Input placeholder='Enter Country' />
                             </AntdForm.Item>
@@ -4934,7 +5119,7 @@ const ImportPdfTCtype1 = () => {
                   <AntdForm.List name='certified_components'>
                     {(fields, { add, remove }) => (
                       <>
-                        {fields.map(({ key, name, ...restField }) => (
+                        {fields.map(({ key, name, ...restField }, index) => (
                           <div
                             key={key}
                             className='pb-5 certified_component_part relative'
@@ -4944,7 +5129,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Product Component No.'
                                 name={[name, 'product_component_no']}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_no', index )}`}
                               >
                                 <Input placeholder='Enter Product Component No.' />
                               </AntdForm.Item>
@@ -4952,7 +5137,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Component Detail:'
                                 name={[name, 'component_detail']}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'component_detail', index )}`}
                               >
                                 <Input placeholder='Enter Component Detail' />
                               </AntdForm.Item>
@@ -4965,7 +5150,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_net_shipping_weight'
                                 ]}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_net_shipping_weight', index )}`}
                               >
                                 <Input placeholder='Enter Net Shipping Weight' />
                               </AntdForm.Item>
@@ -4976,7 +5161,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_material_composition'
                                 ]}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_material_composition', index )}`}
                               >
                                 <Input placeholder='Enter Material Composition' />
                               </AntdForm.Item>
@@ -4989,7 +5174,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_supplementary_weight'
                                 ]}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_supplementary_weight', index )}`}
                               >
                                 <Input placeholder='Enter Supplementary Weight' />
                               </AntdForm.Item>
@@ -5000,7 +5185,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_certified_weight'
                                 ]}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_certified_weight', index )}`}
                               >
                                 <Input placeholder='Enter Certified Weight' />
                               </AntdForm.Item>
@@ -5010,7 +5195,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Standard Name'
                                 name={[name, 'product_component_standard_name']}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_standard_name', index )}`}
                               >
                                 <Input placeholder='Enter Standard Name' />
                               </AntdForm.Item>
@@ -5018,7 +5203,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Standard Label Grade'
                                 name={[name, 'product_component_label_grade']}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_label_grade', index )}`}
                               >
                                 <Input placeholder='Enter Standard Label Grade' />
                               </AntdForm.Item>
@@ -5031,7 +5216,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_additional_info'
                                 ]}
-                                className='w-full md:w-[49%]'
+                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_additional_info', index )}`}
                               >
                                 <Input placeholder='Enter Additional Info' />
                               </AntdForm.Item>
@@ -5049,17 +5234,18 @@ const ImportPdfTCtype1 = () => {
                           <Button
                             type='dashed'
                             onClick={() =>
-                              add({
-                                product_component_no: '',
-                                component_detail: '',
-                                product_component_net_shipping_weight: '',
-                                product_component_material_composition: '',
-                                product_component_supplementary_weight: '',
-                                product_component_certified_weight: '',
-                                product_component_standard_name: '',
-                                product_component_label_grade: '',
-                                product_component_additional_info: ''
-                              })
+                              // add({
+                              //   product_component_no: '',
+                              //   component_detail: '',
+                              //   product_component_net_shipping_weight: '',
+                              //   product_component_material_composition: '',
+                              //   product_component_supplementary_weight: '',
+                              //   product_component_certified_weight: '',
+                              //   product_component_standard_name: '',
+                              //   product_component_label_grade: '',
+                              //   product_component_additional_info: ''
+                              // })
+                              add()
                             }
                             block
                             icon={<PlusOutlined />}
@@ -5092,7 +5278,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Certified Raw Material'
                               name={[name, 'certified_raw_material']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_raw_material', index )}`}
                             >
                               <Input placeholder='Enter Certified Raw Material' />
                             </AntdForm.Item>
@@ -5100,7 +5286,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Certified Weight'
                               name={[name, 'certified_certified_weight']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_certified_weight', index )}`}
                             >
                               <Input placeholder='Enter Certified Weight' />
                             </AntdForm.Item>
@@ -5111,7 +5297,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='State or Province'
                               name={[name, 'certified_state_or_provice']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_state_or_provice', index )}`}
                             >
                               <Input placeholder='Enter State or Province' />
                             </AntdForm.Item>
@@ -5119,7 +5305,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Country or Area'
                               name={[name, 'certified_country_or_area']}
-                              className='w-full md:w-[49%]'
+                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_country_or_area', index )}`}
                             >
                               <Input placeholder='Enter Country or Area' />
                             </AntdForm.Item>
@@ -5137,12 +5323,13 @@ const ImportPdfTCtype1 = () => {
                         <Button
                           type='dashed'
                           onClick={() =>
-                            add({
-                              certified_raw_material: '',
-                              certified_certified_weight: '',
-                              certified_state_or_provice: '',
-                              certified_country_or_area: ''
-                            })
+                            // add({
+                            //   certified_raw_material: '',
+                            //   certified_certified_weight: '',
+                            //   certified_state_or_provice: '',
+                            //   certified_country_or_area: ''
+                            // })
+                            add()
                           }
                           block
                           icon={<PlusOutlined />}
@@ -5163,13 +5350,12 @@ const ImportPdfTCtype1 = () => {
                 </h2>
                 <div className=''>
                   <div className='flex flex-wrap md:justify-between items-end'>
-                    <AntdForm.Item
-                      label='The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
+                    <CustomFormItem
+                label='The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
                       name='the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor'
-                      className='w-full'
-                    >
-                      <Input placeholder='Enter The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor' />
-                    </AntdForm.Item>
+                      placeholder='Enter The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
+                      component={Input}
+                    />
                   </div>
                 </div>
               </section>

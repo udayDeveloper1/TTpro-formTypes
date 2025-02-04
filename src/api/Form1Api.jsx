@@ -22,7 +22,8 @@ export const form1Set = async data => {
 export const form1List = async(id)  => {
   try {
     const response = await axiosInstance.get(
-      `api/pdf/transaction-certificates/${id}/`,
+      // `api/pdf/transaction-certificates/${id}/`,
+      `/api/tc/type-one/${id}/`,
     )
     // if (response?.status_code === 200 || response?.status_code === 201) {
     //   return response?.data
