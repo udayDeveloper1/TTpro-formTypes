@@ -244,6 +244,14 @@ button.download_pdf_btn:hover,
   width: 100%;
   padding: 25px 0;
   font-size: 20px;
+  transition: 0.4s ease;
+}
+
+.pdfViewBtn{
+  max-width: max-content;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: 100%;
 }
 
 .form_1 .dynamic-delete-button {
@@ -421,14 +429,15 @@ button.download_pdf_btn:hover,
   min-height: 21px;
 }
 
+
+
 @media print {
-  .sidebar_pdf {
+  .sidebar_pdf, .pdfViewBtn {
     display: none !important;
   }
   .pdfDivMain {
     width: 100% !important;
   }
-
   body {
     background: #fff;
   }
@@ -447,9 +456,9 @@ button.download_pdf_btn:hover,
   }
 
   .pdfDivMain tfoot {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    /* position: fixed; */
+    /* bottom: 0;
+    left: 0; */
     max-width: 1000px;
     margin: auto;
     /* width: 100%; */
@@ -460,12 +469,14 @@ button.download_pdf_btn:hover,
   .pdfDivMain .container{
     padding-right: 12px !important;
   }
-
-  .pdfDivMain{
-    margin-bottom: 200px;
+  body {
+    margin: 0;
+    padding: 0;
   }
-}
 
+}
+ 
 @page {
-size: A4 portrait;
+size: A4;
+
 }

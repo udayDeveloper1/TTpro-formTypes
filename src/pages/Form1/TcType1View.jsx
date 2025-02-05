@@ -671,6 +671,7 @@ import moment from 'moment'
 import { Slidebar } from '../../layout/Slidebar'
 import { toast } from 'react-toastify'
 import ttproLogo from '../../assets/logo.webp'
+import qrCode from '../../assets/images/qrCode.svg'
 import Checkbox from 'react-custom-checkbox'
 import { Check, CheckCircle, XCircle } from 'lucide-react'
 const TcType1View = () => {
@@ -860,26 +861,43 @@ audited and monitored systematically under responsibility of the certification b
     }
   }, [])
 
+  const handlePrint = e => {
+    e.preventDefault()
+    console.log(e)
+    window.print()
+  }
+
   return (
     <>
+      <div className='container flex items-end'></div>
       <div className='flex'>
-        {' '}
         <div style={{ width: '20%' }} className='sidebar_pdf'>
-          {' '}
           <Slidebar />
-        </div>{' '}
-        <div style={{ width: '80%' }} className='pdfDivMain'>
+        </div>
+        <div style={{ width: '80%' }} className='pdfDivMain relative'>
           <div className='container rounded-xl mx-auto pe-10 my-10 '>
+            <button
+              type='primary'
+              onClick={handlePrint}
+              className='submit-btn text-white w-max pdfViewBtn block ms-auto mb-10'
+            >
+              Submit
+            </button>
             <div className='pdfTable_div '>
-              <table className='w-full '>
+              <table className='w-full'>
                 <tbody className=''>
                   <tr className='page_break'>
                     <td className='w-full' colSpan={4}>
-                      <div className='relative pb-4'>
+                      <div className='relative mb-4'>
                         <img
                           src={ttproLogo}
                           alt='logo'
                           className='pdf_main_logo absolute left-0'
+                        />
+                        <img
+                          src={qrCode}
+                          alt='qr-code'
+                          className='pdf_main_logo absolute right-0'
                         />
                         <h1 className='font-semibold text-2xl text-center'>
                           Transaction Certificate (TC)
@@ -1374,44 +1392,27 @@ audited and monitored systematically under responsibility of the certification b
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>
                           <div className='flex w-full px-3'>
-                            <div className='w-[25%]'>
-                              <p className='min_height_table'>
-                                {' '}
-                                Shipment No.:{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Shipment Date:
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Shipment Doc No.
-                              </p>
-                              <p className='min_height_table'>
-                                Gross Shipping Weight:{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                Invoice References:{' '}
-                              </p>
-                            </div>
-                            <div className='w-[25%]'>
-                              <p className='min_height_table'>
-                                {ele?.shipment_no}
-                              </p>
-                              <p className='min_height_table'>
-                                {ele?.shipment_date?.includes('NaN')
-                                  ? ''
-                                  : ele?.shipment_date}
-                              </p>
-                              <p className='min_height_table'>
-                                {ele?.shipment_doc_no}
-                              </p>
-                              <p className='min_height_table'>
-                                {ele?.gross_shipping_weight}
-                              </p>
-                              <p className='min_height_table'>
-                                {ele?.invoice_references}
-                              </p>
+                            <div className='w-[50%]'>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment No.: </p> </div>
+                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_no} </p> </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment Date: </p> </div>
+                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_date?.includes('NaN') ? '' : ele?.shipment_date} </p> </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment Doc No. </p> </div>
+                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_doc_no} </p> </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'><p className='min_height_table'> Gross Shipping Weight: </p> </div>
+                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.gross_shipping_weight} </p> </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'><p className='min_height_table'> Invoice References: </p> </div>
+                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.invoice_references} </p> </div>
+                              </div>
                             </div>
                             <div className='w-[50%]'>
                               <p>Consignee Name and Address:</p>
@@ -1458,57 +1459,116 @@ audited and monitored systematically under responsibility of the certification b
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>
                           <div className='flex w-full px-3'>
-                            <div className='w-[25%]'>
+                            <div className='w-[25%] pe-2'>
                               <p className='min_height_table'> Product No.:</p>
                               <p className='min_height_table'> Order No.:</p>
                               <p className='min_height_table'> Article No.:</p>
-                              <p className='min_height_table'> Number of Units: </p>
-                              <p className='min_height_table'> Net Shipping Weight </p>
-                              <p className='min_height_table'> Supplementary Weight </p>
-                              <p className='min_height_table'> Certified Weight: </p>
-                              <p className='min_height_table'> Production Date: </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Number of Units:{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Net Shipping Weight{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Supplementary Weight{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Certified Weight:{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Production Date:{' '}
+                              </p>
                             </div>
-                            <div className='w-[25%]'>
-                              <p className='min_height_table'> {ele?.product_no} </p>
-                              <p className='min_height_table'> {ele?.order_no} </p>
-                              <p className='min_height_table'> {ele?.article_no} </p>
-                              <p className='min_height_table'> {ele?.number_of_units} </p>
-                              <p className='min_height_table'> {ele?.net_shipping_weight} </p>
-                              <p className='min_height_table'> {ele?.supplementary_weight} </p>
-                              <p className='min_height_table'> {ele?.certified_weight} </p>
-                              <p className='min_height_table'> {ele?.production_date?.includes('NaN') ? '' : ele?.production_date} </p>
+                            <div className='w-[25%] ps-2'>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.product_no}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.order_no}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.article_no}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.number_of_units}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.net_shipping_weight}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.supplementary_weight}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.certified_weight}{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                {ele?.production_date?.includes('NaN')
+                                  ? ''
+                                  : ele?.production_date}{' '}
+                              </p>
                             </div>
                             <div className='w-[50%]'>
-                              <div className="flex">
-                                <div className='w-[50%]'>Product Category: </div>
-                                <div className='w-[50%]'>{ele?.product_category}</div>
+                              <div className='flex'>
+                                <div className='w-[50%]'>
+                                  Product Category:{' '}
+                                </div>
+                                <div className='w-[50%]'>
+                                  {ele?.product_category}
+                                </div>
                               </div>
-                              <div className="flex">
+                              <div className='flex'>
                                 <div className='w-[50%]'>Product Detail: </div>
-                                <div className='w-[50%]'>{ele?.product_detail}</div>
+                                <div className='w-[50%]'>
+                                  {ele?.product_detail}
+                                </div>
                               </div>
-                              <div className="flex">
-                                <div className='w-[50%]'>Material Composition: </div>
-                                <div className='w-[50%]'>{ele?.material_composition}</div>
+                              <div className='flex'>
+                                <div className='w-[50%]'>
+                                  Material Composition:{' '}
+                                </div>
+                                <div className='w-[50%]'>
+                                  {ele?.material_composition}
+                                </div>
                               </div>
-                              <div className="flex">
-                                <div className='w-[50%]'>Standard (Label Grade): </div>
-                                <div className='w-[50%]'>{ele?.standard_label_grade}</div>
+                              <div className='flex'>
+                                <div className='w-[50%]'>
+                                  Standard (Label Grade):{' '}
+                                </div>
+                                <div className='w-[50%]'>
+                                  {ele?.standard_label_grade}
+                                </div>
                               </div>
-                              <div className="flex">
+                              <div className='flex'>
                                 <div className='w-[50%]'>Additional Info: </div>
-                                <div className='w-[50%]'>{ele?.additional_info}</div>
+                                <div className='w-[50%]'>
+                                  {ele?.additional_info}
+                                </div>
                               </div>
-                              <div className="flex">
-                                <div className='w-[50%]'>Last Processor:  </div>
-                                <div className='w-[50%]'>{ele?.last_processor}</div>
+                              <div className='flex'>
+                                <div className='w-[50%]'>Last Processor: </div>
+                                <div className='w-[50%]'>
+                                  {ele?.last_processor}
+                                </div>
                               </div>
-                              <div className="flex">
-                                <div className='w-[50%]'> - TE-ID:  </div>
+                              <div className='flex'>
+                                <div className='w-[50%]'> - TE-ID: </div>
                                 <div className='w-[50%]'>{ele?.te_id}</div>
                               </div>
-                              <div className="flex">
-                                <div className='w-[50%]'>- Country:  </div>
+                              <div className='flex'>
+                                <div className='w-[50%]'>- Country: </div>
                                 <div className='w-[50%]'>{ele?.country}</div>
                               </div>
                             </div>
@@ -1521,7 +1581,7 @@ audited and monitored systematically under responsibility of the certification b
                 <tfoot className='w-full '>
                   <tr className='w-full '>
                     <td className='w-full' colSpan={4}>
-                      <div className='container '>
+                      <div className='container p-2'>
                         <p className='ps-3 pt-2'>
                           Place and Date of Issue (YYYY-MM-DD)
                         </p>
