@@ -1365,7 +1365,6 @@ audited and monitored systematically under responsibility of the certification b
                     </td>
                   </tr>
                   <tr className='page_break'>
-                    {console.log(data)}
                     <td className=' border p-2 align-baseline' colSpan={4}>
                       <h3 className='font-semibold ps-3'>9. Shipments</h3>
                     </td>
@@ -1374,40 +1373,150 @@ audited and monitored systematically under responsibility of the certification b
                     return (
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>
-                            <div className='flex w-full px-3'>
-                            <div className='w-[25%]'> 
-                              <p className='min_height_table'> Shipment No.: </p>
-                              <p className='min_height_table'> Shipment Date:</p>
-                              <p className='min_height_table'> Shipment Doc No.</p>
-                              <p className='min_height_table'>Gross Shipping Weight: </p>
-                              <p className='min_height_table'>Invoice References: </p>
-                            </div>
-                            <div className='w-[25%]'> 
-                              <p className='min_height_table'>{ele?.shipment_no}</p>
-                              <p className='min_height_table'>{(ele?.shipment_date)?.includes("NaN") ? "" : ele?.shipment_date}</p>
-                              <p className='min_height_table'>{ele?.shipment_doc_no}</p>
-                              <p className='min_height_table'>{ele?.gross_shipping_weight}</p>
-                              <p className='min_height_table'>{ele?.invoice_references}</p>
-                              </div>
-                            <div className='w-[50%]'><p>Consignee Name and Address:</p> 
-                            <p>{ele?.consignee_name_and_address?.consignee_name}</p>
-                            {
-                             ele?.consignee_name_and_address?.consignee_address?.map((ele, ind) => {
-                              return <p className='' key={ind}>
-                                {ele}
+                          <div className='flex w-full px-3'>
+                            <div className='w-[25%]'>
+                              <p className='min_height_table'>
+                                {' '}
+                                Shipment No.:{' '}
                               </p>
-                             })
-                            }
-                            <p>{ele?.consignee_name_and_address?.consignee_state_or_province} {ele?.consignee_name_and_address?.consignee_country_or_area}</p>
-
+                              <p className='min_height_table'>
+                                {' '}
+                                Shipment Date:
+                              </p>
+                              <p className='min_height_table'>
+                                {' '}
+                                Shipment Doc No.
+                              </p>
+                              <p className='min_height_table'>
+                                Gross Shipping Weight:{' '}
+                              </p>
+                              <p className='min_height_table'>
+                                Invoice References:{' '}
+                              </p>
                             </div>
+                            <div className='w-[25%]'>
+                              <p className='min_height_table'>
+                                {ele?.shipment_no}
+                              </p>
+                              <p className='min_height_table'>
+                                {ele?.shipment_date?.includes('NaN')
+                                  ? ''
+                                  : ele?.shipment_date}
+                              </p>
+                              <p className='min_height_table'>
+                                {ele?.shipment_doc_no}
+                              </p>
+                              <p className='min_height_table'>
+                                {ele?.gross_shipping_weight}
+                              </p>
+                              <p className='min_height_table'>
+                                {ele?.invoice_references}
+                              </p>
                             </div>
-                     
+                            <div className='w-[50%]'>
+                              <p>Consignee Name and Address:</p>
+                              <p>
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_name
+                                }
+                              </p>
+                              {ele?.consignee_name_and_address?.consignee_address?.map(
+                                (ele, ind) => {
+                                  return (
+                                    <p className='' key={ind}>
+                                      {ele}
+                                    </p>
+                                  )
+                                }
+                              )}
+                              <p>
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_state_or_province
+                                }{' '}
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_country_or_area
+                                }
+                              </p>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     )
                   })}
-                  <div className='flex'></div>
+                  <tr className='page_break'>
+                    <td className=' border p-2 align-baseline' colSpan={4}>
+                      <h3 className='font-semibold ps-3'>
+                        10. Certified Products
+                      </h3>
+                    </td>
+                  </tr>
+                  {data?.extracted_data?.certified_products?.map((ele, ind) => {
+                    return (
+                      <tr className='page_break' key={ind}>
+                        <td className=' p-2 align-baseline  border' colSpan={4}>
+                          <div className='flex w-full px-3'>
+                            <div className='w-[25%]'>
+                              <p className='min_height_table'> Product No.:</p>
+                              <p className='min_height_table'> Order No.:</p>
+                              <p className='min_height_table'> Article No.:</p>
+                              <p className='min_height_table'> Number of Units: </p>
+                              <p className='min_height_table'> Net Shipping Weight </p>
+                              <p className='min_height_table'> Supplementary Weight </p>
+                              <p className='min_height_table'> Certified Weight: </p>
+                              <p className='min_height_table'> Production Date: </p>
+                            </div>
+                            <div className='w-[25%]'>
+                              <p className='min_height_table'> {ele?.product_no} </p>
+                              <p className='min_height_table'> {ele?.order_no} </p>
+                              <p className='min_height_table'> {ele?.article_no} </p>
+                              <p className='min_height_table'> {ele?.number_of_units} </p>
+                              <p className='min_height_table'> {ele?.net_shipping_weight} </p>
+                              <p className='min_height_table'> {ele?.supplementary_weight} </p>
+                              <p className='min_height_table'> {ele?.certified_weight} </p>
+                              <p className='min_height_table'> {ele?.production_date?.includes('NaN') ? '' : ele?.production_date} </p>
+                            </div>
+                            <div className='w-[50%]'>
+                              <div className="flex">
+                                <div className='w-[50%]'>Product Category: </div>
+                                <div className='w-[50%]'>{ele?.product_category}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>Product Detail: </div>
+                                <div className='w-[50%]'>{ele?.product_detail}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>Material Composition: </div>
+                                <div className='w-[50%]'>{ele?.material_composition}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>Standard (Label Grade): </div>
+                                <div className='w-[50%]'>{ele?.standard_label_grade}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>Additional Info: </div>
+                                <div className='w-[50%]'>{ele?.additional_info}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>Last Processor:  </div>
+                                <div className='w-[50%]'>{ele?.last_processor}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'> - TE-ID:  </div>
+                                <div className='w-[50%]'>{ele?.te_id}</div>
+                              </div>
+                              <div className="flex">
+                                <div className='w-[50%]'>- Country:  </div>
+                                <div className='w-[50%]'>{ele?.country}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
                 <tfoot className='w-full '>
                   <tr className='w-full '>
