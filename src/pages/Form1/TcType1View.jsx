@@ -863,7 +863,6 @@ audited and monitored systematically under responsibility of the certification b
 
   const handlePrint = e => {
     e.preventDefault()
-    console.log(e)
     window.print()
   }
 
@@ -874,6 +873,7 @@ audited and monitored systematically under responsibility of the certification b
         <div style={{ width: '20%' }} className='sidebar_pdf'>
           <Slidebar />
         </div>
+        {console.log(data) }
         <div style={{ width: '80%' }} className='pdfDivMain relative'>
           <div className='container rounded-xl mx-auto pe-10 my-10 '>
             <button
@@ -1431,15 +1431,11 @@ audited and monitored systematically under responsibility of the certification b
                                   )
                                 }
                               )}
+                                 <p>
+                                { ele?.consignee_name_and_address?.consignee_town } { ele?.consignee_name_and_address?.consignee_postcode }
+                              </p>
                               <p>
-                                {
-                                  ele?.consignee_name_and_address
-                                    ?.consignee_state_or_province
-                                }{' '}
-                                {
-                                  ele?.consignee_name_and_address
-                                    ?.consignee_country_or_area
-                                }
+                                { ele?.consignee_name_and_address?.consignee_state_or_province}{ele?.consignee_name_and_address?.consignee_country_or_area !== "" ? "," : ""} { ele?.consignee_name_and_address?.consignee_country_or_area }
                               </p>
                             </div>
                           </div>
@@ -1459,117 +1455,72 @@ audited and monitored systematically under responsibility of the certification b
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>
                           <div className='flex w-full px-3'>
-                            <div className='w-[25%] pe-2'>
-                              <p className='min_height_table'> Product No.:</p>
-                              <p className='min_height_table'> Order No.:</p>
-                              <p className='min_height_table'> Article No.:</p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Number of Units:{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Net Shipping Weight{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Supplementary Weight{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Certified Weight:{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                Production Date:{' '}
-                              </p>
-                            </div>
-                            <div className='w-[25%] ps-2'>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.product_no}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.order_no}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.article_no}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.number_of_units}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.net_shipping_weight}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.supplementary_weight}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.certified_weight}{' '}
-                              </p>
-                              <p className='min_height_table'>
-                                {' '}
-                                {ele?.production_date?.includes('NaN')
-                                  ? ''
-                                  : ele?.production_date}{' '}
-                              </p>
+                            <div className="w-[50%]">
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Product No.:</p></div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.product_no} </p> </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Order No.:</p>    </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.order_no} </p>       </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Article No.:</p>    </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.article_no} </p>      </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Number of Units: </p>   </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.number_of_units} </p>    </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Net Shipping Weight </p>   </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.net_shipping_weight} </p>   </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Supplementary Weight </p>   </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.supplementary_weight} </p>   </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Certified Weight: </p>  </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.certified_weight} </p>   </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Production Date: </p> </div>
+                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.production_date?.includes('NaN') ? '' : ele?.production_date} </p>  </div>
+                                </div>
                             </div>
                             <div className='w-[50%]'>
                               <div className='flex'>
-                                <div className='w-[50%]'>
-                                  Product Category:{' '}
-                                </div>
-                                <div className='w-[50%]'>
-                                  {ele?.product_category}
-                                </div>
+                                <div className='w-[43%] pe-2'> Product Category:{' '} </div>
+                                <div className='w-[57%] ps-2'> {ele?.product_category} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>Product Detail: </div>
-                                <div className='w-[50%]'>
-                                  {ele?.product_detail}
-                                </div>
+                                <div className='w-[43%] pe-2'>Product Detail: </div>
+                                <div className='w-[57%] ps-2'> {ele?.product_detail} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>
-                                  Material Composition:{' '}
-                                </div>
-                                <div className='w-[50%]'>
-                                  {ele?.material_composition}
-                                </div>
+                                <div className='w-[43%] pe-2'> Material Composition:{' '} </div>
+                                <div className='w-[57%] ps-2'> {ele?.material_composition} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>
-                                  Standard (Label Grade):{' '}
-                                </div>
-                                <div className='w-[50%]'>
-                                  {ele?.standard_label_grade}
-                                </div>
+                                <div className='w-[43%] pe-2'> Standard (Label Grade):{' '} </div>
+                                <div className='w-[57%] ps-2'> {ele?.standard_label_grade} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>Additional Info: </div>
-                                <div className='w-[50%]'>
-                                  {ele?.additional_info}
-                                </div>
+                                <div className='w-[43%] pe-2'> Additional Info: </div>
+                                <div className='w-[57%] ps-2'> {ele?.additional_info} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>Last Processor: </div>
-                                <div className='w-[50%]'>
-                                  {ele?.last_processor}
-                                </div>
+                                <div className='w-[43%] pe-2'> Last Processor: </div>
+                                <div className='w-[57%] ps-2'> {ele?.last_processor} </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'> - TE-ID: </div>
-                                <div className='w-[50%]'>{ele?.te_id}</div>
+                                <div className='w-[43%] pe-2'> - TE-ID: </div>
+                                <div className='w-[57%] ps-2'> {ele?.te_id}</div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%]'>- Country: </div>
-                                <div className='w-[50%]'>{ele?.country}</div>
+                                <div className='w-[43%] pe-2'> - Country: </div>
+                                <div className='w-[57%] ps-2'> {ele?.country}</div>
                               </div>
                             </div>
                           </div>
