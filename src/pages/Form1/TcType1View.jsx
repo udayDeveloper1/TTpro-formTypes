@@ -873,7 +873,7 @@ audited and monitored systematically under responsibility of the certification b
         <div style={{ width: '20%' }} className='sidebar_pdf'>
           <Slidebar />
         </div>
-        {console.log(data) }
+        {console.log(data)}
         <div style={{ width: '80%' }} className='pdfDivMain relative'>
           <div className='container rounded-xl mx-auto pe-10 my-10 '>
             <button
@@ -1394,24 +1394,76 @@ audited and monitored systematically under responsibility of the certification b
                           <div className='flex w-full px-3'>
                             <div className='w-[50%]'>
                               <div className='flex'>
-                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment No.: </p> </div>
-                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_no} </p> </div>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Shipment No.:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.shipment_no}{' '}
+                                  </p>{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment Date: </p> </div>
-                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_date?.includes('NaN') ? '' : ele?.shipment_date} </p> </div>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Shipment Date:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.shipment_date?.includes('NaN')
+                                      ? ''
+                                      : ele?.shipment_date}{' '}
+                                  </p>{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%] pe-2'><p className='min_height_table'> Shipment Doc No. </p> </div>
-                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.shipment_doc_no} </p> </div>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Shipment Doc No.{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.shipment_doc_no}{' '}
+                                  </p>{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%] pe-2'><p className='min_height_table'> Gross Shipping Weight: </p> </div>
-                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.gross_shipping_weight} </p> </div>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Gross Shipping Weight:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.gross_shipping_weight}{' '}
+                                  </p>{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[50%] pe-2'><p className='min_height_table'> Invoice References: </p> </div>
-                                <div className='w-[50%] ps-2'><p className='min_height_table'> {ele?.invoice_references} </p> </div>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Invoice References:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.invoice_references}{' '}
+                                  </p>{' '}
+                                </div>
                               </div>
                             </div>
                             <div className='w-[50%]'>
@@ -1431,11 +1483,29 @@ audited and monitored systematically under responsibility of the certification b
                                   )
                                 }
                               )}
-                                 <p>
-                                { ele?.consignee_name_and_address?.consignee_town } { ele?.consignee_name_and_address?.consignee_postcode }
+                              <p>
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_town
+                                }{' '}
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_postcode
+                                }
                               </p>
                               <p>
-                                { ele?.consignee_name_and_address?.consignee_state_or_province}{ele?.consignee_name_and_address?.consignee_country_or_area !== "" ? "," : ""} { ele?.consignee_name_and_address?.consignee_country_or_area }
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_state_or_province
+                                }
+                                {ele?.consignee_name_and_address
+                                  ?.consignee_country_or_area !== ''
+                                  ? ','
+                                  : ''}{' '}
+                                {
+                                  ele?.consignee_name_and_address
+                                    ?.consignee_country_or_area
+                                }
                               </p>
                             </div>
                           </div>
@@ -1455,72 +1525,195 @@ audited and monitored systematically under responsibility of the certification b
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>
                           <div className='flex w-full px-3'>
-                            <div className="w-[50%]">
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Product No.:</p></div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.product_no} </p> </div>
+                            <div className='w-[50%]'>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Product No.:
+                                  </p>
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Order No.:</p>    </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.order_no} </p>       </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.product_no}{' '}
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Article No.:</p>    </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.article_no} </p>      </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Order No.:
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Number of Units: </p>   </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.number_of_units} </p>    </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.order_no}{' '}
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Net Shipping Weight </p>   </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.net_shipping_weight} </p>   </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Article No.:
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Supplementary Weight </p>   </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.supplementary_weight} </p>   </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.article_no}{' '}
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Certified Weight: </p>  </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.certified_weight} </p>   </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Number of Units:{' '}
+                                  </p>{' '}
                                 </div>
-                                <div className="flex">
-                                  <div className="w-[50%] pe-2"><p className='min_height_table'> Production Date: </p> </div>
-                                  <div className="w-[50%] ps-2"><p className='min_height_table'> {ele?.production_date?.includes('NaN') ? '' : ele?.production_date} </p>  </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.number_of_units}{' '}
+                                  </p>{' '}
                                 </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Net Shipping Weight{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.net_shipping_weight}{' '}
+                                  </p>{' '}
+                                </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Supplementary Weight{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.supplementary_weight}{' '}
+                                  </p>{' '}
+                                </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Certified Weight:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.certified_weight}{' '}
+                                  </p>{' '}
+                                </div>
+                              </div>
+                              <div className='flex'>
+                                <div className='w-[50%] pe-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    Production Date:{' '}
+                                  </p>{' '}
+                                </div>
+                                <div className='w-[50%] ps-2'>
+                                  <p className='min_height_table'>
+                                    {' '}
+                                    {ele?.production_date?.includes('NaN')
+                                      ? ''
+                                      : ele?.production_date}{' '}
+                                  </p>{' '}
+                                </div>
+                              </div>
                             </div>
                             <div className='w-[50%]'>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'> Product Category:{' '} </div>
-                                <div className='w-[57%] ps-2'> {ele?.product_category} </div>
+                                <div className='w-[43%] pe-2'>
+                                  {' '}
+                                  Product Category:{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.product_category}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'>Product Detail: </div>
-                                <div className='w-[57%] ps-2'> {ele?.product_detail} </div>
+                                <div className='w-[43%] pe-2'>
+                                  Product Detail:{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.product_detail}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'> Material Composition:{' '} </div>
-                                <div className='w-[57%] ps-2'> {ele?.material_composition} </div>
+                                <div className='w-[43%] pe-2'>
+                                  {' '}
+                                  Material Composition:{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.material_composition}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'> Standard (Label Grade):{' '} </div>
-                                <div className='w-[57%] ps-2'> {ele?.standard_label_grade} </div>
+                                <div className='w-[43%] pe-2'>
+                                  {' '}
+                                  Standard (Label Grade):{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.standard_label_grade}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'> Additional Info: </div>
-                                <div className='w-[57%] ps-2'> {ele?.additional_info} </div>
+                                <div className='w-[43%] pe-2'>
+                                  {' '}
+                                  Additional Info:{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.additional_info}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
-                                <div className='w-[43%] pe-2'> Last Processor: </div>
-                                <div className='w-[57%] ps-2'> {ele?.last_processor} </div>
+                                <div className='w-[43%] pe-2'>
+                                  {' '}
+                                  Last Processor:{' '}
+                                </div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.last_processor}{' '}
+                                </div>
                               </div>
                               <div className='flex'>
                                 <div className='w-[43%] pe-2'> - TE-ID: </div>
-                                <div className='w-[57%] ps-2'> {ele?.te_id}</div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.te_id}
+                                </div>
                               </div>
                               <div className='flex'>
                                 <div className='w-[43%] pe-2'> - Country: </div>
-                                <div className='w-[57%] ps-2'> {ele?.country}</div>
+                                <div className='w-[57%] ps-2'>
+                                  {' '}
+                                  {ele?.country}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -1528,6 +1721,103 @@ audited and monitored systematically under responsibility of the certification b
                       </tr>
                     )
                   })}
+
+                  {/* 11. Certified Raw Materials and Declared Geographic Origin */}
+                  <tr className='page_break'>
+                    <td className=' border p-2 align-baseline' colSpan={4}>
+                      <h3 className='font-semibold ps-3'>
+                      11. Certified Raw Materials and Declared Geographic Origin
+                      </h3>
+                    </td>
+                  </tr>
+                  {data?.extracted_data?.certified_raw_materials_and_declared_geographic_origin?.map((ele, ind) => {
+                    return (
+                      <tr className='page_break' key={ind}>
+                        <td className=' p-2 align-baseline  border' colSpan={4}>
+                          <div className='flex w-full px-3'>
+                            <div className="w-[30%]"> <p>{ele?.certified_raw_material}</p></div>
+                            <div className="w-[30%] flex">     <p>{ele?.country_or_area}</p>  <p>({ele?.state_or_provice})</p></div>
+                          </div>
+                          <div className='flex w-full px-3'>
+                            <div className="w-[30%]"> <p>Certified Weight:</p></div>
+                            <div className="w-[30%]">      <p>{ele?.certified_weight}</p></div>
+                          </div>
+                        
+                        </td>
+                      </tr>
+                    )
+                  })}
+
+                    {/* 12. Declarations by Seller of Certified Products */}
+                    <tr className='page_break'>
+                    <td className=' border p-2 align-baseline' colSpan={4}>
+                      <h3 className='font-semibold ps-3'>
+                      12. Declarations by Seller of Certified Products
+                      </h3>
+                    </td>
+                  </tr>
+                  <tr className='page_break'>
+                        <td className=' p-2 align-baseline  border' colSpan={4}>
+                          <div className='flex w-full px-3'>
+                            <div className="w-[80%]"> <p>The certified product(s) covered in this certificate have been outsourced to a subcontractor:</p></div>
+                            <div className="w-[20%] flex label_margin ">
+                            {/* {data?.extracted_data?.declarations_by_seller_of_certified_products?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor} */}
+                          <Checkbox
+                            checked={
+                              data?.extracted_data?.declarations_by_seller_of_certified_products?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor ===
+                              'true'
+                                ? true
+                                : false
+                            }
+                            icon={
+                              data?.extracted_data?.declarations_by_seller_of_certified_products?.the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor ===
+                              'true' ? (
+                                <Check size={18} className='text-green-600' />
+                              ) : (
+                                <XCircle size={18} className='text-gray-400' />
+                              )
+                            }
+                            borderColor='#333'
+                            borderWidth={2}
+                            borderRadius={5}
+                            size={20}
+                            label='Yes'
+                            labelStyle={{ marginLeft: 8, fontSize: '16px' }}
+                            className='mb-0'
+                            disabled
+                          />
+                          <Checkbox
+                            checked={
+                              data?.extracted_data
+                                ?.declarations_by_certification_body
+                                ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules ===
+                              'false'
+                                ? true
+                                : false
+                            }
+                            icon={
+                              data?.extracted_data
+                                ?.declarations_by_certification_body
+                                ?.certification_of_the_organic_material_used_for_the_products_listed_complies_with_usda_nop_rules ===
+                              'false' ? (
+                                <Check size={18} className='text-green-600' />
+                              ) : (
+                                <XCircle size={18} className='text-gray-400' />
+                              )
+                            }
+                            borderColor='#333'
+                            borderWidth={2}
+                            borderRadius={5}
+                            size={20}
+                            label='No'
+                            labelStyle={{ marginLeft: 10, fontSize: '16px' }}
+                            className='mb-0'
+                            disabled
+                          />
+                                  </div>
+                          </div>
+                        </td>
+                      </tr>
                 </tbody>
                 <tfoot className='w-full '>
                   <tr className='w-full '>
