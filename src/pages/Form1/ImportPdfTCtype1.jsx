@@ -3518,12 +3518,15 @@ const ImportPdfTCtype1 = () => {
     let cb_address = values?.cb_address?.map((ele, ind) => {
       return ele?.cb_address_
     })
+
     let seller_address = values?.seller_address?.map((ele, ind) => {
       return ele?.seller_address_
     })
+
     let buyer_address = values?.buyer_address?.map((ele, ind) => {
       return ele?.buyer_address_
     })
+
     let certified_weight = values?.certified_weight?.map((ele, ind) => {
       return ele?.certified_weight_
     })
@@ -3599,7 +3602,7 @@ const ImportPdfTCtype1 = () => {
     let certified_raw_materials_and_declared_geographic_origin =
       values?.certified_raw_material_list?.map((ele, ind) => {
         let obj = {
-          certified_raw_material: (ele?.certified_raw_material)?.replace(/\).*$/, ")") ,
+          certified_raw_material: (ele?.certified_raw_material)?.replace(/\).*$/, ")"),
           certified_weight: ele?.certified_certified_weight,
           state_or_provice: ele?.certified_state_or_provice,
           country_or_area: ele?.certified_country_or_area
@@ -3717,13 +3720,13 @@ const ImportPdfTCtype1 = () => {
         const updatedEmptyFields = { ...prevEmptyFields }
         Object.keys(changedValues.ShipmentDetails)?.forEach(key => {
           const shipmentDetail = changedValues?.ShipmentDetails?.[key]
-            if(shipmentDetail){
-              Object?.keys(shipmentDetail)?.forEach(field => {
-                const fieldValue = shipmentDetail?.[field]
-                const fieldName = `${key}-${field}`
-                updatedEmptyFields[fieldName] = !fieldValue
-              })
-            }
+          if (shipmentDetail) {
+            Object?.keys(shipmentDetail)?.forEach(field => {
+              const fieldValue = shipmentDetail?.[field]
+              const fieldName = `${key}-${field}`
+              updatedEmptyFields[fieldName] = !fieldValue
+            })
+          }
         })
 
         return updatedEmptyFields
@@ -3750,7 +3753,7 @@ const ImportPdfTCtype1 = () => {
         updatedEmptyFields[key] = !sellerAddressValue
       })
       setEmptyFields(updatedEmptyFields)
-    }else if (changedValues?.buyer_address) {
+    } else if (changedValues?.buyer_address) {
       const updatedEmptyFields = { ...emptyFields }
       Object.keys(changedValues.buyer_address)?.forEach(key => {
         const buyerAddressValue = form?.getFieldValue([
@@ -3761,7 +3764,7 @@ const ImportPdfTCtype1 = () => {
         updatedEmptyFields[key] = !buyerAddressValue
       })
       setEmptyFields(updatedEmptyFields)
-    }else if (changedValues?.certified_weight) {
+    } else if (changedValues?.certified_weight) {
       const updatedEmptyFields = { ...emptyFields }
       Object.keys(changedValues.certified_weight)?.forEach(key => {
         const certifiedWeight = form?.getFieldValue([
@@ -3772,12 +3775,12 @@ const ImportPdfTCtype1 = () => {
         updatedEmptyFields[key] = !certifiedWeight
       })
       setEmptyFields(updatedEmptyFields)
-    }else if (changedValues?.ProductDetails) {
+    } else if (changedValues?.ProductDetails) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
         Object.keys(changedValues?.ProductDetails)?.forEach(key => {
           const ProductDetail = changedValues?.ProductDetails?.[key]
-          if(ProductDetail){
+          if (ProductDetail) {
             Object.keys(ProductDetail)?.forEach(field => {
               const fieldValue = ProductDetail?.[field]
               const fieldName = `${key}-${field}`
@@ -3788,34 +3791,34 @@ const ImportPdfTCtype1 = () => {
 
         return updatedEmptyFields
       })
-    }else if (changedValues?.certified_components) {
+    } else if (changedValues?.certified_components) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
         Object.keys(changedValues.certified_components)?.forEach(key => {
           const certifiedComponent = changedValues?.certified_components?.[key]
-            if(certifiedComponent){
-              Object?.keys(certifiedComponent)?.forEach(field => {
-                const fieldValue = certifiedComponent?.[field]
-                const fieldName = `${key}-${field}`
-                updatedEmptyFields[fieldName] = !fieldValue
-              })
-            }
+          if (certifiedComponent) {
+            Object?.keys(certifiedComponent)?.forEach(field => {
+              const fieldValue = certifiedComponent?.[field]
+              const fieldName = `${key}-${field}`
+              updatedEmptyFields[fieldName] = !fieldValue
+            })
+          }
         })
 
         return updatedEmptyFields
       })
-    }else if(changedValues?.certified_raw_material_list){
+    } else if (changedValues?.certified_raw_material_list) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
         Object.keys(changedValues.certified_raw_material_list)?.forEach(key => {
           const certifiedRawMaterialList = changedValues?.certified_raw_material_list?.[key]
-            if(certifiedRawMaterialList){
-              Object?.keys(certifiedRawMaterialList)?.forEach(field => {
-                const fieldValue = certifiedRawMaterialList?.[field]
-                const fieldName = `${key}-${field}`
-                updatedEmptyFields[fieldName] = !fieldValue
-              })
-            }
+          if (certifiedRawMaterialList) {
+            Object?.keys(certifiedRawMaterialList)?.forEach(field => {
+              const fieldValue = certifiedRawMaterialList?.[field]
+              const fieldName = `${key}-${field}`
+              updatedEmptyFields[fieldName] = !fieldValue
+            })
+          }
         })
 
         return updatedEmptyFields
@@ -3824,14 +3827,14 @@ const ImportPdfTCtype1 = () => {
   }, 100)
 
   const getFieldClassName = (mainName, name, field, index) => {
-    if(field === "product_component_label_grade"){
+    if (field === "product_component_label_grade") {
       console.log(field);
-      
+
       console.log(form2?.getFieldValue(mainName)?.[index]);
-      
-}
-    
-    
+
+    }
+
+
     return emptyFields[`${name}-${field}`] ||
       (form2?.getFieldValue(mainName)?.[index]?.[field] === '' &&
         !emptyFields?.[`${name}-${field}`])
@@ -3900,7 +3903,7 @@ const ImportPdfTCtype1 = () => {
                       beforeUpload={beforeUpload}
                       accept='.pdf'
                       maxCount={1}
-                      onChange={info => {}}
+                      onChange={info => { }}
                     >
                       <button
                         style={{ border: 0, background: 'none' }}
@@ -5129,7 +5132,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Product Component No.'
                                 name={[name, 'product_component_no']}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_no', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_no', index)}`}
                               >
                                 <Input placeholder='Enter Product Component No.' />
                               </AntdForm.Item>
@@ -5137,7 +5140,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Component Detail:'
                                 name={[name, 'component_detail']}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'component_detail', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'component_detail', index)}`}
                               >
                                 <Input placeholder='Enter Component Detail' />
                               </AntdForm.Item>
@@ -5150,7 +5153,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_net_shipping_weight'
                                 ]}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_net_shipping_weight', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_net_shipping_weight', index)}`}
                               >
                                 <Input placeholder='Enter Net Shipping Weight' />
                               </AntdForm.Item>
@@ -5161,7 +5164,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_material_composition'
                                 ]}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_material_composition', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_material_composition', index)}`}
                               >
                                 <Input placeholder='Enter Material Composition' />
                               </AntdForm.Item>
@@ -5174,7 +5177,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_supplementary_weight'
                                 ]}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_supplementary_weight', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_supplementary_weight', index)}`}
                               >
                                 <Input placeholder='Enter Supplementary Weight' />
                               </AntdForm.Item>
@@ -5185,7 +5188,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_certified_weight'
                                 ]}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_certified_weight', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_certified_weight', index)}`}
                               >
                                 <Input placeholder='Enter Certified Weight' />
                               </AntdForm.Item>
@@ -5195,7 +5198,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Standard Name'
                                 name={[name, 'product_component_standard_name']}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_standard_name', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_standard_name', index)}`}
                               >
                                 <Input placeholder='Enter Standard Name' />
                               </AntdForm.Item>
@@ -5203,7 +5206,7 @@ const ImportPdfTCtype1 = () => {
                                 {...restField}
                                 label='Standard Label Grade'
                                 name={[name, 'product_component_label_grade']}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_label_grade', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_label_grade', index)}`}
                               >
                                 <Input placeholder='Enter Standard Label Grade' />
                               </AntdForm.Item>
@@ -5216,7 +5219,7 @@ const ImportPdfTCtype1 = () => {
                                   name,
                                   'product_component_additional_info'
                                 ]}
-                                className={`w-full md:w-[49%] ${getFieldClassName( 'certified_components', name, 'product_component_additional_info', index )}`}
+                                className={`w-full md:w-[49%] ${getFieldClassName('certified_components', name, 'product_component_additional_info', index)}`}
                               >
                                 <Input placeholder='Enter Additional Info' />
                               </AntdForm.Item>
@@ -5278,7 +5281,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Certified Raw Material'
                               name={[name, 'certified_raw_material']}
-                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_raw_material', index )}`}
+                              className={`w-full md:w-[49%] ${getFieldClassName('certified_raw_material_list', name, 'certified_raw_material', index)}`}
                             >
                               <Input placeholder='Enter Certified Raw Material' />
                             </AntdForm.Item>
@@ -5286,7 +5289,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Certified Weight'
                               name={[name, 'certified_certified_weight']}
-                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_certified_weight', index )}`}
+                              className={`w-full md:w-[49%] ${getFieldClassName('certified_raw_material_list', name, 'certified_certified_weight', index)}`}
                             >
                               <Input placeholder='Enter Certified Weight' />
                             </AntdForm.Item>
@@ -5297,7 +5300,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='State or Province'
                               name={[name, 'certified_state_or_provice']}
-                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_state_or_provice', index )}`}
+                              className={`w-full md:w-[49%] ${getFieldClassName('certified_raw_material_list', name, 'certified_state_or_provice', index)}`}
                             >
                               <Input placeholder='Enter State or Province' />
                             </AntdForm.Item>
@@ -5305,7 +5308,7 @@ const ImportPdfTCtype1 = () => {
                               {...restField}
                               label='Country or Area'
                               name={[name, 'certified_country_or_area']}
-                              className={`w-full md:w-[49%] ${getFieldClassName( 'certified_raw_material_list', name, 'certified_country_or_area', index )}`}
+                              className={`w-full md:w-[49%] ${getFieldClassName('certified_raw_material_list', name, 'certified_country_or_area', index)}`}
                             >
                               <Input placeholder='Enter Country or Area' />
                             </AntdForm.Item>
@@ -5351,7 +5354,7 @@ const ImportPdfTCtype1 = () => {
                 <div className=''>
                   <div className='flex flex-wrap md:justify-between items-end'>
                     <CustomFormItem
-                label='The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
+                      label='The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
                       name='the_certified_products_covered_in_this_certificate_have_been_outsourced_to_a_subcontractor'
                       placeholder='Enter The Certified Products Covered In This Certificate Have Been Outsourced To A Subcontractor'
                       component={Input}

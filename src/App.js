@@ -5,11 +5,14 @@ import { router } from './Routes/Router'
 import './assets/css/form1.css'
 import { ToastContainer } from 'react-toastify'
 
-function App () {
+function App() {
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer limit={1} />
+      {/* <BrowserRouter basename="/tcType1List"> */}
+
+        <RouterProvider router={router} />
+        <ToastContainer limit={1} />
+      {/* </BrowserRouter> */}
     </>
   )
 }

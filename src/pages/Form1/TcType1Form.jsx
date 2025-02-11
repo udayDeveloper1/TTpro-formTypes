@@ -1144,17 +1144,21 @@ const TcType1Form = () => {
   // Handle form submission with typed values
   const handleSubmit = async values => {
     setLoading(true)
-
+    
     console.log(values);
+    
     let cb_address = values?.cb_address?.map((ele, ind) => {
       return ele?.cb_address_
     })
+
     let seller_address = values?.seller_address?.map((ele, ind) => {
       return ele?.seller_address_
     })
+
     let buyer_address = values?.buyer_address?.map((ele, ind) => {
       return ele?.buyer_address_
     })
+
     let certified_weight = values?.certified_weight?.map((ele, ind) => {
       return ele?.certified_weight_
     })
