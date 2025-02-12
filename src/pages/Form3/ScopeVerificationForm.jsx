@@ -27,7 +27,7 @@ const ScopeVerificationForm = () => {
       certificate_body_name: '',
       certfied_organization_name: '',
       certfied_organization_name_native: "",
-      // [textile_exchange_id(te_id)] : '',
+      ["textile_exchange_id(te_id)"]: '',
       certified_organization_license_number: '',
       certified_organization_address: [""],
       certified_organization_state_or_province: "",
@@ -55,7 +55,7 @@ const ScopeVerificationForm = () => {
       number_of_farms_certified_under_this_sc: "",
       number_of_farms_areas_certified_under_this_sc: "",
       facility_name: "",
-      // [te-id_or_number] : "",
+      ["site-te-id_or_number"]: "",
       facility_address: [""],
       facility_town: "",
       facility_postcode: "",
@@ -67,7 +67,7 @@ const ScopeVerificationForm = () => {
       associate_subcontractor_appendix: [""],
       independently_certified_subcontractor_appendix: [{
         subcontractor_name: "",
-        // te-id_or_number : "",
+        ["apendix-te-id_or_number"]: "",
         certification_body: "",
         expiry_date: "",
         appendix_address: [""],
@@ -75,8 +75,8 @@ const ScopeVerificationForm = () => {
         appendix_postcode: "",
         appendix_state_or_province: "",
         appendix_country_or_area: "",
-        appendix_process_categories: [],
-        appendix_standards: []
+        appendix_process_categories: [""],
+        appendix_standards: [""]
       }],
       place_of_issue: "",
       date_of_issue: "",
@@ -89,97 +89,109 @@ const ScopeVerificationForm = () => {
 
   // Handle form submission with typed values
   const handleSubmit = async values => {
-    setLoading(true)
-    // const formattedValues = {
-    //   scope_certificate: {
-    //     certificate_number: values.scope_certificate.certificate_number || '',
-    //     holder: values.scope_certificate.holder || '',
-    //     version: values.scope_certificate.version || '',
-    //     certification_body: values.scope_certificate.certification_body || '',
-    //     address: values.scope_certificate.address || '',
-    //     ceo_name: values.scope_certificate.ceo_name || '',
-    //     date_of_issue: values.scope_certificate.date_of_issue || '',
-    //     additional_notes: values.scope_certificate.additional_notes || ''
-    //   },
-    //   site_appendix: {
-    //     facility_name: values.site_appendix.facility_name || '',
-    //     process_categories: values.site_appendix.process_categories || [''],
-    //     address: values.site_appendix.address || ''
-    //   },
-    //   products_appendix: (values.products_appendix || []).map(product => ({
-    //     product_number: product.product_number || '',
-    //     category: product.category || '',
-    //     product_details: product.product_details || '',
-    //     material_composition: product.material_composition || '',
-    //     label_grade: product.label_grade || '',
-    //     facility_number: product.facility_number || ''
-    //   })),
-    //   independently_certified_subcontractor_appendix: (
-    //     values.independently_certified_subcontractor_appendix || []
-    //   ).map(subcontractor => ({
-    //     subcontractor_name: subcontractor.subcontractor_name || '',
-    //     certification_body: subcontractor.certification_body || '',
-    //     expiry_date: subcontractor.expiry_date || '',
-    //     address: subcontractor.address || '',
-    //     process_categories: subcontractor.process_categories || [''],
-    //     // standards: subcontractor.standards || "",
-    //     number: subcontractor.number || '',
-    //     license_number: subcontractor.license_number || ''
-    //   }))
-    // }
-    const payload = {
-      file_name: 'ScopeCertificate_Example.pdf',
-      extracted_data: {}
-    }
-    try {
-      let res = await form3submit(payload)
-      if (res) {
-        navigate('/scopeVerificationList')
-        setLoading(false)
-        toast.success('Form submitted Successfully.')
-      } else {
-        toast.error('Something went Wrong.')
+    // setLoading(true)
+    console.log('values form', values);
+
+
+    const certified_organization_address = values?.certified_organization_address?.map(obj => Object.values(obj)[0]) || [];
+    const facility_address = values?.facility_address?.map(obj => Object.values(obj)[0]) || [];
+    const process_categories = values?.process_categories?.map(obj => Object.values(obj)[0]) || [];
+    const standards = values?.standards?.map(obj => Object.values(obj)[0]) || [];
+    const farm_capacity = values?.farm_capacity?.map(obj => Object.values(obj)[0]) || [];
+    const associate_subcontractor_appendix = values?.associate_subcontractor_appendix?.map(obj => Object.values(obj)[0]) || [];
+
+    const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
+
+    const independently_certified_subcontractor_appendix = async (data) => {
+      return values?.independently_certified_subcontractor_appendix?.map(item => ({
+        subcontractor_name: item.subcontractor_name,
+        certification_body: item.certification_body,
+        expiry_date: item.expiry_date,
+        ["te-id_or_number"]: item?.["apendix-te-id_or_number"],
+        address_details: {
+          address: extractValues(item.appendix_address, "appendix_address_"),
+          town: item.appendix_town || "",
+          postcode: item.appendix_postcode || "",
+          state_or_province: item.appendix_state_or_province || "",
+          country_or_area: item.appendix_country_or_area || "",
+        },
+        process_categories: extractValues(item.appendix_process_categories, "appendix_process_categories_"),
+        standards: extractValues(item.appendix_standards, "appendix_standards_")
+      }));
+    };
+    const formattedValues = {
+      file_name: values?.file_name,
+      // ------------------------- extracted_data -------------------------------
+
+      // -----------------------------------   scope_certificate  -----------------------------
+      extracted_data: {
+        scope_certificate: {
+          scope_certificate_number: values?.scope_certificate_number,
+          scope_certificate_version: values?.scope_certificate_version,
+          certificate_body_name: values?.certificate_body_name,
+          certfied_organization_name: values?.certfied_organization_name,
+          certfied_organization_name_native: values?.certfied_organization_name_native,
+          ["textile_exchange_id(te_id)"]: values?.["textile_exchange_id(te_id)"],
+          certified_organization_license_number: values?.certified_organization_license_number,
+          certified_organization_address: certified_organization_address,
+          certified_organization_state_or_province: values?.certified_organization_state_or_province,
+          certified_organization_country_or_area: values?.certified_organization_country_or_area,
+          sc_standard_program: values?.sc_standard_program,
+          sc_standard_version: values?.sc_standard_version,
+          product_category: values?.product_category,
+          process_category: values?.process_category,
+          sc_valid_untill: values?.sc_valid_untill,
+          certificate_body_licensed_by: values?.certificate_body_licensed_by,
+          certificate_body_accredited_by: values?.certificate_body_accredited_by,
+          inspection_body: values?.inspection_body,
+        },
+        products_appendix: values?.products_appendix,
+        info_above_site_index: {
+          brand_names_may_be_certified_under_this_sc: values?.brand_names_may_be_certified_under_this_sc,
+          number_of_farms_certified_under_this_sc: values?.number_of_farms_certified_under_this_sc,
+          number_of_farms_areas_certified_under_this_sc: values?.number_of_farms_areas_certified_under_this_sc,
+
+        },
+        site_appendix: {
+          facility_name: values?.facility_name,
+          ["te-id_or_number"]: values?.["site-te-id_or_number"],
+          address_details: {
+            facility_address: facility_address,
+            facility_town: values?.facility_town,
+            facility_postcode: values?.facility_postcode,
+            facility_state_or_province: values?.facility_state_or_province,
+            facility_country_or_area: values?.facility_country_or_area,
+          },
+          process_categories: process_categories,
+          standards: standards,
+          farm_capacity: farm_capacity
+        },
+        associate_subcontractor_appendix: associate_subcontractor_appendix,
+        independently_certified_subcontractor_appendix: await independently_certified_subcontractor_appendix()/// array inside array manage the value 
+      },
+      footer: {
+        place_of_issue: values?.place_of_issue,
+        date_of_issue: values?.date_of_issue,
+        last_updated: values?.last_updated,
+        extended_untill: values?.extended_untill,
+        status: values?.status,
       }
+    }
+    console.log('formattedValues', formattedValues);
+
+    try {
+      // let res = await form3submit(payload)
+      // if (res) {
+      //   navigate('/scopeVerificationList')
+      //   setLoading(false)
+      //   toast.success('Form submitted Successfully.')
+      // } else {
+      //   toast.error('Something went Wrong.')
+      // }
     } catch (error) {
       toast.error('Something went Wrong.')
     }
   }
-
-  // Reusable Process Categories Component
-  const ProcessCategories = ({ fieldName }) => (
-    <AntdForm.List name={[fieldName, 'process_categories']}>
-      {(fields, { add, remove }) => (
-        <>
-          <h4 className='font-semibold mb-2'>Process Category(s)</h4>
-          {fields.map(({ key, name }) => (
-            <div key={key} className='flex items-center mb-2'>
-              <AntdForm.Item
-                name={[name]}
-                rules={[{ required: true, message: 'Enter Process Category' }]}
-                style={{ flex: 1 }}
-              >
-                <Input placeholder='Process Category' />
-              </AntdForm.Item>
-              {fields.length > 1 && (
-                <MinusCircleOutlined
-                  className='ml-2 text-red-500'
-                  onClick={() => remove(name)}
-                />
-              )}
-            </div>
-          ))}
-          <Button
-            type='dashed'
-            onClick={() => add('')}
-            icon={<PlusOutlined />}
-            block
-          >
-            Add Process Category
-          </Button>
-        </>
-      )}
-    </AntdForm.List>
-  )
 
   return (
     <>
@@ -481,9 +493,27 @@ const ScopeVerificationForm = () => {
                     </AntdForm.Item>
                   </div>
 
+                  <div className='flex md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Auditors'
+                      name='auditors'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Auditors' />
+                    </AntdForm.Item>
+                    <AntdForm.Item
+                      label='Textile Exchange id'
+                      name='textile_exchange_id(te_id)'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Textile Exchange id' />
+                    </AntdForm.Item>
+                  </div>
+
                   {/* ------------------------------- address ---------------------------------------- */}
 
                   <div className='flex md:justify-between flex-wrap'>
+
                     <AntdForm.List name='certified_organization_address'>
                       {(fields, { add, remove }) => (
                         <>
@@ -532,6 +562,7 @@ const ScopeVerificationForm = () => {
                       )}
                     </AntdForm.List>
                   </div>
+
 
                 </div>
               </section>
@@ -709,13 +740,13 @@ const ScopeVerificationForm = () => {
                     >
                       <Input placeholder='Enter Facility Country Or Area' />
                     </AntdForm.Item>
-                    {/* <AntdForm.Item
-                      label='Certified Organization License Number'
-                      name='certified_organization_license_number'
+                    <AntdForm.Item
+                      label='Site-Te Id Or Number'
+                      name='site-te-id_or_number'
                       className='w-full md:w-[49%]'
                     >
-                      <Input placeholder='Enter Certified Organization License Number' />
-                    </AntdForm.Item> */}
+                      <Input placeholder='Enter Site-Te Id Or Number' />
+                    </AntdForm.Item>
                     {/* ------------------------------- address ---------------------------------------- */}
                   </div>
 
@@ -994,14 +1025,14 @@ const ScopeVerificationForm = () => {
                             >
                               <Input placeholder='Enter Subcontractor Name.' />
                             </AntdForm.Item>
-                            {/* <AntdForm.Item
+                            <AntdForm.Item
                               {...restField}
-                              label='Product Category :'
-                              name={[name, 'product_category']}
+                              label='Apendix-Te Id Or Number :'
+                              name={[name, 'apendix-te-id_or_number']}
                               className='w-full md:w-[49%]'
                             >
-                              <Input placeholder='Enter Order No.' />
-                            </AntdForm.Item> */}
+                              <Input placeholder='Enter Apendix-Te Id Or Number ' />
+                            </AntdForm.Item>
                           </div>
 
                           <div className='flex md:justify-between flex-wrap'>
@@ -1016,7 +1047,7 @@ const ScopeVerificationForm = () => {
 
                             <AntdForm.Item
                               label='Expiry Date'
-                              name='expiry_date'
+                              name={[name, 'expiry_date']}
                               className='w-full md:w-[49%]'
                             >
                               <DatePicker
@@ -1064,38 +1095,51 @@ const ScopeVerificationForm = () => {
                             >
                               <Input placeholder='Enter Appendix Postcode' />
                             </AntdForm.Item>
-
                           </div>
 
-                          {/* <div className='flex md:justify-between flex-wrap'>
-                            <AntdForm.List name='independently_certified_subcontractor_appendix'>
-                              {(fields, { add, remove }) => (
-                                <>
-                                  <AntdForm.Item
-                                    label='Appendix Address'
-                                    required
-                                    className='w-full md:w-[49%]'
-                                  >
-                                    {fields.map(
-                                      ({ key, name, ...restField }, index) => (
+                          <div className='flex md:justify-between flex-wrap'>
+
+                            <div className='w-full md:w-[49%]'>
+                              {/* Nested List for Consignee Address */}
+                              <AntdForm.List
+                                name={[name, 'appendix_address']}
+                                initialValue={[{ appendix_address_: '' }]}
+                              >
+                                {(
+                                  subFields,
+                                  { add: addSub, remove: removeSub }
+                                ) => (
+                                  <>
+                                    {subFields.map(
+                                      ({
+                                        key: subKey,
+                                        name: subName,
+                                        ...restSubField
+                                      }) => (
                                         <Space
-                                          key={key}
-                                          style={{ display: 'flex', marginBottom: 8 }}
+                                          key={subKey}
+                                          style={{
+                                            display: 'flex',
+                                            marginBottom: 8
+                                          }}
                                           align='baseline'
                                         >
                                           <AntdForm.Item
-                                            {...restField}
-                                            name={[name, 'appendix_address_']}
-                                            style={{ flex: 1 }}
+                                            {...restSubField}
+                                            name={[
+                                              subName,
+                                              'appendix_address_'
+                                            ]}
+                                            label='Appendix Address :'
+                                            className='w-full md:w-[49%]'
                                           >
-                                            <Input
-                                              placeholder={`Enter Appendix Address`}
-                                            />
+                                            <Input placeholder='Enter Appendix Address' />
                                           </AntdForm.Item>
-
-                                          {fields.length > 1 && (
+                                          {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() => remove(name)}
+                                              onClick={() =>
+                                                removeSub(subName)
+                                              }
                                             />
                                           )}
                                         </Space>
@@ -1104,18 +1148,144 @@ const ScopeVerificationForm = () => {
                                     <AntdForm.Item>
                                       <Button
                                         type='dashed'
-                                        onClick={() => add()}
+                                        onClick={() => addSub()}
                                         block
                                         icon={<PlusOutlined />}
                                       >
                                         Add Appendix Address
                                       </Button>
                                     </AntdForm.Item>
-                                  </AntdForm.Item>
-                                </>
-                              )}
-                            </AntdForm.List>
-                          </div> */}
+                                  </>
+                                )}
+                              </AntdForm.List>
+                            </div>
+
+                            <div className='w-full md:w-[49%]'>
+                              {/* Nested List for Consignee Address */}
+                              <AntdForm.List
+                                name={[name, 'appendix_process_categories']}
+                                initialValue={[{ appendix_process_categories_: '' }]}
+                              >
+                                {(
+                                  subFields,
+                                  { add: addSub, remove: removeSub }
+                                ) => (
+                                  <>
+                                    {subFields.map(
+                                      ({
+                                        key: subKey,
+                                        name: subName,
+                                        ...restSubField
+                                      }) => (
+                                        <Space
+                                          key={subKey}
+                                          style={{
+                                            display: 'flex',
+                                            marginBottom: 8
+                                          }}
+                                          align='baseline'
+                                        >
+                                          <AntdForm.Item
+                                            {...restSubField}
+                                            name={[
+                                              subName,
+                                              'appendix_process_categories_'
+                                            ]}
+                                            label='Appendix Process Categories :'
+                                            className='w-full md:w-[49%]'
+                                          >
+                                            <Input placeholder='Enter Appendix Process Categories' />
+                                          </AntdForm.Item>
+                                          {subFields.length > 1 && (
+                                            <MinusCircleOutlined
+                                              onClick={() =>
+                                                removeSub(subName)
+                                              }
+                                            />
+                                          )}
+                                        </Space>
+                                      )
+                                    )}
+                                    <AntdForm.Item>
+                                      <Button
+                                        type='dashed'
+                                        onClick={() => addSub()}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
+                                        Add Appendix Process Categories
+                                      </Button>
+                                    </AntdForm.Item>
+                                  </>
+                                )}
+                              </AntdForm.List>
+                            </div>
+                          </div>
+
+                          <div className='flex md:justify-between flex-wrap'>
+
+                            <div className='w-full md:w-[49%]'>
+                              {/* Nested List for Consignee Address */}
+                              <AntdForm.List
+                                name={[name, 'appendix_standards']}
+                                initialValue={[{ appendix_standards_: '' }]}
+                              >
+                                {(
+                                  subFields,
+                                  { add: addSub, remove: removeSub }
+                                ) => (
+                                  <>
+                                    {subFields.map(
+                                      ({
+                                        key: subKey,
+                                        name: subName,
+                                        ...restSubField
+                                      }) => (
+                                        <Space
+                                          key={subKey}
+                                          style={{
+                                            display: 'flex',
+                                            marginBottom: 8
+                                          }}
+                                          align='baseline'
+                                        >
+                                          <AntdForm.Item
+                                            {...restSubField}
+                                            name={[
+                                              subName,
+                                              'appendix_standards_'
+                                            ]}
+                                            label='Appendix Standards :'
+                                            className='w-full md:w-[49%]'
+                                          >
+                                            <Input placeholder='Enter Appendix Standards' />
+                                          </AntdForm.Item>
+                                          {subFields.length > 1 && (
+                                            <MinusCircleOutlined
+                                              onClick={() =>
+                                                removeSub(subName)
+                                              }
+                                            />
+                                          )}
+                                        </Space>
+                                      )
+                                    )}
+                                    <AntdForm.Item>
+                                      <Button
+                                        type='dashed'
+                                        onClick={() => addSub()}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
+                                        Add Appendix Standards
+                                      </Button>
+                                    </AntdForm.Item>
+                                  </>
+                                )}
+                              </AntdForm.List>
+                            </div>
+                          </div>
+
 
                           {fields.length > 1 && (
                             <MinusCircleOutlined
@@ -1141,6 +1311,16 @@ const ScopeVerificationForm = () => {
               </section>
 
               {/* ----------------------------------------------- below old code --------------------------------------- */}
+
+              <AntdForm.Item className=' submitButtonGroup'>
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  className='submit-btn '
+                >
+                  Submit
+                </Button>
+              </AntdForm.Item>
 
             </AntdForm>
           </div>
