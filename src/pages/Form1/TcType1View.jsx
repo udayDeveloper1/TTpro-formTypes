@@ -1557,14 +1557,14 @@ audited and monitored systematically under responsibility of the certification b
                             ? ''
                             : data?.extracted_data?.footer?.tc_last_updated}
                         </p>
-                        {/* <p className='ps-3 pb-2'>
+                        <p className='ps-3 pb-2'>
                         name_of_authorized_signatory:{' '}
                           {
                             data?.extracted_data?.footer
                               ?.name_of_authorized_signatory
                           }
-                        </p> */}
-                        <div className="ps-3 pb-2 text-start flex items-center">
+                        </p>
+                        {/* <div className="ps-3 pb-2 text-start flex items-center">
                           <h1 className="text-l text-start">
                             Signature of Authorized Person :
                           </h1>
@@ -1573,7 +1573,7 @@ audited and monitored systematically under responsibility of the certification b
                               {data?.extracted_data?.footer?.name_of_authorized_signatory || '-'}
                             </span>
                           </h1>
-                        </div>
+                        </div> */}
 
                       </div>
                     </td>
