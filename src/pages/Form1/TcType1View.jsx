@@ -1558,7 +1558,7 @@ audited and monitored systematically under responsibility of the certification b
                             : data?.extracted_data?.footer?.tc_last_updated}
                         </p>
                         <p className='ps-3 pb-2'>
-                        name_of_authorized_signatory:{' '}
+                        Name Of Authorized Signatory:{' '}
                           {
                             data?.extracted_data?.footer
                               ?.name_of_authorized_signatory
