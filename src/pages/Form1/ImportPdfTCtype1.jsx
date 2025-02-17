@@ -3224,7 +3224,8 @@ const ImportPdfTCtype1 = () => {
   const [loading2, setLoading2] = useState(false)
   const [emptyFields, setEmptyFields] = useState({})
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const handleSubmit = async values => {
     setLoading(true)
     try {
@@ -3234,6 +3235,7 @@ const ImportPdfTCtype1 = () => {
       let res = response?.data?.extracted_data
 
       if (response?.status_code === 200 || response?.status_code === 201) {
+
         setFormNo('2')
         setdata(res)
         toast.success('pdf submitted Successfully.')
@@ -3710,7 +3712,6 @@ const ImportPdfTCtype1 = () => {
     } catch (error) {
       toast.error('Something Went Wrong')
     }
-
     setLoading2(false)
   }
 
@@ -3728,7 +3729,6 @@ const ImportPdfTCtype1 = () => {
             })
           }
         })
-
         return updatedEmptyFields
       })
     } else if (changedValues?.cb_address) {
@@ -3831,9 +3831,7 @@ const ImportPdfTCtype1 = () => {
       console.log(field);
 
       console.log(form2?.getFieldValue(mainName)?.[index]);
-
     }
-
 
     return emptyFields[`${name}-${field}`] ||
       (form2?.getFieldValue(mainName)?.[index]?.[field] === '' &&
@@ -4758,6 +4756,7 @@ const ImportPdfTCtype1 = () => {
                                 >
                                   <Input placeholder='Enter Te Id' />
                                 </AntdForm.Item>
+
                                 <div className='w-full md:w-[49%]'>
                                   {/* Nested List for Consignee Address */}
                                   <AntdForm.List

@@ -351,3 +351,62 @@ export const exportPdfTcType1 = async data => {
     return error
   }
 }
+
+// form2 apis
+
+export const createScopeCertificateScType2 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/sc-type-one/add/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
+export const extractPdfSCType2 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/groq-extract-sc-type-one/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+export const scopCertificationView = async(id)  => {
+  try {
+    const response = await axiosInstance.get(
+      // `api/pdf/transaction-certificates/${id}/`,
+      `/api/scope-certificate/sc-type-one/${id}/`,
+    )
+    // if (response?.status_code === 200 || response?.status_code === 201) {
+    //   return response?.data
+    // } else {
+    //   toast.error('Internal server error. Please try again later.')
+    // }
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+
+
+
+

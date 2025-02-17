@@ -1,39 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { form3ListApi } from '../../api/Form1Api'
-import { useNavigate } from 'react-router-dom'
-import html2canvas from 'html2canvas'
-import { jsPDF } from 'jspdf'
-import { FaEye } from 'react-icons/fa6'
+import React, { useEffect, useState } from 'react'
 import CustomTable from '../../component/CustomTable'
 import moment from 'moment'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { pdfListingApi } from '../../store/thunk/userThunk'
+import { Button, Space, Table, Tag } from 'antd'
+import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Slidebar } from '../../layout/Slidebar'
+import axiosInstance from '../../api/axiosInstance'
 import { toast } from 'react-toastify'
 
-const ScopeVerificationList = () => {
-  const refs = useRef({})
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+function ScopeVerificationList () {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  // const { pdfListData: scopList } = useSelector(state => state.userReducer);
+
+  const [scopList,setScopList] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await form3ListApi()
-        // const response = resData;
+        const response = await axiosInstance.get(`/api/scope-certificate/sc-type-one-list/`);
+        console.log('response scopList',response);
         if (response?.status_code === 200 || response?.status_code === 201) {
-          setData(response?.data)
+          
+          // Handle successful response
+          setScopList(response?.data)
         } else {
-          toast.error('Internal server error. Please try again later.')
+          setScopList([])
+          toast.error("Internal server error. Please try again later.");
         }
-        setLoading(false)
-      } catch (err) {
-        setError(err.message || 'Error fetching data')
-        setLoading(false)
+      } catch (error) {
+        toast.error(error.response?.data?.message || "An error occurred");
       }
-    }
+    };
+    fetchData();
+  }, []);
 
-    fetchData()
-  }, [])
+  const handleView = symbol => {
+    navigate(`/scopeVerificationView/${symbol}/`)
+    // return <NewsUpdate id={id}/>
+  }
 
   const columns = [
     {
@@ -59,49 +69,38 @@ const ScopeVerificationList = () => {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => (
-        <div style={{ gap: '20px' }}>
-          <FaEye
+        <Space style={{ gap: '20px' }}>
+          <FontAwesomeIcon
             style={{ fontSize: '20px' }}
-            //   icon={faEye}
+            icon={faEye}
             onClick={() => {
-              handleViewDetails(record.id)
+              handleView(record.id)
             }} // Delete functionality
           />
-        </div>
+        </Space>
       )
     }
   ]
 
-  const navigate = useNavigate()
-
-  const handleViewDetails = id => {
-    navigate(`/scopeVerificationView/${id}/`)
-  }
+  const ipoData = scopList
+    ? scopList.map((item, index) => ({
+        key: index,
+        ...item
+      }))
+    : []
 
   return (
-    <>
-      {' '}
-      <div className='flex'>
-        {' '}
-        <div style={{ width: '20%' }}>
-          {' '}
-          <Slidebar />
-        </div>{' '}
-        <div style={{ width: '80%' }}>
-          {' '}
-          <div className='container formList-cont border rounded-xl mx-auto  my-10  '>
-            <h3 className='text-3xl p-5 font-bold'>Scope Certificate List</h3>
-            <div className='card card_list'>
-              {/* {data.length > 0 ? ( */}
-                <CustomTable columns={columns} data={data} />
-              {/* ) : (
-                <p>No data available.</p>
-              )} */}
-            </div>
-          </div>
-        </div>
+    <>         <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>
+      <div style={{ width: "80%" }}><div>
+      <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
+      <h3 className='text-3xl p-5 font-bold'>Transaction Certificate (TC) List</h3>
+      <CustomTable
+        columns={columns}
+        data={ipoData}
+      />
       </div>
-    </>
+      </div></div>
+    </div></>
   )
 }
 

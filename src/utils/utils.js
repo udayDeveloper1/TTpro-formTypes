@@ -15,14 +15,13 @@ export const capitalizeFirstLetter = (value) => {
     // Format to dd/mm/yyyy
     return `${day}/${month}/${year}`;
   }
-  
 
   export const links = {
     // tc type1
     importPdfTCtype1: "/importPdfTCtype1",
     tcType1Form: "/tcType1Form",
     tcType1List: "/tcType1List",
-    tcType1View: "//tcType1View/:id/",
+    tcType1View: "/tcType1View/:id/",
     importPdfTCtype2: "/importPdfTCtype2",
     tCTypeCropProductionList: "/tCTypeCropProductionList",
     tCTypeCropProductionForm: "/tCTypeCropProductionForm",

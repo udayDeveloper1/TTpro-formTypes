@@ -23,30 +23,34 @@ export const pdfListingApi = createAsyncThunk(
         toast.error('Internal server error. Please try again later.')
       }
 
-      // switch (response?.data?.meta?.status_code) {
-      //   case 200:
-      //     toast.success(response?.data?.meta?.message);
-      //     return response.data;
-
-      //     case 400:
-      //       break;
-
-      //   case 500:
-      //     toast.error("Internal server error. Please try again later.");
-      //     return rejectWithValue(response.data);
-
-      //     case 401:
-      //       break;
-
-      //   default:
-      //     toast.info("Unexpected response from server.");
-      //     return rejectWithValue(response.data);
-      // }
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message)
     }
   }
 )
+
+export const scopVerficationListingApi = createAsyncThunk(
+  'scopVerficationListingApi',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/api/tc/type-one-list/`
+      )
+      if (response?.status_code === 200 || response?.status_code === 201) {
+        dispatch(setPdfListData(response?.data))
+      } else {
+        toast.error('Internal server error. Please try again later.')
+      }
+
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message)
+    }
+  }
+)
+
+
+
+// -------------------------- below old code ---------------------------------------
 
 export const pdfListingApi2 = createAsyncThunk(
   'pdfListingApi2',

@@ -20,6 +20,7 @@ import {
   InputRef
 } from 'antd'
 import React from 'react'
+
 // const CustomFormItem  = ({ label, name, rules, placeholder }) => {
 //   return (
 
@@ -52,5 +53,6 @@ const CustomFormItem = ({ label, name, rules, placeholder,classList, component: 
     )}
   </AntdForm.Item>
 );
+
 
 export default CustomFormItem

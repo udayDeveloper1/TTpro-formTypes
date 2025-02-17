@@ -117,7 +117,7 @@ export const Slidebar = () => {
                 )}
               </li>
 
-              <li
+              {/* <li
                 className={`sidebar-item cursor-pointer ${
                   [
                     '/tcType2Form',
@@ -150,7 +150,6 @@ export const Slidebar = () => {
                   </span>
                 </a>
 
-                {/* Submenu */}
                 {expanded['form_2'] && (
                   <ul className='submenu'>
                     <li className='sidebar-item'>
@@ -161,7 +160,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>List</span>
                       </Link>
@@ -174,7 +172,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Form</span>
                       </Link>
@@ -187,14 +184,13 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Pdf form</span>
                       </Link>
                     </li>
                   </ul>
                 )}
-              </li>
+              </li> */}
 
               <li
                 className={`sidebar-item cursor-pointer ${
@@ -274,7 +270,7 @@ export const Slidebar = () => {
                 )}
               </li>
 
-              <li
+              {/* <li
                 className={`sidebar-item cursor-pointer ${
                   [
                     '/tCTypeCropProductionForm',
@@ -305,7 +301,6 @@ export const Slidebar = () => {
                   <span className='hide-menu'>SC Crop and Production</span>
                 </a>
 
-                {/* Submenu */}
                 {expanded['form_4'] && (
                   <ul className='submenu'>
                     <li className='sidebar-item'>
@@ -316,7 +311,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>List</span>
                       </Link>
@@ -329,7 +323,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Form</span>
                       </Link>
@@ -344,16 +337,15 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Pdf form</span>
                       </Link>
                     </li>
                   </ul>
                 )}
-              </li>
+              </li> */}
 
-              <li
+              {/* <li
                 className={`sidebar-item ${
                   [
                     '/handlingTradingScTypeForm',
@@ -384,7 +376,6 @@ export const Slidebar = () => {
                   <span className='hide-menu'>Handling and Trading</span>
                 </a>
 
-                {/* Submenu */}
                 {expanded['form_5'] && (
                   <ul className='submenu'>
                     <li className='sidebar-item'>
@@ -395,7 +386,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>List</span>
                       </Link>
@@ -408,7 +398,6 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Form</span>
                       </Link>
@@ -423,14 +412,13 @@ export const Slidebar = () => {
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
-                          {/* <i className="ti ti-circle" /> */}
                         </div>
                         <span className='hide-menu'>Add Pdf form</span>
                       </Link>
                     </li>
                   </ul>
                 )}
-              </li>
+              </li> */}
             </ul>
           </nav>
 
