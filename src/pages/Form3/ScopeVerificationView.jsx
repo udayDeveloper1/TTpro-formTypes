@@ -462,9 +462,9 @@ audited and monitored systematically under responsibility of the certification b
                           alt='qr-code'
                           className='pdf_main_logo absolute right-0'
                         />
-                        <h1 className='font-semibold text-2xl text-center'>
+                        <h3 className='font-semibold text-2xl text-center'>
                           Scope Certificate (SC)
-                        </h1>
+                        </h3>
                         <p className='text-md pt_top text-center'>
                           Scope Certificate Number{' '}
                           <span className='font-semibold'>{updatedState?.scope_certificate?.scope_certificate_number}</span>
@@ -472,9 +472,9 @@ audited and monitored systematically under responsibility of the certification b
                         <p className='text-md pt_top text-center'>
                           Scope Certificate Version Number scVersionNo <span className='font-semibold'> {updatedState?.scope_certificate?.scope_certificate_version}</span>
                         </p>
-                        {/* <h2 className='font-semibold text-md pt-2 text-center'>
+                        {/* <h3 className='font-semibold text-md pt-2 text-center'>
                           {updatedState?.scope_certificate?.scope_certificate_version}
-                        </h2> */}
+                        </h3> */}
                       </div>
                     </td>
                   </tr>
@@ -490,13 +490,13 @@ audited and monitored systematically under responsibility of the certification b
                           certifies that
                         </p>
 
-                        <h1 className='font-semibold text-2xl text-center mt-3'>
+                        <h3 className='font-semibold text-2xl text-center mt-3'>
                           {updatedState?.scope_certificate?.certfied_organization_name}
-                        </h1>
+                        </h3>
                         {
-                          updatedState?.scope_certificate?.certfied_organization_name_native && <h1 className='font-semibold  text-center text-2xl'>
+                          updatedState?.scope_certificate?.certfied_organization_name_native && <h3 className='font-semibold  text-center text-2xl'>
                             {updatedState?.scope_certificate?.certfied_organization_name_native}
-                          </h1>
+                          </h3>
                         }
                         <p className='text-md pt_top text-center'>
                           Textile Exchange-ID (TE-ID): <span className='font-semibold'> {updatedState?.scope_certificate?.["textile_exchange_id(te_id)"] || '-'}</span>
@@ -539,14 +539,14 @@ audited and monitored systematically under responsibility of the certification b
                     <td className='w-full' colSpan={4}>
                       <div className='relative mb-4'>
 
-                        {/* <h3 className='text-md pt_top text-center '>
+                        {/* <h5 className='text-md pt_top text-center '>
                           <span className='font-semibold'>{updatedState?.scope_certificate?.sc_standard_program || '-'}</span> covering
-                        </h3> */}
+                        </h5> */}
 
                         {/* <p className='text-md pt_top text-center'> */}
-                        <h1 className='font-semibold text-2xl text-center'>
+                        <h3 className='font-semibold text-2xl text-center'>
                           {updatedState?.scope_certificate?.sc_standard_program || '-'} (Version {updatedState?.scope_certificate?.scope_certificate_version})
-                        </h1>
+                        </h3>
                         {/* </p> */}
                       </div>
                     </td>
@@ -558,9 +558,9 @@ audited and monitored systematically under responsibility of the certification b
                         <p className='text-md pt_top text-center'>
                           Product categories mentioned below (and further specified in the product appendix) conform with the standard(s):
                         </p>
-                        <h3 className='text-md pt_top text-center '>
+                        <h5 className='text-md pt_top text-center '>
                           <span className='font-semibold'>{updatedState?.scope_certificate?.product_category || '-'}</span>
-                        </h3>
+                        </h5>
                       </div>
                     </td>
                   </tr>
@@ -571,9 +571,9 @@ audited and monitored systematically under responsibility of the certification b
                         <p className='text-md pt_top text-center'>
                           Process categories carried out under responsibility of the above mentioned organization for the certified products cover:
                         </p>
-                        <h3 className='text-md pt_top text-center '>
+                        <h5 className='text-md pt_top text-center '>
                           <span className='font-semibold'>{updatedState?.scope_certificate?.process_category || '-'}</span>
-                        </h3>
+                        </h5>
                         <p className='text-md pt_top text-center'> <span>*The processes marked with an asterisk may be carried out by subcontractors.</span></p>
                       </div>
                     </td>
@@ -609,7 +609,7 @@ audited and monitored systematically under responsibility of the certification b
 
                   <tr className='page_break'>
                     <td className='' colSpan={4}>
-                      <h1 className="text-xl font-semibold mb-2 mt-2">Products Appendix </h1>
+                      <h3 className="text-xl font-semibold mb-2 mt-2">Products Appendix </h3>
                     </td>
                   </tr>
 
@@ -636,7 +636,7 @@ audited and monitored systematically under responsibility of the certification b
 
                   <tr className='page_break'>
                     <td className='' colSpan={4}>
-                      <h1 className="text-xl font-semibold mb-2 mt-2">Site Appendix</h1>
+                      <h3 className="text-xl font-semibold mb-2 mt-2">Site Appendix</h3>
                     </td>
                   </tr>
 
@@ -646,7 +646,7 @@ audited and monitored systematically under responsibility of the certification b
 
                   <tr className='page_break'>
                     <td className='' colSpan={4}>
-                      <h1 className="text-xl font-semibold mb-2 mt-4 mb-3">Associated Subcontractor Appendix</h1>
+                      <h3 className="text-xl font-semibold mb-2 mt-4 mb-3">Associated Subcontractor Appendix</h3>
                     </td>
                   </tr>
 
@@ -656,7 +656,7 @@ audited and monitored systematically under responsibility of the certification b
 
                   <tr className='page_break'>
                     <td className='' colSpan={4}>
-                      <h1 className="text-xl font-semibold  mb-3">Independently Certified Subcontractor Appendix </h1>
+                      <h3 className="text-xl font-semibold  mb-3">Independently Certified Subcontractor Appendix </h3>
                     </td>
                   </tr>
 
@@ -727,12 +727,12 @@ audited and monitored systematically under responsibility of the certification b
                             Status : <span className='font-semibold'> {updatedState?.footer?.status || '-'}</span>
                           </p>
                           <p className='text-md pt_top text-start'>
-                            <h1 className='text-l text-start '>
+                            <h3 className='text-l text-start '>
                               Signature of Authorized Person :
-                            </h1>
-                            <h1 className='text-l text-start mt-2'>
+                            </h3>
+                            <h3 className='text-l text-start mt-2'>
                               <span className='font-semibold'>{updatedState?.footer?.name_of_authorized_signatory || '-'}</span>
-                            </h1>
+                            </h3>
                           </p>
                         </div>
                       </div>

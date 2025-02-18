@@ -167,9 +167,9 @@
 //               <hr className='py-3' />
 
 //               <div className='w-full section1 flex flex-wrap justify-between '>
-//                 <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                 <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                   {ele?.file_name}
-//                 </h3>
+//                 </h5>
 //                 <div className='w-full flex p-2 justify-between'>
 //                   <div className='w-full flex flex-col md:w-[49%] justify-center '>
 //                     <div className='flex flex-wrap '>
@@ -224,9 +224,9 @@
 //               <div className='w-full flex justify-between flex-wrap'>
 //                 <div className='w-full md:w-[49%]'>
 //                   <div className='flex section1 flex-wrap pb-5'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       Buyer of Certified Products:
-//                     </h3>
+//                     </h5>
 //                     <div className='p-2'>
 //                       <div className='flex'>
 //                         <h4 className='font-bold text-xl pe-4'>License No: </h4>
@@ -249,9 +249,9 @@
 //                 </div>
 //                 <div className='w-full md:w-[49%]'>
 //                   <div className='flex section1  flex-wrap pb-5'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       Certification Body:
-//                     </h3>
+//                     </h5>
 //                     <div className='p-2'>
 //                       <div className='flex  '>
 //                         <h4 className='font-bold text-xl pe-4'>
@@ -276,9 +276,9 @@
 //               <div className='w-full flex flex-wrap'>
 //                 <div className='w-full '>
 //                   <div className='flex flex-wrap pb-5'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       Certified Input References:
-//                     </h3>
+//                     </h5>
 //                     <div className='flex section1 flex-row justify-between p-3  w-full'>
 //                       <div className='flex flex-col w-[25%]'>
 //                         <h4 className='font-bold text-xl pe-4'>Farm Scs</h4>
@@ -322,16 +322,16 @@
 //               </div>
 
 //               <div className='w-full certifiedProduct  flex flex-wrap'>
-//                 <h3 className='text-2xl certifiedProductHeading p-3 w-full'>
+//                 <h5 className='text-2xl certifiedProductHeading p-3 w-full'>
 //                   Certified Products:
-//                 </h3>
+//                 </h5>
 //                 <div className='flex w-full flex-wrap'>
 //                   {ele.extracted_data.certified_products.map((elem, indd) => {
 //                     return (
 //                       <div className='pb-5 w-full' key={indd}>
-//                         <h3 className='text-xl pe-2 p-2 pb-0 font-semibold'>
+//                         <h5 className='text-xl pe-2 p-2 pb-0 font-semibold'>
 //                           Product {indd + 1}:
-//                         </h3>
+//                         </h5>
 //                         <div className='p-3 overflow-x-auto'>
 //                           <table className='w-full border border-gray-300 text-left'>
 //                             <thead className='bg-gray-100 border-b border-gray-300'>
@@ -367,9 +367,9 @@
 //                 <>
 //                   {' '}
 //                   <hr />
-//                   <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                   <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                     Certified Raw Materials and Declared Geographic Origin:
-//                   </h3>
+//                   </h5>
 //                   <div className='overflow-x-auto table_2 pt-3'>
 //                     <table className='w-full text-sm text-left text-gray-500'>
 //                       <thead className='text-xs text-gray-700 uppercase '>
@@ -424,9 +424,9 @@
 //               <div className='w-full flex flex-wrap'>
 //                 <div className='w-full '>
 //                   <div className='flex flex-wrap pb-5'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       Declarations by Certification Body:
-//                     </h3>
+//                     </h5>
 //                     <div className='section1  justify-between p-3  w-full'>
 //                     <div className='flex py-5 border-b'>
 //                         <h4 className='font-bold text-lg pe-4'>
@@ -467,7 +467,7 @@
 //                           </p>
 //                       </div>
 //                         <div className='w-full flex items-center py-5 border-b'>
-//                         <h3 className='text-lg font-bold pe-4'>Extra Note:</h3>
+//                         <h5 className='text-lg font-bold pe-4'>Extra Note:</h5>
 //                         <p className='text-lg'>
 //                           {
 //                             ele?.extracted_data?.declarations_by_certification_body?.extra_note?.translated || ele?.extracted_data?.declarations_by_certification_body?.extra_note
@@ -492,9 +492,9 @@
 //               <div className='w-full flex flex-wrap'>
 //                 <div className='w-full '>
 //                   <div className='flex flex-wrap pb-5'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       Declarations By Seller of Certified Products:
-//                     </h3>
+//                     </h5>
 //                     <div className='flex section1 flex-row justify-between p-3  w-full'>
 //                       <div className='flex'>
 //                         <h4 className='font-bold text-xl pe-4'>
@@ -520,9 +520,9 @@
 //                   {' '}
 //                   <hr />
 //                   <div className='overflow-x-auto table_2 pt-3'>
-//                     <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                     <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                       seller of certified products:
-//                     </h3>
+//                     </h5>
 //                     <table className='w-full text-sm text-left text-gray-500'>
 //                       <thead className='text-xs text-gray-700 uppercase '>
 //                         <tr>
@@ -581,9 +581,9 @@
 //                 <>
 //                   {' '}
 //                   <hr />
-//                   <h3 className='text-2xl w-full  CertifiedInput p-3'>
+//                   <h5 className='text-2xl w-full  CertifiedInput p-3'>
 //                     Shipments:
-//                   </h3>
+//                   </h5>
 //                   <div className='overflow-x-auto table_2 pt-3'>
 //                     <table className='w-full text-sm text-left text-gray-500'>
 //                       <thead className='text-xs text-gray-700 uppercase '>
@@ -924,7 +924,7 @@ audited and monitored systematically under responsibility of the certification b
                       className='w-[50%] border p-2 align-baseline'
                       colSpan={2}
                     >
-                      <h3 className='font-semibold'>1. Certification Body </h3>
+                      <h5 className='font-semibold'>1. Certification Body </h5>
                       <p className='ps-3 pt-1'>
                         {data?.extracted_data?.certification_body?.cb_name}
                       </p>
@@ -973,9 +973,9 @@ audited and monitored systematically under responsibility of the certification b
                       className='w-[50%] border p-2 align-baseline '
                       colSpan={2}
                     >
-                      <h3 className='font-semibold'>
+                      <h5 className='font-semibold'>
                         2. Seller of Certified Products{' '}
-                      </h3>
+                      </h5>
                       <p className='ps-3 pt-1'>
                         {
                           data?.extracted_data?.seller_of_certified_products
@@ -1015,9 +1015,9 @@ audited and monitored systematically under responsibility of the certification b
                                 ?.seller_country_or_area}
                           </p>
                         ))}
-                      <h3 className='ps-3 pt-1 font-semibold'>
+                      <h5 className='ps-3 pt-1 font-semibold'>
                         Selling on behalf of:{' '}
-                      </h3>
+                      </h5>
                       <p className='ps-3 pt-1'>
                         {
                           data?.extracted_data?.seller_of_certified_products
@@ -1084,9 +1084,9 @@ audited and monitored systematically under responsibility of the certification b
                       className='w-[50%] border p-2 align-baseline '
                       colSpan={2}
                     >
-                      <h3 className='font-semibold'>
+                      <h5 className='font-semibold'>
                         3. Buyer of Certified Products
-                      </h3>
+                      </h5>
                       <p className='ps-3 pt-1'>
                         {
                           data?.extracted_data?.buyer_of_certified_products
@@ -1126,9 +1126,9 @@ audited and monitored systematically under responsibility of the certification b
                                 ?.buyer_country_or_area}
                           </p>
                         ))}
-                      <h3 className='ps-3 pt-1 text-lg'>
+                      <h5 className='ps-3 pt-1 text-lg'>
                         Buying on behalf of:
-                      </h3>
+                      </h5>
                       <p className='ps-3 pt-1'>
                         {' '}
                         {
@@ -1160,23 +1160,23 @@ audited and monitored systematically under responsibility of the certification b
                     </td>
                     <td className='w-[50%] border align-baseline ' colSpan={2}>
                       <div className=' p-2'>
-                        <h3 className='font-semibold'>
+                        <h5 className='font-semibold'>
                           4. Gross Shipping Weight
-                        </h3>
+                        </h5>
                         <p className='ps-3 pt-1'>
                           {data?.extracted_data?.gross_shipping_weight}
                         </p>
                       </div>
                       <div className='border-t p-2'>
-                        <h3 className='font-semibold'>
+                        <h5 className='font-semibold'>
                           5. Net Shipping Weight
-                        </h3>
+                        </h5>
                         <p className='ps-3 pt-1'>
                           {data?.extracted_data?.net_shipping_weight}
                         </p>
                       </div>
                       <div className='border-t p-2'>
-                        <h3 className='font-semibold'>6. Certified Weight</h3>
+                        <h5 className='font-semibold'>6. Certified Weight</h5>
                         <ul className='list-none ps-0'>
                           {data?.extracted_data?.certified_weight?.map(
                             (ele, ind) => {
@@ -1194,9 +1194,9 @@ audited and monitored systematically under responsibility of the certification b
                   {/* 7. Declarations by Certification Body */}
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
-                      <h3 className='font-semibold'>
+                      <h5 className='font-semibold'>
                         7. Declarations by Certification Body
-                      </h3>
+                      </h5>
                       <p className='ps-3 pt-1'>
                         This is to certify that, based on the relevant
                         documentation provided by the seller named in Box 2
@@ -1218,10 +1218,10 @@ audited and monitored systematically under responsibility of the certification b
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
                       <div className='flex label_margin pb-1 items-end'>
-                        <h3 className='font-semibold ps-3'>
+                        <h5 className='font-semibold ps-3'>
                           Certification of the organic material used for the
                           products listed complies with USDA NOP rules
-                        </h3>
+                        </h5>
                         <div className='flex'>
                           <Checkbox
                             checked={
@@ -1282,10 +1282,10 @@ audited and monitored systematically under responsibility of the certification b
                         </div>
                       </div>
                       <div className='flex label_margin items-end'>
-                        <h3 className='font-semibold ps-3'>
+                        <h5 className='font-semibold ps-3'>
                           Certification of the organic material used for the
                           products listed complies with APEDA NPOP rules :
-                        </h3>
+                        </h5>
                         <p className='flex ps-2 font-semibold text-md'>
                           [{'Yes'}]
                         </p>
@@ -1324,9 +1324,9 @@ audited and monitored systematically under responsibility of the certification b
                   </tr>
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
-                      <h3 className='font-semibold ps-3 border-b border_light pb-2'>
+                      <h5 className='font-semibold ps-3 border-b border_light pb-2'>
                         8. Certified Input References{' '}
-                      </h3>
+                      </h5>
                       <div className='flex border-b border_light pb-2'>
                         <p className='ps-3 pt-2 min-w-max'>Input TCs:</p>
                         <div className='ps-3 flex flex-wrap'>
@@ -1386,7 +1386,7 @@ audited and monitored systematically under responsibility of the certification b
                   </tr>
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
-                      <h3 className='font-semibold ps-3'>9. Shipments</h3>
+                      <h5 className='font-semibold ps-3'>9. Shipments</h5>
                     </td>
                   </tr>
                   {data?.extracted_data?.shipments?.map((ele, ind) => {
@@ -1447,9 +1447,9 @@ audited and monitored systematically under responsibility of the certification b
                   })}
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
-                      <h3 className='font-semibold ps-3'>
+                      <h5 className='font-semibold ps-3'>
                         10. Certified Products
-                      </h3>
+                      </h5>
                     </td>
                   </tr>
                   {data?.extracted_data?.certified_products?.map((ele, ind) => {
@@ -1558,7 +1558,7 @@ audited and monitored systematically under responsibility of the certification b
                             : data?.extracted_data?.footer?.tc_last_updated}
                         </p>
                         <p className='ps-3 pb-2'>
-                        Name Of Authorized Signatory:{' '}
+                          Name Of Authorized Signatory:{' '}
                           {
                             data?.extracted_data?.footer
                               ?.name_of_authorized_signatory
