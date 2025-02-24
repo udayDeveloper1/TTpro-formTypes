@@ -352,6 +352,23 @@ export const exportPdfTcType1 = async data => {
   }
 }
 
+export const deletePdfTcType1 = async id => {
+  try {
+    const response = await axiosInstance.delete(
+      `api/tc/remove-type-one/${id}/`,
+      {
+        headers: {
+        'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
 // form2 apis
 
 export const createScopeCertificateScType2 = async data => {
@@ -389,6 +406,7 @@ export const extractPdfSCType2 = async data => {
     return error
   }
 }
+
 export const scopCertificationView = async(id)  => {
   try {
     const response = await axiosInstance.get(
@@ -406,6 +424,40 @@ export const scopCertificationView = async(id)  => {
   }
 }
 
+export const deleteScopeCertificateScType2 = async id => {
+  try {
+    const response = await axiosInstance.delete(
+      `api/scope-certificate/remove-sc-type-one/${id}/`,
+      {
+        headers: {
+        'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
+export const createForm3ScopeCertificateV3_0 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/sc-version-3-point-0/add/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
 
 
 

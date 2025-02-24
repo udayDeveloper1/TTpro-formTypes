@@ -39,13 +39,13 @@ import React from 'react'
 //       );
 // }
 
-const CustomFormItem = ({ label, name, rules, placeholder,classList, component: Component, ...rest }) => (
+const CustomFormItem = ({ label, name, rules, placeholder,classList, isFocus, component: Component, ...rest }) => (
   <AntdForm.Item dependencies={[name]} noStyle>
     {({ getFieldValue }) => (
       <AntdForm.Item
         label={label}
         name={name}
-        className={`w-full md:w-[49%]   ${!getFieldValue(name)?.toString().trim() ? 'empty_field' : ''} ${classList}`}
+        className={`w-full md:w-[49%] ${!getFieldValue(name)?.toString().trim() ? isFocus ? '' : 'empty_field' : ''} ${classList}`}
         rules={rules}
       >
         <Component placeholder={placeholder} {...rest} className="datePickerIpnut"/>

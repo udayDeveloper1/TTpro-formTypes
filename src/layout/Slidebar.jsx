@@ -270,13 +270,13 @@ export const Slidebar = () => {
                 )}
               </li>
 
-              {/* <li
+              <li
                 className={`sidebar-item cursor-pointer ${
                   [
-                    '/tCTypeCropProductionForm',
-                    '/tCTypeCropProductionList',
+                    '/handlingTradingScTypeForm_v3_0',
+                    '/handlingTradingScTypeList_v3_0',
                     '/importPdftCTypeCropProductionForm',
-                    '/tcTypeCropProductinView'
+                    '/handlingTradingScTypeView_v3_0'
                   ].includes(path)
                     ? 'selected'
                     : ''
@@ -285,10 +285,10 @@ export const Slidebar = () => {
                 <a
                   className={`sidebar-link has-arrow ${
                     [
-                      '/tCTypeCropProductionForm',
-                      '/tCTypeCropProductionList',
+                      '/handlingTradingScTypeForm_v3_0',
+                      '/handlingTradingScTypeList_v3_0',
                       '/importPdftCTypeCropProductionForm',
-                                          '/tcTypeCropProductinView'
+                                          '/handlingTradingScTypeView_v3_0'
                     ].includes(path)
                       ? 'active'
                       : ''
@@ -298,16 +298,16 @@ export const Slidebar = () => {
                   <span>
                     <i className='ti ti-user-circle me-1 fs-6' />
                   </span>
-                  <span className='hide-menu'>SC Crop and Production</span>
+                  <span className='hide-menu'>Scope Certificate VERSION 3.0</span>
                 </a>
 
                 {expanded['form_4'] && (
                   <ul className='submenu'>
                     <li className='sidebar-item'>
                       <Link
-                        to='/tCTypeCropProductionList'
+                        to='/handlingTradingScTypeList_v3_0'
                         className={`sidebar-link ${
-                          path === '/tCTypeCropProductionList' ? 'active' : ''
+                          path === '/handlingTradingScTypeList_v3_0' ? 'active' : ''
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
@@ -317,9 +317,9 @@ export const Slidebar = () => {
                     </li>
                     <li className='sidebar-item'>
                       <Link
-                        to='/tCTypeCropProductionForm'
+                        to='/handlingTradingScTypeForm_v3_0'
                         className={`sidebar-link ${
-                          path === '/tCTypeCropProductionForm' ? 'active' : ''
+                          path === '/handlingTradingScTypeForm_v3_0' ? 'active' : ''
                         }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
@@ -329,9 +329,9 @@ export const Slidebar = () => {
                     </li>
                     <li className='sidebar-item'>
                       <Link
-                        to='/importPdftCTypeCropProduction'
+                        to='/importPdfhandlingTradingScType_v3_0'
                         className={`sidebar-link ${
-                          path === '/importPdftCTypeCropProduction'
+                          path === '/importPdfhandlingTradingScType_v3_0'
                             ? 'active'
                             : ''
                         }`}
@@ -343,7 +343,7 @@ export const Slidebar = () => {
                     </li>
                   </ul>
                 )}
-              </li> */}
+              </li>
 
               {/* <li
                 className={`sidebar-item ${

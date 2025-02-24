@@ -34,10 +34,20 @@ export const capitalizeFirstLetter = (value) => {
     scopeVerificationView: "/scopeVerificationView/:id/",
     scopeVerificationForm: "/scopeVerificationForm",
     importPdfScopeVerification: "/importPdfScopeVerification",
+
+    // ------------------------------ Hemang Code -------------------------------------
+
     handlingTradingScTypeForm: "/handlingTradingScTypeForm",
     handlingTradingScTypeList: "/handlingTradingScTypeList",
     handlingTradingScTypeView: "/handlingTradingScTypeView/:id/",
     importPdfhandlingTradingScType: "/importPdfhandlingTradingScType",
+
+    handlingTradingScTypeFormV3_0: "/handlingTradingScTypeForm_v3_0",
+    handlingTradingScTypeListV3_0: "/handlingTradingScTypeList_v3_0",
+    handlingTradingScTypeViewV3_0: "/handlingTradingScTypeView_v3_0/:id/",
+    importPdfhandlingTradingScTypeV3_0: "/importPdfhandlingTradingScType_v3_0",
+    // ------------------------------ Hemang Code -------------------------------------
+
     PdfReview: "/PdfReview",
     tcType1Form: "/tcType1Form",
   }
