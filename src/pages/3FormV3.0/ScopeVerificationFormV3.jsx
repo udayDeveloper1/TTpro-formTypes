@@ -101,7 +101,7 @@ const ScopeVerificationFormV3 = () => {
       place_of_issue: "",
       date_of_issue: "",
       last_updated: "",
-      extended_until: "",
+      extended_untill: "",
       status: "",
       name_of_authorized_signatory: "",
 
@@ -109,20 +109,160 @@ const ScopeVerificationFormV3 = () => {
   }, [form])
 
   // Handle form submission with typed values
+  // const handleSubmit = async values => {
+
+  //   setLoading(true);
+  //   console.log('values form', values);
+  //   const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
+  //   const certified_organization_address = values?.certified_company_address?.map(obj => Object.values(obj)[0]) || [];
+  //   // const facility_address = values?.facility_address?.map(obj => Object.values(obj)[0]) || [];
+  //   // const process_categories = values?.process_categories?.map(obj => Object.values(obj)[0]) || [];
+  //   // const standards = values?.standards?.map(obj => Object.values(obj)[0]) || [];
+  //   // const farm_capacity = values?.farm_capacity?.map(obj => Object.values(obj)[0]) || [];
+
+  //   const facility_appendix = async (data) => {
+  //     return values?.facility_appendix?.map(item => ({
+  //       facility_name: item?.facility_name,
+  //       facility_te_id: item?.facility_te_id,
+  //       address_details: {
+  //         facility_address: extractValues(item.facility_address, "facility_address_"),
+  //         facility_town: item?.facility_town,
+  //         facility_postcode: item?.facility_postcode,
+  //         facility_state_or_province: item?.facility_state_or_province,
+  //         facility_country_or_area: item?.facility_country_or_area
+  //       },
+  //       process_categories: extractValues(item.process_categories, "process_categories_")
+  //     }));
+  //   };
+
+  //   const non_certified_subcontractor_appendix = async (data) => {
+  //     return values?.non_certified_subcontractor_appendix?.map(item => ({
+  //       subcontractor_name: item?.associate_subcontractor_name,
+  //       subcontractor_facility_name: item?.subcontractor_facility_name,
+  //       address_details: {
+  //         subcontractor_address: extractValues(item.subcontractor_address, "subcontractor_address_"),
+  //         subcontractor_town: item?.subcontractor_town,
+  //         subcontractor_postcode: item?.subcontractor_postcode,
+  //         subcontractor_state_or_province: item?.subcontractor_state_or_province,
+  //         subcontractor_country_or_area: item?.subcontractor_country_or_area
+  //       },
+  //       process_categories: extractValues(item.process_categories, "process_categories_")
+  //     }));
+  //   };
+
+  //   const independently_certified_subcontractor_appendix = async (data) => {
+  //     return values?.independently_certified_subcontractor_appendix?.map(item => ({
+  //       subcontractor_name: item?.subcontractor_name,
+  //       subcontractor_facility_name: item?.subcontractor_facility_name,
+  //       license_number : item?.license_number,
+  //       expiry_date : formatDateToDDMMYYYY(item?.expiry_date),
+  //       address_details: {
+  //         address: extractValues(item.independently_address, "independently_address_"),
+  //         town: item?.independently_town,
+  //         postcode: item?.independently_postcode,
+  //         state_or_province: item?.independently_state_or_province,
+  //         country_or_area: item?.independently_country_or_area
+  //       },
+  //       process_categories: extractValues(item.independently_process_categories, "independently_process_categories_")
+  //     }));
+  //   };
+
+  //   const formattedValues = {
+  //     file_name: values?.file_name || values?.certificate_body_name,
+  //     // ------------------------- extracted_data -------------------------------
+
+  //     // -----------------------------------   scope_certificate  -----------------------------
+  //     extracted_data: {
+  //       scope_certificate: {
+  //         scope_certificate_number: values?.certified_company_name,
+  //         scope_certificate_version: values?.scope_certificate_version,
+  //         certificate_body_name: values?.certificate_body_name,
+  //         certified_company_name: values?.certified_company_name,
+  //         certified_company_license_number: values?.certified_company_license_number,
+  //         certified_company_address: certified_organization_address,
+  //         certified_company_town: values?.certified_company_town,
+  //         certified_company_postcode: values?.certified_company_postcode,
+  //         certified_company_state_or_province: values?.certified_company_state_or_province,
+  //         certified_company_country_or_area: values?.certified_company_country_or_area,
+  //         sc_standard_program: values?.sc_standard_program,
+  //         sc_standard_version: values?.sc_standard_version,
+  //         sc_valid_until: formatDateToDDMMYYYY(values?.sc_valid_untill),
+  //         product_category: values?.product_category,
+  //         process_category: values?.process_category,
+  //         certificate_body_accredited_by: values?.certificate_body_accredited_by,
+  //         inspection_body : values?.inspection_body,
+  //         auditors: values?.auditors
+  //       },
+  //       products_appendix: values?.products_appendix,
+  //       facility_appendix : await facility_appendix() ,
+  //       // [{
+  //       //   facility_name : values?.facility_name,
+  //       //   facility_te_id : values?.facility_te_id,
+  //       //   address_details : {
+  //       //     facility_address : facility_address,
+  //       //     facility_town: values?.facility_town,
+  //       //     facility_postcode : values?.facility_postcode,
+  //       //     facility_state_or_province : values?.facility_state_or_province,
+  //       //     facility_country_or_area : values?.facility_country_or_area
+  //       //   },
+  //       //   process_categories : process_categories
+  //       // }],
+  //       non_certified_subcontractor_appendix : await non_certified_subcontractor_appendix(),
+  //       independently_certified_subcontractor_appendix: independently_certified_subcontractor_appendix(),/// array inside array manage the value 
+  //       // associate_subcontractor_appendix: await associate_subcontractor_appendix(),
+
+  //       footer: {
+  //         place_of_issue: values?.place_of_issue,
+  //         date_of_issue: formatDateToDDMMYYYY(values?.date_of_issue),
+  //         last_updated: formatDateToDDMMYYYY(values?.last_updated),
+  //         extended_until: formatDateToDDMMYYYY(values?.extended_untill),
+  //         status: values?.status,
+  //         name_of_authorized_signatory: values?.name_of_authorized_signatory || '1234'
+  //       }
+  //     },
+  //   }
+  //   console.log('formattedValues', formattedValues);
+  //   try {
+  //     let response = await createForm3ScopeCertificateV3_0(formattedValues);
+  //     console.log(response);
+  //     if (response?.status_code === 200 || response?.status_code === 201) {
+  //       toast.success(response?.message)
+  //       navigate(`${links.handlingTradingScTypeListV3_0}`)
+  //     } else {
+  //       toast.error(response?.message)
+  //     }
+  //     setLoading(false)
+  //   } catch (error) {
+  //     setLoading(false)
+  //     toast.error("Something Went Wrong")
+  //   }
+  // }
+
   const handleSubmit = async values => {
     setLoading(true);
 
     console.log('values form', values);
     const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
     const certified_organization_address = values?.certified_company_address?.map(obj => Object.values(obj)[0]) || [];
-    const facility_address = values?.facility_address?.map(obj => Object.values(obj)[0]) || [];
-    const process_categories = values?.process_categories?.map(obj => Object.values(obj)[0]) || [];
-    const standards = values?.standards?.map(obj => Object.values(obj)[0]) || [];
-    const farm_capacity = values?.farm_capacity?.map(obj => Object.values(obj)[0]) || [];
 
-    const non_certified_subcontractor_appendix = async (data) => {
-      return values?.non_certified_subcontractor_appendix?.map(item => ({
-        subcontractor_name: item?.associate_subcontractor_name,
+    const facility_appendix = (data) => {
+      return values?.facility_appendix?.map(item => ({
+        facility_name: item?.facility_name,
+        facility_te_id: item?.facility_te_id,
+        address_details: {
+          facility_address: extractValues(item.facility_address, "facility_address_"),
+          facility_town: item?.facility_town,
+          facility_postcode: item?.facility_postcode,
+          facility_state_or_province: item?.facility_state_or_province,
+          facility_country_or_area: item?.facility_country_or_area
+        },
+        process_categories: extractValues(item.process_categories, "process_categories_")
+      }));
+    };
+
+    const non_certified_subcontractor_appendix = (data) => {
+      return data?.map(item => ({
+        subcontractor_name: item?.subcontractor_name,
         subcontractor_facility_name: item?.subcontractor_facility_name,
         address_details: {
           subcontractor_address: extractValues(item.subcontractor_address, "subcontractor_address_"),
@@ -134,13 +274,13 @@ const ScopeVerificationFormV3 = () => {
         process_categories: extractValues(item.process_categories, "process_categories_")
       }));
     };
-    
-    const independently_certified_subcontractor_appendix = async (data) => {
+
+    const independently_certified_subcontractor_appendix = (data) => {
       return values?.independently_certified_subcontractor_appendix?.map(item => ({
         subcontractor_name: item?.subcontractor_name,
         subcontractor_facility_name: item?.subcontractor_facility_name,
-        license_number : item?.license_number,
-        expiry_date : formatDateToDDMMYYYY(item?.expiry_date),
+        license_number: item?.license_number,
+        expiry_date: formatDateToDDMMYYYY(item?.expiry_date),
         address_details: {
           address: extractValues(item.independently_address, "independently_address_"),
           town: item?.independently_town,
@@ -154,9 +294,6 @@ const ScopeVerificationFormV3 = () => {
 
     const formattedValues = {
       file_name: values?.file_name || values?.certificate_body_name,
-      // ------------------------- extracted_data -------------------------------
-
-      // -----------------------------------   scope_certificate  -----------------------------
       extracted_data: {
         scope_certificate: {
           scope_certificate_number: values?.certified_company_name,
@@ -171,56 +308,47 @@ const ScopeVerificationFormV3 = () => {
           certified_company_country_or_area: values?.certified_company_country_or_area,
           sc_standard_program: values?.sc_standard_program,
           sc_standard_version: values?.sc_standard_version,
-          sc_valid_until: formatDateToDDMMYYYY(values?.sc_valid_until),
+          sc_valid_until: formatDateToDDMMYYYY(values?.sc_valid_untill),
           product_category: values?.product_category,
           process_category: values?.process_category,
           certificate_body_accredited_by: values?.certificate_body_accredited_by,
-          inspection_body : values?.inspection_body,
+          inspection_body: values?.inspection_body,
           auditors: values?.auditors
         },
+
         products_appendix: values?.products_appendix,
-        facility_appendix : [{
-          facility_name : values?.facility_name,
-          facility_te_id : values?.facility_te_id,
-          address_details : {
-            facility_address : facility_address,
-            facility_town: values?.facility_town,
-            facility_postcode : values?.facility_postcode,
-            facility_state_or_province : values?.facility_state_or_province,
-            facility_country_or_area : values?.facility_country_or_area
-          },
-          process_categories : process_categories
-        }],
-        non_certified_subcontractor_appendix : await non_certified_subcontractor_appendix(),
-        independently_certified_subcontractor_appendix: independently_certified_subcontractor_appendix(),/// array inside array manage the value 
-        // associate_subcontractor_appendix: await associate_subcontractor_appendix(),
+        facility_appendix: facility_appendix(),
+        non_certified_subcontractor_appendix: non_certified_subcontractor_appendix(values?.non_certified_subcontractor_appendix),
+        independently_certified_subcontractor_appendix: independently_certified_subcontractor_appendix(),
 
         footer: {
           place_of_issue: values?.place_of_issue,
           date_of_issue: formatDateToDDMMYYYY(values?.date_of_issue),
           last_updated: formatDateToDDMMYYYY(values?.last_updated),
-          extended_untill: formatDateToDDMMYYYY(values?.extended_until),
+          extended_until: formatDateToDDMMYYYY(values?.extended_untill),
           status: values?.status,
           name_of_authorized_signatory: values?.name_of_authorized_signatory || '1234'
         }
-      },
-    }
+      }
+    };
+
     console.log('formattedValues', formattedValues);
+
     try {
       let response = await createForm3ScopeCertificateV3_0(formattedValues);
       console.log(response);
       if (response?.status_code === 200 || response?.status_code === 201) {
-        toast.success(response?.message)
-        navigate(`${links.handlingTradingScTypeListV3_0}`)
+        toast.success(response?.message);
+        navigate(`${links.handlingTradingScTypeListV3_0}`);
       } else {
-        toast.error(response?.message)
+        toast.error(response?.message);
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
-      toast.error("Something Went Wrong")
+      setLoading(false);
+      toast.error("Something Went Wrong");
     }
-  }
+  };
 
   return (
     <>
@@ -260,14 +388,12 @@ const ScopeVerificationFormV3 = () => {
                       component={Input}
                       isFocus={true}
                     />
-
                     <CustomFormItem
                       label='Sc Status'
                       name='status'
                       placeholder='Enter Name Sc Status'
                       component={Input}
                       isFocus={true}
-
                     />
                   </div>
                   <div className='flex flex-wrap md:justify-between items-end'>
@@ -1023,7 +1149,7 @@ const ScopeVerificationFormV3 = () => {
 
 
               {/* Independently Certified Subcontractor Appendix */}
-              
+
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>
                   Independently Certified Subcontractor Appendix
@@ -1062,8 +1188,8 @@ const ScopeVerificationFormV3 = () => {
                             </AntdForm.Item>
 
                             <AntdForm.Item
-                            {...restField}
-                               label='Expiry Date :'
+                              {...restField}
+                              label='Expiry Date :'
                               name='expiry_date'
                               className='w-full md:w-[49%]'
                             >
