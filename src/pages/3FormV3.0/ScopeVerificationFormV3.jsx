@@ -349,9 +349,9 @@ const ScopeVerificationFormV3 = () => {
       toast.error("Something Went Wrong");
     }
   };
-
   return (
     <>
+
       {loading && <Spinner message='Loading...' isActive={loading} />}
 
       <div className='flex'>
@@ -380,6 +380,7 @@ const ScopeVerificationFormV3 = () => {
               <section className='section mt-5'>
                 <h2 className='text-2xl pb-3 section-title'>Footer</h2>
                 <div className=''>
+                  
                   <div className='flex flex-wrap md:justify-between items-end'>
                     <CustomFormItem
                       label='Sc Place of Issue'
@@ -397,7 +398,6 @@ const ScopeVerificationFormV3 = () => {
                     />
                   </div>
                   <div className='flex flex-wrap md:justify-between items-end'>
-
                     <CustomFormItem
                       label='Sc Date Of Issue'
                       name='date_of_issue'
@@ -433,6 +433,7 @@ const ScopeVerificationFormV3 = () => {
                       isFocus={true}
                     />
                   </div>
+
                 </div>
               </section>
 
@@ -533,7 +534,6 @@ const ScopeVerificationFormV3 = () => {
                     />
                   </div>
 
-
                   <div className='flex md:justify-between flex-wrap'>
                     <CustomFormItem
                       label='Process Category'
@@ -587,7 +587,6 @@ const ScopeVerificationFormV3 = () => {
                   </div>
 
                   <div className='flex md:justify-between flex-wrap'>
-
 
                     <CustomFormItem
                       label='Certified Company Town'
@@ -643,6 +642,7 @@ const ScopeVerificationFormV3 = () => {
                         </>
                       )}
                     </AntdForm.List>
+                    
                   </div>
                 </div>
               </section>

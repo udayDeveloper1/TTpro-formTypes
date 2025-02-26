@@ -30,6 +30,7 @@ export const capitalizeFirstLetter = (value) => {
     tcType2View: "/tcType2View/:id/",
     tcType2Form: "/tcType2Form",
     tcType2List: "/tcType2List",
+    
     scopeVerificationList: "/scopeVerificationList",
     scopeVerificationView: "/scopeVerificationView/:id/",
     scopeVerificationForm: "/scopeVerificationForm",
