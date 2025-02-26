@@ -91,6 +91,8 @@ const ScopeVerificationForm = () => {
         appendix_process_categories: [""],
         appendix_standards: [""]
       }],
+ headername : "",
+ headAddress : [{headAddress_: ""}], 
       place_of_issue: "",
       date_of_issue: "",
       last_updated: "",
@@ -204,27 +206,29 @@ const ScopeVerificationForm = () => {
           extended_untill: formatDateToDDMMYYYY(values?.extended_untill),
           status: values?.status,
           name_of_authorized_signatory: values?.name_of_authorized_signatory || '1234'
+        },
+        letterhead: {
+          name: values?.headername,
+          address : extractValues(values.headAddress, "headAddress_")
         }
       },
 
     }
-
-    console.log('formattedValues', formattedValues);
-
-    try {
-      let response = await createScopeCertificateScType2(formattedValues);
-      console.log(response);
-      if (response?.status_code === 200 || response?.status_code === 201) {
-        toast.success(response?.message)
-        navigate(`${links.scopeVerificationList}`)
-      } else {
-        toast.error(response?.message)
-      }
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      toast.error("Something Went Wrong")
-    }
+    
+    // try {
+    //   let response = await createScopeCertificateScType2(formattedValues);
+    //   console.log(response);
+    //   if (response?.status_code === 200 || response?.status_code === 201) {
+    //     toast.success(response?.message)
+    //     navigate(`${links.scopeVerificationList}`)
+    //   } else {
+    //     toast.error(response?.message)
+    //   }
+    //   setLoading(false)
+    // } catch (error) {
+    //   setLoading(false)
+    //   toast.error("Something Went Wrong")
+    // }
   }
 
   return (
@@ -262,45 +266,68 @@ const ScopeVerificationForm = () => {
               </h1>
 
               {/* Header*/}
-              {/* <section className='section mt-10'>
+              <section className='section mt-10'>
                 <h2 className='text-2xl pb-3 section-title'>Header</h2>
                 <div className=''>
-                  <div className='flex flex-wrap md:justify-between items-end'>
+                  <div className='flex flex-wrap md:justify-between '>
                     <AntdForm.Item
-                      label='Tc Number'
-                      name='header_tc_number'
+                      label='Header Name'
+                      name='headername'
                       className='w-full md:w-[49%]'
                     >
-                      <Input placeholder='Enter Tc Number' />
+                      <Input placeholder='Enter Header Name' />
                     </AntdForm.Item>
-                    <AntdForm.Item
-                      label='Tc Version Number'
-                      name='tc_version_number'
-                      className='w-full md:w-[49%]'
-                    >
-                      <Input placeholder='Enter Tc Version Number' />
-                    </AntdForm.Item>
-                  </div>
-                  <div className='flex flex-wrap md:justify-between items-end'>
-                    <AntdForm.Item
-                      label='Tc Standard'
-                      name='header_tc_standard'
-                      className='w-full md:w-[49%]'
-                    >
-                      <Input placeholder='Enter Tc Standard' />
-                    </AntdForm.Item>
-                    <AntdForm.Item
-                      label='File Name'
-                      name='file_name'
-                      className='w-full md:w-[49%]'
-                      rules={[{ required: true, message: "File Name is required" }]}
+                    <AntdForm.List name='headAddress'>
+                      {(fields, { add, remove }) => (
+                        <>
+                          <AntdForm.Item
+                            label='Head Address'
+                            required
+                            className='w-full md:w-[49%]'
+                          >
+                            {fields.map(
+                              ({ key, name, ...restField }, index) => (
+                                <Space
+                                  key={key}
+                                  style={{ display: 'flex', marginBottom: 8 }}
+                                  align='baseline'
+                                >
+                                  <AntdForm.Item
+                                    {...restField}
+                                    name={[name, 'headAddress_']}
+                                    style={{ flex: 1 }}
+                                  >
+                                    <Input
+                                      placeholder={`Head Address`}
+                                    />
+                                  </AntdForm.Item>
 
-                    >
-                      <Input placeholder='Enter File Name' />
-                    </AntdForm.Item>
+                                  {fields.length > 1 && (
+                                    <MinusCircleOutlined
+                                      onClick={() => remove(name)}
+                                    />
+                                  )}
+                                </Space>
+                              )
+                            )}
+                            <AntdForm.Item>
+                              <Button
+                                type='dashed'
+                                onClick={() => add()}
+                                block
+                                icon={<PlusOutlined />}
+                              >
+                                Add Head Address
+                              </Button>
+                            </AntdForm.Item>
+                          </AntdForm.Item>
+                        </>
+                      )}
+                    </AntdForm.List>
                   </div>
+                 
                 </div>
-              </section> */}
+              </section>
 
               {/* Footer*/}
               <section className='section mt-5'>

@@ -34,34 +34,94 @@ import ScopeVerificationListV3 from "../pages/3FormV3.0/ScopeVerificationListV3"
 import ImportPdfScopeVerificationV3 from "../pages/3FormV3.0/ImportPdfScopeVerificationV3";
 import ScopeVerificationViewV3 from "../pages/3FormV3.0/ScopeVerificationViewV3";
 
-
-
-
-
 import { links } from "../utils/utils";
 // import TCTypeCropProductionList from '../pages/TCTypeCropProductionList'
 
 export const router = createBrowserRouter([
   {
-    // "/importPdfTCtype1"
     path: links.importPdfTCtype1,
     Component: ImportPdfTCtype1,
   },
   {
-    // path: "/tcType1Form",
     path: links.tcType1Form,
     Component: TcType1Form,
   },
   {
-    // path: "/tcType1List",
     path: links.tcType1List,
     Component: TcType1List,
   },
   {
-    // path: "/tcType1View/:id/",
     path: links.tcType1View,
     Component: TcType1View,
   },
+  {
+    path: links.default,
+    Component: TcType1List,
+  },
+  {
+    path: links.scopeVerificationList,
+    Component: ScopeVerificationList,
+  },
+  {
+    path: links.scopeVerificationView,
+    Component: ScopeVerificationView,
+  },
+
+  {
+    path: links.scopeVerificationForm,
+    Component: ScopeVerificationForm,
+  },
+  {
+    path: links.importPdfScopeVerification,
+    Component: ImportPdfScopeVerification,
+  },
+
+  // --------------------------------- Hemang router start -----------------------------------
+
+  // ---------------------------- Form version-3 ------------------------------------
+
+  {
+    path: links.handlingTradingScTypeFormV3_0,
+    Component: ScopeVerificationFormV3,
+  },
+  {
+    path: links.handlingTradingScTypeListV3_0,
+    Component: ScopeVerificationListV3,
+  },
+  {
+    path: links.handlingTradingScTypeViewV3_0,
+    Component: ScopeVerificationViewV3,
+  },
+  {
+    path: links.importPdfhandlingTradingScType,
+    Component: ImportPdfScopeVerificationV3,
+  },
+
+  // --------------------------------- Hemang router end -----------------------------------
+
+  {
+    path: "/PdfReview",
+    path: "/PdfReview",
+    Component: PdfReview,
+  },
+  {
+    path: "/tcType1Form*",
+    path: "/tcType1Form*",
+    Component: TcType1Form,
+  },
+]);
+
+    // path: "/handlingTradingScTypeForm",
+    // path: "/handlingTradingScTypeList",
+    // "/importPdfTCtype1"
+    // path: "/tcType1Form",
+    // path: "/tcType1List",
+    // path: "/tcType1View/:id/",
+    // path: "/scopeVerificationList",
+    // path: "/scopeVerificationView/:id/",
+    // path: "/scopeVerificationForm",
+    // path: "/importPdfScopeVerification",
+
   // {
   //   // path: "/importPdfTCtype2",
   //   path: links.importPdfTCtype2,
@@ -103,33 +163,7 @@ export const router = createBrowserRouter([
   //   path: links.tcType2List,
   //   Component: TcType2List,
   // },
-  
-  {
-    // path: "/scopeVerificationList",
-    path: links.scopeVerificationList,
-    Component: ScopeVerificationList,
-  },
-  {
-    // path: "/scopeVerificationView/:id/",
-    path: links.scopeVerificationView,
-    Component: ScopeVerificationView,
-  },
-
-  {
-    // path: "/scopeVerificationForm",
-    path: links.scopeVerificationForm,
-    Component: ScopeVerificationForm,
-  },
-  {
-    // path: "/importPdfScopeVerification",
-    path: links.importPdfScopeVerification,
-    Component: ImportPdfScopeVerification,
-  },
-
-
-  // --------------------------------- Hemang router start -----------------------------------
-
-  // {
+    // {
   //   // path: "/handlingTradingScTypeForm",
   //   path: links.handlingTradingScTypeForm,
   //   Component: ImportHandlingForm,
@@ -149,40 +183,5 @@ export const router = createBrowserRouter([
   //   path: links.importPdfhandlingTradingScType,
   //   Component: ImportPdfHandleForm,
   // },
-
-  // ---------------------------- Form version-3 ------------------------------------
-
-  {
-    // path: "/handlingTradingScTypeForm",
-    path: links.handlingTradingScTypeFormV3_0,
-    Component: ScopeVerificationFormV3,
-  },
-  {
-    // path: "/handlingTradingScTypeList",
-    path: links.handlingTradingScTypeListV3_0,
-    Component: ScopeVerificationListV3,
-  },
-  {
     // path: "/handlingTradingScTypeView/:id/",
-    path: links.handlingTradingScTypeViewV3_0,
-    Component: ScopeVerificationViewV3,
-  },
-  {
     // path: "/importPdfhandlingTradingScType",
-    path: links.importPdfhandlingTradingScType,
-    Component: ImportPdfScopeVerificationV3,
-  },
-
-  // --------------------------------- Hemang router end -----------------------------------
-
-  {
-    path: "/PdfReview",
-    path: "/PdfReview",
-    Component: PdfReview,
-  },
-  {
-    path: "/tcType1Form*",
-    path: "/tcType1Form*",
-    Component: TcType1Form,
-  },
-]);

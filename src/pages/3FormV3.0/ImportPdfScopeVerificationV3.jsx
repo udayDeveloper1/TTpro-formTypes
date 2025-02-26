@@ -561,13 +561,13 @@ const ImportPdfScopeVerificationV3 = () => {
   }
 
   const getFieldClassName = (mainName, name, field, index) => {
-    if (field === "product_component_label_grade") {
-      console.log(field);
+    // if (field === "product_component_label_grade") {
+    //   console.log(field);
 
-      console.log(form2?.getFieldValue(mainName)?.[index]);
-    }
+    //   console.log(form2?.getFieldValue(mainName)?.[index]);
+    // }
 
-    console.log('form2?.getFieldValue', form2?.getFieldValue('farm_capacity'));
+    // console.log('form2?.getFieldValue', form2?.getFieldValue('farm_capacity'));
 
     if (form2?.getFieldValue('farm_capacity') === '') {
       return 'empty_field'

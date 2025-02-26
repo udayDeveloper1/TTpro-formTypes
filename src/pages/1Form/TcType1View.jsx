@@ -895,11 +895,15 @@ audited and monitored systematically under responsibility of the certification b
                           src={ttproLogo}
                           alt='logo'
                           className='pdf_main_logo absolute left-0'
+                          height={100}
+                          width={100}
                         />
                         <img
                           src={qrCode}
                           alt='qr-code'
                           className='pdf_main_logo absolute right-0'
+                          height={80}
+                          width={80}
                         />
                         <h1 className='font-semibold text-2xl text-center'>
                           Transaction Certificate (TC)

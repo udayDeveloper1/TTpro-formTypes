@@ -9,7 +9,12 @@ import {
   Upload
 } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { createScopeCertificateScType2, extractPdfSCType2, form3submit, formFill3 } from '../../api/Form1Api'
+import {
+  createScopeCertificateScType2,
+  extractPdfSCType2,
+  form3submit,
+  formFill3
+} from '../../api/Form1Api'
 import moment from 'moment'
 import dayjs from 'dayjs'
 import Spinner from '../../layout/Spinner'
@@ -30,282 +35,232 @@ const ImportPdfScopeVerification = () => {
 
   const navigate = useNavigate()
 
-  const [defaultdata, setDefaultData] = useState({
-    id: "3d4b7724-2b6c-4d5e-a759-56b8392f317f",
-    file_name: "123.pdf",
-    extracted_data: {
-      scope_certificate: {
-        scope_certificate_number: "778",
-        scope_certificate_version: "Quae quasi ducimus ",
-        certificate_body_name: "Marvin Larsen",
-        certfied_organization_name: "Dodson Brewer Plc",
-        certfied_organization_name_native: "Gilbert Heath Inc",
-        ["textile_exchange_id(te_id)"]: "Cillum sint quis duc",
-        certified_organization_license_number: "Brown and Barker Co",
-        certified_organization_address: [
-          "Lamb and Manning Plc",
-          "Bryan and Rodgers LLC",
-          "Day Decker LLC"
-        ],
-        certified_organization_state_or_province: "Koch Knox LLC",
-        certified_organization_country_or_area: "Poole and Franklin Trading",
-        sc_standard_program: "Veniam quis volupta",
-        sc_standard_version: "Dolor officia commod",
-        product_category: "Saepe non consequatu",
-        process_category: "Sint ipsam quas et v",
-        sc_valid_untill: "20/02/2025",
-        certificate_body_licensed_by: "Enim sed optio ut q",
-        certificate_body_accredited_by: "Mollit aute numquam ",
-        inspection_body: "Alias nostrum ea vol",
-        auditors: "Ut facilis est volup"
-      },
-      products_appendix: [
-        {
-          product_number: "278",
-          product_category: "Voluptatem Similiqu",
-          product_details: "Quia adipisci omnis ",
-          material_composition: "Aperiam qui aliquip ",
-          label_grade: "Ex placeat reprehen",
-          facility_number: "349"
-        },
-      ],
-      info_above_site_index: {
-        brand_names_may_be_certified_under_this_sc: "Patricia Silva",
-        number_of_farms_certified_under_this_sc: "629",
-        number_of_farms_areas_certified_under_this_sc: "830"
-      },
-      site_appendix: {
-        facility_name: "Theodore Cole",
-        ["te-id_or_number"]: "474",
-        address_details: {
-          facility_address: [
-            "Voluptatum culpa ad",
-            "458 Cowley Road",
-            "Cumque cupidatat fug",
-            "Est ad consequatur "
-          ],
-          facility_town: "Expedita doloremque ",
-          facility_postcode: "Et duis iusto rem do",
-          facility_state_or_province: "Ipsa ea atque moles",
-          facility_country_or_area: "Laboris anim ut lore"
-        },
-        process_categories: [
-          "Aperiam sint id nih",
-          "Vel ab consectetur r",
-          "Velit enim ut quia q",
-          "Veniam nulla rerum "
-        ],
-        standards: [
-          "Possimus quidem adi",
-          "Dignissimos alias om",
-          "Et eum asperiores lo",
-          "Voluptas libero reru"
-        ],
-        farm_capacity: [
-          "Ut et consequuntur e",
-          "Minim ut eveniet mo",
-          "Ipsum dolorem expli",
-          "Deserunt molestiae i"
-        ]
-      },
-      associate_subcontractor_appendix: [
-        {
-          subcontractor_name: "Danielle Willis",
-          ["te-id_or_number"]: "895",
-          address_details: {
-            subcontractor_address: [
-              "Ut maiores ipsam rep",
-              "552 North Clarendon Court",
-              "Reiciendis repudiand"
-            ],
-            subcontractor_town: "Natus deserunt dolor",
-            subcontractor_postcode: "Id sapiente porro au",
-            subcontractor_state_or_province: "Id sit id consequat",
-            subcontractor_country_or_area: "Dolor elit cillum d"
-          },
-          process_categories: [
-            "Culpa quis qui sint",
-            "Aliquip libero anim ",
-            "In iure dignissimos "
-          ],
-          standards: [
-            "Sed error commodo cu",
-            "Perferendis asperior",
-            "At rerum dicta autem",
-            "Minima eu saepe cons"
-          ]
-        },
-      ],
-      independently_certified_subcontractor_appendix: [
-        {
-          subcontractor_name: "Preston Sosa",
-          certification_body: "Facilis id molestia",
-          expiry_date: "20/02/2025",
-          ["te-id_or_number"]: "12",
-          address_details: {
-            address: [
-              "Molestiae voluptatem",
-              "78 Hague Street"
-            ],
-            town: "Voluptatem harum pe",
-            postcode: "Nisi id commodo quia",
-            state_or_province: "In hic nostrum volup",
-            country_or_area: "Eaque necessitatibus"
-          },
-          process_categories: [
-            "Asperiores corporis ",
-            "Dignissimos exceptur"
-          ],
-          standards: [
-            "In nihil sit eum dol",
-            "Esse placeat perfer"
-          ]
-        }
-      ],
-      footer: {
-        place_of_issue: "Mollitia aut laudant",
-        date_of_issue: "20/02/2025",
-        last_updated: "20/02/2025",
-        extended_untill: "20/02/2025",
-        status: "Dolor qui sit paria",
-        name_of_authorized_signatory: "1234"
-      }
-    },
-    created_at: "2025-02-13T06:59:52.693552Z",
-    updated_at: "2025-02-13T06:59:52.694951Z"
-  }
-  )
-
   const handleResponse = response => {
-    const { extracted_data } = response;
-    console.log('response', response);
+    const { extracted_data } = response
+    console.log('response', response)
 
     if (extracted_data) {
+      const certified_organization_address =
+        extracted_data?.scope_certificate?.certified_organization_address?.map(
+          address => ({ certified_organization_: address })
+        ) || ['']
 
-      const certified_organization_address = extracted_data?.scope_certificate?.certified_organization_address?.map((address) => ({ certified_organization_: address })) || [""];
-
-      const facility_address = extracted_data?.site_appendix?.address_details?.facility_address?.map((address) => ({ facility_add: address })) || [];
-      const process_categories = extracted_data?.site_appendix?.process_categories?.map((category) => ({ process_cat: category })) || [];
-      const standards = extracted_data?.site_appendix?.standards?.map((standard) => ({ standards_: standard })) || [];
-      const farm_capacity = extracted_data?.site_appendix?.farm_capacity?.map((standard) => ({ farm_capacity_: standard })) || [];
+      const facility_address =
+        extracted_data?.site_appendix?.address_details?.facility_address?.map(
+          address => ({ facility_add: address })
+        ) || [{facility_add: ""}]
+      const process_categories =
+        extracted_data?.site_appendix?.process_categories?.map(category => ({
+          process_cat: category
+        })) || [{process_cat: ""}]
+      const standards =
+        extracted_data?.site_appendix?.standards?.map(standard => ({
+          standards_: standard
+        })) || [{standards_: ""}]
+        console.log(standards);
+        
+      const farm_capacity =
+        extracted_data?.site_appendix?.farm_capacity?.map(standard => ({
+          farm_capacity_: standard
+        })) || [{farm_capacity_: ""}]
+        console.log(farm_capacity);
 
       // console.log('facility_address', facility_address, 'process_categories', process_categories, 'standards ', standards, 'farm_capacity', farm_capacity);
 
       const associate_subcontractor_appendix = () => {
-        const result = extracted_data?.associate_subcontractor_appendix?.map(item => ({
-          associate_subcontractor_name: item?.subcontractor_name,
-          ["subcontractor_te-id_or_number"]: item?.["te-id_or_number"],
-          // address_details: {
-          subcontractor_address: item?.address_details?.subcontractor_address?.map((address) => ({ subcontractor_address_: address })) || [""],
-          subcontractor_town: item?.address_details?.subcontractor_town || "",
-          subcontractor_postcode: item?.address_details?.subcontractor_postcode || "",
-          subcontractor_state_or_province: item?.address_details?.subcontractor_state_or_province || "",
-          subcontractor_country_or_area: item?.address_details?.subcontractor_country_or_area || "",
-          // },
-          subcontractor_process_categories: item?.process_categories?.map((address) => ({ subcontractor_process_categories_: address })) || [""],// extractValues(item.subcontractor_process_categories, "subcontractor_process_categories_"),
-          subcontractor_standards: item?.standards?.map((address) => ({ subcontractor_standards_: address })) || [""] // extractValues(item.subcontractor_standards, "subcontractor_standards_")
-        }));
+        const result = extracted_data?.associate_subcontractor_appendix?.map(
+          item => ({
+            associate_subcontractor_name: item?.subcontractor_name,
+            ['subcontractor_te-id_or_number']: item?.['te-id_or_number'],
+            // address_details: {
+            subcontractor_address:
+              item?.address_details?.subcontractor_address?.map(address => ({
+                subcontractor_address_: address
+              })) || [''],
+            subcontractor_town: item?.address_details?.subcontractor_town || '',
+            subcontractor_postcode:
+              item?.address_details?.subcontractor_postcode || '',
+            subcontractor_state_or_province:
+              item?.address_details?.subcontractor_state_or_province || '',
+            subcontractor_country_or_area:
+              item?.address_details?.subcontractor_country_or_area || '',
+            // },
+            subcontractor_process_categories: item?.process_categories?.map(
+              address => ({ subcontractor_process_categories_: address })
+            ) || [''], // extractValues(item.subcontractor_process_categories, "subcontractor_process_categories_"),
+            subcontractor_standards: item?.standards?.map(address => ({
+              subcontractor_standards_: address
+            })) || [''] // extractValues(item.subcontractor_standards, "subcontractor_standards_")
+          })
+        )
 
-        return result?.length > 0 ? result : [{
-          associate_subcontractor_name: "",
-          ["subcontractor_te-id_or_number"]: "",
-          // address_details: {
-          subcontractor_address: [""],
-          subcontractor_town: "",
-          subcontractor_postcode: "",
-          subcontractor_state_or_province: "",
-          subcontractor_country_or_area: "",
-          // },
-          subcontractor_process_categories: [""],
-          subcontractor_standards: [""]
-        }]
-      };
+        return result?.length > 0
+          ? result
+          : [
+              {
+                associate_subcontractor_name: '',
+                ['subcontractor_te-id_or_number']: '',
+                // address_details: {
+                subcontractor_address: [''],
+                subcontractor_town: '',
+                subcontractor_postcode: '',
+                subcontractor_state_or_province: '',
+                subcontractor_country_or_area: '',
+                // },
+                subcontractor_process_categories: [''],
+                subcontractor_standards: ['']
+              }
+            ]
+      }
 
       const independently_certified_subcontractor_appendix = () => {
-        const result = extracted_data?.independently_certified_subcontractor_appendix?.map(item => ({
-          subcontractor_name: item.subcontractor_name,
-          certification_body: item.certification_body,
-          expiry_date: item.expiry_date === '' ? null : dayjs(item.expiry_date, 'DD/MM/YYYY'),// formatDateToDDMMYYYY(item.expiry_date),
-          ["apendix-te-id_or_number"]: item?.["te-id_or_number"],
-          // address_details: {
-          appendix_address: item?.address_details?.address?.map((address) => ({ appendix_address_: address })) || [""],// extractValues(item.appendix_address, "appendix_address_"),
-          appendix_town: item?.address_details?.town || "",
-          appendix_postcode: item?.address_details?.postcode || "",
-          appendix_state_or_province: item?.address_details?.state_or_province || "",
-          appendix_country_or_area: item?.address_details?.country_or_area || "",
-          // },
-          appendix_process_categories: item?.process_categories?.map((category) => ({ appendix_process_categories_: category })) || [""], // extractValues(item.appendix_process_categories, "appendix_process_categories_"),
-          appendix_standards: item?.process_categories?.map((category) => ({ appendix_standards_: category })) || [""], //extractValues(item.appendix_standards, "appendix_standards_")
-        }));
-        return result?.length > 0 ?
-          result :
-          [{
-            subcontractor_name: "",
-            ["apendix-te-id_or_number"]: "",
-            certification_body: "",
-            expiry_date: "",
-            appendix_address: [""],
-            appendix_town: "",
-            appendix_postcode: "",
-            appendix_state_or_province: "",
-            appendix_country_or_area: "",
-            appendix_process_categories: [""],
-            appendix_standards: [""]
-          }]
-      };
-
-      console.log('associate_subcontractor_appendix', associate_subcontractor_appendix());
-      console.log('independently_certified_subcontractor_appendix', independently_certified_subcontractor_appendix());
+        const result =
+          extracted_data?.independently_certified_subcontractor_appendix?.map(
+            item => ({
+              subcontractor_name: item.subcontractor_name,
+              certification_body: item.certification_body,
+              expiry_date:
+                item.expiry_date === ''
+                  ? null
+                  : dayjs(item.expiry_date, 'DD/MM/YYYY'), // formatDateToDDMMYYYY(item.expiry_date),
+              ['apendix-te-id_or_number']: item?.['te-id_or_number'],
+              // address_details: {
+              appendix_address: item?.address_details?.address?.map(
+                address => ({ appendix_address_: address })
+              ) || [''], // extractValues(item.appendix_address, "appendix_address_"),
+              appendix_town: item?.address_details?.town || '',
+              appendix_postcode: item?.address_details?.postcode || '',
+              appendix_state_or_province:
+                item?.address_details?.state_or_province || '',
+              appendix_country_or_area:
+                item?.address_details?.country_or_area || '',
+              // },
+              appendix_process_categories: item?.process_categories?.map(
+                category => ({ appendix_process_categories_: category })
+              ) || [''], // extractValues(item.appendix_process_categories, "appendix_process_categories_"),
+              appendix_standards: item?.process_categories?.map(category => ({
+                appendix_standards_: category
+              })) || [''] //extractValues(item.appendix_standards, "appendix_standards_")
+            })
+          )
+        return result?.length > 0
+          ? result
+          : [
+              {
+                subcontractor_name: '',
+                ['apendix-te-id_or_number']: '',
+                certification_body: '',
+                expiry_date: '',
+                appendix_address: [''],
+                appendix_town: '',
+                appendix_postcode: '',
+                appendix_state_or_province: '',
+                appendix_country_or_area: '',
+                appendix_process_categories: [''],
+                appendix_standards: ['']
+              }
+            ]
+      }
 
       form2.setFieldsValue({
-
-        file_name:  extracted_data?.scope_certificate?.file_name  || extracted_data?.scope_certificate?.certificate_body_name,
-
+        file_name:
+          extracted_data?.scope_certificate?.file_name ||
+          extracted_data?.scope_certificate?.certificate_body_name,
+        headername: extracted_data?.letterhead?.name,
+        headAddress: extracted_data?.letterhead?.address?.map(address => ({
+          headAddress_: address
+        })) || [{ headAddress_: '' }],
         // ------------------------- extracted_data -------------------------------
 
         // -----------------------------------   scope_certificate  -----------------------------
-        scope_certificate_number: extracted_data?.scope_certificate?.scope_certificate_number,
-        scope_certificate_version: extracted_data?.scope_certificate?.scope_certificate_version,
-        certificate_body_name: extracted_data?.scope_certificate?.certificate_body_name,
-        certfied_organization_name: extracted_data?.scope_certificate?.certfied_organization_name,
-        certfied_organization_name_native: extracted_data?.scope_certificate?.certfied_organization_name_native,
-        ["textile_exchange_id(te_id)"]: extracted_data?.scope_certificate?.["textile_exchange_id(te_id)"],
-        certified_organization_license_number: extracted_data?.scope_certificate?.certified_organization_license_number,
+        scope_certificate_number:
+          extracted_data?.scope_certificate?.scope_certificate_number,
+        scope_certificate_version:
+          extracted_data?.scope_certificate?.scope_certificate_version,
+        certificate_body_name:
+          extracted_data?.scope_certificate?.certificate_body_name,
+        certfied_organization_name:
+          extracted_data?.scope_certificate?.certfied_organization_name,
+        certfied_organization_name_native:
+          extracted_data?.scope_certificate?.certfied_organization_name_native,
+        ['textile_exchange_id(te_id)']:
+          extracted_data?.scope_certificate?.['textile_exchange_id(te_id)'],
+        certified_organization_license_number:
+          extracted_data?.scope_certificate
+            ?.certified_organization_license_number,
         certified_organization_address: certified_organization_address,
-        certified_organization_state_or_province: extracted_data?.scope_certificate?.certified_organization_state_or_province,
-        certified_organization_country_or_area: extracted_data?.scope_certificate?.certified_organization_country_or_area,
-        sc_standard_program: extracted_data?.scope_certificate?.sc_standard_program,
-        sc_standard_version: extracted_data?.scope_certificate?.sc_standard_version,
+        certified_organization_state_or_province:
+          extracted_data?.scope_certificate
+            ?.certified_organization_state_or_province,
+        certified_organization_country_or_area:
+          extracted_data?.scope_certificate
+            ?.certified_organization_country_or_area,
+        sc_standard_program:
+          extracted_data?.scope_certificate?.sc_standard_program,
+        sc_standard_version:
+          extracted_data?.scope_certificate?.sc_standard_version,
         product_category: extracted_data?.scope_certificate?.product_category,
         process_category: extracted_data?.scope_certificate?.process_category,
-        sc_valid_untill: extracted_data?.scope_certificate?.sc_valid_untill === '' ? null : dayjs(extracted_data?.scope_certificate?.sc_valid_untill, 'DD/MM/YYYY'),
-        certificate_body_licensed_by: extracted_data?.scope_certificate?.certificate_body_licensed_by,
-        certificate_body_accredited_by: extracted_data?.scope_certificate?.certificate_body_accredited_by,
+        sc_valid_untill:
+          extracted_data?.scope_certificate?.sc_valid_untill === ''
+            ? null
+            : dayjs(
+                extracted_data?.scope_certificate?.sc_valid_untill,
+                'DD/MM/YYYY'
+              ),
+        certificate_body_licensed_by:
+          extracted_data?.scope_certificate?.certificate_body_licensed_by,
+        certificate_body_accredited_by:
+          extracted_data?.scope_certificate?.certificate_body_accredited_by,
         inspection_body: extracted_data?.scope_certificate?.inspection_body,
         auditors: extracted_data?.scope_certificate?.auditors,
         products_appendix: extracted_data?.products_appendix,
 
-        brand_names_may_be_certified_under_this_sc: extracted_data?.info_above_site_index?.brand_names_may_be_certified_under_this_sc,
-        number_of_farms_certified_under_this_sc: extracted_data?.info_above_site_index?.number_of_farms_certified_under_this_sc,
-        number_of_farms_areas_certified_under_this_sc: extracted_data?.info_above_site_index?.number_of_farms_areas_certified_under_this_sc,
+        brand_names_may_be_certified_under_this_sc:
+          extracted_data?.info_above_site_index
+            ?.brand_names_may_be_certified_under_this_sc,
+        number_of_farms_certified_under_this_sc:
+          extracted_data?.info_above_site_index
+            ?.number_of_farms_certified_under_this_sc,
+        number_of_farms_areas_certified_under_this_sc:
+          extracted_data?.info_above_site_index
+            ?.number_of_farms_areas_certified_under_this_sc,
         facility_name: extracted_data?.site_appendix?.facility_name,
-        ["site-te-id_or_number"]: extracted_data?.site_appendix?.["te-id_or_number"],
-        facility_town: extracted_data?.site_appendix?.address_details?.facility_town,
-        facility_postcode: extracted_data?.site_appendix?.address_details?.facility_postcode,
-        facility_state_or_province: extracted_data?.site_appendix?.address_details?.facility_state_or_province,
-        facility_country_or_area: extracted_data?.site_appendix?.address_details?.facility_country_or_area,
+        ['site-te-id_or_number']:
+          extracted_data?.site_appendix?.['te-id_or_number'],
+        facility_town:
+          extracted_data?.site_appendix?.address_details?.facility_town,
+        facility_postcode:
+          extracted_data?.site_appendix?.address_details?.facility_postcode,
+        facility_state_or_province:
+          extracted_data?.site_appendix?.address_details
+            ?.facility_state_or_province,
+        facility_country_or_area:
+          extracted_data?.site_appendix?.address_details
+            ?.facility_country_or_area,
         facility_address: facility_address,
         process_categories: process_categories,
         standards: standards?.length > 0 ? standards : [],
         farm_capacity: farm_capacity?.length > 0 ? farm_capacity : [],
         associate_subcontractor_appendix: associate_subcontractor_appendix(),
-        independently_certified_subcontractor_appendix: independently_certified_subcontractor_appendix(),
+        independently_certified_subcontractor_appendix:
+          independently_certified_subcontractor_appendix(),
         place_of_issue: extracted_data?.footer?.place_of_issue,
-        date_of_issue: extracted_data?.footer?.date_of_issue === '' ? null : dayjs(extracted_data?.footer?.date_of_issue, 'DD/MM/YYYY'),
-        last_updated: extracted_data?.footer?.last_updated === '' ? null : dayjs(extracted_data?.footer?.last_updated, 'DD/MM/YYYY'),
-        extended_untill: extracted_data?.footer?.extended_untill === '' ? null : dayjs(extracted_data?.footer?.extended_untill, 'DD/MM/YYYY'),
+        date_of_issue:
+          extracted_data?.footer?.date_of_issue === ''
+            ? null
+            : dayjs(extracted_data?.footer?.date_of_issue, 'DD/MM/YYYY'),
+        last_updated:
+          extracted_data?.footer?.last_updated === ''
+            ? null
+            : dayjs(extracted_data?.footer?.last_updated, 'DD/MM/YYYY'),
+        extended_untill:
+          extracted_data?.footer?.extended_untill === ''
+            ? null
+            : dayjs(extracted_data?.footer?.extended_untill, 'DD/MM/YYYY'),
         status: extracted_data?.footer?.status,
-        name_of_authorized_signatory: extracted_data?.footer?.name_of_authorized_signatory,
+        name_of_authorized_signatory:
+          extracted_data?.footer?.name_of_authorized_signatory
       })
     } else {
       toast.success('Ectract data not available')
@@ -351,136 +306,167 @@ const ImportPdfScopeVerification = () => {
 
   useEffect(() => {
     form2.setFieldsValue({
-
       file_name: '',
       // ------------------------- extracted_data -------------------------------
 
       // -----------------------------------   scope_certificate  -----------------------------
       scope_certificate_number: '',
+      headername: '',
+      headAddress: [{ headAddress_: '' }],
       scope_certificate_version: '',
       certificate_body_name: '',
       certfied_organization_name: '',
-      certfied_organization_name_native: "",
-      ["textile_exchange_id(te_id)"]: '',
+      certfied_organization_name_native: '',
+      ['textile_exchange_id(te_id)']: '',
       certified_organization_license_number: '',
-      certified_organization_address: [""],
-      certified_organization_state_or_province: "",
-      certified_organization_country_or_area: "",
-      sc_standard_program: "",
-      sc_standard_version: "",
-      product_category: "",
-      process_category: "",
-      sc_valid_untill: "",
-      certificate_body_licensed_by: "",
-      certificate_body_accredited_by: "",
-      inspection_body: "",
-      auditors: "",
+      certified_organization_address: [''],
+      certified_organization_state_or_province: '',
+      certified_organization_country_or_area: '',
+      sc_standard_program: '',
+      sc_standard_version: '',
+      product_category: '',
+      process_category: '',
+      sc_valid_untill: '',
+      certificate_body_licensed_by: '',
+      certificate_body_accredited_by: '',
+      inspection_body: '',
+      auditors: '',
       products_appendix: [
         {
-          product_number: "",
-          product_category: "",
-          product_details: "",
-          material_composition: "",
-          label_grade: "",
-          facility_number: ""
+          product_number: '',
+          product_category: '',
+          product_details: '',
+          material_composition: '',
+          label_grade: '',
+          facility_number: ''
         }
       ],
-      brand_names_may_be_certified_under_this_sc: "",
-      number_of_farms_certified_under_this_sc: "",
-      number_of_farms_areas_certified_under_this_sc: "",
-      facility_name: "",
-      ["site-te-id_or_number"]: "",
-      facility_address: [""],
-      facility_town: "",
-      facility_postcode: "",
-      facility_state_or_province: "",
-      facility_country_or_area: "",
-      process_categories: [""],
-      standards: [""],
-      farm_capacity: [""],
-      associate_subcontractor_appendix: [{
-        associate_subcontractor_name: "",
-        ["subcontractor_te-id_or_number"]: "",
-        address_details: {
-          subcontractor_address: [""],
-          subcontractor_town: "",
-          subcontractor_postcode: "",
-          subcontractor_state_or_province: "",
-          subcontractor_country_or_area: ""
-        },
-        subcontractor_process_categories: [""],
-        subcontractor_standards: [""]
-      }],
-      independently_certified_subcontractor_appendix: [{
-        subcontractor_name: "",
-        ["apendix-te-id_or_number"]: "",
-        certification_body: "",
-        expiry_date: "",
-        appendix_address: [""],
-        appendix_town: "",
-        appendix_postcode: "",
-        appendix_state_or_province: "",
-        appendix_country_or_area: "",
-        appendix_process_categories: [""],
-        appendix_standards: [""]
-      }],
-      place_of_issue: "",
-      date_of_issue: "",
-      last_updated: "",
-      extended_untill: "",
-      status: "",
-      name_of_authorized_signatory: "",
+      brand_names_may_be_certified_under_this_sc: '',
+      number_of_farms_certified_under_this_sc: '',
+      number_of_farms_areas_certified_under_this_sc: '',
+      facility_name: '',
+      ['site-te-id_or_number']: '',
+      facility_address: [''],
+      facility_town: '',
+      facility_postcode: '',
+      facility_state_or_province: '',
+      facility_country_or_area: '',
+      process_categories: [''],
+      standards: [''],
+      farm_capacity: [''],
+      associate_subcontractor_appendix: [
+        {
+          associate_subcontractor_name: '',
+          ['subcontractor_te-id_or_number']: '',
+          address_details: {
+            subcontractor_address: [''],
+            subcontractor_town: '',
+            subcontractor_postcode: '',
+            subcontractor_state_or_province: '',
+            subcontractor_country_or_area: ''
+          },
+          subcontractor_process_categories: [''],
+          subcontractor_standards: ['']
+        }
+      ],
+      independently_certified_subcontractor_appendix: [
+        {
+          subcontractor_name: '',
+          ['apendix-te-id_or_number']: '',
+          certification_body: '',
+          expiry_date: '',
+          appendix_address: [''],
+          appendix_town: '',
+          appendix_postcode: '',
+          appendix_state_or_province: '',
+          appendix_country_or_area: '',
+          appendix_process_categories: [''],
+          appendix_standards: ['']
+        }
+      ],
+      place_of_issue: '',
+      date_of_issue: '',
+      last_updated: '',
+      extended_untill: '',
+      status: '',
+      name_of_authorized_signatory: ''
     })
   }, [form2])
 
   // Handle form submission with typed values
   const handleSubmitForm2 = async values => {
     setLoading(true)
-    console.log('values form', values);
-    const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [""];
+    const extractValues = (array, key) =>
+      array?.map(obj => Object.values(obj)[0]) || ['']
 
-    const certified_organization_address = values?.certified_organization_address?.map(obj => Object.values(obj)[0]) || [""];
-    const facility_address = values?.facility_address?.map(obj => Object.values(obj)[0]) || [""];
-    const process_categories = values?.process_categories?.map(obj => Object.values(obj)[0]) || [""];
-    const standards = values?.standards?.map(obj => Object.values(obj)[0]) || [""];
-    const farm_capacity = values?.farm_capacity?.map(obj => Object.values(obj)[0]) || [""];
+    const certified_organization_address =
+      values?.certified_organization_address?.map(
+        obj => Object.values(obj)[0]
+      ) || ['']
+    const facility_address = values?.facility_address?.map(
+      obj => Object.values(obj)[0]
+    ) || ['']
+    const process_categories = values?.process_categories?.map(
+      obj => Object.values(obj)[0]
+    ) || ['']
+    const standards = values?.standards?.map(obj => Object.values(obj)[0]) || [
+      ''
+    ]
+    const farm_capacity = values?.farm_capacity?.map(
+      obj => Object.values(obj)[0]
+    ) || ['']
 
-
-
-    const associate_subcontractor_appendix = async (data) => {
+    const associate_subcontractor_appendix = async data => {
       return values?.associate_subcontractor_appendix?.map(item => ({
-
         subcontractor_name: item?.associate_subcontractor_name,
-        ["te-id_or_number"]: item?.["subcontractor_te-id_or_number"],
+        ['te-id_or_number']: item?.['subcontractor_te-id_or_number'],
         address_details: {
-          subcontractor_address: extractValues(item.subcontractor_address, "subcontractor_address_"),
+          subcontractor_address: extractValues(
+            item.subcontractor_address,
+            'subcontractor_address_'
+          ),
           subcontractor_town: item?.subcontractor_town,
           subcontractor_postcode: item?.subcontractor_postcode,
-          subcontractor_state_or_province: item?.subcontractor_state_or_province,
+          subcontractor_state_or_province:
+            item?.subcontractor_state_or_province,
           subcontractor_country_or_area: item?.subcontractor_country_or_area
         },
-        process_categories: extractValues(item.subcontractor_process_categories, "subcontractor_process_categories_"),
-        standards: extractValues(item.subcontractor_standards, "subcontractor_standards_")
-      }));
-    };
+        process_categories: extractValues(
+          item.subcontractor_process_categories,
+          'subcontractor_process_categories_'
+        ),
+        standards: extractValues(
+          item.subcontractor_standards,
+          'subcontractor_standards_'
+        )
+      }))
+    }
 
-    const independently_certified_subcontractor_appendix = async (data) => {
-      return values?.independently_certified_subcontractor_appendix?.map(item => ({
-        subcontractor_name: item.subcontractor_name,
-        certification_body: item.certification_body,
-        expiry_date: formatDateToDDMMYYYY(item.expiry_date),
-        ["te-id_or_number"]: item?.["apendix-te-id_or_number"],
-        address_details: {
-          address: extractValues(item.appendix_address, "appendix_address_"),
-          town: item.appendix_town || "",
-          postcode: item.appendix_postcode || "",
-          state_or_province: item.appendix_state_or_province || "",
-          country_or_area: item.appendix_country_or_area || "",
-        },
-        process_categories: extractValues(item.appendix_process_categories, "appendix_process_categories_"),
-        standards: extractValues(item.appendix_standards, "appendix_standards_")
-      }));
-    };
+    const independently_certified_subcontractor_appendix = async data => {
+      return values?.independently_certified_subcontractor_appendix?.map(
+        item => ({
+          subcontractor_name: item.subcontractor_name,
+          certification_body: item.certification_body,
+          expiry_date: formatDateToDDMMYYYY(item.expiry_date),
+          ['te-id_or_number']: item?.['apendix-te-id_or_number'],
+          address_details: {
+            address: extractValues(item.appendix_address, 'appendix_address_'),
+            town: item.appendix_town || '',
+            postcode: item.appendix_postcode || '',
+            state_or_province: item.appendix_state_or_province || '',
+            country_or_area: item.appendix_country_or_area || ''
+          },
+          process_categories: extractValues(
+            item.appendix_process_categories,
+            'appendix_process_categories_'
+          ),
+          standards: extractValues(
+            item.appendix_standards,
+            'appendix_standards_'
+          )
+        })
+      )
+    }
 
     const formattedValues = {
       file_name: values?.file_name || values?.certificate_body_name,
@@ -493,82 +479,89 @@ const ImportPdfScopeVerification = () => {
           scope_certificate_version: values?.scope_certificate_version,
           certificate_body_name: values?.certificate_body_name,
           certfied_organization_name: values?.certfied_organization_name,
-          certfied_organization_name_native: values?.certfied_organization_name_native,
-          ["textile_exchange_id(te_id)"]: values?.["textile_exchange_id(te_id)"],
-          certified_organization_license_number: values?.certified_organization_license_number,
+          certfied_organization_name_native:
+            values?.certfied_organization_name_native,
+          ['textile_exchange_id(te_id)']:
+            values?.['textile_exchange_id(te_id)'],
+          certified_organization_license_number:
+            values?.certified_organization_license_number,
           certified_organization_address: certified_organization_address,
-          certified_organization_state_or_province: values?.certified_organization_state_or_province,
-          certified_organization_country_or_area: values?.certified_organization_country_or_area,
+          certified_organization_state_or_province:
+            values?.certified_organization_state_or_province,
+          certified_organization_country_or_area:
+            values?.certified_organization_country_or_area,
           sc_standard_program: values?.sc_standard_program,
           sc_standard_version: values?.sc_standard_version,
           product_category: values?.product_category,
           process_category: values?.process_category,
           sc_valid_untill: formatDateToDDMMYYYY(values?.sc_valid_untill),
           certificate_body_licensed_by: values?.certificate_body_licensed_by,
-          certificate_body_accredited_by: values?.certificate_body_accredited_by,
+          certificate_body_accredited_by:
+            values?.certificate_body_accredited_by,
           inspection_body: values?.inspection_body,
           auditors: values?.auditors
         },
         products_appendix: values?.products_appendix,
         info_above_site_index: {
-          brand_names_may_be_certified_under_this_sc: values?.brand_names_may_be_certified_under_this_sc,
-          number_of_farms_certified_under_this_sc: values?.number_of_farms_certified_under_this_sc,
-          number_of_farms_areas_certified_under_this_sc: values?.number_of_farms_areas_certified_under_this_sc,
-
+          brand_names_may_be_certified_under_this_sc:
+            values?.brand_names_may_be_certified_under_this_sc,
+          number_of_farms_certified_under_this_sc:
+            values?.number_of_farms_certified_under_this_sc,
+          number_of_farms_areas_certified_under_this_sc:
+            values?.number_of_farms_areas_certified_under_this_sc
+        },
+        letterhead: {
+          name: values?.headername,
+          address: extractValues(values.headAddress, 'headAddress_')
         },
         site_appendix: {
           facility_name: values?.facility_name,
-          ["te-id_or_number"]: values?.["site-te-id_or_number"] || '1234',
+          ['te-id_or_number']: values?.['site-te-id_or_number'] || '1234',
           address_details: {
             facility_address: facility_address,
             facility_town: values?.facility_town,
             facility_postcode: values?.facility_postcode,
             facility_state_or_province: values?.facility_state_or_province,
-            facility_country_or_area: values?.facility_country_or_area,
+            facility_country_or_area: values?.facility_country_or_area
           },
           process_categories: process_categories,
           standards: standards,
           farm_capacity: farm_capacity
         },
-        associate_subcontractor_appendix: await associate_subcontractor_appendix(),
-        independently_certified_subcontractor_appendix: await independently_certified_subcontractor_appendix(),/// array inside array manage the value 
+        associate_subcontractor_appendix:
+          await associate_subcontractor_appendix(),
+        independently_certified_subcontractor_appendix:
+          await independently_certified_subcontractor_appendix(), /// array inside array manage the value
         footer: {
           place_of_issue: values?.place_of_issue,
           date_of_issue: formatDateToDDMMYYYY(values?.date_of_issue),
           last_updated: formatDateToDDMMYYYY(values?.last_updated),
           extended_untill: formatDateToDDMMYYYY(values?.extended_untill),
           status: values?.status,
-          name_of_authorized_signatory: values?.name_of_authorized_signatory || '1234'
+          name_of_authorized_signatory:
+            values?.name_of_authorized_signatory || '1234'
         }
-      },
+      }
     }
-    console.log('formattedValues', formattedValues);
     try {
-      let response = await createScopeCertificateScType2(formattedValues);
-      console.log(response);
+      let response = await createScopeCertificateScType2(formattedValues)
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success(response?.message)
         navigate(`${links.scopeVerificationList}`)
-
       } else {
         toast.error(response?.message)
       }
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      toast.error("Something Went Wrong")
+      toast.error('Something Went Wrong')
     }
   }
 
   const getFieldClassName = (mainName, name, field, index) => {
-    if (field === "product_component_label_grade") {
-      console.log(field);
-
-      console.log(form2?.getFieldValue(mainName)?.[index]);
-    }
-
-    console.log('form2?.getFieldValue', form2?.getFieldValue('farm_capacity'));
-
+    // if (field === 'product_component_label_grade') {
+    //   console.log(form2?.getFieldValue(mainName)?.[index])
+    // }
     if (form2?.getFieldValue('farm_capacity') === '') {
       return 'empty_field'
     }
@@ -615,16 +608,29 @@ const ImportPdfScopeVerification = () => {
         })
         return updatedEmptyFields
       })
+    } else if (changedValues?.headAddress) {
+      const updatedEmptyFields = { ...emptyFields }
+      Object.keys(changedValues.headAddress)?.forEach(key => {
+        const headAddressValue = form?.getFieldValue([
+          'headAddress',
+          key,
+          'headAddress_'
+        ])
+        updatedEmptyFields[key] = !headAddressValue
+      })
+      setEmptyFields(updatedEmptyFields)
     } else if (changedValues?.certified_organization_address) {
       const updatedEmptyFields = { ...emptyFields }
-      Object.keys(changedValues.certified_organization_address)?.forEach(key => {
-        const cbAddressValue = form?.getFieldValue([
-          'certified_organization_address',
-          key,
-          'certified_organization_'
-        ])
-        updatedEmptyFields[key] = !cbAddressValue
-      })
+      Object.keys(changedValues.certified_organization_address)?.forEach(
+        key => {
+          const cbAddressValue = form?.getFieldValue([
+            'certified_organization_address',
+            key,
+            'certified_organization_'
+          ])
+          updatedEmptyFields[key] = !cbAddressValue
+        }
+      )
       setEmptyFields(updatedEmptyFields)
     } else if (changedValues?.facility_address) {
       const updatedEmptyFields = { ...emptyFields }
@@ -688,24 +694,28 @@ const ImportPdfScopeVerification = () => {
     } else if (changedValues?.associate_subcontractor_appendix) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
-        Object.keys(changedValues.associate_subcontractor_appendix)?.forEach(key => {
-          const certifiedComponent = changedValues?.associate_subcontractor_appendix?.[key]
-          if (certifiedComponent) {
-            Object?.keys(certifiedComponent)?.forEach(field => {
-              const fieldValue = certifiedComponent?.[field]
-              const fieldName = `${key}-${field}`
-              updatedEmptyFields[fieldName] = !fieldValue
-            })
+        Object.keys(changedValues.associate_subcontractor_appendix)?.forEach(
+          key => {
+            const certifiedComponent =
+              changedValues?.associate_subcontractor_appendix?.[key]
+            if (certifiedComponent) {
+              Object?.keys(certifiedComponent)?.forEach(field => {
+                const fieldValue = certifiedComponent?.[field]
+                const fieldName = `${key}-${field}`
+                updatedEmptyFields[fieldName] = !fieldValue
+              })
+            }
           }
-        })
+        )
 
-        return updatedEmptyFields;
+        return updatedEmptyFields
       })
     } else if (changedValues?.certified_raw_material_list) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
         Object.keys(changedValues.certified_raw_material_list)?.forEach(key => {
-          const certifiedRawMaterialList = changedValues?.certified_raw_material_list?.[key]
+          const certifiedRawMaterialList =
+            changedValues?.certified_raw_material_list?.[key]
           if (certifiedRawMaterialList) {
             Object?.keys(certifiedRawMaterialList)?.forEach(field => {
               const fieldValue = certifiedRawMaterialList?.[field]
@@ -720,8 +730,11 @@ const ImportPdfScopeVerification = () => {
     } else if (changedValues?.independently_certified_subcontractor_appendix) {
       setEmptyFields(prevEmptyFields => {
         const updatedEmptyFields = { ...prevEmptyFields }
-        Object.keys(changedValues?.independently_certified_subcontractor_appendix)?.forEach(key => {
-          const ProductDetail = changedValues?.independently_certified_subcontractor_appendix?.[key]
+        Object.keys(
+          changedValues?.independently_certified_subcontractor_appendix
+        )?.forEach(key => {
+          const ProductDetail =
+            changedValues?.independently_certified_subcontractor_appendix?.[key]
           if (ProductDetail) {
             Object.keys(ProductDetail)?.forEach(field => {
               const fieldValue = ProductDetail?.[field]
@@ -733,9 +746,7 @@ const ImportPdfScopeVerification = () => {
         return updatedEmptyFields
       })
     }
-
   }, 100)
-
 
   useEffect(() => {
     // handleValuesChange()
@@ -784,7 +795,7 @@ const ImportPdfScopeVerification = () => {
                       beforeUpload={beforeUpload}
                       accept='.pdf'
                       maxCount={1}
-                      onChange={info => { }}
+                      onChange={info => {}}
                     >
                       <button
                         style={{ border: 0, background: 'none' }}
@@ -812,7 +823,6 @@ const ImportPdfScopeVerification = () => {
     <>
       {' '}
       {loading2 && <Spinner message='Loading...' isActive={loading2} />}
-
       <div className='flex'>
         {' '}
         <div style={{ width: '20%' }}>
@@ -821,7 +831,6 @@ const ImportPdfScopeVerification = () => {
         </div>{' '}
         <div style={{ width: '80%' }}>
           <div className='container mx-auto py-10 px-4 md:px-0'>
-
             {/* <h2 className='text-3xl md:text-4xl font-medium mb-6 text-center'>
                 Scope Certificate Form
               </h2> */}
@@ -836,10 +845,82 @@ const ImportPdfScopeVerification = () => {
               style={{ maxWidth: 900, margin: '0 auto' }}
               onValuesChange={handleValuesChange}
             >
-
               <h1 className='text-3xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center '>
                 Scope Certificate Form
               </h1>
+
+              {/* Header*/}
+              <section className='section mt-10'>
+                <h2 className='text-2xl pb-3 section-title'>Header</h2>
+                <div className=''>
+                  <div className='flex flex-wrap md:justify-between '>
+                    {/* <AntdForm.Item
+                      label='Header Name'
+                      name='headername'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Header Name' />
+                    </AntdForm.Item> */}
+                    <CustomFormItem
+                      label='Header Name'
+                      name='headername'
+                      placeholder='Enter Header Name'
+                      component={Input}
+                    />
+                    <AntdForm.List name='headAddress'>
+                      {(fields, { add, remove }) => (
+                        <>
+                          <AntdForm.Item
+                            label='Head Address'
+                            className='w-full md:w-[49%]'
+                          >
+                            {fields.map(
+                              ({ key, name, ...restField }, index) => (
+                                <Space
+                                  key={key}
+                                  style={{ display: 'flex', marginBottom: 8 }}
+                                  align='baseline'
+                                >
+                                  <AntdForm.Item
+                                    {...restField}
+                                    name={[name, 'headAddress_']}
+                                    style={{ flex: 1 }}
+                                    className={`${getFieldClassName(
+                                      'headAddress',
+                                      name,
+                                      'headAddress_',
+                                      index
+                                    )}
+                                    `}
+                                  >
+                                    <Input placeholder={`Enter Head Address`} />
+                                  </AntdForm.Item>
+
+                                  {fields.length > 1 && (
+                                    <MinusCircleOutlined
+                                      onClick={() => remove(name)}
+                                    />
+                                  )}
+                                </Space>
+                              )
+                            )}
+                            <AntdForm.Item>
+                              <Button
+                                type='dashed'
+                                onClick={() => add()}
+                                block
+                                icon={<PlusOutlined />}
+                              >
+                                Add Head Address
+                              </Button>
+                            </AntdForm.Item>
+                          </AntdForm.Item>
+                        </>
+                      )}
+                    </AntdForm.List>
+                  </div>
+                </div>
+              </section>
 
               {/* Footer*/}
               <section className='section mt-5'>
@@ -874,7 +955,6 @@ const ImportPdfScopeVerification = () => {
                       placeholder='Enter Name Sc Status'
                       component={Input}
                     />
-
                   </div>
                   <div className='flex flex-wrap md:justify-between items-end'>
                     {/* <AntdForm.Item
@@ -912,10 +992,8 @@ const ImportPdfScopeVerification = () => {
                       placeholder='Enter Extended untill'
                       component={DatePicker}
                     />
-
                   </div>
                   <div className='flex flex-wrap md:justify-between items-end'>
-
                     {/* <AntdForm.Item
                       label='Sc Last Updated'
                       name='last_updated'
@@ -1226,7 +1304,6 @@ const ImportPdfScopeVerification = () => {
                   {/* ------------------------------- address ---------------------------------------- */}
 
                   <div className='flex md:justify-between flex-wrap'>
-
                     <AntdForm.List name='certified_organization_address'>
                       {(fields, { add, remove }) => (
                         <>
@@ -1246,7 +1323,12 @@ const ImportPdfScopeVerification = () => {
                                     {...restField}
                                     name={[name, 'certified_organization_']}
                                     style={{ flex: 1 }}
-                                    className={`${getFieldClassName('certified_organization_address', name, 'certified_organization_', index)}`}
+                                    className={`${getFieldClassName(
+                                      'certified_organization_address',
+                                      name,
+                                      'certified_organization_',
+                                      index
+                                    )}`}
                                   >
                                     <Input
                                       placeholder={`Enter Certificate Address`}
@@ -1399,7 +1481,9 @@ const ImportPdfScopeVerification = () => {
 
               {/* info_above_site_index */}
               <section className='section mt-5'>
-                <h2 className='text-2xl pb-3 section-title'>Info Above Site Index</h2>
+                <h2 className='text-2xl pb-3 section-title'>
+                  Info Above Site Index
+                </h2>
                 <div className=''>
                   {/* Old Ant Design Form Implementation */}
                   {/* 
@@ -1429,31 +1513,31 @@ const ImportPdfScopeVerification = () => {
 */}
 
                   {/* New Custom Form Implementation */}
-                  <div className="flex flex-wrap md:justify-between items-end">
+                  <div className='flex flex-wrap md:justify-between items-end'>
                     <CustomFormItem
-                      label="Brand Names May Be Certified"
-                      name="brand_names_may_be_certified_under_this_sc"
-                      placeholder="Enter Brand Names May Be Certified"
+                      label='Brand Names May Be Certified'
+                      name='brand_names_may_be_certified_under_this_sc'
+                      placeholder='Enter Brand Names May Be Certified'
                       component={Input}
-                      className="w-full md:w-[49%]"
+                      className='w-full md:w-[49%]'
                     />
 
                     <CustomFormItem
-                      label="Number Of Farms Certified"
-                      name="number_of_farms_certified_under_this_sc"
-                      placeholder="Enter Number Of Farms Certified"
+                      label='Number Of Farms Certified'
+                      name='number_of_farms_certified_under_this_sc'
+                      placeholder='Enter Number Of Farms Certified'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                   </div>
 
-                  <div className="flex flex-wrap md:justify-between items-end">
+                  <div className='flex flex-wrap md:justify-between items-end'>
                     <CustomFormItem
-                      label="Number Of Farms Areas Certified"
-                      name="number_of_farms_areas_certified_under_this_sc"
-                      placeholder="Enter Number Of Farms Areas Certified"
+                      label='Number Of Farms Areas Certified'
+                      name='number_of_farms_areas_certified_under_this_sc'
+                      placeholder='Enter Number Of Farms Areas Certified'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                   </div>
                 </div>
@@ -1461,9 +1545,7 @@ const ImportPdfScopeVerification = () => {
 
               {/* site appendix */}
               <section className='section'>
-                <h2 className=' pb-3 section-title'>
-                  Site Appendix:
-                </h2>
+                <h2 className=' pb-3 section-title'>Site Appendix:</h2>
                 <div>
                   <div className='flex md:justify-between flex-wrap'>
                     {/* <AntdForm.Item
@@ -1478,7 +1560,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_name'
                       placeholder='Enter Facility Name'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                             label='Scop Certificate Version'
@@ -1499,7 +1581,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_town'
                       placeholder='Enter Facility Town'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                   </div>
                   <div className='flex md:justify-between flex-wrap'>
@@ -1515,7 +1597,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_postcode'
                       placeholder='Enter Facility Postcode'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                       label='Facility State Or Province'
@@ -1529,7 +1611,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_state_or_province'
                       placeholder='Enter Facility State Or Province'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                   </div>
                   <div className='flex md:justify-between flex-wrap'>
@@ -1545,7 +1627,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_country_or_area'
                       placeholder='Enter Facility Country Or Area'
                       component={Input}
-                    // className="w-full md:w-[49%]"
+                      // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                       label='Site-Te Id Or Number'
@@ -1585,7 +1667,12 @@ const ImportPdfScopeVerification = () => {
                                     {...restField}
                                     name={[name, 'facility_add']}
                                     style={{ flex: 1 }}
-                                    className={`${getFieldClassName('facility_address', name, 'facility_add', index)}`}
+                                    className={`${getFieldClassName(
+                                      'facility_address',
+                                      name,
+                                      'facility_add',
+                                      index
+                                    )}`}
                                   >
                                     <Input
                                       placeholder={`Enter Facility Address`}
@@ -1634,8 +1721,13 @@ const ImportPdfScopeVerification = () => {
                                     {...restField}
                                     name={[name, 'process_cat']}
                                     style={{ flex: 1 }}
-                                    className={`${getFieldClassName('process_categories', name, 'process_cat', index)}`}
-                                  // initialValue={[{ process_cat: ' ' }]}
+                                    className={`${getFieldClassName(
+                                      'process_categories',
+                                      name,
+                                      'process_cat',
+                                      index
+                                    )}`}
+                                    // initialValue={[{ process_cat: ' ' }]}
                                   >
                                     <Input
                                       placeholder={`Enter Process Categories`}
@@ -1686,11 +1778,14 @@ const ImportPdfScopeVerification = () => {
                                     {...restField}
                                     name={[name, 'standards_']}
                                     style={{ flex: 1 }}
-                                    className={`${getFieldClassName('standards', name, 'standards_', index)}`}
+                                    className={`${getFieldClassName(
+                                      'standards',
+                                      name,
+                                      'standards_',
+                                      index
+                                    )}`}
                                   >
-                                    <Input
-                                      placeholder={`Enter Standards`}
-                                    />
+                                    <Input placeholder={`Enter Standards`} />
                                   </AntdForm.Item>
 
                                   {fields.length > 1 && (
@@ -1735,11 +1830,14 @@ const ImportPdfScopeVerification = () => {
                                     {...restField}
                                     name={[name, 'farm_capacity_']}
                                     style={{ flex: 1 }}
-                                    className={`${getFieldClassName('farm_capacity', name, 'farm_capacity_', index)}`}
+                                    className={`${getFieldClassName(
+                                      'farm_capacity',
+                                      name,
+                                      'farm_capacity_',
+                                      index
+                                    )}`}
                                   >
-                                    <Input
-                                      placeholder={`Farm Capacity`}
-                                    />
+                                    <Input placeholder={`Farm Capacity`} />
                                   </AntdForm.Item>
 
                                   {fields.length > 1 && (
@@ -1779,7 +1877,6 @@ const ImportPdfScopeVerification = () => {
                     <>
                       {fields.map(({ key, name, ...restField }, index) => (
                         <div key={key} className='pb-5 relative'>
-
                           <div className='flex md:justify-between flex-wrap'>
                             <AntdForm.Item
                               {...restField}
@@ -1870,9 +1967,73 @@ const ImportPdfScopeVerification = () => {
                           </div>
 
                           <div className='flex md:justify-between flex-wrap'>
-
                             <div className='w-full md:w-[49%]'>
                               {/* Nested List for Consignee Address */}
+                              {/* <AntdForm.List
+                                name={[name, 'subcontractor_address']}
+                                initialValue={[{ subcontractor_address_: '' }]}
+                              >
+                                {(
+                                  subFields,
+                                  { add: addSub, remove: removeSub }
+                                ) => (
+                                  <>
+                                    {subFields.map(
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
+                                        <Space
+                                          key={subKey}
+                                          style={{
+                                            display: 'flex',
+                                            marginBottom: 8
+                                          }}
+                                          align='baseline'
+                                        >
+                                          <AntdForm.Item
+                                            {...restSubField}
+                                            name={[
+                                              subName,
+                                              'subcontractor_address_'
+                                            ]}
+                                            label='Subcontractor Address :'
+                                            className={`w-full md:w-[49%] ${getNestedFieldClassName(
+                                              index,
+                                              ind,
+                                              'independently_certified_subcontractor_appendix',
+                                              'subcontractor_address',
+                                              'subcontractor_address_'
+                                            )}`}
+                                          >
+                                            <Input placeholder='Enter Subcontractor Address' />
+                                          </AntdForm.Item>
+                                          {subFields.length > 1 && (
+                                            <MinusCircleOutlined
+                                              onClick={() => removeSub(subName)}
+                                            />
+                                          )}
+                                        </Space>
+                                      )
+                                    )}
+                                    <AntdForm.Item>
+                                      <Button
+                                        type='dashed'
+                                        onClick={() => addSub()}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
+                                        Add Subcontractor Address
+                                      </Button>
+                                    </AntdForm.Item>
+                                  </>
+                                )}
+                              </AntdForm.List> */}
+
                               <AntdForm.List
                                 name={[name, 'subcontractor_address']}
                                 initialValue={[{ subcontractor_address_: '' }]}
@@ -1883,11 +2044,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -1907,7 +2071,7 @@ const ImportPdfScopeVerification = () => {
                                             className={`w-full md:w-[49%] ${getNestedFieldClassName(
                                               index,
                                               ind,
-                                              'independently_certified_subcontractor_appendix',
+                                              'associate_subcontractor_appendix',
                                               'subcontractor_address',
                                               'subcontractor_address_'
                                             )}`}
@@ -1916,9 +2080,7 @@ const ImportPdfScopeVerification = () => {
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
@@ -1940,10 +2102,13 @@ const ImportPdfScopeVerification = () => {
                             </div>
 
                             <div className='w-full md:w-[49%]'>
-                              {/* Nested List for Consignee Address */}
+                            
+
                               <AntdForm.List
                                 name={[name, 'subcontractor_process_categories']}
-                                initialValue={[{ subcontractor_process_categories_: '' }]}
+                                initialValue={[
+                                  { subcontractor_process_categories_: '' }
+                                ]}
                               >
                                 {(
                                   subFields,
@@ -1951,11 +2116,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -1970,29 +2138,26 @@ const ImportPdfScopeVerification = () => {
                                               subName,
                                               'subcontractor_process_categories_'
                                             ]}
-                                            label='Subcontractor Process Categories :'
+                                            label='subcontractor Process Categories :'
                                             // className='w-full md:w-[49%]'
                                             className={`w-full md:w-[49%] ${getNestedFieldClassName(
                                               index,
                                               ind,
-                                              'independently_certified_subcontractor_appendix',
+                                              'associate_subcontractor_appendix',
                                               'subcontractor_process_categories',
                                               'subcontractor_process_categories_'
                                             )}`}
                                           >
-                                            <Input placeholder='Enter Subcontractor Process Categories' />
+                                            <Input placeholder='Enter subcontractor Process Categories' />
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
                                       )
                                     )}
-
                                     <AntdForm.Item>
                                       <Button
                                         type='dashed'
@@ -2000,7 +2165,7 @@ const ImportPdfScopeVerification = () => {
                                         block
                                         icon={<PlusOutlined />}
                                       >
-                                        Add Subcontractor Process Categories
+                                          Add Subcontractor Process Categories
                                       </Button>
                                     </AntdForm.Item>
                                   </>
@@ -2010,12 +2175,13 @@ const ImportPdfScopeVerification = () => {
                           </div>
 
                           <div className='flex md:justify-between flex-wrap'>
-
                             <div className='w-full md:w-[49%]'>
                               {/* Nested List for Consignee Address */}
                               <AntdForm.List
                                 name={[name, 'subcontractor_standards']}
-                                initialValue={[{ subcontractor_standards_: '' }]}
+                                initialValue={[
+                                  { subcontractor_standards_: '' }
+                                ]}
                               >
                                 {(
                                   subFields,
@@ -2023,11 +2189,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -2047,7 +2216,7 @@ const ImportPdfScopeVerification = () => {
                                             className={`w-full md:w-[49%] ${getNestedFieldClassName(
                                               index,
                                               ind,
-                                              'independently_certified_subcontractor_appendix',
+                                              'associate_subcontractor_appendix',
                                               'subcontractor_standards',
                                               'subcontractor_standards_'
                                             )}`}
@@ -2056,9 +2225,7 @@ const ImportPdfScopeVerification = () => {
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
@@ -2236,7 +2403,6 @@ const ImportPdfScopeVerification = () => {
                           </div>
 
                           <div className='flex md:justify-between flex-wrap'>
-
                             <div className='w-full md:w-[49%]'>
                               {/* Nested List for Consignee Address */}
                               <AntdForm.List
@@ -2249,11 +2415,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -2282,9 +2451,7 @@ const ImportPdfScopeVerification = () => {
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
@@ -2309,7 +2476,9 @@ const ImportPdfScopeVerification = () => {
                               {/* Nested List for Consignee Address */}
                               <AntdForm.List
                                 name={[name, 'appendix_process_categories']}
-                                initialValue={[{ appendix_process_categories_: '' }]}
+                                initialValue={[
+                                  { appendix_process_categories_: '' }
+                                ]}
                               >
                                 {(
                                   subFields,
@@ -2317,11 +2486,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -2342,7 +2514,7 @@ const ImportPdfScopeVerification = () => {
                                               index,
                                               ind,
                                               'independently_certified_subcontractor_appendix',
-                                              'appendix_address',
+                                              'appendix_process_categories',
                                               'appendix_process_categories_'
                                             )}`}
                                           >
@@ -2350,9 +2522,7 @@ const ImportPdfScopeVerification = () => {
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
@@ -2375,7 +2545,6 @@ const ImportPdfScopeVerification = () => {
                           </div>
 
                           <div className='flex md:justify-between flex-wrap'>
-
                             <div className='w-full md:w-[49%]'>
                               {/* Nested List for Consignee Address */}
                               <AntdForm.List
@@ -2388,11 +2557,14 @@ const ImportPdfScopeVerification = () => {
                                 ) => (
                                   <>
                                     {subFields.map(
-                                      ({
-                                        key: subKey,
-                                        name: subName,
-                                        ...restSubField
-                                      }, ind) => (
+                                      (
+                                        {
+                                          key: subKey,
+                                          name: subName,
+                                          ...restSubField
+                                        },
+                                        ind
+                                      ) => (
                                         <Space
                                           key={subKey}
                                           style={{
@@ -2413,7 +2585,7 @@ const ImportPdfScopeVerification = () => {
                                               index,
                                               ind,
                                               'independently_certified_subcontractor_appendix',
-                                              'appendix_address',
+                                              'appendix_standards',
                                               'appendix_standards_'
                                             )}`}
                                           >
@@ -2421,9 +2593,7 @@ const ImportPdfScopeVerification = () => {
                                           </AntdForm.Item>
                                           {subFields.length > 1 && (
                                             <MinusCircleOutlined
-                                              onClick={() =>
-                                                removeSub(subName)
-                                              }
+                                              onClick={() => removeSub(subName)}
                                             />
                                           )}
                                         </Space>
@@ -2479,7 +2649,6 @@ const ImportPdfScopeVerification = () => {
                   Submit
                 </Button>
               </AntdForm.Item>
-
             </AntdForm>
           </div>
         </div>

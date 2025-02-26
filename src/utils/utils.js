@@ -18,6 +18,7 @@ export const capitalizeFirstLetter = (value) => {
 
   export const links = {
     // tc type1
+    default: "/*",
     importPdfTCtype1: "/importPdfTCtype1",
     tcType1Form: "/tcType1Form",
     tcType1List: "/tcType1List",
