@@ -441,6 +441,8 @@ export const deleteScopeCertificateScType2 = async id => {
   }
 }
 
+// ------------------------------------ form-3 Version 3.0 ----------------------------------
+
 export const createForm3ScopeCertificateV3_0 = async data => {
   try {
     const response = await axiosInstance.post(
@@ -459,6 +461,21 @@ export const createForm3ScopeCertificateV3_0 = async data => {
   }
 }
 
-
+export const deleteScopeCertificateV3_0 = async id => {
+  try {
+    const response = await axiosInstance.delete(
+      `api/scope-certificate/remove-sc-version-3-point-0/${id}/`,
+      {
+        headers: {
+        'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
 
 
