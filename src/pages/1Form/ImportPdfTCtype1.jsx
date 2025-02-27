@@ -1778,7 +1778,7 @@ import React, { useEffect, useRef, useState } from 'react'
 //           {' '}
 //           <Slidebar />
 //         </div>
-//         <div style={{ width: '80%' }}>
+//         <div style={{ width: '78%' }}>
 //           <AntdForm
 //             form={form}
 //             onFinish={handleSubmit}
@@ -1844,7 +1844,7 @@ import React, { useEffect, useRef, useState } from 'react'
 //           {' '}
 //           <Slidebar />
 //         </div>
-//         <div style={{ width: '80%' }}>
+//         <div style={{ width: '78%' }}>
 //           {' '}
 //           <div className='container mx-auto  '>
 //             <AntdForm
@@ -3868,7 +3868,7 @@ const ImportPdfTCtype1 = () => {
           {' '}
           <Slidebar />
         </div>
-        <div style={{ width: '80%' }}>
+        <div style={{ width: '78%' }}>
           <AntdForm
             form={form}
             onFinish={handleSubmit}
@@ -3934,7 +3934,7 @@ const ImportPdfTCtype1 = () => {
           {' '}
           <Slidebar />
         </div>
-        <div style={{ width: '80%' }}>
+        <div style={{ width: '78%' }}>
           {' '}
           <div className='container mx-auto  '>
             <AntdForm

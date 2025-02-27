@@ -12,6 +12,10 @@ body {
   background: linear-gradient(135deg, #f6f8ff 0%, #e9ecfc 100%);
 }
 
+body:has(.pdfDivMain){
+  background: unset !important;
+}
+
 .form1_heading {
   top: 0;
   z-index: 11;
