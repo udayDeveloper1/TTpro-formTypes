@@ -197,7 +197,10 @@ button.download_pdf_btn:hover,
 
 .left-sidebar {
   width: 350px !important;
+  /* left: -100%; */
+  transition: 0.4s ease;
 }
+
 
 .ant-tag {
   /* background: #fff; */

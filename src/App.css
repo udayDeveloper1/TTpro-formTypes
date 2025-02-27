@@ -84,3 +84,9 @@ top: 3px;
 .AddCountry{
   max-width: 49%;
 }
+
+.body{
+  overflow-x: hidden;
+}
+
+
