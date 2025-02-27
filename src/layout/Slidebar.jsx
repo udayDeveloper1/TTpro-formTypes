@@ -24,8 +24,8 @@ export const Slidebar = () => {
               to={'/tcType1Form'}
               className='text-nowrap logo-img text-center d-flex m-3 ms-5'
             >
-              <img src={Logo} className='dark-logo'   height={100}
-                          width={100} alt="" />
+              <img src={Logo} className='dark-logo' height={100}
+                width={100} alt="" />
             </Link>
 
             <div
@@ -39,8 +39,7 @@ export const Slidebar = () => {
           <nav className='sidebar-nav scroll-sidebar' data-simplebar>
             <ul id='sidebarnav'>
               <li
-                className={`sidebar-item cursor-pointer ${
-                  [
+                className={`sidebar-item cursor-pointer ${[
                     '/tcType1Form',
                     '/tcType1List',
                     '/importPdfTCtype1',
@@ -48,12 +47,11 @@ export const Slidebar = () => {
                   ].includes(path)
                     ? 'selected'
                     : ''
-                }`}
+                  }`}
               >
 
                 <a
-                  className={`sidebar-link has-arrow ${
-                    [
+                  className={`sidebar-link has-arrow ${[
                       '/tcType1Form',
                       '/tcType1List',
                       '/importPdfTCtype1',
@@ -61,7 +59,7 @@ export const Slidebar = () => {
                     ].includes(path)
                       ? 'active'
                       : ''
-                  }`}
+                    }`}
                   onClick={() => toggleMenu('form_1')}
                 >
                   <span>
@@ -76,9 +74,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/tcType1List'
-                        className={`sidebar-link ${
-                          path === '/tcType1List' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/tcType1List' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -89,11 +86,10 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/tcType1Form'
-                        className={`sidebar-link ${
-                          path === '/tcType1Form' || path === '/'
+                        className={`sidebar-link ${path === '/tcType1Form' || path === '/'
                             ? 'active'
                             : ''
-                        }`}
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -104,9 +100,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/importPdfTCtype1'
-                        className={`sidebar-link ${
-                          path === '/importPdfTCtype1' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/importPdfTCtype1' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -194,8 +189,7 @@ export const Slidebar = () => {
               </li> */}
 
               <li
-                className={`sidebar-item cursor-pointer ${
-                  [
+                className={`sidebar-item cursor-pointer ${[
                     '/scopeVerificationForm',
                     '/scopeVerificationList',
                     '/importPdfScopeVerification',
@@ -204,11 +198,10 @@ export const Slidebar = () => {
                   ].includes(path)
                     ? 'selected'
                     : ''
-                }`}
+                  }`}
               >
                 <a
-                  className={`sidebar-link has-arrow ${
-                    [
+                  className={`sidebar-link has-arrow ${[
                       '/scopeVerificationForm',
                       '/scopeVerificationList',
                       '/importPdfScopeVerification',
@@ -216,7 +209,7 @@ export const Slidebar = () => {
                     ].includes(path)
                       ? 'active'
                       : ''
-                  }`}
+                    }`}
                   onClick={() => toggleMenu('form_3')}
                 >
                   <span>
@@ -231,9 +224,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/scopeVerificationList'
-                        className={`sidebar-link ${
-                          path === '/scopeVerificationList' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/scopeVerificationList' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -244,9 +236,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/scopeVerificationForm'
-                        className={`sidebar-link ${
-                          path === '/scopeVerificationForm' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/scopeVerificationForm' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -257,9 +248,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/importPdfScopeVerification'
-                        className={`sidebar-link ${
-                          path === '/importPdfScopeVerification' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/importPdfScopeVerification' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                           {/* <i className="ti ti-circle" /> */}
@@ -271,29 +261,28 @@ export const Slidebar = () => {
                 )}
               </li>
 
+
               <li
-                className={`sidebar-item cursor-pointer ${
-                  [
+                className={`sidebar-item cursor-pointer ${[
                     '/handlingTradingScTypeForm_v3_0',
                     '/handlingTradingScTypeList_v3_0',
-                    '/importPdftCTypeCropProductionForm',
+                    '/importPdfhandlingTradingScType_v3_0',
                     '/handlingTradingScTypeView_v3_0'
                   ].includes(path)
                     ? 'selected'
                     : ''
-                }`}
+                  }`}
               >
                 <a
-                  className={`sidebar-link has-arrow ${
-                    [
+                  className={`sidebar-link has-arrow ${[
                       '/handlingTradingScTypeForm_v3_0',
                       '/handlingTradingScTypeList_v3_0',
-                      '/importPdftCTypeCropProductionForm',
-                                          '/handlingTradingScTypeView_v3_0'
+                      '/importPdfhandlingTradingScType_v3_0',
+                      '/handlingTradingScTypeView_v3_0'
                     ].includes(path)
                       ? 'active'
                       : ''
-                  }`}
+                    }`}
                   onClick={() => toggleMenu('form_4')}
                 >
                   <span>
@@ -307,9 +296,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/handlingTradingScTypeList_v3_0'
-                        className={`sidebar-link ${
-                          path === '/handlingTradingScTypeList_v3_0' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/handlingTradingScTypeList_v3_0' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                         </div>
@@ -319,9 +307,8 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/handlingTradingScTypeForm_v3_0'
-                        className={`sidebar-link ${
-                          path === '/handlingTradingScTypeForm_v3_0' ? 'active' : ''
-                        }`}
+                        className={`sidebar-link ${path === '/handlingTradingScTypeForm_v3_0' ? 'active' : ''
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                         </div>
@@ -331,11 +318,10 @@ export const Slidebar = () => {
                     <li className='sidebar-item'>
                       <Link
                         to='/importPdfhandlingTradingScType_v3_0'
-                        className={`sidebar-link ${
-                          path === '/importPdfhandlingTradingScType_v3_0'
+                        className={`sidebar-link ${path === '/importPdfhandlingTradingScType_v3_0'
                             ? 'active'
                             : ''
-                        }`}
+                          }`}
                       >
                         <div className='round-16 d-flex align-items-center justify-content-center'>
                         </div>

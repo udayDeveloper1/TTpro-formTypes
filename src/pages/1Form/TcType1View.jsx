@@ -1449,6 +1449,7 @@ audited and monitored systematically under responsibility of the certification b
                       </tr>
                     )
                   })}
+                  
                   <tr className='page_break'>
                     <td className=' border p-2 align-baseline' colSpan={4}>
                       <h5 className='font-semibold ps-3'>
@@ -1456,7 +1457,7 @@ audited and monitored systematically under responsibility of the certification b
                       </h5>
                     </td>
                   </tr>
-                  {data?.extracted_data?.certified_products?.map((ele, ind) => {
+                  {data?.extracted_data?.certified_products?.length > 0 && data?.extracted_data?.certified_products?.map((ele, ind) => {
                     return (
                       <tr className='page_break' key={ind}>
                         <td className=' p-2 align-baseline  border' colSpan={4}>

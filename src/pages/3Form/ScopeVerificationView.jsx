@@ -459,6 +459,7 @@ audited and monitored systematically under responsibility of the certification b
         {console.log(data)}
         <div style={{ width: '80%' }} className='pdfDivMain relative'>
           <div className='container rounded-xl mx-auto pe-10 my-10 '>
+
             <button
               type='primary'
               onClick={handlePrint}
@@ -507,14 +508,13 @@ audited and monitored systematically under responsibility of the certification b
                                               (ele, ind) => {
                                                 return (
                                                   <p
-                                                    className={`text-md pt_top text-center max_width_scope ${
-                                                      ind ===
-                                                      data?.letterhead?.address
-                                                        ?.length -
+                                                    className={`text-md pt_top text-center max_width_scope ${ind ===
+                                                        data?.letterhead?.address
+                                                          ?.length -
                                                         1
                                                         ? 'pb-4 mb-1'
                                                         : ''
-                                                    }`}
+                                                      }`}
                                                   >
                                                     {ele}
                                                   </p>
@@ -575,14 +575,14 @@ audited and monitored systematically under responsibility of the certification b
                                             </h3>
                                             {data?.scope_certificate
                                               ?.certified_organization_license_number && (
-                                              <h3 className='font-semibold text-center text-lg my-2'>
-                                                LICENSE NUMBER{' '}
-                                                {
-                                                  data?.scope_certificate
-                                                    ?.certified_organization_license_number
-                                                }
-                                              </h3>
-                                            )}
+                                                <h3 className='font-semibold text-center text-lg my-2'>
+                                                  LICENSE NUMBER{' '}
+                                                  {
+                                                    data?.scope_certificate
+                                                      ?.certified_organization_license_number
+                                                  }
+                                                </h3>
+                                              )}
                                             <p className='text-md pt_top text-center pt-4'>
                                               Textile Exchange-ID (TE-ID):{' '}
                                               <span className='font-semibold'>
@@ -614,7 +614,7 @@ audited and monitored systematically under responsibility of the certification b
                                         <td className='w-full' colSpan={4}>
                                           <div className='relative mb-4'>
                                             <p className='text-md pt_top text-center'>
-                                              {updatedState?.scope_certificate?.certified_organization_address?.map(
+                                              {updatedState?.scope_certificate?.certified_organization_address?.length > 0 && updatedState?.scope_certificate?.certified_organization_address?.map(
                                                 (address, index) => (
                                                   <div key={index}>
                                                     <span className=''>
@@ -735,99 +735,99 @@ audited and monitored systematically under responsibility of the certification b
                                       </tr>
                                     </tbody>
                                     <tfoot className='w-full scope_tfoot_border'>
-                            <tr className='flex page_break'>
-                              <td colSpan={4} className='pt-2 px-3'>
-                                <div className="flex w-full justify-between">
-                                  <div className="w-[50%]">  <p className='font-semibold '>
-                                  Place and Date of Issue (YYYY-MM-DD)
-                                </p>
-                                <p className='pe-5'>
-                                  {data?.footer?.place_of_issue},{' '}
-                                  {data?.footer?.date_of_issue}
-                                </p>
-                                <p className='pt-2 pe-5'>
-                                  Last Updated: {data?.footer?.last_updated}
-                                </p>
-                                <p className='pt-2 pe-5'>
-                                Extended Until: {data?.footer?.extended_untill}
-                                </p>
-                                <p className='pt-2 pe-5'> Status: {data?.footer?.status}</p>
-                                <p className='pt-2 pe-5'>  {data?.footer?.name_of_authorized_signatory}</p>
+                                      <tr className='flex page_break'>
+                                        <td colSpan={4} className='pt-2 px-3'>
+                                          <div className="flex w-full justify-between">
+                                            <div className="w-[50%]">  <p className='font-semibold '>
+                                              Place and Date of Issue (YYYY-MM-DD)
+                                            </p>
+                                              <p className='pe-5'>
+                                                {data?.footer?.place_of_issue},{' '}
+                                                {data?.footer?.date_of_issue}
+                                              </p>
+                                              <p className='pt-2 pe-5'>
+                                                Last Updated: {data?.footer?.last_updated}
+                                              </p>
+                                              <p className='pt-2 pe-5'>
+                                                Extended Until: {data?.footer?.extended_untill}
+                                              </p>
+                                              <p className='pt-2 pe-5'> Status: {data?.footer?.status}</p>
+                                              <p className='pt-2 pe-5'>  {data?.footer?.name_of_authorized_signatory}</p>
 
-                                </div>
-                                  <div className="w-[25%]">  <p className='font-semibold '>
-                                  {' '}
-                                  Certification Body
-                                </p>
-                                <p className='pt-2 '>
-                                  {
-                                    data?.scope_certificate
-                                      ?.certificate_body_name
-                                  }
-                                </p></div>
-                                  <div className="w-[25%]">  <p className='font-semibold ps-5'>Standard</p></div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr className='page_break'>
-                              <td colSpan={4} className='pt-2 px-3'>
-                                <p className='page_break'>
-                                  Certification Body Licensed by:{' '}
-                                  {
-                                    data?.scope_certificate
-                                      ?.certificate_body_licensed_by
-                                  }
-                                </p>
-                                <p className='pt-2 page_break'>
-                                  Certification Body Accredited by:{' '}
-                                  {
-                                    data?.scope_certificate
-                                      ?.certificate_body_accredited_by
-                                  }
-                                </p>
-                                <p className='pt-2 page_break'>
-                                  Inspection Body:{' '}
-                                  {data?.scope_certificate?.inspection_body}
-                                </p>
-                                <p className='pt-2 page_break'>
-                                  This scope certificate provides no proof that
-                                  any goods delivered by its holder are Organic
-                                  Content Standard (OCS) certified. Proof of
-                                  Organic Content Standard (OCS) certification
-                                  of goods delivered is provided by a valid
-                                  transaction certificate (TC) or equivalent
-                                  covering them. The issuing body may withdraw
-                                  this certificate before it expires if the
-                                  declared conformity is no longer guaranteed.
-                                  To authenticate this certificate, please visit
-                                  www.TextileExchange.org/Certificates
-                                </p>
-                                <div className='flex pb-1'>
-                                  <div className='text-end'>
-                                    <p className='text-md'>
-                                      This electronically issued document is the
-                                      valid original version.
-                                    </p>
-                                    <p className='text-md'>
-                                      Scan QR Code to verify certificate.
-                                      Authentic QR codes will link to URLs
-                                      beginning with https://os.idfl.com
-                                      otherwise contact IDFL.
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <img
-                                      src={qrCode}
-                                      alt='qr-code'
-                                      className='footerScopeCertificateLogo'
-                                      height={80}
-                                      width={80}
-                                    />
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tfoot>
+                                            </div>
+                                            <div className="w-[25%]">  <p className='font-semibold '>
+                                              {' '}
+                                              Certification Body
+                                            </p>
+                                              <p className='pt-2 '>
+                                                {
+                                                  data?.scope_certificate
+                                                    ?.certificate_body_name
+                                                }
+                                              </p></div>
+                                            <div className="w-[25%]">  <p className='font-semibold ps-5'>Standard</p></div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      <tr className='page_break'>
+                                        <td colSpan={4} className='pt-2 px-3'>
+                                          <p className='page_break'>
+                                            Certification Body Licensed by:{' '}
+                                            {
+                                              data?.scope_certificate
+                                                ?.certificate_body_licensed_by
+                                            }
+                                          </p>
+                                          <p className='pt-2 page_break'>
+                                            Certification Body Accredited by:{' '}
+                                            {
+                                              data?.scope_certificate
+                                                ?.certificate_body_accredited_by
+                                            }
+                                          </p>
+                                          <p className='pt-2 page_break'>
+                                            Inspection Body:{' '}
+                                            {data?.scope_certificate?.inspection_body}
+                                          </p>
+                                          <p className='pt-2 page_break'>
+                                            This scope certificate provides no proof that
+                                            any goods delivered by its holder are Organic
+                                            Content Standard (OCS) certified. Proof of
+                                            Organic Content Standard (OCS) certification
+                                            of goods delivered is provided by a valid
+                                            transaction certificate (TC) or equivalent
+                                            covering them. The issuing body may withdraw
+                                            this certificate before it expires if the
+                                            declared conformity is no longer guaranteed.
+                                            To authenticate this certificate, please visit
+                                            www.TextileExchange.org/Certificates
+                                          </p>
+                                          <div className='flex pb-1'>
+                                            <div className='text-end'>
+                                              <p className='text-md'>
+                                                This electronically issued document is the
+                                                valid original version.
+                                              </p>
+                                              <p className='text-md'>
+                                                Scan QR Code to verify certificate.
+                                                Authentic QR codes will link to URLs
+                                                beginning with https://os.idfl.com
+                                                otherwise contact IDFL.
+                                              </p>
+                                            </div>
+                                            <div>
+                                              <img
+                                                src={qrCode}
+                                                alt='qr-code'
+                                                className='footerScopeCertificateLogo'
+                                                height={80}
+                                                width={80}
+                                              />
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tfoot>
                                   </table>
                                 </td>
                               </tr>
@@ -849,12 +849,11 @@ audited and monitored systematically under responsibility of the certification b
                             {data?.letterhead?.address?.map((ele, ind) => {
                               return (
                                 <p
-                                  className={`text-md pt_top text-center max_width_scope ${
-                                    ind ===
-                                    data?.letterhead?.address?.length - 1
+                                  className={`text-md pt_top text-center max_width_scope ${ind ===
+                                      data?.letterhead?.address?.length - 1
                                       ? 'pb-4 mb-1'
                                       : ''
-                                  }`}
+                                    }`}
                                 >
                                   {ele}
                                 </p>
@@ -918,21 +917,22 @@ audited and monitored systematically under responsibility of the certification b
 
                       <SiteAppendixTable data={updatedState?.site_appendix} />
 
-                      <tr className='page_break'>
-                        <td className='' colSpan={4}>
-                          <h3 className='text-xl font-semibold mb-2 mt-4 mb-3'>
-                            Associated Subcontractor Appendix
-                          </h3>
-                        </td>
-                      </tr>
+                      {updatedState?.associate_subcontractor_appendix.length > 0 && (<><tr className='page_break'>
+                          <td className='' colSpan={4}>
+                            <h3 className='text-xl font-semibold mb-2 mt-4 mb-3'>
+                              Associated Subcontractor Appendix
+                            </h3>
+                          </td>
+                        </tr>
 
-                      <SubcontractorTable
-                        data={
-                          updatedState?.associate_subcontractor_appendix
-                            .length > 0 &&
-                          updatedState?.associate_subcontractor_appendix
-                        }
-                      />
+                          <SubcontractorTable
+                            data={
+                              updatedState?.associate_subcontractor_appendix
+                                .length > 0 &&
+                              updatedState?.associate_subcontractor_appendix
+                            }
+                          />
+                        </>)}
 
                       <tr className='page_break'>
                         <td className='' colSpan={4}>
@@ -952,62 +952,62 @@ audited and monitored systematically under responsibility of the certification b
                       />
                     </tbody>
                     <tfoot className='w-full scope_tfoot_border'>
-                            <tr className='flex page_break'>
-                              <td colSpan={4} className='pt-2 px-3'>
-                                <div className="flex w-full justify-between">
-                                  <div className="w-[50%]">  <p className='font-semibold '>
-                                  Place and Date of Issue (YYYY-MM-DD)
-                                </p>
-                                <p className='pe-5'>
-                                  {data?.footer?.place_of_issue},{' '}
-                                  {data?.footer?.date_of_issue}
-                                </p>
-                                <p className='pe-5'>
-                                  Last Updated: {data?.footer?.last_updated}
-                                </p>
-                                <p className='pe-5'> Extended Until: {data?.footer?.extended_untill}</p>
-                                <p className='pe-5'> Status: {data?.footer?.status}</p>
-                                <p className='pe-5'> {data?.footer?.name_of_authorized_signatory}</p>
-                                
-                                </div>
-                                  <div className="w-[25%]">  <p className='font-semibold '>
-                                  {' '}
-                                  Certification Body
-                                </p>
-                                <p className=''>
-                                  {
-                                    data?.scope_certificate
-                                      ?.certificate_body_name
-                                  }
-                                </p></div>
-                                  <div className="w-[25%]">  <p className='font-semibold ps-5'>Standard</p></div>
-                                </div>
-                                <p className='page_break'>
-                                This certificate provides no proof that any goods delivered by its holder are certified to the listed standard. Proof of certification of goods delivered is provided by a valid Transaction
-Certificate (TC) covering them.
-                                </p>
-                                <div className='flex pb-1 justify-end'>
-                                  <div className='text-end'>
-                                    <p className='text-md'>
-                                    This electronically issued document is the valid original version.
-                                    </p>
-                                    <p className='text-md'>
-                                    TE-ID {data?.["scope_certificate"]?.["textile_exchange_id(te_id)"]}
-                                    </p>
-                                  </div>
-                                  <div>
-                                    <img
-                                      src={qrCode}
-                                      alt='qr-code'
-                                      className='footerScopeCertificateLogo'
-                                      width={80}
-                                      height={80}
-                                    />
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tfoot>
+                      <tr className='flex page_break'>
+                        <td colSpan={4} className='pt-2 px-3'>
+                          <div className="flex w-full justify-between">
+                            <div className="w-[50%]">  <p className='font-semibold '>
+                              Place and Date of Issue (YYYY-MM-DD)
+                            </p>
+                              <p className='pe-5'>
+                                {data?.footer?.place_of_issue},{' '}
+                                {data?.footer?.date_of_issue}
+                              </p>
+                              <p className='pe-5'>
+                                Last Updated: {data?.footer?.last_updated}
+                              </p>
+                              <p className='pe-5'> Extended Until: {data?.footer?.extended_untill}</p>
+                              <p className='pe-5'> Status: {data?.footer?.status}</p>
+                              <p className='pe-5'> {data?.footer?.name_of_authorized_signatory}</p>
+
+                            </div>
+                            <div className="w-[25%]">  <p className='font-semibold '>
+                              {' '}
+                              Certification Body
+                            </p>
+                              <p className=''>
+                                {
+                                  data?.scope_certificate
+                                    ?.certificate_body_name
+                                }
+                              </p></div>
+                            <div className="w-[25%]">  <p className='font-semibold ps-5'>Standard</p></div>
+                          </div>
+                          <p className='page_break'>
+                            This certificate provides no proof that any goods delivered by its holder are certified to the listed standard. Proof of certification of goods delivered is provided by a valid Transaction
+                            Certificate (TC) covering them.
+                          </p>
+                          <div className='flex pb-1 justify-end'>
+                            <div className='text-end'>
+                              <p className='text-md'>
+                                This electronically issued document is the valid original version.
+                              </p>
+                              <p className='text-md'>
+                                TE-ID {data?.["scope_certificate"]?.["textile_exchange_id(te_id)"]}
+                              </p>
+                            </div>
+                            <div>
+                              <img
+                                src={qrCode}
+                                alt='qr-code'
+                                className='footerScopeCertificateLogo'
+                                width={80}
+                                height={80}
+                              />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
                   </table>
                 </tbody>
 
@@ -1017,8 +1017,9 @@ Certificate (TC) covering them.
               </table>
               {/* </div> */}
 
-             
+
             </div>
+
             {/* <div className='w-full scope_tfoot_border footerTfoot'>
                 <div className='flex w-full justify-between'>
                   <div className='w-[50%]'>

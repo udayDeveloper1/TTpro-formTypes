@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Slidebar } from '../../layout/Slidebar'
 import axiosInstance from '../../api/axiosInstance'
 import { toast } from 'react-toastify'
-import { deletePdfTcType1, deleteScopeCertificateScType2 } from '../../api/Form1Api'
+import { deletePdfTcType1, deleteScopeCertificateScType2, deleteScopeCertificateV3_0 } from '../../api/Form1Api'
 
 function ScopeVerificationListV3() {
   const dispatch = useDispatch()
@@ -27,7 +27,7 @@ function ScopeVerificationListV3() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get(`/api/scope-certificate/sc-type-one-list/`);
+        const response = await axiosInstance.get(`/api/scope-certificate/sc-version-3-point-0/`);
         console.log('response scopList', response);
         if (response?.status_code === 200 || response?.status_code === 201) {
 
@@ -45,39 +45,39 @@ function ScopeVerificationListV3() {
   }, [isDelete]);
 
   const handleView = symbol => {
-    navigate(`/scopeVerificationView/${symbol}/`)
+    navigate(`/handlingTradingScTypeView_v3_0/${symbol}/`)
     // return <NewsUpdate id={id}/>
   }
 
-   const handleDelete = id => {
+  const handleDelete = id => {
     setIsDelete(true)
-      Swal.fire({
-        title: 'Are you sure you want to delete your account?',
-        text: "",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#01c0c8',
-        cancelButtonColor: '#dc3545',
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Cancel',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // setIsDelete(true)
-          deleteScopeCertificateScType2(id).then((response) => {
-            if (response?.status_code === 200) {
-              setIsDelete(false)
-              Swal.fire({
-                title: 'Deleted!',
-                text: 'Your account has been deleted.',
-                icon: 'success',
-                confirmButtonColor: '#01c0c8',
-              });
-            }
-          })
-        }
-      });
-      // return <NewsUpdate id={id}/>
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete your account?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#01c0c8',
+      cancelButtonColor: '#dc3545',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // setIsDelete(true)
+        deleteScopeCertificateV3_0(id).then((response) => {
+          if (response?.status_code === 200) {
+            setIsDelete(false)
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Your account has been deleted.',
+              icon: 'success',
+              confirmButtonColor: '#01c0c8',
+            });
+          }
+        })
+      }
+    });
+    // return <NewsUpdate id={id}/>
+  }
 
   const columns = [
     {
@@ -105,7 +105,7 @@ function ScopeVerificationListV3() {
       render: (text, record) => (
         <Space style={{ gap: '20px' }}>
           <FontAwesomeIcon
-            style={{ fontSize: '20px' }}
+            style={{ fontSize: '20px'  ,  cursor: 'pointer'}}
             icon={faEye}
             onClick={() => {
               handleView(record.id)

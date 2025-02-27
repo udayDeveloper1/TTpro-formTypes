@@ -9,7 +9,7 @@ import {
   Upload
 } from 'antd'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { createScopeCertificateScType2, extractPdfSCType2, form3submit, formFill3 } from '../../api/Form1Api'
+import { createScopeCertificateScType2, extractPdfSCType2, extractPdfV3_0, form3submit, formFill3 } from '../../api/Form1Api'
 import moment from 'moment'
 import dayjs from 'dayjs'
 import Spinner from '../../layout/Spinner'
@@ -316,8 +316,8 @@ const ImportPdfScopeVerificationV3 = () => {
     setLoading(true)
     try {
       let fomrData = new FormData()
-      fomrData.append('sc-type-1', values.UploadPdf[0].originFileObj)
-      let response = await extractPdfSCType2(fomrData)
+      fomrData.append('pdf', values.UploadPdf[0].originFileObj)
+      let response = await extractPdfV3_0(fomrData)
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success('Pdf submitted Successfully.')
         handleResponse(response?.data)
@@ -433,7 +433,7 @@ const ImportPdfScopeVerificationV3 = () => {
     })
   }, [form2])
 
-  // Handle form submission with typed values
+  
   const handleSubmitForm2 = async values => {
     setLoading(true)
     console.log('values form', values);
@@ -542,7 +542,9 @@ const ImportPdfScopeVerificationV3 = () => {
         }
       },
     }
+
     console.log('formattedValues', formattedValues);
+
     try {
       let response = await createScopeCertificateScType2(formattedValues);
       console.log(response);
@@ -736,7 +738,6 @@ const ImportPdfScopeVerificationV3 = () => {
 
   }, 100)
 
-
   useEffect(() => {
     // handleValuesChange()
   }, [form2])
@@ -764,7 +765,7 @@ const ImportPdfScopeVerificationV3 = () => {
           >
             <section className='section'>
               <h2 className=' pb-5 section-title'>
-                Upload PDF For Scope Certificate Form
+                Upload PDF For Scope Certificate Form V3_0
               </h2>
               <div className=''>
                 <div className='flex items-center md:justify-between flex-wrap'>

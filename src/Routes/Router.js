@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
     Component: ScopeVerificationViewV3,
   },
   {
-    path: links.importPdfhandlingTradingScType,
+    path: links.importPdfhandlingTradingScTypeV3_0,
     Component: ImportPdfScopeVerificationV3,
   },
 

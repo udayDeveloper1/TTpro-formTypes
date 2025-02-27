@@ -48,22 +48,22 @@ const ImportPdfScopeVerification = () => {
       const facility_address =
         extracted_data?.site_appendix?.address_details?.facility_address?.map(
           address => ({ facility_add: address })
-        ) || [{facility_add: ""}]
+        ) || [{ facility_add: "" }]
       const process_categories =
         extracted_data?.site_appendix?.process_categories?.map(category => ({
           process_cat: category
-        })) || [{process_cat: ""}]
+        })) || [{ process_cat: "" }]
       const standards =
         extracted_data?.site_appendix?.standards?.map(standard => ({
           standards_: standard
-        })) || [{standards_: ""}]
-        console.log(standards);
-        
+        })) || [{ standards_: "" }]
+      console.log(standards);
+
       const farm_capacity =
         extracted_data?.site_appendix?.farm_capacity?.map(standard => ({
           farm_capacity_: standard
-        })) || [{farm_capacity_: ""}]
-        console.log(farm_capacity);
+        })) || [{ farm_capacity_: "" }]
+      console.log(farm_capacity);
 
       // console.log('facility_address', facility_address, 'process_categories', process_categories, 'standards ', standards, 'farm_capacity', farm_capacity);
 
@@ -97,20 +97,20 @@ const ImportPdfScopeVerification = () => {
         return result?.length > 0
           ? result
           : [
-              {
-                associate_subcontractor_name: '',
-                ['subcontractor_te-id_or_number']: '',
-                // address_details: {
-                subcontractor_address: [''],
-                subcontractor_town: '',
-                subcontractor_postcode: '',
-                subcontractor_state_or_province: '',
-                subcontractor_country_or_area: '',
-                // },
-                subcontractor_process_categories: [''],
-                subcontractor_standards: ['']
-              }
-            ]
+            {
+              associate_subcontractor_name: '',
+              ['subcontractor_te-id_or_number']: '',
+              // address_details: {
+              subcontractor_address: [''],
+              subcontractor_town: '',
+              subcontractor_postcode: '',
+              subcontractor_state_or_province: '',
+              subcontractor_country_or_area: '',
+              // },
+              subcontractor_process_categories: [''],
+              subcontractor_standards: ['']
+            }
+          ]
       }
 
       const independently_certified_subcontractor_appendix = () => {
@@ -146,20 +146,20 @@ const ImportPdfScopeVerification = () => {
         return result?.length > 0
           ? result
           : [
-              {
-                subcontractor_name: '',
-                ['apendix-te-id_or_number']: '',
-                certification_body: '',
-                expiry_date: '',
-                appendix_address: [''],
-                appendix_town: '',
-                appendix_postcode: '',
-                appendix_state_or_province: '',
-                appendix_country_or_area: '',
-                appendix_process_categories: [''],
-                appendix_standards: ['']
-              }
-            ]
+            {
+              subcontractor_name: '',
+              ['apendix-te-id_or_number']: '',
+              certification_body: '',
+              expiry_date: '',
+              appendix_address: [''],
+              appendix_town: '',
+              appendix_postcode: '',
+              appendix_state_or_province: '',
+              appendix_country_or_area: '',
+              appendix_process_categories: [''],
+              appendix_standards: ['']
+            }
+          ]
       }
 
       form2.setFieldsValue({
@@ -205,9 +205,9 @@ const ImportPdfScopeVerification = () => {
           extracted_data?.scope_certificate?.sc_valid_untill === ''
             ? null
             : dayjs(
-                extracted_data?.scope_certificate?.sc_valid_untill,
-                'DD/MM/YYYY'
-              ),
+              extracted_data?.scope_certificate?.sc_valid_untill,
+              'DD/MM/YYYY'
+            ),
         certificate_body_licensed_by:
           extracted_data?.scope_certificate?.certificate_body_licensed_by,
         certificate_body_accredited_by:
@@ -287,6 +287,9 @@ const ImportPdfScopeVerification = () => {
     setLoading(false)
   }
 
+  // const value = form.getFieldValue('sc-type-1')
+  // console.log('get value', value);
+  
   const normFile = e => {
     if (Array.isArray(e)) {
       return e
@@ -301,6 +304,8 @@ const ImportPdfScopeVerification = () => {
       return
     }
 
+    console.log('isPdf' , isPdf);
+    
     return isPdf || Upload.LIST_IGNORE
   }
 
@@ -752,6 +757,10 @@ const ImportPdfScopeVerification = () => {
     // handleValuesChange()
   }, [form2])
 
+  const values = form2.getFieldsValue('standerd');
+  console.log('form value', values);
+
+
   return formNo === '1' ? (
     <>
       {' '}
@@ -795,7 +804,7 @@ const ImportPdfScopeVerification = () => {
                       beforeUpload={beforeUpload}
                       accept='.pdf'
                       maxCount={1}
-                      onChange={info => {}}
+                      onChange={info => { }}
                     >
                       <button
                         style={{ border: 0, background: 'none' }}
@@ -1527,7 +1536,7 @@ const ImportPdfScopeVerification = () => {
                       name='number_of_farms_certified_under_this_sc'
                       placeholder='Enter Number Of Farms Certified'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                   </div>
 
@@ -1537,7 +1546,7 @@ const ImportPdfScopeVerification = () => {
                       name='number_of_farms_areas_certified_under_this_sc'
                       placeholder='Enter Number Of Farms Areas Certified'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                   </div>
                 </div>
@@ -1560,7 +1569,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_name'
                       placeholder='Enter Facility Name'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                             label='Scop Certificate Version'
@@ -1581,7 +1590,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_town'
                       placeholder='Enter Facility Town'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                   </div>
                   <div className='flex md:justify-between flex-wrap'>
@@ -1597,7 +1606,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_postcode'
                       placeholder='Enter Facility Postcode'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                       label='Facility State Or Province'
@@ -1611,7 +1620,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_state_or_province'
                       placeholder='Enter Facility State Or Province'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                   </div>
                   <div className='flex md:justify-between flex-wrap'>
@@ -1627,7 +1636,7 @@ const ImportPdfScopeVerification = () => {
                       name='facility_country_or_area'
                       placeholder='Enter Facility Country Or Area'
                       component={Input}
-                      // className="w-full md:w-[49%]"
+                    // className="w-full md:w-[49%]"
                     />
                     {/* <AntdForm.Item
                       label='Site-Te Id Or Number'
@@ -1727,7 +1736,7 @@ const ImportPdfScopeVerification = () => {
                                       'process_cat',
                                       index
                                     )}`}
-                                    // initialValue={[{ process_cat: ' ' }]}
+                                  // initialValue={[{ process_cat: ' ' }]}
                                   >
                                     <Input
                                       placeholder={`Enter Process Categories`}
@@ -2102,7 +2111,7 @@ const ImportPdfScopeVerification = () => {
                             </div>
 
                             <div className='w-full md:w-[49%]'>
-                            
+
 
                               <AntdForm.List
                                 name={[name, 'subcontractor_process_categories']}
@@ -2165,7 +2174,7 @@ const ImportPdfScopeVerification = () => {
                                         block
                                         icon={<PlusOutlined />}
                                       >
-                                          Add Subcontractor Process Categories
+                                        Add Subcontractor Process Categories
                                       </Button>
                                     </AntdForm.Item>
                                   </>
