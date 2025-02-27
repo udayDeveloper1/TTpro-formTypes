@@ -267,11 +267,13 @@ const ImportPdfHandleForm = () => {
     <>
       {loading && <Spinner message="Loading" isActive={loading} />}
       <div className="flex">
-        <div style={{ width: "20%" }}>
+     {/* <div style={{ width: "20%" }}> */}
+        <div>
           {" "}
           <Slidebar />
         </div>{" "}
-        <div style={{ width: "80%" }}>
+  {/* <div style={{ width: "80%" }}> */}
+        <div>
           <AntdForm
             form={form}
             onFinish={handleSubmit}

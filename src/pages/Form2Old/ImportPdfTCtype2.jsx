@@ -76,7 +76,6 @@
 //           ) || []
 
 //           console.log(transportDetails);
-          
 
 //         // const additionalTransportDetails =
 //         // data?.extracted_data?.transaction_details?.transport_details?.map((tag, index) => {
@@ -92,7 +91,6 @@
 //         //   additionalTransportDetails
 //         // )
 
-
 //         if (transportDetails.length === 0) {
 //           transportDetails.push({
 //             ModeOfTransport: '',
@@ -101,9 +99,7 @@
 //             vehicleNo: []
 //           })
 //         }
-        
-  
-        
+
 //         form2.setFieldsValue({
 //           UploadQrCode: [],
 //           UploadLogoImage: [],
@@ -314,7 +310,7 @@
 //   return formNo === '1' ? (
 //     <>
 //       {loading && <Spinner message='Loading...' isActive={loading} />}
-//   <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}> 
+//   <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}>
 //       <AntdForm
 //         form={form}
 //         onFinish={handleSubmit}
@@ -372,7 +368,7 @@
 //   ) : (
 //     <>
 //       {loading2 && <Spinner message='Loading...' isActive={loading2} />}{' '}
-//       <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}> 
+//       <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}>
 //       <div className='container mx-auto  '>
 //         <AntdForm
 //           form={form2}
@@ -1168,7 +1164,12 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import moment from 'moment' // Import moment.js
 // import { form1Set, form2submit, formFill1, formFill2 } from '../api/Form1Api'
-import { form1Set, form2submit, formFill1, formFill2Try } from '../../api/Form1Api'
+import {
+  form1Set,
+  form2submit,
+  formFill1,
+  formFill2Try
+} from '../../api/Form1Api'
 import { cloneDeep, forEach } from 'lodash'
 import TagInput from '../../component/Tags'
 import dayjs from 'dayjs'
@@ -1197,7 +1198,7 @@ const ImportPdfTCtype2 = () => {
       fomrData.append('pdf', values.UploadPdf[0].originFileObj)
       let datas = await formFill2Try(fomrData)
       let data = datas?.data
-      
+
       if (datas?.status_code === 200 || datas?.status_code === 201) {
         setFormNo('2')
         const transportDetails =
@@ -1205,7 +1206,7 @@ const ImportPdfTCtype2 = () => {
             transport => {
               const modeOfTransport = transport?.mode_of_transport || '' // Default to an empty string
               const transportDocument =
-                transport?.transport_document_numbers?.split(',') || [] 
+                transport?.transport_document_numbers?.split(',') || []
               const dateOfTransport = transport?.date_of_transport
                 ? dayjs(transport?.date_of_transport, 'DD/MM/YYYY')
                 : null
@@ -1249,8 +1250,7 @@ const ImportPdfTCtype2 = () => {
         // const issuedDate =
         //   data?.extracted_data?.additional_declaration_by_the_certification_body
         //     ?.issue_date
-     
-        
+
         form2.setFieldsValue({
           UploadQrCode: [],
           UploadLogoImage: [],
@@ -1319,22 +1319,26 @@ const ImportPdfTCtype2 = () => {
             'DD/MM/YYYY'
           )
         })
-          
+
         // Log or debug the updated TransportDetails
-        
+
         setTagsArray(
           allTransportDetails.map(detail => detail.TransportDocument || [])
           // allTransportDetails.map(detail =>[])
         )
-        setTags2Array(allTransportDetails.map(detail => detail?.vehicleNo?.split(/[,:;|]+/).filter(Boolean)  || []))
+        setTags2Array(
+          allTransportDetails.map(
+            detail => detail?.vehicleNo?.split(/[,:;|]+/).filter(Boolean) || []
+          )
+        )
         // setTags2Array(allTransportDetails.map(detail => []))
 
-        toast.success("Pdf submitted Successfully.")
-      }else{
-        toast.error("Something went Wrong.")
+        toast.success('Pdf submitted Successfully.')
+      } else {
+        toast.error('Something went Wrong.')
       }
     } catch (error) {
-      toast.error("Something went Wrong.")
+      toast.error('Something went Wrong.')
       console.log(error)
     }
     setLoading(false)
@@ -1359,7 +1363,6 @@ const ImportPdfTCtype2 = () => {
   const handleSubmit2 = async values => {
     setLoading2(true)
     try {
-
       // Prepare Product Details
       const productDetails =
         values?.RawMaterialDetails?.map(ele => ({
@@ -1442,13 +1445,13 @@ const ImportPdfTCtype2 = () => {
       const response = await form2submit(data)
       if (response?.status_code === 200 || response?.status_code === 201) {
         navigate('/tcType2List')
-        toast.success("Form submitted Successfully.")
-      }else{
-        toast.error("Something went Wrong.")
+        toast.success('Form submitted Successfully.')
+      } else {
+        toast.error('Something went Wrong.')
       }
     } catch (error) {
       console.error('Error during form submission:', error)
-      toast.error("Something went Wrong.")
+      toast.error('Something went Wrong.')
     }
     setLoading2(false)
   }
@@ -1464,80 +1467,98 @@ const ImportPdfTCtype2 = () => {
   return formNo === '1' ? (
     <>
       {loading && <Spinner message='Loading...' isActive={loading} />}
-  <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}> 
-      <AntdForm
-        form={form}
-        onFinish={handleSubmit}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        layout='vertical'
-        className='form_1  rounded-xl shadow-xl'
-        style={{ maxWidth: 800, margin: '0 auto' }}
-        initialValues={{ UploadPdf: [] }}
-      >
-        <section className='section'>
-          <h2 className=' pb-5 section-title'>Upload PDF For Transaction Certificate (TC) Form Type 2 Form </h2>
-          <div className=''>
-            <div className='flex items-center md:justify-between flex-wrap'>
-              <AntdForm.Item
-                label='Upload Pdf Here'
-                name='UploadPdf'
-                valuePropName='fileList'
-                getValueFromEvent={normFile}
-                className='pt-5 w-full md:w-[49%] UploadPdf'
-                rules={[
-                  { required: true, message: 'Please upload a PDF file!' }
-                ]}
-              >
-                <Upload
-                  action='/upload.do'
-                  listType='picture-card'
-                  beforeUpload={beforeUpload}
-                  accept='.pdf'
-                  maxCount={1}
-                  onChange={info => {}}
-                >
-                  <button
-                    style={{ border: 0, background: 'none' }}
-                    type='button'
+      <div className='flex'>
+        {' '}
+        {/* <div style={{ width: "20%" }}> */}
+        <div>
+          {' '}
+          <Slidebar />
+        </div>{' '}
+        {/* <div style={{ width: "80%" }}> */}
+        <div>
+          <AntdForm
+            form={form}
+            onFinish={handleSubmit}
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            layout='vertical'
+            className='form_1  rounded-xl shadow-xl'
+            style={{ maxWidth: 800, margin: '0 auto' }}
+            initialValues={{ UploadPdf: [] }}
+          >
+            <section className='section'>
+              <h2 className=' pb-5 section-title'>
+                Upload PDF For Transaction Certificate (TC) Form Type 2 Form{' '}
+              </h2>
+              <div className=''>
+                <div className='flex items-center md:justify-between flex-wrap'>
+                  <AntdForm.Item
+                    label='Upload Pdf Here'
+                    name='UploadPdf'
+                    valuePropName='fileList'
+                    getValueFromEvent={normFile}
+                    className='pt-5 w-full md:w-[49%] UploadPdf'
+                    rules={[
+                      { required: true, message: 'Please upload a PDF file!' }
+                    ]}
                   >
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload Pdf</div>
-                  </button>
-                </Upload>
-              </AntdForm.Item>
-            </div>
-          </div>
-        </section>
+                    <Upload
+                      action='/upload.do'
+                      listType='picture-card'
+                      beforeUpload={beforeUpload}
+                      accept='.pdf'
+                      maxCount={1}
+                      onChange={info => {}}
+                    >
+                      <button
+                        style={{ border: 0, background: 'none' }}
+                        type='button'
+                      >
+                        <PlusOutlined />
+                        <div style={{ marginTop: 8 }}>Upload Pdf</div>
+                      </button>
+                    </Upload>
+                  </AntdForm.Item>
+                </div>
+              </div>
+            </section>
 
-        <AntdForm.Item className='submitButtonGroup'>
-          <Button type='primary' htmlType='submit' className='submit-btn '>
-            Submit
-          </Button>
-        </AntdForm.Item>
-      </AntdForm>
-      </div>
+            <AntdForm.Item className='submitButtonGroup'>
+              <Button type='primary' htmlType='submit' className='submit-btn '>
+                Submit
+              </Button>
+            </AntdForm.Item>
+          </AntdForm>
+        </div>
       </div>
     </>
   ) : (
     <>
       {loading2 && <Spinner message='Loading...' isActive={loading2} />}{' '}
-      <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}> 
-      <div className='container mx-auto  '>
-        <AntdForm
-          form={form2}
-          onFinish={handleSubmit2}
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          layout='vertical'
-          className='form_1  rounded-xl shadow-xl'
-          style={{ maxWidth: 900, margin: '0 auto' }}
-        >
-          <h1 className='text-2xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center'>
-            Transaction Certificate (TC) Form Type 2
-          </h1>
-          {/* upload logo and qrcode */}
-          {/* <section className='section'>
+      <div className='flex'>
+        {' '}
+        {/* <div style={{ width: "20%" }}> */}
+        <div>
+          {' '}
+          <Slidebar />
+        </div>{' '}
+        {/* <div style={{ width: "80%" }}> */}
+        <div>
+          <div className='container mx-auto  '>
+            <AntdForm
+              form={form2}
+              onFinish={handleSubmit2}
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+              layout='vertical'
+              className='form_1  rounded-xl shadow-xl'
+              style={{ maxWidth: 900, margin: '0 auto' }}
+            >
+              <h1 className='text-2xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center'>
+                Transaction Certificate (TC) Form Type 2
+              </h1>
+              {/* upload logo and qrcode */}
+              {/* <section className='section'>
             <h3 className='section-title pb-0 '>Upload Logo And Qr Code: </h3>
             <div className=''>
               <div className='flex  md:justify-between flex-wrap'>
@@ -1636,656 +1657,675 @@ const ImportPdfTCtype2 = () => {
             </div>
           </section> */}
 
-          {/* certificate info */}
-          <section className='section'>
-            <h2 className=' pb-5 section-title'>
-              Certificate Body Information:
-            </h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Certificate Name'
-                  name='CertificateName'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Certificate Name' />
-                </AntdForm.Item>
-                <AntdForm.Item
-                  label='Certification Address'
-                  name='CertificationAddress'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Certification Address' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* certificate info */}
+              <section className='section'>
+                <h2 className=' pb-5 section-title'>
+                  Certificate Body Information:
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Certificate Name'
+                      name='CertificateName'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Certificate Name' />
+                    </AntdForm.Item>
+                    <AntdForm.Item
+                      label='Certification Address'
+                      name='CertificationAddress'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Certification Address' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Transaction info */}
-          <section className='section'>
-            <h2 className=' pb-5 section-title'>Transaction Certificate No:</h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Transaction Certificate No'
-                  name='TransactionCertificateNo'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Transaction Certificate No' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* Transaction info */}
+              <section className='section'>
+                <h2 className=' pb-5 section-title'>
+                  Transaction Certificate No:
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Transaction Certificate No'
+                      name='TransactionCertificateNo'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Transaction Certificate No' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Seller of Certified Products */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>
-              Seller of (Name and Address of Individual/ICS)
-            </h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Seller Name'
-                  name='SellerName'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Seller Name' />
-                </AntdForm.Item>
-                <AntdForm.Item
-                  label='Seller Address'
-                  name='SellerAddress'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Seller Address' />
-                </AntdForm.Item>
-              </div>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='PAN Number'
-                  name='SellerPAN'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter PAN Number' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* Seller of Certified Products */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  Seller of (Name and Address of Individual/ICS)
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Seller Name'
+                      name='SellerName'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Seller Name' />
+                    </AntdForm.Item>
+                    <AntdForm.Item
+                      label='Seller Address'
+                      name='SellerAddress'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Seller Address' />
+                    </AntdForm.Item>
+                  </div>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='PAN Number'
+                      name='SellerPAN'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter PAN Number' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Buyer of Certified Products */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>
-              Buyer of (Name and Address)
-            </h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Buyer Name'
-                  name='BuyerName'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Buyer Name' />
-                </AntdForm.Item>
-                <AntdForm.Item
-                  label='Buyer Address'
-                  name='BuyerAddress'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Buyer Address' />
-                </AntdForm.Item>
-              </div>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='PAN Number'
-                  name='BuyerPAN'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter PAN Number' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* Buyer of Certified Products */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  Buyer of (Name and Address)
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Buyer Name'
+                      name='BuyerName'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Buyer Name' />
+                    </AntdForm.Item>
+                    <AntdForm.Item
+                      label='Buyer Address'
+                      name='BuyerAddress'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Buyer Address' />
+                    </AntdForm.Item>
+                  </div>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='PAN Number'
+                      name='BuyerPAN'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter PAN Number' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Place Of Dispatch */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'> Place Of Dispatch</h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Place Of Dispatch'
-                  name='PlaceOfDispatch'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Place Of Dispatch' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* Place Of Dispatch */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  {' '}
+                  Place Of Dispatch
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Place Of Dispatch'
+                      name='PlaceOfDispatch'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Place Of Dispatch' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Place Of Destination */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>
-              {' '}
-              Place Of Destination
-            </h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Place Of Destination'
-                  name='PlaceOfDestination'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Place Of Destination' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
+              {/* Place Of Destination */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  {' '}
+                  Place Of Destination
+                </h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Place Of Destination'
+                      name='PlaceOfDestination'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Place Of Destination' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* NPOP Organic Compliance */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>
-              NPOP Organic Compliance
-            </h2>
-            <div className=''>
-              <AntdForm.List name='RawMaterialDetails'>
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key} className='pb-5'>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Product'
-                            name={[name, 'Product']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter Product Name' />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            label='HS Code'
-                            name={[name, 'HSCode']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter HS Code' />
-                          </AntdForm.Item>
-                        </div>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='NPOP Organic Compliance'
-                            name={[name, 'NPOPOrganicCompliance']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter NPOP Organic Compliance' />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Lot No & Quantity(in MT)'
-                            name={[name, 'LotNoQuantity']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter Lot No & Quantity(in MT)' />
-                          </AntdForm.Item>
-                        </div>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Lot No'
-                            name={[name, 'LotNo']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter Lot No' />
-                          </AntdForm.Item>
-                        </div>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <div className='w-full md:w-[49%]'>
-                            <AntdForm.List
-                              name={[name, 'TradeName']}
-                              initialValue={['']}
-                            >
-                              {(
-                                tradeNameFields,
-                                { add: addTradeName, remove: removeTradeName }
-                              ) => (
-                                <>
-                                  {tradeNameFields.map(
-                                    ({
-                                      key: tradeNameKey,
-                                      name: tradeNameName,
-                                      ...tradeNameRestField
-                                    }) => (
-                                      <div
-                                        key={tradeNameKey}
-                                        className='flex md:justify-between flex-wrap relative'
-                                      >
-                                        <AntdForm.Item
-                                          {...tradeNameRestField}
-                                          label='Trade Name'
-                                          name={[tradeNameName, 'TradeName']}
-                                          className='w-full'
+              {/* NPOP Organic Compliance */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  NPOP Organic Compliance
+                </h2>
+                <div className=''>
+                  <AntdForm.List name='RawMaterialDetails'>
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, ...restField }) => (
+                          <div key={key} className='pb-5'>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Product'
+                                name={[name, 'Product']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Product Name' />
+                              </AntdForm.Item>
+                              <AntdForm.Item
+                                {...restField}
+                                label='HS Code'
+                                name={[name, 'HSCode']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter HS Code' />
+                              </AntdForm.Item>
+                            </div>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='NPOP Organic Compliance'
+                                name={[name, 'NPOPOrganicCompliance']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter NPOP Organic Compliance' />
+                              </AntdForm.Item>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Lot No & Quantity(in MT)'
+                                name={[name, 'LotNoQuantity']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Lot No & Quantity(in MT)' />
+                              </AntdForm.Item>
+                            </div>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Lot No'
+                                name={[name, 'LotNo']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Lot No' />
+                              </AntdForm.Item>
+                            </div>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <div className='w-full md:w-[49%]'>
+                                <AntdForm.List
+                                  name={[name, 'TradeName']}
+                                  initialValue={['']}
+                                >
+                                  {(
+                                    tradeNameFields,
+                                    {
+                                      add: addTradeName,
+                                      remove: removeTradeName
+                                    }
+                                  ) => (
+                                    <>
+                                      {tradeNameFields.map(
+                                        ({
+                                          key: tradeNameKey,
+                                          name: tradeNameName,
+                                          ...tradeNameRestField
+                                        }) => (
+                                          <div
+                                            key={tradeNameKey}
+                                            className='flex md:justify-between flex-wrap relative'
+                                          >
+                                            <AntdForm.Item
+                                              {...tradeNameRestField}
+                                              label='Trade Name'
+                                              name={[
+                                                tradeNameName,
+                                                'TradeName'
+                                              ]}
+                                              className='w-full'
+                                            >
+                                              <Input placeholder='Enter Trade Name' />
+                                            </AntdForm.Item>
+                                            {tradeNameFields.length > 1 && (
+                                              <MinusCircleOutlined
+                                                className='dynamic-delete-button tradeNameDelete'
+                                                onClick={() =>
+                                                  removeTradeName(tradeNameName)
+                                                }
+                                              />
+                                            )}
+                                          </div>
+                                        )
+                                      )}
+                                      <AntdForm.Item>
+                                        <Button
+                                          type='dashed'
+                                          onClick={() => addTradeName('')}
+                                          block
+                                          icon={<PlusOutlined />}
                                         >
-                                          <Input placeholder='Enter Trade Name' />
-                                        </AntdForm.Item>
-                                        {tradeNameFields.length > 1 && (
-                                          <MinusCircleOutlined
-                                            className='dynamic-delete-button tradeNameDelete'
-                                            onClick={() =>
-                                              removeTradeName(tradeNameName)
-                                            }
-                                          />
-                                        )}
-                                      </div>
-                                    )
+                                          Add Trade Name
+                                        </Button>
+                                      </AntdForm.Item>
+                                    </>
                                   )}
-                                  <AntdForm.Item>
-                                    <Button
-                                      type='dashed'
-                                      onClick={() => addTradeName('')}
-                                      block
-                                      icon={<PlusOutlined />}
-                                    >
-                                      Add Trade Name
-                                    </Button>
-                                  </AntdForm.Item>
-                                </>
-                              )}
-                            </AntdForm.List>
+                                </AntdForm.List>
+                              </div>
+                              <div className='w-full md:w-[49%] packingDetail relative'>
+                                <AntdForm.List
+                                  {...restField}
+                                  name={[name, 'packingDetails']}
+                                >
+                                  {(
+                                    packingDetailField,
+                                    {
+                                      add: addPackingDetail,
+                                      remove: removePackingDetail
+                                    }
+                                  ) => (
+                                    <>
+                                      {packingDetailField.map(
+                                        ({
+                                          key: packingKey,
+                                          name: packingDetailName,
+                                          ...packingRestField
+                                        }) => (
+                                          <div
+                                            key={packingKey}
+                                            className='flex md:justify-between flex-wrap'
+                                          >
+                                            <AntdForm.Item
+                                              {...packingRestField}
+                                              label='Packing Detail'
+                                              name={[
+                                                packingDetailName,
+                                                'packingDetail'
+                                              ]}
+                                              className='w-full'
+                                            >
+                                              <Input placeholder='Enter Packing Detail' />
+                                            </AntdForm.Item>
+                                            {packingDetailField.length > 1 && (
+                                              <MinusCircleOutlined
+                                                className='dynamic-delete-button'
+                                                onClick={() =>
+                                                  removePackingDetail(
+                                                    packingDetailName
+                                                  )
+                                                }
+                                              />
+                                            )}
+                                          </div>
+                                        )
+                                      )}
+                                      <AntdForm.Item>
+                                        <Button
+                                          type='dashed'
+                                          onClick={() =>
+                                            addPackingDetail([
+                                              { packingDetail: '' }
+                                            ])
+                                          }
+                                          block
+                                          icon={<PlusOutlined />}
+                                        >
+                                          Add Packing Detail
+                                        </Button>
+                                      </AntdForm.Item>
+                                    </>
+                                  )}
+                                </AntdForm.List>
+                                {fields.length > 1 && (
+                                  <MinusCircleOutlined
+                                    className='dynamic-delete-button '
+                                    onClick={() => remove(name)}
+                                  />
+                                )}
+                              </div>
+                            </div>
                           </div>
-                          <div className='w-full md:w-[49%] packingDetail relative'>
-                            <AntdForm.List
-                              {...restField}
-                              name={[name, 'packingDetails']}
-                            >
-                              {(
-                                packingDetailField,
-                                {
-                                  add: addPackingDetail,
-                                  remove: removePackingDetail
-                                }
-                              ) => (
-                                <>
-                                  {packingDetailField.map(
-                                    ({
-                                      key: packingKey,
-                                      name: packingDetailName,
-                                      ...packingRestField
-                                    }) => (
-                                      <div
-                                        key={packingKey}
-                                        className='flex md:justify-between flex-wrap'
-                                      >
-                                        <AntdForm.Item
-                                          {...packingRestField}
-                                          label='Packing Detail'
-                                          name={[
-                                            packingDetailName,
-                                            'packingDetail'
-                                          ]}
-                                          className='w-full'
-                                        >
-                                          <Input placeholder='Enter Packing Detail' />
-                                        </AntdForm.Item>
-                                        {packingDetailField.length > 1 && (
-                                          <MinusCircleOutlined
-                                            className='dynamic-delete-button'
-                                            onClick={() =>
-                                              removePackingDetail(
-                                                packingDetailName
-                                              )
-                                            }
-                                          />
-                                        )}
-                                      </div>
-                                    )
-                                  )}
-                                  <AntdForm.Item>
-                                    <Button
-                                      type='dashed'
-                                      onClick={() =>
-                                        addPackingDetail([{ packingDetail: '' }])
-                                      }
-                                      block
-                                      icon={<PlusOutlined />}
-                                    >
-                                      Add Packing Detail
-                                    </Button>
-                                  </AntdForm.Item>
-                                </>
-                              )}
-                            </AntdForm.List>
+                        ))}
+                        <AntdForm.Item>
+                          <Button
+                            type='dashed'
+                            onClick={() =>
+                              add({
+                                Product: '',
+                                HSCode: '',
+                                NPOPOrganicCompliance: '',
+                                LotNoQuantity: '',
+                                LotNo: '',
+                                TradeName: '',
+                                packingDetails: [{ packingDetail: '' }]
+                              })
+                            }
+                            block
+                            icon={<PlusOutlined />}
+                          >
+                            Add Raw Material
+                          </Button>
+                        </AntdForm.Item>
+                      </>
+                    )}
+                  </AntdForm.List>
+                </div>
+              </section>
+
+              {/* Transaction Details */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  Transaction Details
+                </h2>
+                <div className='flex items-center md:justify-between flex-wrap'>
+                  <AntdForm.Item
+                    label='Order/Contact No.'
+                    name='OrderContactNo'
+                    className='w-full md:w-[49%]'
+                  >
+                    <Input placeholder='Enter Order/Contact No.' />
+                  </AntdForm.Item>
+                </div>
+                <div className='flex items-center md:justify-between flex-wrap'>
+                  <div className='ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-7ny38l'>
+                    <label
+                      htmlFor='InvoiceNoDate'
+                      className=''
+                      title='Invoice No. & Date'
+                    >
+                      Invoice No. & Date
+                    </label>
+                  </div>
+                  <AntdForm.List name='InvoiceList'>
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, ...restField }) => (
+                          <div key={key} className='pb-5 w-full relative'>
                             {fields.length > 1 && (
                               <MinusCircleOutlined
-                                className='dynamic-delete-button '
+                                className='dynamic-delete-button remove_invoiceList absolute right-0 top-0'
                                 onClick={() => remove(name)}
                               />
                             )}
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Serial No.'
+                                name={[name, 'SNo']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Serial No.' />
+                              </AntdForm.Item>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Invoice No.'
+                                name={[name, 'InvoiceNo']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Invoice No.' />
+                              </AntdForm.Item>
+                            </div>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Invoice Date'
+                                name={[name, 'InvoiceDate']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <DatePicker
+                                  className='datePickerIpnut'
+                                  format='DD/MM/YYYY'
+                                />
+                              </AntdForm.Item>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type='dashed'
-                        onClick={() =>
-                          add({
-                            Product: '',
-                            HSCode: '',
-                            NPOPOrganicCompliance: '',
-                            LotNoQuantity: '',
-                            LotNo: '',
-                            TradeName: '',
-                            packingDetails: [{ packingDetail: '' }]
-                          })
-                        }
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Raw Material
-                      </Button>
-                    </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
-            </div>
-          </section>
+                        ))}
+                        <AntdForm.Item>
+                          <Button
+                            type='dashed'
+                            onClick={() =>
+                              add({
+                                SNo: '',
+                                InvoiceNo: '',
+                                InvoiceDate: moment(new Date())
+                              })
+                            }
+                            block
+                            icon={<PlusOutlined />}
+                          >
+                            Add Invoice Details
+                          </Button>
+                        </AntdForm.Item>
+                      </>
+                    )}
+                  </AntdForm.List>
 
-          {/* Transaction Details */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>Transaction Details</h2>
-            <div className='flex items-center md:justify-between flex-wrap'>
-              <AntdForm.Item
-                label='Order/Contact No.'
-                name='OrderContactNo'
-                className='w-full md:w-[49%]'
-              >
-                <Input placeholder='Enter Order/Contact No.' />
-              </AntdForm.Item>
-            </div>
-            <div className='flex items-center md:justify-between flex-wrap'>
-              <div className='ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-7ny38l'>
-                <label
-                  htmlFor='InvoiceNoDate'
-                  className=''
-                  title='Invoice No. & Date'
-                >
-                  Invoice No. & Date
-                </label>
-              </div>
-              <AntdForm.List name='InvoiceList'>
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key} className='pb-5 w-full relative'>
-                        {fields.length > 1 && (
-                          <MinusCircleOutlined
-                            className='dynamic-delete-button remove_invoiceList absolute right-0 top-0'
-                            onClick={() => remove(name)}
-                          />
-                        )}
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Serial No.'
-                            name={[name, 'SNo']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter Serial No.' />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Invoice No.'
-                            name={[name, 'InvoiceNo']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter Invoice No.' />
-                          </AntdForm.Item>
-                        </div>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Invoice Date'
-                            name={[name, 'InvoiceDate']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <DatePicker
-                              className='datePickerIpnut'
-                              format='DD/MM/YYYY'
-                            />
-                          </AntdForm.Item>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type='dashed'
-                        onClick={() =>
-                          add({
-                            SNo: '',
-                            InvoiceNo: '',
-                            InvoiceDate: moment(new Date())
-                          })
-                        }
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Invoice Details
-                      </Button>
-                    </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
-
-              <AntdForm.List name='TransportDetails'>
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }, index) => (
-                      <div key={key} className='pb-5 w-full relative'>
-                        {fields.length > 1 && (
-                          <MinusCircleOutlined
-                            className='dynamic-delete-button remove_invoiceList absolute right-0 top-0'
+                  <AntdForm.List name='TransportDetails'>
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, ...restField }, index) => (
+                          <div key={key} className='pb-5 w-full relative'>
+                            {fields.length > 1 && (
+                              <MinusCircleOutlined
+                                className='dynamic-delete-button remove_invoiceList absolute right-0 top-0'
+                                onClick={() => {
+                                  remove(name)
+                                  // Update tagsArray and tags2Array on removal
+                                  setTagsArray(prev =>
+                                    prev.filter((_, i) => i !== index)
+                                  )
+                                  setTags2Array(prev =>
+                                    prev.filter((_, i) => i !== index)
+                                  )
+                                }}
+                              />
+                            )}
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Mode of Transport'
+                                name={[name, 'ModeOfTransport']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter Mode of Transport' />
+                              </AntdForm.Item>
+                              <AntdForm.Item
+                                {...restField}
+                                name={[name, 'TransportDocument']}
+                                label='Transport Document No.'
+                                className='w-full md:w-[49%]'
+                              >
+                                <TagInput
+                                  tags={tagsArray[index] || []}
+                                  setTags={newTags =>
+                                    setTagsArray(prev => {
+                                      const updated = [...prev]
+                                      updated[index] = newTags
+                                      return updated
+                                    })
+                                  }
+                                  name='TransportDocument'
+                                />
+                              </AntdForm.Item>
+                            </div>
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Date of Transport'
+                                name={[name, 'DateOfTransport']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <DatePicker
+                                  className='datePickerIpnut'
+                                  format='DD/MM/YYYY'
+                                />
+                              </AntdForm.Item>
+                              <AntdForm.Item
+                                {...restField}
+                                name={[name, 'vehicleNo']}
+                                label='Vehicle No.'
+                                className='w-full md:w-[49%]'
+                              >
+                                <TagInput
+                                  tags={tags2Array[index] || []}
+                                  setTags={newTags =>
+                                    setTags2Array(prev => {
+                                      const updated = [...prev]
+                                      updated[index] = newTags
+                                      return updated
+                                    })
+                                  }
+                                  name='vehicleNo'
+                                />
+                              </AntdForm.Item>
+                            </div>
+                          </div>
+                        ))}
+                        <AntdForm.Item>
+                          <Button
+                            type='dashed'
                             onClick={() => {
-                              remove(name)
-                              // Update tagsArray and tags2Array on removal
-                              setTagsArray(prev =>
-                                prev.filter((_, i) => i !== index)
-                              )
-                              setTags2Array(prev =>
-                                prev.filter((_, i) => i !== index)
-                              )
+                              add({
+                                ModeOfTransport: '',
+                                TransportDocument: [],
+                                DateOfTransport: null,
+                                vehicleNo: []
+                              })
+                              setTagsArray(prev => [...prev, []])
+                              setTags2Array(prev => [...prev, []])
                             }}
-                          />
-                        )}
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Mode of Transport'
-                            name={[name, 'ModeOfTransport']}
-                            className='w-full md:w-[49%]'
+                            block
+                            icon={<PlusOutlined />}
                           >
-                            <Input placeholder='Enter Mode of Transport' />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            name={[name, 'TransportDocument']}
-                            label='Transport Document No.'
-                            className='w-full md:w-[49%]'
+                            Add Transport Details
+                          </Button>
+                        </AntdForm.Item>
+                      </>
+                    )}
+                  </AntdForm.List>
+                </div>
+              </section>
+
+              {/* Additional Declaration by the Certification Body */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>
+                  {' '}
+                  Additional Declaration by the Certification Body
+                </h2>
+                <div className=''>
+                  <AntdForm.List name='additionalDeclaration'>
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, ...restField }) => (
+                          <div key={key} className='pb-5 w-full relative'>
+                            {/* Remove Icon */}
+                            {fields.length > 1 && (
+                              <MinusCircleOutlined
+                                className='dynamic-delete-button absolute right-0 top-0'
+                                onClick={() => remove(name)} // Removes the current declaration
+                              />
+                            )}
+                            <div className='flex md:justify-between flex-wrap'>
+                              <AntdForm.Item
+                                {...restField}
+                                label='Additional Declaration Item'
+                                name={[name, 'additionalDeclarationItem']}
+                                className='w-full md:w-[49%]'
+                              >
+                                <Input placeholder='Enter additional Declaration Item' />
+                              </AntdForm.Item>
+                            </div>
+                          </div>
+                        ))}
+                        <AntdForm.Item>
+                          <Button
+                            type='dashed'
+                            onClick={() =>
+                              add({
+                                additionalDeclarationItem: '' // Default value for new items
+                              })
+                            }
+                            block
+                            icon={<PlusOutlined />}
                           >
-                            <TagInput
-                              tags={tagsArray[index] || []}
-                              setTags={newTags =>
-                                setTagsArray(prev => {
-                                  const updated = [...prev]
-                                  updated[index] = newTags
-                                  return updated
-                                })
-                              }
-                              name='TransportDocument'
-                            />
-                          </AntdForm.Item>
-                        </div>
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Date of Transport'
-                            name={[name, 'DateOfTransport']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <DatePicker
-                              className='datePickerIpnut'
-                              format='DD/MM/YYYY'
-                            />
-                          </AntdForm.Item>
-                          <AntdForm.Item
-                            {...restField}
-                            name={[name, 'vehicleNo']}
-                            label='Vehicle No.'
-                            className='w-full md:w-[49%]'
-                          >
-                            <TagInput
-                              tags={tags2Array[index] || []}
-                              setTags={newTags =>
-                                setTags2Array(prev => {
-                                  const updated = [...prev]
-                                  updated[index] = newTags
-                                  return updated
-                                })
-                              }
-                              name='vehicleNo'
-                            />
-                          </AntdForm.Item>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type='dashed'
-                        onClick={() => {
-                          add({
-                            ModeOfTransport: '',
-                            TransportDocument: [],
-                            DateOfTransport: null,
-                            vehicleNo: []
-                          })
-                          setTagsArray(prev => [...prev, []])
-                          setTags2Array(prev => [...prev, []])
-                        }}
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Transport Details
-                      </Button>
+                            Add Declaration Item
+                          </Button>
+                        </AntdForm.Item>
+                      </>
+                    )}
+                  </AntdForm.List>
+                </div>
+              </section>
+
+              {/* Issued Date */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>Issued Date</h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Issued Date'
+                      name='IssuedDate'
+                      className='w-full md:w-[49%] '
+                    >
+                      {/* <DatePicker className='datePickerIpnut' />
+                       */}
+                      <DatePicker
+                        className=' datePickerIpnut'
+                        format='DD/MM/YYYY'
+                        //  defaultValue={defaultDate}
+                        // defaultValue={dayjs('01/01/2015', 'DD/MM/YYYY')}
+                      />
                     </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
-            </div>
-          </section>
+                  </div>
+                </div>
+              </section>
 
-          {/* Additional Declaration by the Certification Body */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>
-              {' '}
-              Additional Declaration by the Certification Body
-            </h2>
-            <div className=''>
-              <AntdForm.List name='additionalDeclaration'>
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key} className='pb-5 w-full relative'>
-                        {/* Remove Icon */}
-                        {fields.length > 1 && (
-                          <MinusCircleOutlined
-                            className='dynamic-delete-button absolute right-0 top-0'
-                            onClick={() => remove(name)} // Removes the current declaration
-                          />
-                        )}
-                        <div className='flex md:justify-between flex-wrap'>
-                          <AntdForm.Item
-                            {...restField}
-                            label='Additional Declaration Item'
-                            name={[name, 'additionalDeclarationItem']}
-                            className='w-full md:w-[49%]'
-                          >
-                            <Input placeholder='Enter additional Declaration Item' />
-                          </AntdForm.Item>
-                        </div>
-                      </div>
-                    ))}
-                    <AntdForm.Item>
-                      <Button
-                        type='dashed'
-                        onClick={() =>
-                          add({
-                            additionalDeclarationItem: '' // Default value for new items
-                          })
-                        }
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add Declaration Item
-                      </Button>
+              {/* Name and Signature of the Authorised Person */}
+              <section className='section'>
+                <h2 className='text-2xl pb-5 section-title'>Authorised Info</h2>
+                <div className=''>
+                  <div className='flex items-center md:justify-between flex-wrap'>
+                    <AntdForm.Item
+                      label='Authorised Name'
+                      name='AuthorisedName'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Authorised Name' />
                     </AntdForm.Item>
-                  </>
-                )}
-              </AntdForm.List>
-            </div>
-          </section>
+                    <AntdForm.Item
+                      label='Authorised Position'
+                      name='AuthorisedPosition'
+                      className='w-full md:w-[49%]'
+                    >
+                      <Input placeholder='Enter Authorised Position' />
+                    </AntdForm.Item>
+                  </div>
+                </div>
+              </section>
 
-          {/* Issued Date */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>Issued Date</h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Issued Date'
-                  name='IssuedDate'
-                  className='w-full md:w-[49%] '
+              <AntdForm.Item className=' submitButtonGroup'>
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  className='submit-btn '
                 >
-                  {/* <DatePicker className='datePickerIpnut' />
-                   */}
-                  <DatePicker
-                    className=' datePickerIpnut'
-                    format='DD/MM/YYYY'
-                    //  defaultValue={defaultDate}
-                    // defaultValue={dayjs('01/01/2015', 'DD/MM/YYYY')}
-                  />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
-
-          {/* Name and Signature of the Authorised Person */}
-          <section className='section'>
-            <h2 className='text-2xl pb-5 section-title'>Authorised Info</h2>
-            <div className=''>
-              <div className='flex items-center md:justify-between flex-wrap'>
-                <AntdForm.Item
-                  label='Authorised Name'
-                  name='AuthorisedName'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Authorised Name' />
-                </AntdForm.Item>
-                <AntdForm.Item
-                  label='Authorised Position'
-                  name='AuthorisedPosition'
-                  className='w-full md:w-[49%]'
-                >
-                  <Input placeholder='Enter Authorised Position' />
-                </AntdForm.Item>
-              </div>
-            </div>
-          </section>
-
-          <AntdForm.Item className=' submitButtonGroup'>
-            <Button type='primary' htmlType='submit' className='submit-btn '>
-              Submit
-            </Button>
-          </AntdForm.Item>
-        </AntdForm>
-      </div>
-      </div>
+                  Submit
+                </Button>
+              </AntdForm.Item>
+            </AntdForm>
+          </div>
+        </div>
       </div>
     </>
   )

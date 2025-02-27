@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Logo from '../assets/logo.webp'
+import { IoMenu } from "react-icons/io5";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 export const Slidebar = () => {
   let location = useLocation()
   let path = '/' + location?.pathname?.split('/')?.[1]
   const [expanded, setExpanded] = useState(false)
+
+  const [sidebar, setSidebar] = useState(true)
 
   const toggleMenu = menuName => {
     setExpanded(prev => ({
@@ -14,9 +18,14 @@ export const Slidebar = () => {
     }))
   }
 
+  const toggleSideBar = async(e) => {
+    e.preventDefault()
+    setSidebar(sidebar ? false : true)
+  }
+
   return (
     <>
-      <aside className='left-sidebar'>
+      <aside className={`left-sidebar ${sidebar ? "active" : ""}`}>
         {/* Sidebar scroll*/}
         <div>
           <div className='brand-logo d-flex align-items-center justify-content-between'>
@@ -442,8 +451,10 @@ export const Slidebar = () => {
         </div>
         {/* End Sidebar scroll*/}
       </aside>
+     <div className="">
+     <button className={`hamburger ${sidebar ? "active" : ""}`} onClick={toggleSideBar}>{sidebar ? <FaArrowLeftLong className='text-4xl' /> : <FaArrowRightLong className='text-4xl' />} </button>
+     </div>
 
-      
     </>
   )
 }

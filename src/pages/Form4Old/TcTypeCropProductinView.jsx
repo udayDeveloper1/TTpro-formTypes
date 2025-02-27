@@ -657,11 +657,13 @@ const TcTypeCropProductinView = () => {
     <>
       {" "}
       <div className="flex">
-        <div style={{ width: "20%" }}>
+     {/* <div style={{ width: "20%" }}> */}
+        <div>
           {" "}
           <Slidebar />
         </div>{" "}
-        <div style={{ width: "80%" }}>
+  {/* <div style={{ width: "80%" }}> */}
+        <div>
           {" "}
           <div className="container formList-cont border rounded-xl mx-auto  my-10 ">
             <div className="card card_list">

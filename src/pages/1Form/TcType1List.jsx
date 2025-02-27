@@ -10,15 +10,14 @@ import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Slidebar } from '../../layout/Slidebar'
 import { deletePdfTcType1 } from '../../api/Form1Api'
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 
-
-function TcType1List() {
+function TcType1List () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { pdfListData } = useSelector(state => state.userReducer)
-const [u] = useState(false)
+  const [u] = useState(false)
   useEffect(() => {
     dispatch(pdfListingApi())
   }, [])
@@ -29,32 +28,31 @@ const [u] = useState(false)
   }
 
   const handleDelete = id => {
-  
     Swal.fire({
       title: 'Are you sure you want to delete your account?',
-      text: "",
+      text: '',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#01c0c8',
       cancelButtonColor: '#dc3545',
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'Cancel',
-    }).then((result) => {
+      cancelButtonText: 'Cancel'
+    }).then(result => {
       if (result.isConfirmed) {
         // setIsDelete(true)
-        deletePdfTcType1(id).then((response) => {
+        deletePdfTcType1(id).then(response => {
           if (response?.meta?.status_code === 200) {
             // setIsDelete(false)
             Swal.fire({
               title: 'Deleted!',
               text: 'Your account has been deleted.',
               icon: 'success',
-              confirmButtonColor: '#3085d6',
-            });
+              confirmButtonColor: '#3085d6'
+            })
           }
         })
       }
-    });
+    })
     // return <NewsUpdate id={id}/>
   }
   const columns = [
@@ -103,23 +101,34 @@ const [u] = useState(false)
 
   const ipoData = pdfListData
     ? pdfListData.map((item, index) => ({
-      key: index,
-      ...item
-    }))
+        key: index,
+        ...item
+      }))
     : []
 
   return (
-    <>         <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>
-      <div style={{ width: "80%" }}><div>
-        <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
-          <h3 className='text-3xl p-5 font-bold'>Transaction Certificate (TC) List</h3>
-          <CustomTable
-            columns={columns}
-            data={ipoData}
-          />
+    <>
+      {' '}
+      <div className='flex justify-center'>
+        {' '}
+        {/* <div style={{ width: "20%" }}> */}
+        <div>
+          {' '}
+          <Slidebar />
         </div>
-      </div></div>
-    </div></>
+        {/* <div style={{ width: "80%" }}> */}
+        <div>
+          <div>
+            <div className='container formList-cont border rounded-xl mx-auto  my-10  mt-20'>
+              <h3 className='text-3xl p-5 font-bold'>
+                Transaction Certificate (TC) List
+              </h3>
+              <CustomTable columns={columns} data={ipoData} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

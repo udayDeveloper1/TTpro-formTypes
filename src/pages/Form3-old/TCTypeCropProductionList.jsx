@@ -74,8 +74,10 @@ const handleViewDetails = (id) => {
 
   return (
     <>
-       <div className='flex'><div style={{ width: "20%" }}>  <Slidebar /></div>  <div style={{ width: "80%" }}> 
-    <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
+       <div className='flex justify-center'>  {/* <div style={{ width: "20%" }}> */}
+        <div>  <Slidebar /></div>   {/* <div style={{ width: "80%" }}> */}
+        <div>
+    <div className="container formList-cont border rounded-xl mx-auto  my-10  mt-20">
         <h3 className='text-3xl p-5 font-bold'>TC Type Crop Production List</h3>
       <div className="card card_list">
         {/* {data.length > 0 ? ( */}

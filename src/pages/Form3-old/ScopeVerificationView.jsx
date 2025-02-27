@@ -109,7 +109,13 @@ const ScopeVerificationView = () => {
   }
   const recordId = data?.id
   return (
-  <> <div className='flex'>   <div style={{ width: "20%" }}>  <Slidebar /></div>      <div style={{ width: "80%" }}> <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
+  <> <div className='flex'>   
+  {/* <div style={{ width: "20%" }}> */}
+        <div>
+    <Slidebar /></div>      
+ {/* <div style={{ width: "80%" }}> */}
+        <div>
+    <div className='container formList-cont border rounded-xl mx-auto  my-10 '>
       <div className='card card_list'>
         {data ? (
           <div

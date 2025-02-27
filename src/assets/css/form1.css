@@ -36,7 +36,7 @@ body:has(.pdfDivMain){
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   padding: 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  margin: 50px auto !important;
+  margin: 100px auto 50px auto !important;
 }
 .section {
   position: relative;
@@ -199,6 +199,11 @@ button.download_pdf_btn:hover,
   width: 350px !important;
   /* left: -100%; */
   transition: 0.4s ease;
+  left: -100%
+}
+
+.left-sidebar.active{
+  left: 0
 }
 
 
@@ -258,6 +263,27 @@ button.download_pdf_btn:hover,
   padding: 25px 0;
   font-size: 20px;
   transition: 0.4s ease;
+}
+
+.hamburger{
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #01c0c8;
+  position: fixed;
+  left: 20px;
+  top: 15px;
+  background: #fff;
+  padding: 10px;
+  transition: 0.4s ease;
+
+}
+
+.hamburger svg{
+  font-size: 21px;
+}
+
+.hamburger.active{
+  left: 370px;
 }
 
 .pdfViewBtn{

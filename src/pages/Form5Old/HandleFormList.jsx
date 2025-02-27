@@ -212,12 +212,14 @@ function HandleFormList() {
       {loading && <Spinner message="Loading..." isActive={loading} />}
 
       <div>
-        <div style={{ display: "flex" }}>
-          <div style={{ width: "20%" }}>
+        <div style={{ display: "flex" }} className=" justify-center">
+         {/* <div style={{ width: "20%" }}> */}
+        <div>
             <Slidebar />
           </div>
-          <div style={{ width: "80%" }} className="">
-          <div className="container formList-cont border rounded-xl mx-auto  my-10  ">
+      {/* <div style={{ width: "80%" }}> */}
+        <div>
+          <div className="container formList-cont border rounded-xl mx-auto  my-10  mt-20">
           <h3 className='text-3xl p-5 font-bold'>  Handling and Trading SC  List</h3>
             <CustomTable
               columns={columns}

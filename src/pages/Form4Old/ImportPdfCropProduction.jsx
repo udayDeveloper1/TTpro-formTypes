@@ -1120,11 +1120,13 @@ const ImportPdfScopeProduction = () => {
       {" "}
       {loading && <Spinner message="Loading..." isActive={loading} />}
       <div className="flex">
-        <div style={{ width: "20%" }}>
+   {/* <div style={{ width: "20%" }}> */}
+        <div>
           {" "}
           <Slidebar />
         </div>{" "}
-        <div style={{ width: "80%" }}>
+      {/* <div style={{ width: "80%" }}> */}
+        <div>
           <AntdForm
             form={form}
             onFinish={handleSubmit}
@@ -1188,11 +1190,13 @@ const ImportPdfScopeProduction = () => {
     <>
       {loading2 && <Spinner message="Loading..." isActive={loading2} />}
       <div className="flex">
-        <div style={{ width: "20%" }}>
+     {/* <div style={{ width: "20%" }}> */}
+        <div>
           {" "}
           <Slidebar />
         </div>{" "}
-        <div style={{ width: "80%" }}>
+     {/* <div style={{ width: "80%" }}> */}
+        <div>
           <div className="container mx-auto py-10 px-4 md:px-0">
             <h2 className="text-3xl md:text-4xl font-medium mb-6 text-center">
               SC Crop and Production Form
