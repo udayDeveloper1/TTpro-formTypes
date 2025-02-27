@@ -3827,11 +3827,11 @@ const ImportPdfTCtype1 = () => {
   }, 100)
 
   const getFieldClassName = (mainName, name, field, index) => {
-    if (field === "product_component_label_grade") {
-      console.log(field);
+    // if (field === "product_component_label_grade") {
+    //   console.log(field);
 
-      console.log(form2?.getFieldValue(mainName)?.[index]);
-    }
+    //   console.log(form2?.getFieldValue(mainName)?.[index]);
+    // }
 
     return emptyFields[`${name}-${field}`] ||
       (form2?.getFieldValue(mainName)?.[index]?.[field] === '' &&

@@ -368,6 +368,31 @@ button.download_pdf_btn:hover,
   transform: translateY(-50%);
 }
 
+.pdf_main_logo__scope {
+  top: 0;
+  transform: unset;
+  width: 80px;
+  right: -20px;
+}
+
+.max_width_scope{
+  max-width: 430px;
+  margin: auto;
+  font-size: 12px;
+  line-height: 120%;
+}
+
+.scope_veriofication_logo{
+  width: 100px;
+  height: auto;
+  top: 10px;
+  left: -20px;
+}
+
+.footerScopeCertificateLogo{
+  max-width: 50px;
+}
+
 .pt_top {
   padding-top: 3px;
 }
@@ -382,6 +407,14 @@ button.download_pdf_btn:hover,
 
 .pdfTable_div .border_light{
   border-color: #0000003b !important;
+}
+
+.pdfTable_div .scope_verification_border{
+  border: 2px solid #0078BA !important;
+}
+
+.pdfTable_div .scope_verification_border_2{
+  border: 1px solid #0078BA !important;
 }
 
 .pdfTable thead,
@@ -438,6 +471,9 @@ button.download_pdf_btn:hover,
 
 
 @media print {
+
+  
+
   .sidebar_pdf, .pdfViewBtn {
     display: none !important;
   }
@@ -455,10 +491,21 @@ button.download_pdf_btn:hover,
     break-inside: avoid;
     page-break-before: auto;
   }
+
+  .page_break_force{
+    page-break-before:always;
+  }
+  .page_break_after{
+    page-break-after:always;
+  }
   a[href]:after {
     content: " (" attr(href) ") ";
     font-size: 12px;
     color: blue;
+  }
+
+  .scope_tfoot_border{
+    border-top: unset !important;
   }
 
   .pdfDivMain tfoot {
@@ -499,6 +546,37 @@ button.download_pdf_btn:hover,
     /* margin: 20mm; */
 
      /* border: 6px double #004080;  */
+  }
+
+  .scope_table  {
+    page-break-inside: auto;
+  }
+  
+  .scope_table  tfoot {
+    display: table-footer-group;
+  }
+
+  .page_break_above{
+    page-break-before: always;
+  }
+
+  .footerTfoot {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    height: max-content; /* Adjust as needed */
+    background: white; /* Ensure visibility */
+    padding: 10px;
+    box-sizing: border-box;
+    margin: auto;
+    display: block;
+  }
+
+ 
+
+  .pad_bottom_scope_table {
   }
 }
  

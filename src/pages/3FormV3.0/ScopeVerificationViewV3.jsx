@@ -239,7 +239,6 @@ audited and monitored systematically under responsibility of the certification b
 
   const DynamicTable = ({ data }) => {
     if (!data || data.length === 0) return <p>No data available</p>;
-    // Extract headers dynamically from object keys
     const headers = Object.keys(data[0]);
     return (
       <div className='mb-3'>
@@ -437,18 +436,8 @@ audited and monitored systematically under responsibility of the certification b
             </button>
 
             <div className='pdfTable_div '>
-              {/* <div class="certificate-container"> */}
               <table className='w-full'>
-                {/* <div class="certificate-content"> */}
                 <tbody className=''>
-                  {/* <tr>
-                    <td>
-                      <p className='ps-3 pt-1 '>
-                        CB’s letterhead containing name and address
-                      </p>
-                    </td>
-                  </tr> */}
-
                   <tr className='page_break'>
                     <td className='w-full' colSpan={4}>
                       <div className='relative mb-4'>
@@ -456,11 +445,15 @@ audited and monitored systematically under responsibility of the certification b
                           src={ttproLogo}
                           alt='logo'
                           className='pdf_main_logo absolute left-0'
+                          height={100}
+                          width={100}
                         />
                         <img
                           src={qrCode}
                           alt='qr-code'
                           className='pdf_main_logo absolute right-0'
+                          height={80}
+                          width={80}
                         />
                         <h3 className='font-semibold text-2xl text-center'>
                           Scope Certificate (SC)
@@ -534,16 +527,9 @@ audited and monitored systematically under responsibility of the certification b
                     </td>
                   </tr>
 
-
                   <tr className='page_break'>
                     <td className='w-full' colSpan={4}>
                       <div className='relative mb-4'>
-
-                        {/* <h5 className='text-md pt_top text-center '>
-                          <span className='font-semibold'>{updatedState?.scope_certificate?.sc_standard_program || '-'}</span> covering
-                        </h5> */}
-
-                        {/* <p className='text-md pt_top text-center'> */}
                         <h3 className='font-semibold text-2xl text-center'>
                           {updatedState?.scope_certificate?.sc_standard_program || '-'} (Version {updatedState?.scope_certificate?.scope_certificate_version})
                         </h3>
@@ -621,7 +607,6 @@ audited and monitored systematically under responsibility of the certification b
                     </td>
                   </tr>
 
-
                   {/* ------------------------------------------------------------- Site Appendix ---------------------------------------------------- */}
 
                   <tr className='page_break'>
@@ -666,43 +651,6 @@ audited and monitored systematically under responsibility of the certification b
 
                 {/* ------------------------------ Updated footer ---------------------------------------- */}
 
-                {/* <tfoot className='w-full '>
-                  <tr className='w-full '>
-                    <td className='w-full' colSpan={4}>
-                      <div className='container p-2'>
-                        <p className='ps-3 pt-2'>
-                          Place and Date of Issue (YYYY-MM-DD)
-                        </p>
-                        <p className='ps-3 '>
-                          {data?.extracted_data?.footer?.tc_place_of_issue}{' '}
-                          {data?.extracted_data?.footer?.tc_date_of_issue?.includes(
-                            'NaN'
-                          )
-                            ? ''
-                            : data?.extracted_data?.footer?.tc_date_of_issue}
-                        </p>
-                        <p className='ps-3 '>
-                          Status: {data?.extracted_data?.footer?.tc_status}
-                        </p>
-                        <p className='ps-3 '>
-                          Last Updated:{' '}
-                          {data?.extracted_data?.footer?.tc_last_updated?.includes(
-                            'NaN'
-                          )
-                            ? ''
-                            : data?.extracted_data?.footer?.tc_last_updated}
-                        </p>
-                        <p className='ps-3 pb-2'>
-                          {
-                            data?.extracted_data?.footer
-                              ?.name_of_authorized_signatory
-                          }
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                </tfoot> */}
-
                 <tfoot className='w-full '>
                   <tr className='w-full'>
                     <td className='w-full' colSpan={4}>
@@ -738,18 +686,6 @@ audited and monitored systematically under responsibility of the certification b
                       </div>
                     </td>
                   </tr>
-                  {/* <tr className='w-full '>
-                    <td className='w-full' colSpan={4}>
-                      <div className='container p-2'>
-                        <p className='ps-3 pt-2'>
-                          The electronically issued document is the valid original version :  <span className='font-semibold'>{updatedState?.scope_certificate?.scope_certificate_version || '-'} </span>
-                        </p>
-                        <p className='ps-3 pt-2'>
-                          TE-ID :  <span className='font-semibold'>{updatedState?.scope_certificate?.["textile_exchange_id(te_id)"] || '-'} </span>
-                        </p>
-                      </div>
-                    </td>
-                  </tr> */}
                 </tfoot>
                 {/* </div> */}
 

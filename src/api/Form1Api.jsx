@@ -478,4 +478,23 @@ export const deleteScopeCertificateV3_0 = async id => {
   }
 }
 
+export const extractPdfV3_0 = async data => {
+  try {
+    const response = await axiosInstance.post(
+      'api/scope-certificate/groq-extract-sc-version-3-point-0/',
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+    return response
+  } catch (error) {
+    console.error('Error in API request:', error)
+    return error
+  }
+}
+
+
 
