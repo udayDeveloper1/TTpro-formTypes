@@ -758,7 +758,30 @@ const ImportPdfScopeVerification = () => {
   }, [form2])
 
   const values = form2.getFieldsValue('standerd');
-  console.log('form value', values);
+  const handleChange = async (info) => {
+    console.log('info', info);
+    
+     setLoading(true)
+    try {
+      let fomrData = new FormData()
+      console.log('values.UploadPdf[0].originFileObj',  info.fileList[0]?.originFileObj);
+
+      fomrData.append('sc-type-1', info.fileList[0]?.originFileObj);
+
+      let response = await extractPdfSCType2(fomrData);
+      if (response?.status_code === 200 || response?.status_code === 201) {
+        toast.success('Pdf submitted Successfully.')
+        handleResponse(response?.data)
+        setFormNo('2')
+      } else {
+        toast.error('Something went Wrong.')
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went Wrong.')
+    }
+    setLoading(false)
+  };
 
 
   return formNo === '1' ? (
@@ -772,7 +795,7 @@ const ImportPdfScopeVerification = () => {
           <Slidebar />
         </div>
         <div style={{ width: '80%' }}>
-          <AntdForm
+          {/* <AntdForm
             form={form}
             onFinish={handleSubmit}
             labelCol={{ span: 8 }}
@@ -824,7 +847,27 @@ const ImportPdfScopeVerification = () => {
                 Submit
               </Button>
             </AntdForm.Item>
-          </AntdForm>
+          </AntdForm> */}
+           <section   className='form_1  rounded-xl shadow-xl'
+            style={{ maxWidth: 800, margin: '0 auto' }}>
+            <h2 className=' pb-5 section-title'>
+              Upload PDF For Scope Certificate Form
+            </h2>
+          <Upload
+              listType="picture-card"
+              beforeUpload={(file) => false} // Disable auto-upload
+              accept=".pdf"
+              maxCount={1}
+              onChange={handleChange} // Trigger when file changes
+            >
+              <Button
+                icon={<PlusOutlined />}
+                type="dashed"
+              >
+                Upload Pdf
+              </Button>
+            </Upload>
+            </section>
         </div>
       </div>
     </>
