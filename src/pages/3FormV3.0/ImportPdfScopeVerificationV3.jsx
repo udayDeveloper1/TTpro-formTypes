@@ -166,7 +166,6 @@ const ImportPdfScopeVerificationV3 = () => {
 
   const handleResponse = response => {
     const { extracted_data } = response;
-    console.log('response', response);
 
     if (extracted_data) {
 
@@ -446,7 +445,6 @@ const ImportPdfScopeVerificationV3 = () => {
 
   const handleSubmitForm2 = async values => {
     setLoading(true)
-    console.log('values form', values);
     const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
     const certified_organization_address = values?.certified_company_address?.map(obj => Object.values(obj)[0]) || [];
 
@@ -537,11 +535,9 @@ const ImportPdfScopeVerificationV3 = () => {
           }
         };
 
-    console.log('formattedValues', formattedValues);
 
     try {
       let response = await createForm3ScopeCertificateV3_0(formattedValues);
-      console.log(response);
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success(response?.message)
         navigate(`${links.handlingTradingScTypeListV3_0}`)
@@ -714,7 +710,6 @@ const ImportPdfScopeVerificationV3 = () => {
   // }, [])
 
    const handleChange = async (info) => {
-      console.log('info', info);
   
       setLoading(true)
       try {

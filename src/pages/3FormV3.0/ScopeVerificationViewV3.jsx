@@ -437,7 +437,6 @@ audited and monitored systematically under responsibility of the certification b
     <>
       <div className='container flex items-end'></div>
       <div className='flex pdfDivMain'>
-        {console.log(data) }
         <div  className='sidebar_pdf'>
           <Slidebar />
         </div>
@@ -560,7 +559,6 @@ audited and monitored systematically under responsibility of the certification b
                                                   {
                                                     data?.scope_certificate?.certified_company_license_number
                                                   }
-                                                  {console.log(data) }
                                                 </h3>
                                               )}
                                           </div>

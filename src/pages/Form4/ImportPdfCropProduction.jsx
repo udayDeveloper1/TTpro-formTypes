@@ -34,8 +34,6 @@ const ImportPdfScopeProduction = () => {
   const navigate = useNavigate();
   const handleResponse = (response) => {
     let res = response?.extracted_data;
-    console.log(res);
-
     let ICSInfo = res?.certification_characteristics?.ICS_info?.map(
       (ele, ind) => {
         let obj = {

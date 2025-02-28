@@ -54,14 +54,12 @@ const ImportPdfHandleForm = () => {
       fomrData.append("pdf", values.UploadPdf[0].originFileObj);
       setPdfName(values.UploadPdf[0].originFileObj.name);
       let response = await addPdfFormHandlinkTrading(fomrData);
-      console.log("response pdf review", response);
       if (response?.status_code === 201 || response?.status_code === 200) {
         // toast.success(response?.message)
         // navigate("/handlingTradingScTypeList");
         // setData(response?.data)
         setLoading(false);
         if (response) {
-          console.log(response);
           setFormNo("2");
           setdata(response?.data);
           toast.success("Pdf Submitted SuccessFully.");
@@ -88,7 +86,6 @@ const ImportPdfHandleForm = () => {
               CountryArea: [{ CountryName: "" }],
             });
           }
-          console.log(response?.data?.certified_input_references?.farm_scs);
           let inputTcs = [];
           inputTcs =
             response?.data?.certified_input_references?.input_tcs.split(",") ||
@@ -99,7 +96,6 @@ const ImportPdfHandleForm = () => {
           let farm_scs = [];
           farm_scs =
             response?.certified_input_references?.farm_scs?.split(",") || [];
-          console.log(inputTcs, farm_scs, farm_tcs);
 
           setTags(inputTcs);
           setTags1(farm_tcs);
@@ -108,14 +104,11 @@ const ImportPdfHandleForm = () => {
           const UpdatedAdditionalDeclarationItem =
             response?.data?.extracted_data?.main_certificate_details?.this_is_to_certify_that_the_product_and_area_inspected_by_certification_body_tq_cert_services_private_limited_are_in_accordance_with_requirements_of?.map(
               (item) => {
-                console.log(item);
-
                 return {
                   additionalDeclarationItem: item,
                 };
               }
             );
-          console.log(UpdatedAdditionalDeclarationItem);
 
           form2.setFieldsValue({
             CertificateName:
@@ -262,7 +255,6 @@ const ImportPdfHandleForm = () => {
     return isValidType;
   };
 
-  console.log("Loading", loading);
   return formNo === "1" ? (
     <>
       {loading && <Spinner message="Loading" isActive={loading} />}

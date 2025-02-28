@@ -72,9 +72,6 @@ audited and monitored systematically under responsibility of the certification b
 
       if (response?.status_code === 200 || response?.status_code === 201) {
         let res = response?.data
-        console.log('scopverificationView', res)
-        
-        
         setData(res?.extracted_data)
       } else {
         toast.error('Internal server error. Please try again later.')
@@ -335,7 +332,6 @@ audited and monitored systematically under responsibility of the certification b
         <div style={{ width: '20%' }} className='sidebar_pdf'>
           <Slidebar />
         </div>
-        {console.log(data)}
         <div style={{ width: '80%' }} className='pdfDivMain relative'>
           <div className='container rounded-xl mx-auto pe-10 my-10 '>
 

@@ -143,8 +143,6 @@ const TcTypeCropProductinView = () => {
                       <FaFilePdf className="ms-2" />
                     </button>
                   </div>
-                  {console.log(data)}
-
                   <div className="w-full section1 flex flex-wrap justify-between">
                     <h3 className="text-2xl w-full  CertifiedInput p-3">
                       {data?.file_name}

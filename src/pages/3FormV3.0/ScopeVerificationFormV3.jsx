@@ -240,7 +240,6 @@ const ScopeVerificationFormV3 = () => {
   const handleSubmit = async values => {
     setLoading(true);
 
-    console.log('values form', values);
     const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
     const certified_organization_address = values?.certified_company_address?.map(obj => Object.values(obj)[0]) || [];
 
@@ -331,11 +330,9 @@ const ScopeVerificationFormV3 = () => {
       }
     };
 
-    console.log('formattedValues', formattedValues);
 
     try {
       let response = await createForm3ScopeCertificateV3_0(formattedValues);
-      console.log(response);
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success(response?.message);
         navigate(`${links.handlingTradingScTypeListV3_0}`);

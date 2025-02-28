@@ -1145,8 +1145,6 @@ const TcType1Form = () => {
   const handleSubmit = async values => {
     setLoading(true)
 
-    console.log(values);
-
     let cb_address = values?.cb_address?.map((ele, ind) => {
       return ele?.cb_address_
     })
@@ -1191,7 +1189,6 @@ const TcType1Form = () => {
     })
 
     let ProductDetails = values?.ProductDetails?.map((ele, ind) => {
-      console.log(ele);
 
       let obj = {
         product_no: ele?.product_no,
@@ -1329,7 +1326,6 @@ const TcType1Form = () => {
 
     try {
       let response = await createFormTcType1(data);
-      console.log(response);
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success(response?.message)
         navigate(`${links.tcType1List}`)

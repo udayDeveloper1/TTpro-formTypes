@@ -60,7 +60,6 @@ const ImportPdfTCtype1 = () => {
       // fomrData.append('tc-type-1', values.UploadPdf[0].originFileObj)
 
       let fomrData = new FormData()
-      console.log('values.UploadPdf[0].originFileObj', values?.fileList[0]?.originFileObj);
       fomrData.append('tc-type-1', values?.fileList[0]?.originFileObj);
 
       let response = await exportPdfTcType1(fomrData)
@@ -394,7 +393,6 @@ const ImportPdfTCtype1 = () => {
     })
 
     let ProductDetails = values?.ProductDetails?.map((ele, ind) => {
-      console.log(ele)
 
       let obj = {
         product_no: ele?.product_no,
@@ -535,7 +533,6 @@ const ImportPdfTCtype1 = () => {
 
     try {
       let response = await createFormTcType1(data)
-      console.log(response)
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success(response?.message)
         navigate(`${links.tcType1List}`)

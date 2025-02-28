@@ -37,7 +37,6 @@ const ImportPdfScopeVerification = () => {
 
   const handleResponse = response => {
     const { extracted_data } = response
-    console.log('response', response)
 
     if (extracted_data) {
       const certified_organization_address =
@@ -57,10 +56,8 @@ const ImportPdfScopeVerification = () => {
         extracted_data?.site_appendix?.standards?.map(standard => ({
           standards_: standard
         })) || [{ standards_: "" }]
-      console.log(standards);
 
       const farm_capacity = extracted_data?.site_appendix?.farm_capacity?.map(standard => ({ farm_capacity_: standard }))?.length !== 0  ? extracted_data?.site_appendix?.farm_capacity?.map(standard => ({ farm_capacity_: standard })) : [{ farm_capacity_: "" }]
-      console.log(farm_capacity);
 
       // console.log('facility_address', facility_address, 'process_categories', process_categories, 'standards ', standards, 'farm_capacity', farm_capacity);
 
@@ -158,7 +155,6 @@ const ImportPdfScopeVerification = () => {
             }
           ]
       }
-      console.log(extracted_data);
       
       form2.setFieldsValue({
         file_name:
@@ -301,9 +297,6 @@ const ImportPdfScopeVerification = () => {
       message.error('You can only upload PDF files!')
       return
     }
-
-    console.log('isPdf' , isPdf);
-    
     return isPdf || Upload.LIST_IGNORE
   }
 
@@ -757,15 +750,10 @@ const ImportPdfScopeVerification = () => {
 
   const values = form2.getFieldsValue('standerd');
   const handleChange = async (info) => {
-    console.log('info', info);
-    
      setLoading(true)
     try {
       let fomrData = new FormData()
-      console.log('values.UploadPdf[0].originFileObj',  info.fileList[0]?.originFileObj);
-
       fomrData.append('sc-type-1', info.fileList[0]?.originFileObj);
-
       let response = await extractPdfSCType2(fomrData);
       if (response?.status_code === 200 || response?.status_code === 201) {
         toast.success('Pdf submitted Successfully.')

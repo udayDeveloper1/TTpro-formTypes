@@ -28,7 +28,6 @@ function ScopeVerificationListV3() {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(`/api/scope-certificate/sc-version-3-point-0/`);
-        console.log('response scopList', response);
         if (response?.status_code === 200 || response?.status_code === 201) {
 
           // Handle successful response

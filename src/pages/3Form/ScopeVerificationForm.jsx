@@ -105,7 +105,6 @@ const ScopeVerificationForm = () => {
   // Handle form submission with typed values
   const handleSubmit = async values => {
     setLoading(true)
-    console.log('values form', values);
     const extractValues = (array, key) => array?.map(obj => Object.values(obj)[0]) || [];
 
     const certified_organization_address = values?.certified_organization_address?.map(obj => Object.values(obj)[0]) || [];

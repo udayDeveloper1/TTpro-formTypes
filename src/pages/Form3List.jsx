@@ -147,8 +147,6 @@ const handleViewDetails = (cardData) => {
     return data.map((item, index) => 
       {
         const recordId = item.id || index
-        console.log(recordId, "----------------------------");
-        
           refs.current[recordId] = React.createRef()
         return(
           <div
