@@ -587,8 +587,8 @@ audited and monitored systematically under responsibility of the certification b
                                       </tr>
                                       <tr className='page_break'>
                                         <td colSpan={4}>
-                                        <p class="text-md pt_top text-center">{data?.scope_certificate?.certified_company_town}, {data?.scope_certificate?.certified_company_postcode}</p>
-                                         <p class="text-md pt_top text-center">{data?.scope_certificate?.certified_company_state_or_province}, {data?.scope_certificate?.certified_company_country_or_area}</p>
+                                        <p className="text-md pt_top text-center">{data?.scope_certificate?.certified_company_town}, {data?.scope_certificate?.certified_company_postcode}</p>
+                                         <p className="text-md pt_top text-center">{data?.scope_certificate?.certified_company_state_or_province}, {data?.scope_certificate?.certified_company_country_or_area}</p>
                                          <p className='text-md pt_top text-center'>has been audited and found to be in conformity with the </p>
                                          <h3 className='font-semibold text-xl text-center py-4'>GLOBAL ORGANIC TEXTILE STANDARD (GOTS) {data?.scope_certificate?.sc_standard_version}</h3>
                                          <p className='max_width_scope_view_container'>Product categories as mentioned below (and further specified in the product appendix) conform with this standard:</p>
@@ -785,21 +785,29 @@ For directions on how to authenticate this certificate, please visit GOTS' web p
                         </td>
                       </tr>
 
-                      <table className='w-full border-collapse'>
+                      <table className='w-full border-collapse '>
                         <thead className='w-full'>
                           <tr>
-                            <th className='border'>Facility Name</th>
-                            <th className='border'>Address</th>
-                            <th className='border'>Process Categories</th>
+                            <th className='border p-2'>Facility Name</th>
+                            <th className='border p-2'>Address</th>
+                            <th className='border p-2'>Process Categories</th>
                           </tr>
                         </thead>
                         <tbody>
                           {
                             data?.facility_appendix?.map((ele, ind) => {
                               return <tr key={ind}>
-                                <td className='border'>{ele?.facility_name}</td>
-                                <td className='border'>{ele?.address_details?.facility_address}</td>
-                                <td className='border'>{ele?.facility_name}</td>
+                                <td className='border p-2'>{ele?.facility_name}</td>
+                                <td className='border p-2'><ul>{ele?.address_details?.facility_address?.map((elem, index)=> {
+                                  return <li key={index}>{elem}</li>
+                                })}</ul>
+                            <p className=''>{ele?.address_details?.facility_town} {ele?.address_details?.facility_postcode}</p>
+                            <p className=''>{ele?.address_details?.facility_state_or_province} {ele?.address_details?.facility_country_or_area}</p>
+                                </td>
+                                <td className='border p-2'><ul>{
+                                  ele?.process_categories?.map((elem, index) => {
+                                    return <li key={index}>{elem}</li>
+                                  })}</ul></td>
                               </tr>
                             })
                           }
@@ -830,20 +838,94 @@ For directions on how to authenticate this certificate, please visit GOTS' web p
 
                       <tr className='page_break'>
                         <td className='' colSpan={4}>
-                          <h3 className='text-xl font-semibold  mb-3'>
-                            Independently Certified Subcontractor Appendix{' '}
+                          <h3 className='text-xl font-semibold pt-4 mb-2'>
+                          Non-Certified Subcontractor Appendix 
                           </h3>
                         </td>
                       </tr>
-
-                      <SubcontractorAppendix
+                      <table className='w-full border-collapse '>
+                        <thead className='w-full'>
+                          <tr>
+                            <th className='border p-2'><p>Subcontractor Name </p><p>(Facility Name) </p></th>
+                            <th className='border p-2'>Address</th>
+                            <th className='border p-2'>Process Categories</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                            data?.non_certified_subcontractor_appendix?.map((ele, ind) => {
+                              return <tr key={ind}>
+                                <td className='border p-2'><p>
+                                {ele?.subcontractor_name}</p><p>{ele?.subcontractor_facility_name}</p></td>
+                                <td className='border p-2'><ul>{ele?.address_details?.subcontractor_address?.map((elem, index)=> {
+                                  return <li key={index}>{elem}</li>
+                                })}</ul>
+                            <p className=''>{ele?.address_details?.subcontractor_town} {ele?.address_details?.subcontractor_postcode}</p>
+                            <p className=''>{ele?.address_details?.subcontractor_state_or_province} {ele?.address_details?.subcontractor_country_or_area}</p>
+                                </td>
+                                <td className='border p-2'><ul>{
+                                  ele?.process_categories?.map((elem, index) => {
+                                    return <li key={index}>{elem}</li>
+                                  })}</ul></td>
+                              </tr>
+                            })
+                          }
+                          <tr>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      {/* <SubcontractorAppendix
                         data={
                           data
                             ?.independently_certified_subcontractor_appendix
                             ?.length > 0 &&
                             data?.independently_certified_subcontractor_appendix
                         }
-                      />
+                      /> */}
+                             <tr className='page_break'>
+                        <td className='' colSpan={4}>
+                          <h3 className='text-xl font-semibold pt-4 mb-2'>
+                          Independently Certified Subcontractor Appendix 
+                          </h3>
+                        </td>
+                      </tr>
+                      <table className='w-full border-collapse '>
+                        <thead className='w-full'>
+                          <tr>
+                            <th className='border p-2'><p>Subcontractor Name </p><p>(Facility Name) </p></th>
+                            <th className='border p-2'>Licence Number</th>
+                            <th className='border p-2'>Expiry Date</th>
+                            <th className='border p-2'>Address</th>
+                            <th className='border p-2'>Process Categories</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {
+                            data?.independently_certified_subcontractor_appendix?.map((ele, ind) => {
+                              return <tr key={ind}>
+                                <td className='border p-2'><p>
+                                {ele?.subcontractor_name}</p><p>{ele?.subcontractor_facility_name}</p></td>
+                                <td className='border p-2'>{ele?.license_number}</td>
+                                <td className='border p-2'>{ele?.expiry_date}</td>
+                                <td className='border p-2'><ul>{ele?.address_details?.address?.map((elem, index)=> {
+                                  return <li key={index}>{elem}</li>
+                                })}</ul>
+                            <p className=''>{ele?.address_details?.town} {ele?.address_details?.postcode}</p>
+                            <p className=''>{ele?.address_details?.state_or_province} {ele?.address_details?.country_or_area}</p>
+                                </td>
+                                <td className='border p-2'><ul>{
+                                  ele?.process_categories?.map((elem, index) => {
+                                    return <li key={index}>{elem}</li>
+                                  })}</ul></td>
+                              </tr>
+                            })
+                          }
+                          <tr>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </tbody>
                     <tfoot className='w-full scope_tfoot_border'>
                       <tr className='flex page_break w-full'>

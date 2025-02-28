@@ -59,10 +59,7 @@ const ImportPdfScopeVerification = () => {
         })) || [{ standards_: "" }]
       console.log(standards);
 
-      const farm_capacity =
-        extracted_data?.site_appendix?.farm_capacity?.map(standard => ({
-          farm_capacity_: standard
-        })) || [{ farm_capacity_: "" }]
+      const farm_capacity = extracted_data?.site_appendix?.farm_capacity?.map(standard => ({ farm_capacity_: standard }))?.length !== 0  ? extracted_data?.site_appendix?.farm_capacity?.map(standard => ({ farm_capacity_: standard })) : [{ farm_capacity_: "" }]
       console.log(farm_capacity);
 
       // console.log('facility_address', facility_address, 'process_categories', process_categories, 'standards ', standards, 'farm_capacity', farm_capacity);
@@ -161,7 +158,8 @@ const ImportPdfScopeVerification = () => {
             }
           ]
       }
-
+      console.log(extracted_data);
+      
       form2.setFieldsValue({
         file_name:
           extracted_data?.scope_certificate?.file_name ||
