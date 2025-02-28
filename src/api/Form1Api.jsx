@@ -424,6 +424,8 @@ export const scopCertificationView = async(id)  => {
   }
 }
 
+
+
 export const deleteScopeCertificateScType2 = async id => {
   try {
     const response = await axiosInstance.delete(
@@ -474,6 +476,17 @@ export const deleteScopeCertificateV3_0 = async id => {
     return response
   } catch (error) {
     console.error('Error in API request:', error)
+    return error
+  }
+}
+
+export const scopCertificationViewV3_0 = async(id)  => {
+  try {
+    const response = await axiosInstance.get(
+      `/api/scope-certificate/sc-version-3-point-0/${id}/`,
+    )
+    return response
+  } catch (error) {
     return error
   }
 }

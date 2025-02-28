@@ -16,7 +16,6 @@ const ScopeVerificationFormV3 = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
-
   useEffect(() => {
     form.setFieldsValue({
       file_name: '',
@@ -296,7 +295,7 @@ const ScopeVerificationFormV3 = () => {
       file_name: values?.file_name || values?.certificate_body_name,
       extracted_data: {
         scope_certificate: {
-          scope_certificate_number: values?.certified_company_name,
+          scope_certificate_number: values?.scope_certificate_number,
           scope_certificate_version: values?.scope_certificate_version,
           certificate_body_name: values?.certificate_body_name,
           certified_company_name: values?.certified_company_name,
@@ -372,6 +371,7 @@ const ScopeVerificationFormV3 = () => {
               className='form_1  rounded-xl shadow-xl'
               style={{ maxWidth: 900, margin: '0 auto' }}
             >
+              
               <h1 className='text-3xl form_1_title form1_heading md:text-4xl font-medium mb-2 sticky text-center '>
                 Scope Certificate Form Version (3.0)
               </h1>
@@ -937,7 +937,6 @@ const ScopeVerificationFormV3 = () => {
               </section>
 
               {/* Non Certified Subcontractor Appendix */}
-
               <section className='section'>
                 <h2 className='text-2xl pb-3 section-title'>
                   Non Certified Subcontractor Appendix

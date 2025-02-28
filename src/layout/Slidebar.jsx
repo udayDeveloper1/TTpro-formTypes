@@ -271,7 +271,7 @@ export const Slidebar = () => {
               </li>
 
 
-              {/* <li
+              <li
                 className={`sidebar-item cursor-pointer ${[
                     '/handlingTradingScTypeForm_v3_0',
                     '/handlingTradingScTypeList_v3_0',
@@ -339,7 +339,7 @@ export const Slidebar = () => {
                     </li>
                   </ul>
                 )}
-              </li> */}
+              </li>
 
               {/* <li
                 className={`sidebar-item ${
